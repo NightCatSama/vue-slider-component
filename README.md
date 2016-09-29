@@ -18,6 +18,19 @@ npm install vue-slider-component
 - [x] The custom data
 - [ ] Range
 
+## Example
+
+```
+cd vue-slider-component/example
+```
+```
+npm install
+```
+```
+npm run dev
+```
+
+
 ## usage
 Use in vue1.x
 
