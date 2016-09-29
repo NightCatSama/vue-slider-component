@@ -1,9 +1,9 @@
 <template>
 	<span>
 		<template v-if="isMoblie">
-			<div ref="wrap" :class="['vue-slider-wrap', { 'vue-slider-disabled': disabled }]" v-show="show" :style="wrapStyles" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
 				<span class="vue-slider-min">
-					<slot name="left">{{ min }}</slot>
+					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div ref="elem" class="vue-slider" :style="elemStyles">
 					<div ref="dot" :data-rangeValue="value" :class="[ (tooltip ? `vue-slider-${tooltip}` : ''), 'vue-slider-dot' ]" :style="dotStyles" @touchstart="moveStart">
@@ -16,14 +16,14 @@
 					<span ref="process" class="vue-slider-process"></span>
 				</div>
 				<span class="vue-slider-max">
-					<slot name="right">{{ max }}</slot>
+					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
 		</template>
 		<template v-else>
-			<div ref="wrap" :class="['vue-slider-wrap', { 'vue-slider-disabled': disabled }]" v-show="show" :style="wrapStyles" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
 				<span class="vue-slider-min">
-					<slot name="left">{{ min }}</slot>
+					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div ref="elem" class="vue-slider" :style="elemStyles">
 					<div ref="dot" :data-rangeValue="value" :class="[ `vue-slider-${tooltip}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart">
@@ -36,7 +36,7 @@
 					<span ref="process" class="vue-slider-process"></span>
 				</div>
 				<span class="vue-slider-max">
-					<slot name="right">{{ max }}</slot>
+					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
 		</template>
@@ -49,10 +49,12 @@ export default {
 			isMoblie: /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone)/i.test(navigator.userAgent),
 			flag: false,
 			w: 0,
-			value: 0
+			currentValue: 0
 		}
 	},
 	props: {
+		className: String,
+		styles: Object,
 		width: {
 			type: [Number, String],
 			default: 'auto'
@@ -60,6 +62,10 @@ export default {
 		height: {
 			type: Number,
 			default: 4
+		},
+		data: {
+			type: Array,
+			default: null
 		},
 		dotSize: {
 			type: Number,
@@ -94,16 +100,56 @@ export default {
 			default: false
 		},
 		val: {
-			type: Number,
+			type: [String, Number],
 			default: 0
 		}
 	},
 	computed: {
+		minimum: function() {
+			if (this.data) {
+				return 0
+			}
+			return this.min
+		},
+		value: {
+			get: function() {
+				if (this.data) {
+					return this.data[this.currentValue]
+				}
+				return this.currentValue
+			},
+			set: function(val) {
+				if (this.data) {
+					let index = this.data.indexOf(val)
+					if (index > 0) {
+						this.currentValue = this.data.indexOf(val)
+					}
+				}
+				else {
+					this.currentValue = val
+				}
+			}
+		},
+		maximum: function() {
+			if (this.data) {
+				return this.data.length - 1
+			}
+			return this.max
+		},
+		spacing: function() {
+			if (this.data) {
+				return 1
+			}
+			return this.interval
+		},
 		total: function() {
-			if ((this.max - this.min) % this.interval !== 0) {
+			if (this.data) {
+				return this.data.length - 1
+			}
+			if ((this.maximum - this.minimum) % this.interval !== 0) {
 				throw new Error('Prop[interval] is illegal, Please enter a valid interval')
 			}
-			return (this.max - this.min) / this.interval
+			return (this.maximum - this.minimum) / this.interval
 		},
 		gap: function() {
 			return this.w / this.total
@@ -112,7 +158,7 @@ export default {
 			return this.$refs.elem.getBoundingClientRect().left
 		},
 		position: function() {
-			return (this.value - this.min) / this.interval * this.gap
+			return (this.currentValue - this.minimum) / this.spacing * this.gap
 		},
 		wrapStyles: function() {
 			return {
@@ -139,6 +185,11 @@ export default {
 			}
 		}
 	},
+	watch: {
+		val: function(val) {
+			this.flag || this.setValue(val)
+		}
+	},
 	methods: {
 		wrapClick(e) {
 			if (this.disabled) return false
@@ -162,23 +213,35 @@ export default {
 		setValueOnPos(x, bool) {
 			if (x >= 0 && x <= this.w) {
 				this.setTransform(x)
-				let v = Math.round(x / this.gap) * this.interval + this.min
-				this.setValue(v, bool)
+				let v = Math.round(x / this.gap) * this.spacing + this.minimum
+				this.setCurrentValue(v, bool)
 			}
 			else if (x < 0) {
 				this.setTransform(0)
-				this.setValue(this.min)
+				this.setCurrentValue(this.minimum)
 			}
 			else {
 				this.setTransform(this.w)
-				this.setValue(this.max);
+				this.setCurrentValue(this.maximum);
 			}
 		},
-		setValue(val, bool) {
-			if (val < this.min || val > this.max) return false
-			val !== this.value && this.$emit('callback', val)
-			this.value = val
+		setCurrentValue(val, bool) {
+			if (val < this.minimum || val > this.maximum) return false
+			else if (val !== this.currentValue) {
+				this.currentValue = val
+				this.$emit('callback', this.value)
+			}
 			bool || this.setPosition()
+		},
+		setIndex(val) {
+			this.setCurrentValue(this.spacing * val + this.minimum)
+		},
+		setValue(val) {
+			if (val !== this.value) {
+				this.value = val
+				this.$emit('callback', this.value)
+			}
+			this.setPosition()
 		},
 		setPosition(time = 0.5) {
 			this.flag || this.setTransitionTime(time)
@@ -188,7 +251,7 @@ export default {
 		setTransform(val) {
 			this.$refs.dot.style.transform = `translateX( ${val - (this.dotSize / 2)}px)`
 			this.$refs.dot.style.WebkitTransform = `translateX( ${val - (this.dotSize / 2)}px)`
-			this.$refs.process.style.width = `${this.position}px`
+			this.$refs.process.style.width = `${val}px`
 		},
 		setTransitionTime(time) {
 			time || this.$refs.dot.offsetWidth
@@ -234,6 +297,7 @@ export default {
     background-color: #ccc;
 }
 .vue-slider-process {
+	width: 0;
 	height: 100%;
 	position: absolute;
 	top: 0;
@@ -260,6 +324,7 @@ export default {
 	content: attr(data-rangevalue);
 	display: none;
 	font-size: 14px;
+	white-space: nowrap;
 	position: absolute;
 	top: 0;
 	left: 50%;

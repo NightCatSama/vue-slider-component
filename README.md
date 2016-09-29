@@ -15,7 +15,7 @@ Can use the slider in vue1.x and  vue2.x
 - [x] piecewise style
 - [x] Compatible with PC and mobile terminal
 - [x] Tooltip
-- [ ] The custom data
+- [x] The custom data
 - [ ] Range
 
 ## usage
@@ -25,7 +25,7 @@ e.g:
 ```
 <template>
     <div>
-        <vue-slider v-ref:slider :value.sync="val" @callback="getValue"></vue-slider>
+        <vue-slider v-ref:slider :val.sync="val" @callback="getValue"></vue-slider>
     </div>
 </template>
 <script>
@@ -44,7 +44,7 @@ new Vue({
       console.log(val)
     },
     setValue(num) {
-      this.$refs.slider.setValue(num)
+      this.val = num
     }
   }
 });
@@ -75,11 +75,11 @@ new Vue({
   }
   methods: {
     getValue(value) {
+      /* Two-way */
       this.val = value
     },
     setValue(num) {
       this.val = num
-      this.$refs.slider.setValue(num)
     }
   }
 });
@@ -91,23 +91,27 @@ new Vue({
 ### Props
 | Props       | Type          | Default  | Description  |
 | ----------- |:--------------| ---------|--------------|
+| class-name  | String        | null     | the custom class |
+| styles      | Object        | null     | the custom styles |
 | width       | Number,String | 150      | width of the component |
 | height      | Number        | 4        | height of the component |
 | dotSize     | Number        | 15       | size of the sliders |
-| min         | Number        | 0        | The minimum value   |
-| max         | Number        | 100      | The maximum value   |
-| interval    | Number        | 1        | The gap between the values |
+| min         | Number        | 0        | the minimum value   |
+| max         | Number        | 100      | the maximum value   |
+| interval    | Number        | 1        | the gap between the values |
 | show        | Boolean       | true     | display of the component |
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip ['hover', 'always', false] |
-| val (vue>=2)| Number        | 1        | initial value (only vue2.x)|
-| value (vue>=1)| Number      | 1        | initial value, Two-way binding please use ```.sync``` (only vue1.x)|
+| val         | Number        | 0        | initial value |
+| data        | Array         | null     | the custom data |
+
 
 ### Function
 | Name        | Params&Type   | Description  |
 | ----------- |:--------------| ---------|--------------|
 | setValue    | value[Number] | set value of the component |
+| setIndex    | index[Number] | set index of the component (Particularly useful in [used piecewise] or [the custom data]) |
 | refresh     | null          | Refresh the component      |
 
 
