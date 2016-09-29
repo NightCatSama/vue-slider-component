@@ -52,7 +52,7 @@ new Vue({
 ```
 <br>
 Use in vue2.x 
-<br>Because```.sync``` are deprecated. Props are now always one-way down. So in order to realize the two-way, Can be set in the @callback 
+<br>Because```.sync``` was deprecated. Props are now always one-way down. So in order to realize the two-way, Can be set in the @callback
 
 e.g:
 ```html
