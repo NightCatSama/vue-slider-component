@@ -5,7 +5,7 @@ Can use the slider in vue1.x and  vue2.x
 
 ## Install
 ```
-    npm install vue-slider-component
+npm install vue-slider-component
 ```
 
 ## Todo
@@ -22,7 +22,7 @@ Can use the slider in vue1.x and  vue2.x
 Use in vue1.x
 
 e.g:
-```
+```html
 <template>
     <div>
         <vue-slider v-ref:slider :val.sync="val" @callback="getValue"></vue-slider>
@@ -55,7 +55,7 @@ Use in vue2.x
 <br>Because```.sync``` are deprecated. Props are now always one-way down. So in order to realize the two-way, Can be set in the @callback 
 
 e.g:
-```
+```html
 <template>
     <div>
         <vue-slider ref="slider" :val="val" @callback="getValue"></vue-slider>
@@ -123,13 +123,13 @@ new Vue({
 ### Slot
 
 default:
-```
+```html
 <slot name="left">{{ min }}</slot>
 <slot name="right">{{ max }}</slot>
 ```
 
 custom:
-```
+```html
 <template>
   <vue-slider ref="slider" :min="minimum" :max="maximum" :val="val" @callback="getValue">
     <p slot="left">${{ minimum }}.00</p>
