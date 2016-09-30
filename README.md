@@ -16,7 +16,7 @@ npm install vue-slider-component
 - [x] Compatible with PC and mobile terminal
 - [x] Tooltip
 - [x] The custom data
-- [ ] Range
+- [x] Range
 
 ## Example
 
@@ -28,6 +28,9 @@ npm install
 ```
 ```
 npm run dev
+```
+```
+npm run build
 ```
 
 
@@ -116,22 +119,26 @@ new Vue({
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip ['hover', 'always', false] |
-| val         | Number        | 0        | initial value |
+| val         | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data |
 
 
 ### Function
-| Name        | Params&Type   | Description  |
-| ----------- |:--------------| ---------|--------------|
-| setValue    | value[Number] | set value of the component |
-| setIndex    | index[Number] | set index of the component (Particularly useful in [used piecewise] or [the custom data]) |
-| refresh     | null          | Refresh the component      |
+| Name        | Type                         | Description  |
+| ----------- |:-----------------------------| -------------|
+| setValue    | Params: value[Number, Array] | set value of the component |
+| setIndex    | Params: index*[Number]       | set index of the component  |
+| getValue    | Return: value[Number, Array] | get value of the component |
+| getIndex    | Return: index*[Number]       | get index of the component |
+| refresh     | null                         | Refresh the component      |
 
+* [ index ] is the index to the array in the custom data model *
+* [ index ] is equal to (( value - min ) / interval ) in normal mode *
 
 ### Events
-| Name        | Params&Type   | Description  |
+| Name        | Type          | Description  |
 | ----------- |:--------------|--------------|
-| callback    | value[Number] | values change when the callback function |
+| callback    | Params:value[Number] | values change when the callback function |
 
 ### Slot
 
