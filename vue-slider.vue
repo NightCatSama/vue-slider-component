@@ -1,8 +1,8 @@
 <template>
 	<span>
 		<template v-if="isMoblie">
-			<div v-el:wrap :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
-				<span class="vue-slider-min">
+			<div v-el:wrap :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
+				<span class="vue-slider-min" :style="valueStyle">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div v-el:elem class="vue-slider" :style="elemStyles">
@@ -20,14 +20,14 @@
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
 				</div>
-				<span class="vue-slider-max">
+				<span class="vue-slider-max" :style="valueStyle">
 					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
 		</template>
 		<template v-else>
-			<div v-el:wrap :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
-				<span class="vue-slider-min">
+			<div v-el:wrap :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
+				<span class="vue-slider-min" :style="valueStyle">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div v-el:elem class="vue-slider" :style="elemStyles">
@@ -45,7 +45,7 @@
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
 				</div>
-				<span class="vue-slider-max">
+				<span class="vue-slider-max" :style="valueStyle">
 					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
@@ -56,7 +56,6 @@
 export default {
 	data() {
 		return {
-			isMoblie: /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone)/i.test(navigator.userAgent),
 			flag: false,
 			w: 0,
 			currentValue: 0,
@@ -110,21 +109,39 @@ export default {
 			type: [String, Boolean],
 			default: false
 		},
+		eventType: {
+			type: String,
+			default: 'auto'
+		},
 		val: {
 			type: [String, Number, Array],
 			default: 0
 		}
 	},
 	computed: {
+		isMoblie: function() {
+			if (this.eventType === 'touch') {
+				return true
+			}
+			else if (this.eventType === 'mouse') {
+				return false
+			}
+			else {
+				return /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
+			}
+		},
+		isDisabled: function() {
+			return this.eventType === 'none' ? true : this.disabled
+		},
 		isRange: function() {
 			return Array.isArray(this.val)
 		},
 		slider: function() {
 			if (this.isRange) {
-				return [this.$els.dot0, this.$els.dot1]
+				return [this.$refs.dot0, this.$refs.dot1]
 			}
 			else {
-				return this.$els.dot
+				return this.$refs.dot
 			}
 		},
 		minimum: function() {
@@ -189,7 +206,7 @@ export default {
 			return this.w / this.total
 		},
 		left: function() {
-			return this.$els.elem.getBoundingClientRect().left
+			return this.$refs.elem.getBoundingClientRect().left
 		},
 		position: function() {
 			if (this.isRange) {
@@ -232,6 +249,11 @@ export default {
 				width: `${this.height}px`,
 				height: `${this.height}px`
 			}
+		},
+		valueStyle: function() {
+			return {
+				top: `${this.height / 2 + this.dotSize / 2}px`
+			}
 		}
 	},
 	watch: {
@@ -244,7 +266,7 @@ export default {
 	},
 	methods: {
 		wrapClick(e) {
-			if (this.disabled || e.target.classList.contains('vue-slider-dot')) return false
+			if (this.isDisabled || e.target.classList.contains('vue-slider-dot')) return false
 			let x = e.clientX - this.left
 			if (this.isRange) {
 				this.currentSlider = x > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -252,7 +274,7 @@ export default {
 			this.setValueOnPos(x)
 		},
 		moveStart(index) {
-			if (this.disabled) return false
+			if (this.isDisabled) return false
 			else if (this.isRange) {
 				this.currentSlider = index
 			}
@@ -343,32 +365,32 @@ export default {
 			if (this.isRange) {
 				this.slider[this.currentSlider].style.transform = `translateX( ${val - (this.dotSize / 2)}px)`
 				this.slider[this.currentSlider].style.WebkitTransform = `translateX( ${val - (this.dotSize / 2)}px)`
-				this.$els.process.style.width = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
-				this.$els.process.style.left = `${this.currentSlider === 0 ? val : this.position[0]}px`
+				this.slider[this.currentSlider].style.msTransform = `translateX( ${val - (this.dotSize / 2)}px)`
+				this.$refs.process.style.width = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
+				this.$refs.process.style.left = `${this.currentSlider === 0 ? val : this.position[0]}px`
 			}
 			else {
 				this.slider.style.transform = `translateX( ${val - (this.dotSize / 2)}px)`
 				this.slider.style.WebkitTransform = `translateX( ${val - (this.dotSize / 2)}px)`
-				this.$els.process.style.width = `${val}px`
+				this.slider.style.msTransform = `translateX( ${val - (this.dotSize / 2)}px)`
+				this.$refs.process.style.width = `${val}px`
 			}
 		},
 		setTransitionTime(time) {
-			time || this.$els.process.offsetWidth
+			time || this.$refs.process.offsetWidth
 			if (this.isRange) {
-				Array.from(this.slider, (elem) => {
-					elem.style.transitionDuration = `${time}s`
-				})
-				Array.from(this.slider, (elem) => {
-					elem.style.webkitTransitionDuration = `${time}s`
-				})
-				this.$els.process.style.transitionDuration = `${time}s`
-				this.$els.process.style.webkitTransitionDuration = `${time}s`
+				for (let i = 0; i < this.slider.length; i++) {
+					this.slider[i].style.transitionDuration = `${time}s`
+					this.slider[i].style.WebkitTransitionDuration = `${time}s`
+				}
+				this.$refs.process.style.transitionDuration = `${time}s`
+				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 			else {
 				this.slider.style.transitionDuration = `${time}s`
-				this.slider.style.webkitTransitionDuration = `${time}s`
-				this.$els.process.style.transitionDuration = `${time}s`
-				this.$els.process.style.webkitTransitionDuration = `${time}s`
+				this.slider.style.WebkitTransitionDuration = `${time}s`
+				this.$refs.process.style.transitionDuration = `${time}s`
+				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 		},
 		getValue() {
@@ -387,17 +409,17 @@ export default {
 				return (this.currentValue - this.minimum) / this.spacing
 			}
 		},
-		elresh() {
-			this.w = this.$els.elem.offsetWidth
+		refresh() {
+			this.w = this.$refs.elem.offsetWidth
 			this.setPosition(0)
 		}
 	},
 	ready() {
-		this.w = this.$els.elem.offsetWidth
+		this.w = this.$refs.elem.offsetWidth
 		this.setValue(this.val)
 	},
 	created() {
-		window.addEventListener('resize', this.elresh)
+		window.addEventListener('resize', this.refresh)
 	}
 }
 </script>
@@ -405,25 +427,11 @@ export default {
 <style scoped>
 .vue-slider-wrap {
 	position: relative;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	   -moz-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	   -moz-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
+    display: block;
 	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .vue-slider-wrap.vue-slider-disabled {
 	opacity: .5;
@@ -434,16 +442,8 @@ export default {
 }
 .vue-slider-wrap .vue-slider {
     position: relative;
-    display: inline-block;
-    vertical-align: middle;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-           -moz-box-flex: 1;
-            -ms-flex: 1;
-                flex: 1;
-    -webkit-border-radius: 15px;
-       -moz-border-radius: 15px;
-            border-radius: 15px;
+    display: block;
+    border-radius: 15px;
     background-color: #ccc;
 }
 .vue-slider-process {
@@ -452,26 +452,16 @@ export default {
 	position: absolute;
 	top: 0;
 	left: 0;
-	-webkit-border-radius: 15px;
-	   -moz-border-radius: 15px;
-	        border-radius: 15px;
+	border-radius: 15px;
 	background-color: #3498db;
-    -webkit-transition: all 0s;
-    -o-transition: all 0s;
-    -moz-transition: all 0s;
     transition: all 0s;
     z-index: 1;
 }
 .vue-slider-dot {
     position: absolute;
     left: 0;
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
+    border-radius: 50%;
     background-color: #f1c40f;
-    -webkit-transition: all 0s;
-    -o-transition: all 0s;
-    -moz-transition: all 0s;
     transition: all 0s;
     cursor: pointer;
     z-index: 3;
@@ -486,15 +476,9 @@ export default {
 	left: 50%;
 	padding: 2px 5px;
 	color: #fff;
-	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-	        border-radius: 5px;
+	border-radius: 5px;
 	background-color: #3498db;
-	-webkit-transform: translate(-50%, -webkit-calc(-100% - 10px));
-	   -moz-transform: translate(-50%, -moz-calc(-100% - 10px));
-	    -ms-transform: translate(-50%, calc(-100% - 10px));
-	     -o-transform: translate(-50%, calc(-100% - 10px));
-	        transform: translate(-50%, calc(-100% - 10px));
+	transform: translate(-50%, calc(-100% - 10px));
 	z-index: 9;
 }
 .vue-slider-dot::before {
@@ -509,11 +493,7 @@ export default {
     border-style: solid;
     border-color: transparent;
     border-top-color: #3498db;
-    -webkit-transform: translateX(-50%);
-       -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-         -o-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 .vue-slider-dot.vue-slider-hover:hover::before, .vue-slider-dot.vue-slider-hover:hover::after {
 	display: block;
@@ -522,15 +502,18 @@ export default {
 	display: block!important;
 }
 .vue-slider-min, .vue-slider-max {
+	position: absolute;
 	font-size: 14px;
 	color: #3498db;
-	vertical-align: middle;
 }
 .vue-slider-min {
 	margin-right: 5px;
+	left: 0;
 }
 .vue-slider-max {
 	margin-left: 5px;
+	right: 0;
+	z-index: 3;
 }
 .vue-slider-piecewise {
 	list-style: none;
@@ -539,9 +522,7 @@ export default {
 	position: absolute;
 	top: 0;
 	background-color: rgba(0, 0, 0, 0.16);
-	-webkit-border-radius: 50%;
-	   -moz-border-radius: 50%;
-	        border-radius: 50%;
+	border-radius: 50%;
     z-index: 2;
 }
 </style>

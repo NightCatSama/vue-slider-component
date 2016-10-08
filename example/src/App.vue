@@ -2,13 +2,13 @@
 	<div id="app">
 		<section data-title="Default">
 			<div>
-				<vue-slider ref="slider1" :val="demo.default.val" @callback="callback('default', $event)"></vue-slider>
+				<vue-slider ref="slider1" v-bind="demo.default" :val="demo.default.val" @callback="callback('default', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.val }}</h3>
 			</div>
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.default">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><small class="gray">// {{ demo.annotation[key] }}</small><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -121,6 +121,7 @@ export default {
 					width: 'auto',
 					height: 4,
 					dotSize: 16,
+					eventType: 'auto',
 					min: 0,
 					max: 100,
 					interval: 1,
@@ -213,6 +214,7 @@ export default {
 				annotation: {
 					width: '组件宽度',
 					height: '组件高度',
+					eventType: '事件类型',
 					dotSize: '滑块大小',
 					min: '最小值',
 					max: '最大值',
@@ -221,7 +223,7 @@ export default {
 					show: '是否显示组件',
 					tooltip: '是否显示工具提示',
 					piecewise: '是否显示分段样式',
-					val: '初始值'
+					val: '值'
 				}
 			}
 		}
@@ -317,6 +319,10 @@ section::after {
 
 .gray {
 	color: #D3DCE6;
+}
+
+.ml-sm {
+	margin-left: 5px;
 }
 
 code {

@@ -1,7 +1,7 @@
 <template>
 	<span>
 		<template v-if="isMoblie">
-			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
 				<span class="vue-slider-min" :style="valueStyle">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
@@ -26,7 +26,7 @@
 			</div>
 		</template>
 		<template v-else>
-			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': disabled }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
 				<span class="vue-slider-min" :style="valueStyle">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
@@ -129,6 +129,9 @@ export default {
 			else {
 				return /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
 			}
+		},
+		isDisabled: function() {
+			return this.eventType === 'none' ? true : this.disabled
 		},
 		isRange: function() {
 			return Array.isArray(this.val)
@@ -260,7 +263,7 @@ export default {
 	},
 	methods: {
 		wrapClick(e) {
-			if (this.disabled || e.target.classList.contains('vue-slider-dot')) return false
+			if (this.isDisabled || e.target.classList.contains('vue-slider-dot')) return false
 			let x = e.clientX - this.left
 			if (this.isRange) {
 				this.currentSlider = x > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -268,7 +271,7 @@ export default {
 			this.setValueOnPos(x)
 		},
 		moveStart(index) {
-			if (this.disabled) return false
+			if (this.isDisabled) return false
 			else if (this.isRange) {
 				this.currentSlider = index
 			}
@@ -373,10 +376,10 @@ export default {
 		setTransitionTime(time) {
 			time || this.$refs.process.offsetWidth
 			if (this.isRange) {
-				Array.from(this.slider, (elem) => {
-					elem.style.transitionDuration = `${time}s`
-					elem.style.WebkitTransitionDuration = `${time}s`
-				})
+				for (let i = 0; i < this.slider.length; i++) {
+					this.slider[i].style.transitionDuration = `${time}s`
+					this.slider[i].style.WebkitTransitionDuration = `${time}s`
+				}
 				this.$refs.process.style.transitionDuration = `${time}s`
 				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}

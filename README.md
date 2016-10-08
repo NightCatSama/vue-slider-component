@@ -17,6 +17,7 @@ npm install vue-slider-component
 - [x] Tooltip
 - [x] The custom data
 - [x] Range
+- [ ] Progress bar
 
 ## Example
 
@@ -109,7 +110,7 @@ new Vue({
 | ----------- |:--------------| ---------|--------------|
 | class-name  | String        | null     | the custom class |
 | styles      | Object        | null     | the custom styles |
-| eventType   | String        | 'auto'   | the event type, optional value: ['auto', 'touch', 'mouse'] |
+| eventType   | String        | 'auto'   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
 | width       | Number,String | 150      | width of the component |
 | height      | Number        | 4        | height of the component |
 | dotSize     | Number        | 15       | size of the sliders |
