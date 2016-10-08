@@ -109,6 +109,7 @@ new Vue({
 | ----------- |:--------------| ---------|--------------|
 | class-name  | String        | null     | the custom class |
 | styles      | Object        | null     | the custom styles |
+| eventType   | String        | 'auto'   | the event type, optional value: ['auto', 'touch', 'mouse'] |
 | width       | Number,String | 150      | width of the component |
 | height      | Number        | 4        | height of the component |
 | dotSize     | Number        | 15       | size of the sliders |
@@ -118,7 +119,7 @@ new Vue({
 | show        | Boolean       | true     | display of the component |
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
-| tooltip     | String,Boolean| false    | control the tooltip ['hover', 'always', false] |
+| tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
 | val         | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data |
 

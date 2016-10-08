@@ -2,7 +2,7 @@
 	<div id="app">
 		<section data-title="Default">
 			<div>
-				<vue-slider ref="slider1" :val="demo.default.val" @callback="getVal1"></vue-slider>
+				<vue-slider ref="slider1" :val="demo.default.val" @callback="callback('default', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.val }}</h3>
 			</div>
 			<div>
@@ -15,7 +15,7 @@
 		<section data-title="Demo">
 			<div>
 				<!-- I miss {...props} -->
-				<vue-slider ref="slider2" :width="demo.demo1.width" :height="demo.demo1.height" :dot-size="demo.demo1.dotSize" :min="demo.demo1.min" :max="demo.demo1.max" :interval="demo.demo1.interval" :piecewise="demo.demo1.piecewise" :tooltip="demo.demo1.tooltip" :disabled="demo.demo1.disabled" :val="demo.demo1.val" @callback="getVal2"></vue-slider>
+				<vue-slider ref="slider2" v-bind="demo.demo1" @callback="callback('demo1', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.val }}</h3>
 				<div class="btn-group">
 					<button @click="setVal('demo1', 21)">set value = 21</button>
@@ -35,7 +35,7 @@
 		</section>
 		<section data-title="Custom Data">
 			<div>
-				<vue-slider ref="slider3" width="80%" :piecewise="demo.demo2.piecewise" :tooltip="demo.demo2.tooltip" :interval="4" :disabled="demo.demo2.disabled" :data="demo.demo2.data" :val="demo.demo2.val" :styles="demo.demo2.styles" @callback="getVal3">
+				<vue-slider ref="slider3" v-bind="demo.demo2" @callback="callback('demo2', $event)">
 					<span slot="left"></span>
 					<span slot="right"></span>
 				</vue-slider>
@@ -59,7 +59,7 @@
 		<section data-title="Range">
 			<div>
 				<!-- I miss {...props} -->
-				<vue-slider ref="slider4" :width="demo.demo3.width" :height="demo.demo3.height" :dot-size="demo.demo3.dotSize" :min="demo.demo3.min" :max="demo.demo3.max" :interval="demo.demo3.interval" :piecewise="demo.demo3.piecewise" :tooltip="demo.demo3.tooltip" :disabled="demo.demo3.disabled" :val="demo.demo3.val" @callback="getVal4">
+				<vue-slider ref="slider4" v-bind="demo.demo3" @callback="callback('demo3', $event)">
 					<span slot="left"></span>
 					<span slot="right"></span>
 				</vue-slider>
@@ -83,7 +83,7 @@
 		<section data-title="Range + Custom Data">
 			<div>
 				<!-- I miss {...props} -->
-				<vue-slider ref="slider5" :width="demo.demo4.width" :height="demo.demo4.height" :dot-size="demo.demo4.dotSize" :min="demo.demo4.min" :max="demo.demo4.max" :interval="demo.demo4.interval" :piecewise="demo.demo4.piecewise" :tooltip="demo.demo4.tooltip" :disabled="demo.demo4.disabled" :val="demo.demo4.val" :data="demo.demo4.data" @callback="getVal5">
+				<vue-slider ref="slider5" v-bind="demo.demo4" @callback="callback('demo4', $event)">
 					<span slot="left"></span>
 					<span slot="right">{{ `${demo.demo4.val[0].split('-')[1]} - ${demo.demo4.val[1].split('-')[1]}` }}</span>
 				</vue-slider>
@@ -228,29 +228,9 @@ export default {
 	},
 	methods: {
 		/* ------- Vue 2.x Two-way ------- */
-		getVal1(val) {
-			console.info(val)
-
-			this.demo.default.val = val
-		},
-		getVal2(val) {
-			console.info(val)
-
-			this.demo.demo1.val = val
-		},
-		getVal3(val) {
-			console.info(val)
-
-			this.demo.demo2.val = val
-		},
-		getVal4(val) {
-			console.info(val)
-			this.demo.demo3.val = val
-		},
-		getVal5(val) {
-			console.info(val)
-
-			this.demo.demo4.val = val
+		callback(name, val) {
+			let obj = this.demo[name]
+			obj.val = val
 		},
 		/* ------------------------------- */
 		setDisabled(name) {
@@ -277,9 +257,6 @@ export default {
 			let slider = this.$refs[name]
 			slider.setIndex(num)
 		}
-	},
-	mounted() {
-		console.log(window.b = this.$refs.slider4)
 	}
 }
 </script>
