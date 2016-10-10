@@ -15,7 +15,7 @@
 					</template>
 					<template v-if="piecewise">
 						<ul class="vue-slider-piecewise">
-							<li v-for="(value, index) of total - 1" :style="[ piecewiseStyle, { left: `${gap*(index + 1) - height / 2}px` }]"></li>
+							<li v-for="i in total - 1" :style="[ piecewiseStyle, { left: `${gap*(i + 1) - height / 2}px` }]"></li>
 						</ul>
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
@@ -26,8 +26,8 @@
 			</div>
 		</template>
 		<template v-else>
-			<div v-el:wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
-				<span class="vue-slider-min :style="[valueStyle, { left: `${this.dotSize / 2}px` }]">
+			<div v-el:wrap :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
+				<span class="vue-slider-min" :style="[valueStyle, { left: `${this.dotSize / 2}px` }]">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div v-el:elem class="vue-slider" :style="elemStyles">
@@ -40,7 +40,7 @@
 					</template>
 					<template v-if="piecewise">
 						<ul class="vue-slider-piecewise">
-							<li v-for="(v, i) of total - 1" :style="[ piecewiseStyle, { left: `${gap*(i + 1) - height / 2}px` }]"></li>
+							<li v-for="i in total - 1" :style="[ piecewiseStyle, { left: `${gap*(i + 1) - height / 2}px` }]"></li>
 						</ul>
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
