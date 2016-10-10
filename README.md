@@ -17,7 +17,6 @@ npm install vue-slider-component
 - [x] Tooltip
 - [x] The custom data
 - [x] Range
-- [ ] Progress bar
 
 ## Example
 
@@ -118,6 +117,7 @@ new Vue({
 | max         | Number        | 100      | the maximum value   |
 | interval    | Number        | 1        | the gap between the values |
 | show        | Boolean       | true     | display of the component |
+| speed       | Number        | 0.5      | transition time |
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |

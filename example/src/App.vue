@@ -83,10 +83,7 @@
 		<section data-title="Range + Custom Data">
 			<div>
 				<!-- I miss {...props} -->
-				<vue-slider ref="slider5" v-bind="demo.demo4" @callback="callback('demo4', $event)">
-					<span slot="left"></span>
-					<span slot="right">{{ `${demo.demo4.val[0].split('-')[1]} - ${demo.demo4.val[1].split('-')[1]}` }}</span>
-				</vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo4" @callback="callback('demo4', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.val }}</h3>
 				<div class="btn-group">
 					<button @click="setVal('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
@@ -129,6 +126,7 @@ export default {
 					show: true,
 					tooltip: false,
 					piecewise: false,
+					speed: 0.5,
 					val: 0
 				},
 				demo1: {
@@ -140,6 +138,7 @@ export default {
 					interval: 4,
 					disabled: false,
 					show: true,
+					speed: 0.3,
 					tooltip: 'hover',
 					piecewise: true,
 					val: 1
@@ -221,6 +220,7 @@ export default {
 					interval: '分段间隔',
 					disabled: '是否不可用',
 					show: '是否显示组件',
+					speed: '动画速度',
 					tooltip: '是否显示工具提示',
 					piecewise: '是否显示分段样式',
 					val: '值'
@@ -264,15 +264,10 @@ export default {
 </script>
 
 <style>
-* {
-}
 body {
 	font-family: Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
-}
-
-#app {
 }
 
 section {
@@ -299,14 +294,17 @@ section::after {
 	margin: 10px 0;
 }
 
-.btn-group button {
+.btn-group button, .upload-group label {
     padding: 8px 12px;
     display: inline-block;
     border: none;
     background-color: #ccc;
     border-radius: 3px;
-    transition: background-color .2s;
     margin: 5px 10px 5px 0;
+}
+
+.upload-group input {
+	/* display: none; */
 }
 
 .green {

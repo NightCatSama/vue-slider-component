@@ -1,8 +1,8 @@
 <template>
 	<span>
 		<template v-if="isMoblie">
-			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @touchmove="moveing" @touchend="moveEnd" @click="wrapClick">
-				<span class="vue-slider-min" :style="valueStyle">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
+				<span class="vue-slider-min" :style="[valueStyle, { left: `${this.dotSize / 2}px` }]">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div ref="elem" class="vue-slider" :style="elemStyles">
@@ -20,14 +20,14 @@
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
 				</div>
-				<span class="vue-slider-max" :style="valueStyle">
+				<span class="vue-slider-max" :style="[valueStyle, { right: `${this.dotSize / 2}px` }]">
 					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
 		</template>
 		<template v-else>
-			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @mousemove="moveing" @mouseup="moveEnd" @mouseleave="moveEnd" @click="wrapClick">
-				<span class="vue-slider-min" :style="valueStyle">
+			<div ref="wrap" :class="['vue-slider-wrap', className, { 'vue-slider-disabled': (isDisabled && this.eventType !== 'none') }]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
+				<span class="vue-slider-min" :style="[valueStyle, { left: `${this.dotSize / 2}px` }]">
 					<slot name="left">{{ data ? data[minimum] : minimum }}</slot>
 				</span>
 				<div ref="elem" class="vue-slider" :style="elemStyles">
@@ -45,7 +45,7 @@
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
 				</div>
-				<span class="vue-slider-max" :style="valueStyle">
+				<span class="vue-slider-max" :style="[valueStyle, { right: `${this.dotSize / 2}px` }]">
 					<slot name="right">{{ data ? data[maximum] : maximum }}</slot>
 				</span>
 			</div>
@@ -112,6 +112,10 @@ export default {
 		eventType: {
 			type: String,
 			default: 'auto'
+		},
+		speed: {
+			type: Number,
+			default: 0.5
 		},
 		val: {
 			type: [String, Number, Array],
@@ -262,6 +266,28 @@ export default {
 		}
 	},
 	methods: {
+		bindEvents() {
+			if (this.isMoblie) {
+				document.addEventListener('touchmove', this.moving)
+				document.addEventListener('touchend', this.moveEnd)
+			}
+			else {
+				document.addEventListener('mousemove', this.moving)
+				document.addEventListener('mouseup', this.moveEnd)
+				document.addEventListener('mouseleave', this.moveEnd)
+			}
+		},
+		unbindEvents() {
+			if (this.isMoblie) {
+				document.removeEventListener('touchmove', this.moving)
+				document.removeEventListener('touchend', this.moveEnd)
+			}
+			else {
+				document.removeEventListener('mousemove', this.moving)
+				document.removeEventListener('mouseup', this.moveEnd)
+				document.removeEventListener('mouseleave', this.moveEnd)
+			}
+		},
 		wrapClick(e) {
 			if (this.isDisabled || e.target.classList.contains('vue-slider-dot')) return false
 			let x = e.clientX - this.left
@@ -277,8 +303,10 @@ export default {
 			}
 			this.flag = true
 		},
-		moveing(e) {
+		moving(e) {
 			if (!this.flag) return false
+			e.preventDefault()
+
 			if (this.isMoblie) e = e.targetTouches[0]
 			let x = e.clientX - this.left
 			this.setValueOnPos(x, true)
@@ -345,7 +373,7 @@ export default {
 			}
 			this.setPosition()
 		},
-		setPosition(time = 0.5) {
+		setPosition(time = this.speed) {
 			this.flag || this.setTransitionTime(time)
 			if (this.isRange) {
 				this.currentSlider = 0
@@ -411,12 +439,16 @@ export default {
 			this.setPosition(0)
 		}
 	},
+	created() {
+		window.addEventListener('resize', this.refresh)
+	},
 	mounted() {
 		this.w = this.$refs.elem.offsetWidth
 		this.setValue(this.val)
+		this.bindEvents()
 	},
-	created() {
-		window.addEventListener('resize', this.refresh)
+	destroyed() {
+		this.unbindEvents()
 	}
 }
 </script>
@@ -502,15 +534,13 @@ export default {
 	position: absolute;
 	font-size: 14px;
 	color: #3498db;
+	z-index: 3;
 }
 .vue-slider-min {
-	margin-right: 5px;
-	left: 0;
+	transform: translate(-50%);
 }
 .vue-slider-max {
-	margin-left: 5px;
-	right: 0;
-	z-index: 3;
+	transform: translate(50%);
 }
 .vue-slider-piecewise {
 	list-style: none;
