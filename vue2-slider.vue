@@ -15,7 +15,7 @@
 					</template>
 					<template v-if="piecewise">
 						<ul class="vue-slider-piecewise">
-							<li v-for="i in total - 1" :style="[ piecewiseStyle, { left: `${gap*(i + 1) - height / 2}px` }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * i - height / 2 }px` }]"></li>
 						</ul>
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
@@ -40,7 +40,7 @@
 					</template>
 					<template v-if="piecewise">
 						<ul class="vue-slider-piecewise">
-							<li v-for="i in total - 1" :style="[ piecewiseStyle, { left: `${gap*(i + 1) - height / 2}px` }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * i - height / 2 }px` }]"></li>
 						</ul>
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
@@ -443,9 +443,11 @@ export default {
 		window.addEventListener('resize', this.refresh)
 	},
 	mounted() {
-		this.w = this.$refs.elem.offsetWidth
-		this.setValue(this.val)
-		this.bindEvents()
+		this.$nextTick(function () {
+			this.w = this.$refs.elem.offsetWidth
+			this.setValue(this.val)
+			this.bindEvents()
+		})
 	},
 	destroyed() {
 		this.unbindEvents()

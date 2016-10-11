@@ -443,9 +443,11 @@ export default {
 		window.addEventListener('resize', this.refresh)
 	},
 	mounted() {
-		this.w = this.$refs.elem.offsetWidth
-		this.setValue(this.val)
-		this.bindEvents()
+		this.$nextTick(function () {
+			this.w = this.$refs.elem.offsetWidth
+			this.setValue(this.val)
+			this.bindEvents()
+		})
 	},
 	destroyed() {
 		this.unbindEvents()
