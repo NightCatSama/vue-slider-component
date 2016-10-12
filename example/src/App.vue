@@ -14,11 +14,10 @@
 		</section>
 		<section data-title="Demo">
 			<div>
-				<!-- I miss {...props} -->
 				<vue-slider ref="slider2" v-bind="demo.demo1" @callback="callback('demo1', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.val }}</h3>
 				<div class="btn-group">
-					<button @click="setVal('demo1', 21)">set value = 21</button>
+					<button @click="setValue('demo1', 21)">set value = 21</button>
 					<button @click="setIndex('slider2', 2)">set index = 2</button>
 					<button @click="setDisabled('demo1')">set disabled</button>
 					<button @click="setTooltip('demo1')">switch tooltip</button>
@@ -35,13 +34,10 @@
 		</section>
 		<section data-title="Custom Data">
 			<div>
-				<vue-slider ref="slider3" v-bind="demo.demo2" @callback="callback('demo2', $event)">
-					<span slot="left"></span>
-					<span slot="right"></span>
-				</vue-slider>
+				<vue-slider ref="slider3" v-bind="demo.demo2" @callback="callback('demo2', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo2.val }}</h3>
 				<div class="btn-group">
-					<button @click="setVal('demo2', '2016-10-06')">set value = 2016-10-06</button>
+					<button @click="setValue('demo2', '2016-10-06')">set value = 2016-10-06</button>
 					<button @click="setIndex('slider3', 3)">set index = 3</button>
 					<button @click="setDisabled('demo2')">set disabled</button>
 					<button @click="setTooltip('demo2')">switch tooltip</button>
@@ -58,14 +54,10 @@
 		</section>
 		<section data-title="Range">
 			<div>
-				<!-- I miss {...props} -->
-				<vue-slider ref="slider4" v-bind="demo.demo3" @callback="callback('demo3', $event)">
-					<span slot="left"></span>
-					<span slot="right"></span>
-				</vue-slider>
+				<vue-slider ref="slider4" v-bind="demo.demo3" @callback="callback('demo3', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo3.val }}</h3>
 				<div class="btn-group">
-					<button @click="setVal('demo3', [100, 200])">set value = [100, 200]</button>
+					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
 					<button @click="setIndex('slider4', 50)">set index = 50</button>
 					<button @click="setDisabled('demo3')">set disabled</button>
 					<button @click="setTooltip('demo3')">switch tooltip</button>
@@ -82,11 +74,10 @@
 		</section>
 		<section data-title="Range + Custom Data">
 			<div>
-				<!-- I miss {...props} -->
 				<vue-slider ref="slider5" v-bind="demo.demo4" @callback="callback('demo4', $event)"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.val }}</h3>
 				<div class="btn-group">
-					<button @click="setVal('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
+					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
 					<button @click="setIndex('slider5', 15)">set index = 15</button>
 					<button @click="setDisabled('demo4')">set disabled</button>
 					<button @click="setTooltip('demo4')">switch tooltip</button>
@@ -101,11 +92,32 @@
 				</template>}</code>
 			</div>
 		</section>
+		<section data-title="Vertical">
+			<div>
+				<vue-slider ref="slider6" v-bind="demo.demo5" :reverse="true" tooltipDir="left" @callback="callback('demo5', $event)" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" :reverse="false" tooltipDir="right" @callback="callback('demo5', $event)" @drag-start="start" @drag-end="end"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo5.val }}</h3>
+				<div class="btn-group">
+					<button @click="setValue('demo5', 80)">set value = 80</button>
+					<button @click="setIndex('slider6', 15)">set index = 15</button>
+					<button @click="setDisabled('demo5')">set disabled</button>
+					<button @click="setTooltip('demo5')">switch tooltip</button>
+					<button @click="getValue('slider6')">getValue()</button>
+					<button @click="getIndex('slider6')">getIndex()</button>
+				</div>
+			</div>
+			<div>
+				<code>{
+				<template v-for="(value, key, index) of demo.demo5">
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+				</template>}</code>
+			</div>
+		</section>
 	</div>
 </template>
 
 <script>
-import { vue2Slider as vueSlider } from './index.js';
+import vueSlider from './index.js';
 
 export default {
 	components: {
@@ -117,6 +129,7 @@ export default {
 				default: {
 					width: 'auto',
 					height: 4,
+					direction: 'horizontal',
 					dotSize: 16,
 					eventType: 'auto',
 					min: 0,
@@ -124,8 +137,10 @@ export default {
 					interval: 1,
 					disabled: false,
 					show: true,
-					tooltip: false,
+					tooltip: 'always',
+					tooltipDir: 'top',
 					piecewise: false,
+					reverse: false,
 					speed: 0.5,
 					val: 0
 				},
@@ -139,6 +154,7 @@ export default {
 					disabled: false,
 					show: true,
 					speed: 0.3,
+					reverse: false,
 					tooltip: 'hover',
 					piecewise: true,
 					val: 1
@@ -148,8 +164,9 @@ export default {
 					tooltip: 'always',
 					disabled: false,
 					piecewise: true,
+					tooltipDir: 'bottom',
 					styles: {
-						marginLeft: '10%'
+						margin: '0 10% 50px',
 					},
 					data: [
 					  "2016-10-01",
@@ -210,9 +227,30 @@ export default {
 					],
 					val: ['10-01', '10-05']
 				},
+				demo5: {
+					width: 4,
+					height: 300,
+					dotSize: 12,
+					eventType: 'auto',
+					min: 0,
+					max: 100,
+					interval: 1,
+					disabled: false,
+					show: true,
+					tooltip: 'always',
+					piecewise: false,
+					styles: {
+						display: 'inline-block',
+						marginLeft: '30px'
+					},
+					direction: 'vertical',
+					speed: 0.5,
+					val: 0
+				},
 				annotation: {
 					width: '组件宽度',
 					height: '组件高度',
+					direction: '组件方向',
 					eventType: '事件类型',
 					dotSize: '滑块大小',
 					min: '最小值',
@@ -222,7 +260,9 @@ export default {
 					show: '是否显示组件',
 					speed: '动画速度',
 					tooltip: '是否显示工具提示',
+					tooltipDir: '工具提示方向',
 					piecewise: '是否显示分段样式',
+					reverse: '是否反向组件',
 					val: '值'
 				}
 			}
@@ -243,9 +283,13 @@ export default {
 			let obj = this.demo[name]
 			obj.tooltip = obj.tooltip === 'hover' ? 'always' : 'hover'
 		},
-		setVal(name, num) {
+		setValue(name, num) {
 			let obj = this.demo[name]
 			obj.val = num
+		},
+		setIndex(name, num) {
+			let slider = this.$refs[name]
+			slider.setIndex(num)
 		},
 		getValue(name) {
 			let slider = this.$refs[name]
@@ -255,9 +299,11 @@ export default {
 			let slider = this.$refs[name]
 			alert(slider.getIndex())
 		},
-		setIndex(name, num) {
-			let slider = this.$refs[name]
-			slider.setIndex(num)
+		start() {
+			this.demo.demo5.speed = 0
+		},
+		end() {
+			this.demo.demo5.speed = 0.5
 		}
 	}
 }
@@ -313,6 +359,7 @@ section::after {
 
 .yellow {
 	color: #ffd400;
+	white-space: pre-wrap;
 }
 
 .gray {

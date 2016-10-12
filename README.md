@@ -17,6 +17,7 @@ npm install vue-slider-component
 - [x] Tooltip
 - [x] The custom data
 - [x] Range
+- [x] The vertical component
 
 ## Example
 
@@ -45,7 +46,7 @@ e.g:
     </div>
 </template>
 <script>
-import { vueSlider }  from 'vue-slider-component';
+import vueSlider from 'vue-slider-component/vue-sliders.vue';
 
 new Vue({
   el: '#app',
@@ -78,8 +79,7 @@ e.g:
     </div>
 </template>
 <script>
-// import { vue2Slider as vueSlider } from 'vue-sliders-component';
-import vueSlider from 'vue-sliders-component/vue2-sliders.vue'
+import vueSlider from 'vue-sliders-component'
 
 new Vue({
   el: '#app',
@@ -109,6 +109,7 @@ new Vue({
 | ----------- |:--------------| ---------|--------------|
 | class-name  | String        | null     | the custom class |
 | styles      | Object        | null     | the custom styles |
+| direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
 | eventType   | String        | 'auto'   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
 | width       | Number,String | 150      | width of the component |
 | height      | Number        | 4        | height of the component |
@@ -121,6 +122,7 @@ new Vue({
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
+| tooltipDir  | String        | top or left | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | val         | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data |
 
@@ -138,29 +140,8 @@ new Vue({
 * [ index ] is equal to (( value - min ) / interval ) in normal mode *
 
 ### Events
-| Name        | Type          | Description  |
-| ----------- |:--------------|--------------|
-| callback    | Params:value[Number] | values change when the callback function |
-
-### Slot
-
-default:
-```html
-<slot name="left">{{ min }}</slot>
-<slot name="right">{{ max }}</slot>
-```
-
-custom:
-```html
-<template>
-  <vue-slider ref="slider" :min="minimum" :max="maximum" :val="val" @callback="getValue">
-    <p slot="left">${{ minimum }}.00</p>
-    <p slot="right">${{ maximum }}.00</p>
-    <!-- or -->
-    <!--
-      <span slot="left"></span>
-      <p slot="right">value: {{ val }}</p>
-    -->
-  </vue-slider>
-</template>
-```
+| Name          | Type          | Description  |
+| --------------|:--------------|--------------|
+| callback      | Params: value[Number]  | values change when the callback function |
+| drag-start    | Params: context[Object]| Drag the start event |
+| drag-end      | Params: context[Object]| Drag the end event |
