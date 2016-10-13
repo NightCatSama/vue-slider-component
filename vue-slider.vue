@@ -338,7 +338,11 @@ export default {
 		},
 		wrapClick(e) {
 			if (this.isDisabled || e.target.classList.contains('vue-slider-dot')) return false
-			this.setValueOnPos(this.getPos(e))
+			let pos = this.getPos(e)
+			if (this.isRange) {
+				this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+			}
+			this.setValueOnPos(pos)
 		},
 		moveStart(index) {
 			if (this.isDisabled) return false
@@ -360,15 +364,15 @@ export default {
 			this.flag = false
 			this.setPosition(0.2)
 		},
-		setValueOnPos(x, bool) {
+		setValueOnPos(pos, bool) {
 			let range = this.isRange ? this.limit[this.currentSlider] : this.limit
 			let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
-			if (x >= range[0] && x <= range[1]) {
-				this.setTransform(x)
-				let v = Math.round(x / this.gap) * this.spacing + this.minimum
+			if (pos >= range[0] && pos <= range[1]) {
+				this.setTransform(pos)
+				let v = Math.round(pos / this.gap) * this.spacing + this.minimum
 				this.setCurrentValue(v, bool)
 			}
-			else if (x < range[0]) {
+			else if (pos < range[0]) {
 				this.setTransform(range[0])
 				this.setCurrentValue(valueRange[0])
 				if (this.currentSlider === 1) this.currentSlider = 0

@@ -273,6 +273,7 @@ export default {
 		callback(name, val) {
 			let obj = this.demo[name]
 			obj.val = val
+			console.log(`喵喵喵 => ${val}`)
 		},
 		/* ------------------------------- */
 		setDisabled(name) {
@@ -347,10 +348,6 @@ section::after {
     background-color: #ccc;
     border-radius: 3px;
     margin: 5px 10px 5px 0;
-}
-
-.upload-group input {
-	/* display: none; */
 }
 
 .green {
