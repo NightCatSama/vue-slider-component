@@ -111,8 +111,8 @@ new Vue({
 | styles      | Object        | null     | the custom styles |
 | direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
 | eventType   | String        | 'auto'   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
-| width       | Number,String | 150      | width of the component |
-| height      | Number        | 4        | height of the component |
+| width       | Number[,String(in horizontal)]  | 150      | width of the component |
+| height      | Number[,String(in vertical)]        | 4        | height of the component |
 | dotSize     | Number        | 15       | size of the sliders |
 | min         | Number        | 0        | the minimum value   |
 | max         | Number        | 100      | the maximum value   |
