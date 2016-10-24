@@ -273,7 +273,6 @@ export default {
 		callback(name, val) {
 			let obj = this.demo[name]
 			obj.val = val
-			console.log(`喵喵喵 => ${val}`)
 		},
 		/* ------------------------------- */
 		setDisabled(name) {

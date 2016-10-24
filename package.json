@@ -1,18 +1,41 @@
 {
   "name": "vue-slider-component",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Can use the Slider component in vue1.x and vue2.x",
-  "main": "index.js",
-  "scripts": {
-  },
+  "keywords": [
+    "vue",
+    "vue-component",
+    "vue-slider-component"
+  ],
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
   },
   "author": "NightCatSama <642163903@qq.com>",
-  "license": "ISC",
+  "licenses": "MIT",
   "bugs": {
     "url": "https://github.com/NightCatSama/vue-slider-component/issues"
   },
-  "homepage": "https://github.com/NightCatSama/vue-slider-component#readme"
+  "homepage": "https://github.com/NightCatSama/vue-slider-component#readme",
+  "scripts": {
+    "build": "rm -rf ./dist && webpack --config ./webpack.config.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.11.0",
+    "babel-runtime": "^6.9.2",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.1",
+    "vue-html-loader": "^1.2.3",
+    "vue-loader": "^8.5.3",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "vue": "^1.0.26"
+  }
 }
