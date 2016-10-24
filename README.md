@@ -46,7 +46,7 @@ e.g:
     </div>
 </template>
 <script>
-import vueSlider from 'vue-slider-component/vue-slider.vue';
+import vueSlider from 'vue-slider-component/src/vue-slider.vue';
 
 new Vue({
   el: '#app',
