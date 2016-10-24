@@ -145,3 +145,8 @@ new Vue({
 | callback      | Params: value[Number]  | values change when the callback function |
 | drag-start    | Params: context[Object]| Drag the start event |
 | drag-end      | Params: context[Object]| Drag the end event |
+
+
+## License
+
+[The MIT License](https://nightcatsama.github.io/vue-slider-component/LICENSE)
