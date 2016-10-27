@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import vueSlider from './index.js';
+import vueSlider from './vue2-slider.vue';
 
 export default {
 	components: {
