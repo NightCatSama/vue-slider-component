@@ -80,13 +80,6 @@ e.g:
 </template>
 <script>
 import vueSlider from 'vue-slider-component'
-/*
-  because in the runtime-only build doesn't work
-  The solution is modify setting in webpack config
-  resolve: {
-    alias: {vue: 'vue/dist/vue.js'}
-  }
-*/
 
 new Vue({
   el: '#app',
