@@ -113,7 +113,7 @@ new Vue({
 | event-type   | String        | auto   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
 | width       | Number[,String(in horizontal)] | 150      | width of the component |
 | height      | Number[,String(in vertical)] | 4        | height of the component |
-| dotSize     | Number        | 15       | size of the sliders |
+| dot-size     | Number        | 15       | size of the sliders |
 | min         | Number        | 0        | the minimum value   |
 | max         | Number        | 100      | the maximum value   |
 | interval    | Number        | 1        | the gap between the values |
