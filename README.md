@@ -10,7 +10,7 @@ npm install vue-slider-component
 
 ## Log
 
-### 2016/11/12  ver.2.x
+### 2016/11/11  ver.2.x
  + remove class-name & styles (can use vue native props [style, class])
  + remove val prop, use v-model set value (Don't need to manually two-way binding)
  + Optimize the click range
