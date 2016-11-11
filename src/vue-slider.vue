@@ -1,21 +1,21 @@
 <template>
-	<span>
+	<div>
 		<template v-if="isMoblie">
-			<div v-el:wrap :class="['vue-slider-wrap', flowDirection, className, disabledClass]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
+			<div v-el:wrap :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
 				<div v-el:elem class="vue-slider" :style="elemStyles">
 					<template v-if="isRange">
-						<div v-el:dot0 :data-rangeValue="value[0]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
-						<div v-el:dot1 :data-rangeValue="value[1]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
+						<div v-el:dot0 :data-rangeValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
+						<div v-el:dot1 :data-rangeValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
 					</template>
 					<template v-else>
-						<div v-el:dot :data-rangeValue="value" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
+						<div v-el:dot :data-rangeValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
 					</template>
 					<template v-if="piecewise">
 						<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: `${ gap * (i + 1) - width / 2 }px`, left: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
 						</ul>
 						<ul v-else class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * (i + 1) - height / 2 }px`, top: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
 						</ul>
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
@@ -23,28 +23,28 @@
 			</div>
 		</template>
 		<template v-else>
-			<div v-el:wrap :class="['vue-slider-wrap', flowDirection, className, disabledClass]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
+			<div v-el:wrap :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
 				<div v-el:elem class="vue-slider" :style="elemStyles">
 					<template v-if="isRange">
-						<div v-el:dot0 :data-rangeValue="value[0]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
-						<div v-el:dot1 :data-rangeValue="value[1]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
+						<div v-el:dot0 :data-rangeValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
+						<div v-el:dot1 :data-rangeValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
 					</template>
 					<template v-else>
-						<div v-el:dot :data-rangeValue="value" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
+						<div v-el:dot :data-rangeValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
 					</template>
 					<template v-if="piecewise">
 						<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: `${ gap * (i + 1) - width / 2 }px`, left: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
 						</ul>
 						<ul v-else class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * (i + 1) - height / 2 }px`, top: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
 						</ul>
 					</template>
 					<span v-el:process class="vue-slider-process"></span>
 				</div>
 			</div>
 		</template>
-	</span>
+	</div>
 </template>
 <script>
 export default {
@@ -57,8 +57,6 @@ export default {
 		}
 	},
 	props: {
-		className: String,
-		styles: Object,
 		width: {
 			type: [Number, String],
 			default: 'auto'
@@ -122,7 +120,7 @@ export default {
 			type: Number,
 			default: 0.5
 		},
-		val: {
+		value: {
 			type: [String, Number, Array],
 			default: 0
 		}
@@ -156,7 +154,7 @@ export default {
 			return this.disabled ? 'vue-slider-disabled' : ''
 		},
 		isRange: function() {
-			return Array.isArray(this.val)
+			return Array.isArray(this.value)
 		},
 		slider: function() {
 			if (this.isRange) {
@@ -172,7 +170,7 @@ export default {
 			}
 			return this.min
 		},
-		value: {
+		val: {
 			get: function() {
 				if (this.data) {
 					if (this.isRange) {
@@ -251,24 +249,24 @@ export default {
 		wrapStyles: function() {
 			if (this.direction === 'vertical') {
 				return {
-					height: typeof this.height === 'number' ? `${this.height}px` : this.height
+					height: typeof this.height === 'number' ? `${this.height}px` : this.height,
+					padding: `${this.dotSize / 2}px`
 				}
 			}
 			return {
-				width: typeof this.width === 'number' ? `${this.width}px` : this.width
+				width: typeof this.width === 'number' ? `${this.width}px` : this.width,
+				padding: `${this.dotSize / 2}px`
 			}
 		},
 		elemStyles: function() {
 			if (this.direction === 'vertical') {
 				return {
 					width: `${this.width}px`,
-					height: '100%',
-					margin: `${this.dotSize / 2}px`
+					height: '100%'
 				}
 			}
 			return {
-				height: `${this.height}px`,
-				margin: `${this.dotSize / 2}px`
+				height: `${this.height}px`
 			}
 		},
 		dotStyles: function() {
@@ -300,9 +298,9 @@ export default {
 	},
 	watch: {
 		currentValue: function(val) {
-			this.val = this.value
+			this.value = this.val
 		},
-		val: function(val) {
+		value: function(val) {
 			this.flag || this.setValue(val)
 		}
 	},
@@ -402,12 +400,12 @@ export default {
 			if (this.isRange) {
 				if (this.isDiff(this.currentValue[this.currentSlider], val)) {
 					this.currentValue.splice(this.currentSlider, 1, val)
-					this.$emit('callback', this.value)
+					this.$emit('callback', this.val)
 				}
 			}
 			else if (this.isDiff(this.currentValue, val)) {
 				this.currentValue = val
-				this.$emit('callback', this.value)
+				this.$emit('callback', this.val)
 			}
 			bool || this.setPosition()
 		},
@@ -419,9 +417,9 @@ export default {
 			this.setCurrentValue(val)
 		},
 		setValue(val) {
-			if (this.isDiff(this.value, val)) {
-				this.value = val
-				this.$emit('callback', this.value)
+			if (this.isDiff(this.val, val)) {
+				this.val = val
+				this.$emit('callback', this.val)
 			}
 			this.setPosition()
 		},
@@ -486,7 +484,7 @@ export default {
 			}
 		},
 		getValue() {
-			return this.value
+			return this.val
 		},
 		getIndex() {
 			if (Array.isArray(this.currentValue)) {
@@ -511,7 +509,7 @@ export default {
 	},
 	ready() {
 		this.size = this.direction === 'vertical' ? this.$els.elem.offsetHeight : this.$els.elem.offsetWidth
-		this.setValue(this.val)
+		this.setValue(this.value)
 		this.bindEvents()
 	},
 	destroyed() {

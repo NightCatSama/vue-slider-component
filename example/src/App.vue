@@ -2,20 +2,20 @@
 	<div id="app">
 		<section data-title="Default">
 			<div>
-				<vue-slider ref="slider1" v-bind="demo.default" :val="demo.default.val" @callback="callback('default', $event)"></vue-slider>
-				<h3><small>Value: </small>{{ demo.default.val }}</h3>
+				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.default.value }}</h3>
 			</div>
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.default">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Demo">
+		<section data-title="Piecewise">
 			<div>
-				<vue-slider ref="slider2" v-bind="demo.demo1" @callback="callback('demo1', $event)"></vue-slider>
-				<h3><small>Value: </small>{{ demo.demo1.val }}</h3>
+				<vue-slider ref="slider2" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo1', 21)">set value = 21</button>
 					<button @click="setIndex('slider2', 2)">set index = 2</button>
@@ -28,14 +28,14 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo1">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Custom Data">
+		<section data-title="Custom Data + RTL">
 			<div>
-				<vue-slider ref="slider3" v-bind="demo.demo2" @callback="callback('demo2', $event)"></vue-slider>
-				<h3><small>Value: </small>{{ demo.demo2.val }}</h3>
+				<vue-slider ref="slider3" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo2.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo2', '2016-10-06')">set value = 2016-10-06</button>
 					<button @click="setIndex('slider3', 3)">set index = 3</button>
@@ -48,14 +48,14 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo2">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
 		<section data-title="Range">
 			<div>
-				<vue-slider ref="slider4" v-bind="demo.demo3" @callback="callback('demo3', $event)"></vue-slider>
-				<h3><small>Value: </small>{{ demo.demo3.val }}</h3>
+				<vue-slider ref="slider4" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
 					<button @click="setIndex('slider4', 50)">set index = 50</button>
@@ -68,14 +68,14 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo3">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
 		<section data-title="Range + Custom Data">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo4" @callback="callback('demo4', $event)"></vue-slider>
-				<h3><small>Value: </small>{{ demo.demo4.val }}</h3>
+				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
 					<button @click="setIndex('slider5', 15)">set index = 15</button>
@@ -88,15 +88,15 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo4">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
 		<section data-title="Vertical">
 			<div>
-				<vue-slider ref="slider6" v-bind="demo.demo5" :reverse="true" tooltipDir="left" @callback="callback('demo5', $event)" @drag-start="start" @drag-end="end"></vue-slider>
-				<vue-slider ref="slider6" v-bind="demo.demo5" :reverse="false" tooltipDir="right" @callback="callback('demo5', $event)" @drag-start="start" @drag-end="end"></vue-slider>
-				<h3><small>Value: </small>{{ demo.demo5.val }}</h3>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
 					<button @click="setIndex('slider6', 15)">set index = 15</button>
@@ -109,7 +109,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo5">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -142,7 +142,7 @@ export default {
 					piecewise: false,
 					reverse: false,
 					speed: 0.5,
-					val: 0
+					value: 0
 				},
 				demo1: {
 					width: 250,
@@ -157,7 +157,7 @@ export default {
 					reverse: false,
 					tooltip: 'hover',
 					piecewise: true,
-					val: 1
+					value: 1
 				},
 				demo2: {
 					width: '80%',
@@ -165,9 +165,10 @@ export default {
 					disabled: false,
 					piecewise: true,
 					tooltipDir: 'bottom',
-					styles: {
+					style: {
 						margin: '0 10% 50px',
 					},
+					reverse: true,
 					data: [
 					  "2016-10-01",
 					  "2016-10-02",
@@ -177,7 +178,7 @@ export default {
 					  "2016-10-06",
 					  "2016-10-07"
 					],
-					val: '2016-10-01'
+					value: '2016-10-01'
 				},
 				demo3: {
 					width: '100%',
@@ -190,7 +191,7 @@ export default {
 					show: true,
 					tooltip: 'always',
 					piecewise: false,
-					val: [0, 100]
+					value: [0, 100]
 				},
 				demo4: {
 					width: '100%',
@@ -225,12 +226,12 @@ export default {
 						'10-19',
 						'10-20'
 					],
-					val: ['10-01', '10-05']
+					value: ['10-01', '10-05']
 				},
 				demo5: {
 					width: 4,
 					height: 300,
-					dotSize: 12,
+					dotSize: 22,
 					eventType: 'auto',
 					min: 0,
 					max: 100,
@@ -239,13 +240,14 @@ export default {
 					show: true,
 					tooltip: 'always',
 					piecewise: false,
-					styles: {
+					style: {
 						display: 'inline-block',
 						marginLeft: '30px'
 					},
+					class: "star-slider",
 					direction: 'vertical',
 					speed: 0.5,
-					val: 0
+					value: 0
 				},
 				annotation: {
 					width: '组件宽度',
@@ -263,18 +265,12 @@ export default {
 					tooltipDir: '工具提示方向',
 					piecewise: '是否显示分段样式',
 					reverse: '是否反向组件',
-					val: '值'
+					value: '值'
 				}
 			}
 		}
 	},
 	methods: {
-		/* ------- Vue 2.x Two-way ------- */
-		callback(name, val) {
-			let obj = this.demo[name]
-			obj.val = val
-		},
-		/* ------------------------------- */
 		setDisabled(name) {
 			let obj = this.demo[name]
 			obj.disabled = !obj.disabled
@@ -285,7 +281,7 @@ export default {
 		},
 		setValue(name, num) {
 			let obj = this.demo[name]
-			obj.val = num
+			obj.value = num
 		},
 		setIndex(name, num) {
 			let slider = this.$refs[name]
@@ -375,5 +371,12 @@ code {
     white-space: pre-line;
     font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
     border-radius: 5px;
+}
+
+#app .star-slider .vue-slider-dot {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABdElEQVRIS63VXU6DQBQF4HOwJia2yA6sK7CvxkjpTroD6wqkK9AdqCvpjzG+4grEFYilTZqa9hogVGQQhmpfmfv1cO/MQGj+5PmgjeUyYA+BTgl1FskIFgzzFRSPdtjTqdGDJ6YL4joGuenxYj6uwivh77SwEkzGOqmr4WzaNKZG6lJYTZvK1anL4aK0mqljON5Kn41jiNGBAQsiDoQWiE75kCQaYgDSw0Z8UHys5y/RlqRMWx7A06op13x+FcF9gHc1C39fLvhAY+0krfgvPEXPF952eH/GM2h8jrLvtDOeQxV4p7YUoMVwdOHsme/6w5QJ7dDJr1cOiDw2HYgx0ocB2jPFUeGpOQBwUwfG/uqEZ0s/W6PCk+YtaFzWggsupYLErTHAbg5+A8SFsA1gAOLox3PBkN2ZW5HYDDKFMUg7vN/ea8nXJGpX5g/kgXbYL4enpgBQwHxrkiu16SZtU3eG2oqnww5WC1/3oxnfjNFJyw3vC/6grFUpX2dVAAAAAElFTkSuQmCC') no-repeat;
+	background-size: contain;
+	box-shadow: none;
+	border-radius: 0;
 }
 </style>

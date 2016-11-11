@@ -8,6 +8,13 @@ Can use the slider in vue1.x and  vue2.x
 npm install vue-slider-component
 ```
 
+## Log
+
+### 2016/11/12  ver.2.x
+ + remove class-name & styles (can use vue native props [style, class])
+ + remove val prop, use v-model set value (Don't need to manually two-way binding)
+ + Optimize the click range
+
 ## Todo
 
 - [x] Basis
@@ -41,9 +48,9 @@ Use in vue1.x
 e.g:
 ```html
 <template>
-    <div>
-        <vue-slider v-ref:slider :val.sync="val" @callback="getValue"></vue-slider>
-    </div>
+  <div>
+    <vue-slider v-ref:slider :value.sync="value"></vue-slider>
+  </div>
 </template>
 <script>
 import vueSlider from 'vue-slider-component/src/vue-slider.vue';
@@ -54,29 +61,20 @@ new Vue({
     vueSlider
   },
   data: {
-    val: 1
-  }
-  methods: {
-    getValue(val) {
-      console.log(val)
-    },
-    setValue(num) {
-      this.val = num
-    }
+    value: 1
   }
 });
 </script>
 ```
 <br>
 Use in vue2.x
-<br>Because```.sync``` was deprecated. Props are now always one-way down. So in order to realize the two-way, Can be set in the @callback
 
 e.g:
 ```html
 <template>
-    <div>
-        <vue-slider ref="slider" :val="val" @callback="getValue"></vue-slider>
-    </div>
+  <div>
+    <vue-slider ref="slider" v-model="value"></vue-slider>
+  </div>
 </template>
 <script>
 import vueSlider from 'vue-slider-component'
@@ -87,16 +85,7 @@ new Vue({
     vueSlider
   },
   data: {
-    val: 1
-  }
-  methods: {
-    getValue(value) {
-      /* Two-way */
-      this.val = value
-    },
-    setValue(num) {
-      this.val = num
-    }
+    value: 1
   }
 });
 </script>
@@ -116,8 +105,6 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 ### Props
 | Props       | Type          | Default  | Description  |
 | ----------- |:--------------| ---------|--------------|
-| class-name  | String        | null     | the custom class |
-| styles      | Object        | null     | the custom styles |
 | direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
 | event-type  | String        | auto   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
 | width       | Number[,String(in horizontal)] | 150      | width of the component |
