@@ -120,7 +120,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String        | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
-| val         | Number,Array  | 0        | initial value (if the value for the array open range model) |
+| value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data |
 
 
