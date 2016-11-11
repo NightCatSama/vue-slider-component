@@ -68,7 +68,7 @@ new Vue({
 </script>
 ```
 <br>
-Use in vue2.x 
+Use in vue2.x
 <br>Because```.sync``` was deprecated. Props are now always one-way down. So in order to realize the two-way, Can be set in the @callback
 
 e.g:
@@ -101,6 +101,15 @@ new Vue({
 });
 </script>
 ```
+<br>
+Use with Browserify (vueify)
+<br>Use this little fix:
+
+e.g:
+```js
+import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
+```
+
 
 ## Options
 
