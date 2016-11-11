@@ -4,18 +4,18 @@
 			<div ref="wrap" :class="['vue-slider-wrap', flowDirection, className, disabledClass]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
 				<div ref="elem" class="vue-slider" :style="elemStyles">
 					<template v-if="isRange">
-						<div ref="dot0" :data-rangeValue="value[0]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
-						<div ref="dot1" :data-rangeValue="value[1]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
+						<div ref="dot0" :data-rangeValue="value[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
+						<div ref="dot1" :data-rangeValue="value[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
 					</template>
 					<template v-else>
-						<div ref="dot" :data-rangeValue="value" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
+						<div ref="dot" :data-rangeValue="value" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
 					</template>
 					<template v-if="piecewise">
 						<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: `${ gap * i - width / 2 }px`, left: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * i - width / 2 + 'px', left: '0px' }]"></li>
 						</ul>
 						<ul v-else class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * i - height / 2 }px`, top: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * i - height / 2 + 'px', top: '0px' }]"></li>
 						</ul>
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
@@ -26,18 +26,18 @@
 			<div ref="wrap" :class="['vue-slider-wrap', flowDirection, className, disabledClass]" v-show="show" :style="[( styles || {} ), wrapStyles]" @click="wrapClick">
 				<div ref="elem" class="vue-slider" :style="elemStyles">
 					<template v-if="isRange">
-						<div ref="dot0" :data-rangeValue="value[0]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
-						<div ref="dot1" :data-rangeValue="value[1]" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
+						<div ref="dot0" :data-rangeValue="value[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
+						<div ref="dot1" :data-rangeValue="value[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
 					</template>
 					<template v-else>
-						<div ref="dot" :data-rangeValue="value" :class="[ tooltipStatus, `vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
+						<div ref="dot" :data-rangeValue="value" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
 					</template>
 					<template v-if="piecewise">
 						<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: `${ gap * i - width / 2 }px`, left: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * i - width / 2 + 'px', left: '0px' }]"></li>
 						</ul>
 						<ul v-else class="vue-slider-piecewise">
-							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: `${ gap * i - height / 2 }px`, top: '0px' }]"></li>
+							<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * i - height / 2 + 'px', top: '0px' }]"></li>
 						</ul>
 					</template>
 					<span ref="process" class="vue-slider-process"></span>
