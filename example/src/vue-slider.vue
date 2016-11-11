@@ -601,9 +601,9 @@ export default {
 	z-index: 9;
 }
 .vue-slider-dot.vue-slider-tooltip-top::after  {
-	top: 0;
+	top: -10px;
 	left: 50%;
-	transform: translate(-50%, calc(-100% - 10px));
+	transform: translate(-50%, -100%);
 }
 .vue-slider-dot.vue-slider-tooltip-bottom::after  {
 	top: 100%;
@@ -612,8 +612,8 @@ export default {
 }
 .vue-slider-dot.vue-slider-tooltip-left::after  {
 	top: 50%;
-	left: 0;
-	transform: translate(calc(-100% - 10px), -50%);
+	left: -10px;
+	transform: translate(-100%, -50%);
 }
 .vue-slider-dot.vue-slider-tooltip-right::after  {
 	top: 50%;
