@@ -12,7 +12,7 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Piecewise">
+		<section data-title="Piecewise + Lazy">
 			<div>
 				<vue-slider ref="slider2" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
@@ -58,7 +58,7 @@
 				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
-					<button @click="setIndex('slider4', 50)">set index = 50</button>
+					<button @click="setIndex('slider4', [50, 60])">set index = [50, 60]</button>
 					<button @click="setDisabled('demo3')">set disabled</button>
 					<button @click="setTooltip('demo3')">switch tooltip</button>
 					<button @click="getValue('slider4')">getValue()</button>
@@ -74,11 +74,11 @@
 		</section>
 		<section data-title="Range + Custom Data">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value" @callback="a"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
-					<button @click="setIndex('slider5', 15)">set index = 15</button>
+					<button @click="setIndex('slider5', [3, 10])">set index = [3, 10]</button>
 					<button @click="setDisabled('demo4')">set disabled</button>
 					<button @click="setTooltip('demo4')">switch tooltip</button>
 					<button @click="getValue('slider5')">getValue()</button>
@@ -140,6 +140,7 @@ export default {
 					tooltip: 'always',
 					tooltipDir: 'top',
 					piecewise: false,
+					lazy: false,
 					reverse: false,
 					speed: 0.5,
 					value: 0
@@ -155,6 +156,7 @@ export default {
 					show: true,
 					speed: 0.3,
 					reverse: false,
+					lazy: true,
 					tooltip: 'hover',
 					piecewise: true,
 					value: 1
@@ -262,6 +264,7 @@ export default {
 					show: '是否显示组件',
 					speed: '动画速度',
 					tooltip: '是否显示工具提示',
+					lazy: '是否在拖拽结束后同步值(只支持vue2)',
 					tooltipDir: '工具提示方向',
 					piecewise: '是否显示分段样式',
 					reverse: '是否反向组件',
@@ -300,6 +303,9 @@ export default {
 		},
 		end() {
 			this.demo.demo5.speed = 0.5
+		},
+		a(val) {
+			console.log(val);
 		}
 	}
 }

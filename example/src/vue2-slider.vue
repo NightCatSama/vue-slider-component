@@ -1,7 +1,7 @@
 <template>
 	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
-		<template v-if="isMoblie">
-			<div ref="elem" class="vue-slider" :style="elemStyles">
+		<div ref="elem" class="vue-slider" :style="elemStyles">
+			<template v-if="isMoblie">
 				<template v-if="isRange">
 					<div ref="dot0" :data-slierValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
 					<div ref="dot1" :data-slierValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
@@ -9,19 +9,8 @@
 				<template v-else>
 					<div ref="dot" :data-slierValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
 				</template>
-				<template v-if="piecewise">
-					<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * i - width / 2 + 'px', left: '0px' }]"></li>
-					</ul>
-					<ul v-else class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * i - height / 2 + 'px', top: '0px' }]"></li>
-					</ul>
-				</template>
-				<div ref="process" class="vue-slider-process"></div>
-			</div>
-		</template>
-		<template v-else>
-			<div ref="elem" class="vue-slider" :style="elemStyles">
+			</template>
+			<template v-else>
 				<template v-if="isRange">
 					<div ref="dot0" :data-slierValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
 					<div ref="dot1" :data-slierValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
@@ -29,17 +18,17 @@
 				<template v-else>
 					<div ref="dot" :data-slierValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
 				</template>
-				<template v-if="piecewise">
-					<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * i - width / 2 + 'px', left: '0px' }]"></li>
-					</ul>
-					<ul v-else class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * i - height / 2 + 'px', top: '0px' }]"></li>
-					</ul>
-				</template>
-				<div ref="process" class="vue-slider-process"></div>
-			</div>
-		</template>
+			</template>
+			<template v-if="piecewise">
+				<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
+					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * i - width / 2 + 'px', left: '0px' }]"></li>
+				</ul>
+				<ul v-else class="vue-slider-piecewise">
+					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * i - height / 2 + 'px', top: '0px' }]"></li>
+				</ul>
+			</template>
+			<div ref="process" class="vue-slider-process"></div>
+		</div>
 	</div>
 </template>
 <script>
@@ -109,6 +98,10 @@ export default {
 			type: String
 		},
 		reverse: {
+			type: Boolean,
+			default: false
+		},
+		lazy: {
 			type: Boolean,
 			default: false
 		},
@@ -354,7 +347,16 @@ export default {
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd(e) {
-			if (this.flag) this.$emit('drag-end', this)
+			if (this.flag) {
+				this.$emit('drag-end', this)
+				if (this.lazy && this.isDiff(this.val, this.value)) {
+					this.$emit('callback', this.val)
+					this.$emit('input', this.val)
+				}
+			}
+			else {
+				return false 
+			}
 			this.flag = false
 			this.setPosition(this.speed)
 		},
@@ -393,23 +395,39 @@ export default {
 			if (this.isRange) {
 				if (this.isDiff(this.currentValue[this.currentSlider], val)) {
 					this.currentValue.splice(this.currentSlider, 1, val)
-					this.$emit('callback', this.val)
-					this.$emit('input', this.val)
+					if (!this.lazy || !this.flag) {
+						this.$emit('callback', this.val)
+						this.$emit('input', this.val)
+					}
 				}
 			}
 			else if (this.isDiff(this.currentValue, val)) {
 				this.currentValue = val
-				this.$emit('callback', this.val)
-				this.$emit('input', this.val)
+				if (!this.lazy || !this.flag) {
+					this.$emit('callback', this.val)
+					this.$emit('input', this.val)
+				}
 			}
 			bool || this.setPosition()
 		},
 		setIndex(val) {
-			val = this.spacing * val + this.minimum
-			if (this.isRange) {
-				this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
+			if (Array.isArray(val) && this.isRange) {
+				let value
+				if (this.data) {
+					value = [this.data[val[0]], this.data[val[1]]]
+				}
+				else {
+					value = [this.spacing * val[0] + this.minimum, this.spacing * val[1] + this.minimum]
+				}
+				this.setValue(value)
 			}
-			this.setCurrentValue(val)
+			else {
+				val = this.spacing * val + this.minimum
+				if (this.isRange) {
+					this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
+				}
+				this.setCurrentValue(val)
+			}
 		},
 		setValue(val) {
 			if (this.isDiff(this.val, val)) {
@@ -537,6 +555,15 @@ export default {
 	display: block;
 	border-radius: 15px;
 	background-color: #ccc;
+}
+.vue-slider-wrap .vue-slider::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
 }
 .vue-slider-process {
 	position: absolute;

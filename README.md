@@ -8,12 +8,13 @@ Can use the slider in vue1.x and  vue2.x
 npm install vue-slider-component
 ```
 
-## Log
+## Update
 
-#### 2016/11/11  version 2.x
- + remove class-name & styles (can use vue native props [style, class])
- + remove val prop, use v-model set value (Don't need to manually two-way binding)
- + Optimize the click range
+ - Remove class-name & styles (can use vue native props [style, class])
+ - Remove val prop, use v-model set value (Don't need to manually two-way binding)
+ - Optimize the click range
+ - Add lazy Prop
+ - Support array setIndex method parameters
 
 ## Todo
 
@@ -115,6 +116,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | interval    | Number        | 1        | the gap between the values |
 | show        | Boolean       | true     | display of the component |
 | speed       | Number        | 0.5      | transition time |
+| lazy        | Boolean       | false    | only support vue2, at the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |

@@ -1,45 +1,34 @@
 <template>
 	<div v-el:wrap :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
-		<template v-if="isMoblie">
-			<div v-el:elem class="vue-slider" :style="elemStyles">
+		<div v-el:elem class="vue-slider" :style="elemStyles">
+			<template v-if="isMoblie">
 				<template v-if="isRange">
-					<div v-el:dot0 :data-rangeValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
-					<div v-el:dot1 :data-rangeValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
+					<div v-el:dot0 :data-slierValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
+					<div v-el:dot1 :data-slierValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
 				</template>
 				<template v-else>
-					<div v-el:dot :data-rangeValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
+					<div v-el:dot :data-slierValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart"></div>
 				</template>
-				<template v-if="piecewise">
-					<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
-					</ul>
-					<ul v-else class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
-					</ul>
-				</template>
-				<span v-el:process class="vue-slider-process"></span>
-			</div>
-		</template>
-		<template v-else>
-			<div v-el:elem class="vue-slider" :style="elemStyles">
+			</template>
+			<template v-else>
 				<template v-if="isRange">
-					<div v-el:dot0 :data-rangeValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
-					<div v-el:dot1 :data-rangeValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
+					<div v-el:dot0 :data-slierValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(0)"></div>
+					<div v-el:dot1 :data-slierValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart(1)"></div>
 				</template>
 				<template v-else>
-					<div v-el:dot :data-rangeValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
+					<div v-el:dot :data-slierValue="val" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @mousedown="moveStart"></div>
 				</template>
-				<template v-if="piecewise">
-					<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
-					</ul>
-					<ul v-else class="vue-slider-piecewise">
-						<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
-					</ul>
-				</template>
-				<span v-el:process class="vue-slider-process"></span>
-			</div>
-		</template>
+			</template>
+			<template v-if="piecewise">
+				<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
+					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
+				</ul>
+				<ul v-else class="vue-slider-piecewise">
+					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
+				</ul>
+			</template>
+			<div v-el:process class="vue-slider-process"></div>
+		</div>
 	</div>
 </template>
 <script>
@@ -357,9 +346,14 @@ export default {
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd(e) {
-			if (this.flag) this.$emit('drag-end', this)
+			if (this.flag) {
+				this.$emit('drag-end', this)
+			}
+			else {
+				return false 
+			}
 			this.flag = false
-			this.setPosition(0.2)
+			this.setPosition(this.speed)
 		},
 		setValueOnPos(pos, bool) {
 			let range = this.isRange ? this.limit[this.currentSlider] : this.limit
@@ -406,11 +400,23 @@ export default {
 			bool || this.setPosition()
 		},
 		setIndex(val) {
-			val = this.spacing * val + this.minimum
-			if (this.isRange) {
-				this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
+			if (Array.isArray(val) && this.isRange) {
+				let value
+				if (this.data) {
+					value = [this.data[val[0]], this.data[val[1]]]
+				}
+				else {
+					value = [this.spacing * val[0] + this.minimum, this.spacing * val[1] + this.minimum]
+				}
+				this.setValue(value)
 			}
-			this.setCurrentValue(val)
+			else {
+				val = this.spacing * val + this.minimum
+				if (this.isRange) {
+					this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
+				}
+				this.setCurrentValue(val)
+			}
 		},
 		setValue(val) {
 			if (this.isDiff(this.val, val)) {
@@ -419,8 +425,8 @@ export default {
 			}
 			this.setPosition()
 		},
-		setPosition(time = this.speed) {
-			this.flag || this.setTransitionTime(time)
+		setPosition() {
+			this.flag || this.setTransitionTime(this.speed)
 			if (this.isRange) {
 				this.currentSlider = 0
 				this.setTransform(this.position[this.currentSlider])
@@ -535,6 +541,15 @@ export default {
 	display: block;
 	border-radius: 15px;
 	background-color: #ccc;
+}
+.vue-slider-wrap .vue-slider::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
 }
 .vue-slider-process {
 	position: absolute;
