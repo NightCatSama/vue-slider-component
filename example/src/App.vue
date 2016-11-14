@@ -1,11 +1,42 @@
 <template>
 	<div id="app">
 		<div class="header" ref="header">
-			<canvas id="canvas">
-				你的浏览器不支持canvasr
+			<canvas ref="canvas">
+				你的浏览器不支持canvas
 			</canvas>
 			<div class="link-group">
 				<a href="https://github.com/NightCatSama/vue-slider-component">View Github</a>
+				<a href="#QuickStart">Quick start</a>
+			</div>
+		</div>
+		<div id="QuickStart" class="QuickStart">
+			<h1>Quick Start</h1>
+			<div class="step">
+				<h2>Installation</h2>
+				<code>npm install vue-slider-component</code>
+			</div>
+			<div class="step">
+				<h2>Usage</h2>
+				<code class="language-html">&lt;template>
+	&lt;div>
+		&lt;vue-slider v-ref:slider v-model="value">&lt;/vue-slider>
+	&lt;/div>
+&lt;/template>
+&lt;script>
+import vueSlider from 'vue-slider-component';
+
+new Vue({
+	el: '#app',
+	components: {
+		vueSlider
+	},
+	data: function() {
+		return {
+			value: 1
+		}
+	}
+});
+&lt;/script></code>
 			</div>
 		</div>
 		<demo></demo>
@@ -15,6 +46,7 @@
 <script>
 import demo from './demo.vue'
 import MyCanvas from './canvas.js'
+const _isMobile = /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
 
 export default {
 	components: {
@@ -22,17 +54,41 @@ export default {
 	},
 	data () {
 		return {
+			scrollTop: 0,
+			_offsetHeight: 0,
+			myCanvas: null,
+			template_str: `<vue-slider v-ref:slider v-model="value"></vue-slider>`
+		}
+	},
+	watch: {
+		scrollTop: function(v) {
+			if (v > this._offsetHeight) {
+				this.myCanvas.stop()
+			}
+			else {
+				this.myCanvas.start()
+			}
+		}
+	},
+	methods: {
+		scroll(e) {
+			this.scrollTop = document.body.scrollTop
 		}
 	},
 	mounted() {
 		this.$nextTick(() => {
 			let header = this.$refs.header
-			var myCanvas = new MyCanvas('canvas', {
+			this._offsetHeight = header.offsetHeight
+
+			this.myCanvas = new MyCanvas(this.$refs.canvas, {
 				width:  header.offsetWidth,
-				height: header.offsetHeight,
-				txt: 'Vue-Slider-Component'
+				height: this._offsetHeight,
+				txt: 'vue-slider-component',
+				font: _isMobile ? 'normal 30px Segoe UI' : 'normal 60px Segoe UI'
 			})
-			myCanvas.start()
+			this.myCanvas.start()
+
+			document.addEventListener('scroll', this.scroll, false)
 		})
 	}
 }
@@ -51,9 +107,9 @@ body {
 	height: 100vh;
 	position: relative;
 	width:  100%;
-	background: #151515; /* fallback for old browsers */
-	background: -webkit-linear-gradient(-98deg, #000 , #434343); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(-98deg, #000 , #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: #151515;
+	background: -webkit-linear-gradient(-98deg, #000 , #434343);
+	background: linear-gradient(-98deg, #000 , #434343);
 	color: #fff;
 	text-align: center;
 }
@@ -78,5 +134,44 @@ canvas {
 	font-size: 25px;
 	text-shadow: 6px 6px 5px rgba(0, 0, 0, .86);
 	color: #fff;
+	margin: 0 50px;
+}
+
+@media (max-width: 768px) {
+	.link-group a {
+		font-size: 16px;	
+	}
+}
+
+.QuickStart {
+	padding: 100px 20px 20px 20px;
+	min-height: 100vh;
+}
+
+.QuickStart h1 {
+	text-align: center;
+ 	color: #2ecc71;
+ 	font-size: 44px;
+}
+
+.step {
+	margin: 30px auto;
+	max-width: 1000px;
+}
+
+.step h2 {
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.QuickStart .step code {
+    padding: 10px 20px;
+    margin: 0;
+    display: block;
+    background-color: #333;
+    color: #fff;
+    font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
+    border-radius: 5px;
+	white-space: pre;
 }
 </style>

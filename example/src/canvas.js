@@ -4,14 +4,14 @@ const _default = {
 	width: document.body.offsetWidth,
 	height: document.body.offsetHeight,
 	txt: 'NightCat',
-	time: 3,
+	time: 5,
 	font: 'normal 60px Segoe UI',
 	colors: ['rgba(6, 219, 198, 1)', 'rgba(155, 89, 182, 1)', 'rgba(52, 152, 255, 1)', 'rgba(253, 99, 53, 1)', 'rgba(253, 236, 53, 1)', 'rgba(102, 219, 6, 1)']
 }
 
-var MyCanvas = function(id, option) {
+const MyCanvas = function(el, option) {
 	Object.assign(this, _default, option)
-	this.canvas = document.getElementById(id)
+	this.canvas = el
 	this.canvas.width = this.width
 	this.canvas.height = this.height
 	this.Gradient = 0
@@ -49,11 +49,17 @@ MyCanvas.prototype = {
 		cxt.globalCompositeOperation = "source-over"
 	},
 	start: function() {
+		if (this.animate) return false
+		this.animate = true
 		const step = () => {
+			if (!this.animate) return false
 			this.render()
 			requestAnimationFrame(step)
 		}
 		requestAnimationFrame(step)
+	},
+	stop: function() {
+		this.animate = false
 	}
 }
 

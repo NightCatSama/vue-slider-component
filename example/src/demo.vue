@@ -1,5 +1,6 @@
 <template>
 	<div class="container">
+		<h1>Example</h1>
 		<section data-title="Default">
 			<div>
 				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
@@ -8,7 +9,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.default">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -28,7 +29,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo1">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -48,7 +49,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo2">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -68,13 +69,13 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo3">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
 		<section data-title="Range + Custom Data">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value" @callback="a"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
@@ -88,7 +89,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo4">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -109,7 +110,7 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo5">
-					<span class="green">{{ key }}</span>: <span class="yellow">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
@@ -303,9 +304,6 @@ export default {
 		},
 		end() {
 			this.demo.demo5.speed = 0.5
-		},
-		a(val) {
-			console.log(val);
 		}
 	}
 }
@@ -315,18 +313,36 @@ export default {
 .container {
 	width: 100%;
 	overflow: hidden;
-	background-color: #eee;
+	background-color: #f4f4f4;
+}
+
+.container h1 {
+	font-size: 50px;
+	text-align: center;
+	padding-top: 200px;
+	color: #2980b9;
+}
+
+.container code {
+    padding: 10px 20px;
+    margin: 0;
+    display: block;
+    background-color: #333;
+    color: #fff;
+    font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
+    border-radius: 5px;
+    white-space: pre-line;
 }
 
 section {
 	padding: 70px 30px 30px 30px;
 	margin: 50px auto;
 	box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, .36);
-	overflow: hidden;
 	max-width: 800px;
 	background-color: #fff;
 	position: relative;
 }
+
 
 section::after {
 	content: attr(data-title);
@@ -352,32 +368,28 @@ section::after {
     margin: 5px 10px 5px 0;
 }
 
+.red {
+	color: #d93a49;
+}
+
 .green {
 	color: #2ecc71;
 }
 
 .yellow {
 	color: #ffd400;
-	white-space: pre-wrap;
 }
 
 .gray {
 	color: #D3DCE6;
 }
 
-.ml-sm {
-	margin-left: 5px;
+.preWrap {
+	white-space: pre-wrap;
 }
 
-code {
-    padding: 10px 20px;
-    margin: 0;
-    display: block;
-    background-color: #333;
-    color: #fff;
-    white-space: pre-line;
-    font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
-    border-radius: 5px;
+.ml-sm {
+	margin-left: 5px;
 }
 
 #app .star-slider .vue-slider-dot {
