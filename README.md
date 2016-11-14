@@ -4,8 +4,20 @@ Can use the slider in vue1.x and  vue2.x
 [Live Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
 ## Install
-```
+``` bash
 npm install vue-slider-component
+```
+
+## Example
+``` bash
+cd example/
+
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:9000
+npm run dev
+npm run build
 ```
 
 ## Update
