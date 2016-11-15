@@ -19,23 +19,22 @@
 				<h2>Usage</h2>
 				<code class="language-html">&lt;template>
 	&lt;div>
-		&lt;vue-slider v-ref:slider v-model="value">&lt;/vue-slider>
+		&lt;vue-slider v-model="value">&lt;/vue-slider>
 	&lt;/div>
 &lt;/template>
 &lt;script>
 import vueSlider from 'vue-slider-component';
 
-new Vue({
-	el: '#app',
+export default {
 	components: {
 		vueSlider
 	},
 	data: function() {
 		return {
-			value: 1
+			value: 0
 		}
 	}
-});
+}
 &lt;/script></code>
 			</div>
 		</div>
@@ -56,8 +55,7 @@ export default {
 		return {
 			scrollTop: 0,
 			_offsetHeight: 0,
-			myCanvas: null,
-			template_str: `<vue-slider v-ref:slider v-model="value"></vue-slider>`
+			myCanvas: null
 		}
 	},
 	watch: {
@@ -84,6 +82,7 @@ export default {
 				width:  header.offsetWidth,
 				height: this._offsetHeight,
 				txt: 'vue-slider-component',
+				time: 3,
 				font: _isMobile ? 'normal 30px Segoe UI' : 'normal 60px Segoe UI'
 			})
 			this.myCanvas.start()
@@ -125,7 +124,7 @@ canvas {
 
 .link-group {
 	position: absolute;
-	top: 70%;
+	top: 65%;
 	left: 50%;
 	transform: translate(-50%, 0);
 }
@@ -139,7 +138,9 @@ canvas {
 
 @media (max-width: 768px) {
 	.link-group a {
-		font-size: 16px;	
+		font-size: 16px;
+		display: block;
+		margin: 0 0 30px 0;
 	}
 }
 

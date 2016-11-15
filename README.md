@@ -8,17 +8,6 @@ Can use the slider in vue1.x and  vue2.x
 npm install vue-slider-component
 ```
 
-## Example
-``` bash
-cd example/
-
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9000
-npm run dev
-```
-
 ## Update
 
  - Remove class-name & styles (can use vue native props [style, class])
@@ -38,21 +27,17 @@ npm run dev
 - [x] Range
 - [x] The vertical component
 
-## Example
 
-```
-cd vue-slider-component/example
-```
-```
+## Example
+``` bash
+cd example/
+
+# install dependencies
 npm install
-```
-```
+
+# serve with hot reload at localhost:9000
 npm run dev
 ```
-```
-npm run build
-```
-
 
 ## usage
 Use in vue1.x
