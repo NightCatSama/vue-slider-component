@@ -123,13 +123,13 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 
 
 ### Function
-| Name        | Type                         | Description  |
-| ----------- |:-----------------------------| -------------|
-| setValue    | Params: value[Number, Array] | set value of the component |
-| setIndex    | Params: index*[Number]       | set index of the component  |
-| getValue    | Return: value[Number, Array] | get value of the component |
-| getIndex    | Return: index*[Number]       | get index of the component |
-| refresh     | null                         | Refresh the component      |
+| Name        | Type           | Description                |
+| ----------- |:---------------| ---------------------------|
+| setValue    | Params: value  | set value of the component |
+| setIndex    | Params: index* | set index of the component |
+| getValue    | Return: value  | get value of the component |
+| getIndex    | Return: index* | get index of the component |
+| refresh     | null           | Refresh the component      |
 
 * [ index ] is the index to the array in the custom data model *
 * [ index ] is equal to (( value - min ) / interval ) in normal mode *
