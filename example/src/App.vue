@@ -107,10 +107,11 @@ body {
 	position: relative;
 	width:  100%;
 	background: #151515;
-	background: -webkit-linear-gradient(-98deg, #000 , #434343);
-	background: linear-gradient(-98deg, #000 , #434343);
+	background: -webkit-linear-gradient(-40deg, #000, #999);
+	background: linear-gradient(-40deg, #000, #999);
 	color: #fff;
 	text-align: center;
+	animation: mymove 2s linear 0s infinite;
 }
 
 .header h1 {
