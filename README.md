@@ -150,4 +150,4 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 
 ## License
 
-[The MIT License](https://nightcatsama.github.io/vue-slider-component/LICENSE)
+[MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)
