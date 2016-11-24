@@ -1,6 +1,6 @@
 # vue-slider-component
 
-[![build](https://img.shields.io/travis/USER/REPO/BRANCH.svg)](https://github.com/NightCatSama/vue-slider-component)
+[![build](https://img.shields.io/wercker/ci/wercker/docs.svg)](https://github.com/NightCatSama/vue-slider-component)
 [![build](https://img.shields.io/badge/npm-1.0.4-blue.svg)](https://github.com/NightCatSama/vue-slider-component)
 [![build](https://img.shields.io/npm/l/express.svg)](https://github.com/NightCatSama/vue-slider-component)
 
