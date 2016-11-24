@@ -43,8 +43,8 @@ export default {
 </template>
 
 <script>
-import demo from './demo.vue'
-import MyCanvas from './canvas.js'
+import demo from './demo'
+import MyCanvas from './canvas'
 const _isMobile = /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
 
 export default {

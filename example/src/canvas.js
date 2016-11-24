@@ -10,7 +10,13 @@ const _default = {
 }
 
 const MyCanvas = function(el, option) {
-	Object.assign(this, _default, option)
+	/*
+	 * Object.assign(this, _default, option)
+	 */
+	for (let i in _default) {
+		this[i] = option[i] || _default[i]
+	}
+
 	this.canvas = el
 	this.canvas.width = this.width
 	this.canvas.height = this.height
@@ -32,11 +38,19 @@ MyCanvas.prototype = {
 		this.Gradient += (1 / 60 / this.time)
 		let differ = 1 / this.colors.length
 		let value
-		Array.from(this.colors, (color, index) => {
-			value = this.Gradient + differ * index
+
+		for (let i = 0; i < this.colors.length; i++) {
+			value = this.Gradient + differ * i
 			if (value > 1) value = value % 1
-			grad.addColorStop(value, color)
-		})
+			grad.addColorStop(value, this.colors[i])
+		}
+		/*
+			Array.from(this.colors, (color, index) => {
+				value = this.Gradient + differ * index
+				if (value > 1) value = value % 1
+				grad.addColorStop(value, color)
+			})
+		 */
 
 		cxt.font = this.font
 		cxt.textAlign = "center"

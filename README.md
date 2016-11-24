@@ -1,5 +1,10 @@
 # vue-slider-component
-Can use the slider in vue1.x and  vue2.x
+
+[![build](https://img.shields.io/travis/USER/REPO/BRANCH.svg)](https://github.com/NightCatSama/vue-slider-component)
+[![build](https://img.shields.io/badge/npm-1.0.4-blue.svg)](https://github.com/NightCatSama/vue-slider-component)
+[![build](https://img.shields.io/npm/l/express.svg)](https://github.com/NightCatSama/vue-slider-component)
+
+Can use the slider in vue1.x and vue2.x
 
 [Live Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
@@ -15,6 +20,7 @@ npm install vue-slider-component
  - Optimize the click range
  - Add lazy Prop
  - Support array setIndex method parameters
+ - Support ie 9+
 
 ## Todo
 
