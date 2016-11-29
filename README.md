@@ -110,9 +110,9 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | ----------- |:--------------| ---------|--------------|
 | direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
 | event-type  | String        | auto   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
-| width       | Number[,String(in horizontal)] | 150      | width of the component |
+| width       | Number[,String(in horizontal)] | auto | width of the component |
 | height      | Number[,String(in vertical)] | 4        | height of the component |
-| dot-size    | Number        | 15       | size of the sliders |
+| dot-size    | Number        | 16       | size of the sliders |
 | min         | Number        | 0        | the minimum value   |
 | max         | Number        | 100      | the maximum value   |
 | interval    | Number        | 1        | the gap between the values |
