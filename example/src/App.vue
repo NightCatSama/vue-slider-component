@@ -60,17 +60,20 @@ export default {
 	},
 	watch: {
 		scrollTop: function(v) {
+			this.isScreen(v)
+		}
+	},
+	methods: {
+		scroll(e) {
+			this.scrollTop = document.body.scrollTop
+		},
+		isScreen(v) {
 			if (v > this._offsetHeight) {
 				this.myCanvas.stop()
 			}
 			else {
 				this.myCanvas.start()
 			}
-		}
-	},
-	methods: {
-		scroll(e) {
-			this.scrollTop = document.body.scrollTop
 		}
 	},
 	mounted() {
@@ -87,6 +90,7 @@ export default {
 			})
 			this.myCanvas.start()
 
+			// this.isScreen(document.body.scrollTop)
 			document.addEventListener('scroll', this.scroll, false)
 		})
 	}

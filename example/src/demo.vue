@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<h1>Example</h1>
-		<section data-title="Default">
+		<section data-title="Default" id="demo1">
 			<div>
 				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.value }}</h3>
@@ -9,11 +9,11 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.default">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Piecewise + Lazy">
+		<section data-title="Piecewise + Lazy" id="demo2">
 			<div>
 				<vue-slider ref="slider2" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
@@ -29,11 +29,11 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo1">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Custom Data + RTL">
+		<section data-title="Custom Data + RTL" id="demo3">
 			<div>
 				<vue-slider ref="slider3" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo2.value }}</h3>
@@ -49,11 +49,11 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo2">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Range">
+		<section data-title="Range + Custom Style" id="demo4">
 			<div>
 				<vue-slider ref="slider4" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
@@ -69,11 +69,11 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo3">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Range + Custom Data">
+		<section data-title="Range + Custom Data" id="demo5">
 			<div>
 				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
@@ -89,14 +89,14 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo4">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Vertical">
+		<section data-title="Vertical + Custom Class" id="demo6">
 			<div>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :format="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :format="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
@@ -110,8 +110,11 @@
 			<div>
 				<code>{
 				<template v-for="(value, key, index) of demo.demo5">
-					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ typeof value === 'string' ? `"${value}"` : value }}</span><br>
-				</template>}</code>
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
+				</template><span class="green">format</span>: <span class="yellow">function() {
+						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(255, 194, 14, ${v/100})`
+						&nbsp;&nbsp;return v
+					}</span>}</code>
 			</div>
 		</section>
 	</div>
@@ -126,10 +129,12 @@ export default {
 	},
 	data () {
 		return {
+			color: 'blue',
 			demo: {
 				default: {
 					width: 'auto',
 					height: 4,
+					value: 0,
 					direction: 'horizontal',
 					dotSize: 16,
 					eventType: 'auto',
@@ -144,11 +149,16 @@ export default {
 					lazy: false,
 					reverse: false,
 					speed: 0.5,
-					value: 0
+					piecewiseStyle: null,
+					bgStyle: null,
+					sliderStyle: null,
+					tooltipStyle: null,
+					processStyle: null
 				},
 				demo1: {
 					width: 250,
 					height: 8,
+					value: 1,
 					dotSize: 20,
 					min: 1,
 					max: 25,
@@ -159,8 +169,7 @@ export default {
 					reverse: false,
 					lazy: true,
 					tooltip: 'always',
-					piecewise: true,
-					value: 1
+					piecewise: true
 				},
 				demo2: {
 					width: '80%',
@@ -194,7 +203,22 @@ export default {
 					show: true,
 					tooltip: 'always',
 					piecewise: false,
-					value: [0, 100]
+					value: [0, 100],
+					format: '¥{value}',
+					piecewiseStyle: {
+						backgroundColor: 'rgba(0, 0, 0, 0.16)'
+					},
+					bgStyle: {
+						backgroundColor: '#fff',
+						boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
+					},
+					tooltipStyle: {
+						backgroundColor: '#666',
+						borderColor: '#666'
+					},
+					processStyle: {
+						backgroundColor: '#999'
+					}
 				},
 				demo4: {
 					width: '100%',
@@ -250,7 +274,10 @@ export default {
 					class: "star-slider",
 					direction: 'vertical',
 					speed: 0.5,
-					value: 0
+					value: 0,
+					processStyle: {
+						backgroundColor: 'rgba(255, 194, 14, 1)'
+					}
 				},
 				annotation: {
 					width: '组件宽度',
@@ -267,14 +294,25 @@ export default {
 					tooltip: '是否显示工具提示',
 					lazy: '是否在拖拽结束后同步值(只支持vue2)',
 					tooltipDir: '工具提示方向',
+					tooltipStyle: '工具提示样式',
 					piecewise: '是否显示分段样式',
 					reverse: '是否反向组件',
+					processStyle: '进度条样式',
+					sliderStyle: '滑块样式',
+					bgStyle: '',
 					value: '值'
 				}
 			}
 		}
 	},
 	methods: {
+		format(value) {
+			return value === null ? 'null' : (typeof value === 'string' ? `"${value}"` : value)
+		},
+		formatting(v) {
+			this.demo.demo5.processStyle.backgroundColor = `rgba(255, 194, 14, ${v/100})`
+			return v
+		},
 		setDisabled(name) {
 			let obj = this.demo[name]
 			obj.disabled = !obj.disabled
@@ -392,7 +430,7 @@ section::after {
 	margin-left: 5px;
 }
 
-#app .star-slider .vue-slider-dot {
+.star-slider .vue-slider .vue-slider-dot {
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABdElEQVRIS63VXU6DQBQF4HOwJia2yA6sK7CvxkjpTroD6wqkK9AdqCvpjzG+4grEFYilTZqa9hogVGQQhmpfmfv1cO/MQGj+5PmgjeUyYA+BTgl1FskIFgzzFRSPdtjTqdGDJ6YL4joGuenxYj6uwivh77SwEkzGOqmr4WzaNKZG6lJYTZvK1anL4aK0mqljON5Kn41jiNGBAQsiDoQWiE75kCQaYgDSw0Z8UHys5y/RlqRMWx7A06op13x+FcF9gHc1C39fLvhAY+0krfgvPEXPF952eH/GM2h8jrLvtDOeQxV4p7YUoMVwdOHsme/6w5QJ7dDJr1cOiDw2HYgx0ocB2jPFUeGpOQBwUwfG/uqEZ0s/W6PCk+YtaFzWggsupYLErTHAbg5+A8SFsA1gAOLox3PBkN2ZW5HYDDKFMUg7vN/ea8nXJGpX5g/kgXbYL4enpgBQwHxrkiu16SZtU3eG2oqnww5WC1/3oxnfjNFJyw3vC/6grFUpX2dVAAAAAElFTkSuQmCC') no-repeat;
 	background-size: contain;
 	box-shadow: none;
