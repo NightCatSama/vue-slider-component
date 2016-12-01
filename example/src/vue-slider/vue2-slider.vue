@@ -56,7 +56,7 @@ export default {
 		},
 		height: {
 			type: [Number, String],
-			default: 4
+			default: 6
 		},
 		bgStyle: {
 			type: Object

@@ -287,6 +287,13 @@ export default {
 		},
 		value: function(val) {
 			this.flag || this.setValue(val)
+		},
+		show: function(bool) {
+			if (bool && !this.size) {
+				this.$nextTick(() => {
+					this.refresh()
+				})
+			}
 		}
 	},
 	methods: {

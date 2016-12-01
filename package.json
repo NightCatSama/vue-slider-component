@@ -1,9 +1,11 @@
 {
   "name": "vue-slider-component",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Can use the Slider component in vue1.x and vue2.x",
   "keywords": [
     "vue",
+    "slider",
+    "vue-slider",
     "vue-component",
     "vue-slider-component"
   ],

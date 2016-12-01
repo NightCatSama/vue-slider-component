@@ -111,10 +111,11 @@
 				<code>{
 				<template v-for="(value, key, index) of demo.demo5">
 					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
-				</template><span class="green">format</span>: <span class="yellow">function() {
-						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(255, 194, 14, ${v/100})`
-						&nbsp;&nbsp;return v
-					}</span>}</code>
+				</template><span class="green">format</span>: <span class="yellow">function (value) {
+						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
+						&nbsp;&nbsp;return value
+					}</span>
+				}</code>
 			</div>
 		</section>
 	</div>
@@ -129,11 +130,10 @@ export default {
 	},
 	data () {
 		return {
-			color: 'blue',
 			demo: {
 				default: {
 					width: 'auto',
-					height: 4,
+					height: 6,
 					value: 0,
 					direction: 'horizontal',
 					dotSize: 16,
@@ -149,11 +149,12 @@ export default {
 					lazy: false,
 					reverse: false,
 					speed: 0.5,
-					piecewiseStyle: null,
+					format: null,
 					bgStyle: null,
 					sliderStyle: null,
 					tooltipStyle: null,
-					processStyle: null
+					processStyle: null,
+					piecewiseStyle: null
 				},
 				demo1: {
 					width: 250,
@@ -190,6 +191,9 @@ export default {
 					  "2016-10-06",
 					  "2016-10-07"
 					],
+					piecewiseStyle: {
+						backgroundColor: '#fff'
+					},
 					value: '2016-10-01'
 				},
 				demo3: {
@@ -205,9 +209,6 @@ export default {
 					piecewise: false,
 					value: [0, 100],
 					format: '¥{value}',
-					piecewiseStyle: {
-						backgroundColor: 'rgba(0, 0, 0, 0.16)'
-					},
 					bgStyle: {
 						backgroundColor: '#fff',
 						boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
@@ -276,7 +277,7 @@ export default {
 					speed: 0.5,
 					value: 0,
 					processStyle: {
-						backgroundColor: 'rgba(255, 194, 14, 1)'
+						backgroundColor: '#fff'
 					}
 				},
 				annotation: {
@@ -297,9 +298,11 @@ export default {
 					tooltipStyle: '工具提示样式',
 					piecewise: '是否显示分段样式',
 					reverse: '是否反向组件',
+					format: '格式化tooltip的值',
 					processStyle: '进度条样式',
 					sliderStyle: '滑块样式',
-					bgStyle: '',
+					bgStyle: '组件背景样式',
+					piecewiseStyle: '分割点的样式',
 					value: '值'
 				}
 			}
@@ -309,9 +312,9 @@ export default {
 		format(value) {
 			return value === null ? 'null' : (typeof value === 'string' ? `"${value}"` : value)
 		},
-		formatting(v) {
-			this.demo.demo5.processStyle.backgroundColor = `rgba(255, 194, 14, ${v/100})`
-			return v
+		formatting(value) {
+			this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
+			return value
 		},
 		setDisabled(name) {
 			let obj = this.demo[name]
