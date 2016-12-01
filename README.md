@@ -153,16 +153,16 @@ prop*: [only support vue2]
 | Name          | Type          | Description  |
 | --------------|:--------------|--------------|
 | callback      | Params: value[Number]  | values change when the callback function |
-| drag-start    | Params: context[Object]| Drag the start event |
+| drag-start    | Params: context[Object]| Drag the staUnable to initialize the width componentsrt event |
 | drag-end      | Params: context[Object]| Drag the end event |
 
 ## Exceptions
-if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, bu ).
+if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, because the component unable to initialize the width in `display: none` ).
 
 The solution:
-1. using `v-if` instead of `v-show`.
-2. use prop `show` to control display.
-3. After the set `v-show="true"`, to call the `refresh` method.
+ 1. using `v-if` instead of `v-show`.
+ 2. use prop `show` to control display.
+ 3. After the set `v-show="true"`, to call the `refresh` method.
 example: 
 ```
 this.show = true
