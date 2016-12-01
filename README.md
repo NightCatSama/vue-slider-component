@@ -163,7 +163,8 @@ The solution:
  1. using `v-if` instead of `v-show`.
  2. use prop `show` to control display.
  3. After the set `v-show="true"`, to call the `refresh` method.
-example: 
+
+for example: 
 ```
 this.show = true
 this.$nextTick(() => {
