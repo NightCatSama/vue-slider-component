@@ -23,7 +23,7 @@ npm install vue-slider-component
  - Support array setIndex method parameters
  - Support ie 9+
  - Add props `*-style` for the custom style
- - Add `format` prop
+ - Add `formatter` prop
 
 ## Todo
 
@@ -129,7 +129,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data. |
 | lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
-| format*     | String,Function | null   | Formatting a tooltip values, Example: `format='¥{ value }'` or `` format: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo4) |
+| formatter*     | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{ value }'` or `` formatter: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo4) |
 | bg-style*     | Object | null  | The style of the background. |
 | slider-style*     | Object | null  | The style of the slider. |
 | process-style*     | Object | null  | The style of the process bar. |
@@ -157,7 +157,7 @@ prop*: [only support vue2]
 | drag-end      | Params: context[Object]| Drag the end event |
 
 ## Exceptions
-if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, because the component unable to initialize the width in `display: none` ).
+if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, because the component unable to initialize the size in `display: none` ).
 
 The solution:
  1. using `v-if` instead of `v-show`.

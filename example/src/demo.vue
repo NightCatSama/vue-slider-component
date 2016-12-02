@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
-		<h1>Example</h1>
-		<section data-title="Default" id="demo1">
+		<h1 @click="show = !show">Example</h1>
+		<section data-title="Default" id="demo1" v-show="show">
 			<div>
 				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.value }}</h3>
@@ -95,8 +95,8 @@
 		</section>
 		<section data-title="Vertical + Custom Class" id="demo6">
 			<div>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :format="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :format="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
@@ -111,7 +111,7 @@
 				<code>{
 				<template v-for="(value, key, index) of demo.demo5">
 					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
-				</template><span class="green">format</span>: <span class="yellow">function (value) {
+				</template><span class="green">formatter</span>: <span class="yellow">function (value) {
 						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
 						&nbsp;&nbsp;return value
 					}</span>
@@ -130,6 +130,7 @@ export default {
 	},
 	data () {
 		return {
+			show: false,
 			demo: {
 				default: {
 					width: 'auto',
@@ -149,7 +150,7 @@ export default {
 					lazy: false,
 					reverse: false,
 					speed: 0.5,
-					format: null,
+					formatter: null,
 					bgStyle: null,
 					sliderStyle: null,
 					tooltipStyle: null,
@@ -208,7 +209,7 @@ export default {
 					tooltip: 'always',
 					piecewise: false,
 					value: [0, 100],
-					format: '¥{value}',
+					formatter: '¥{value}',
 					bgStyle: {
 						backgroundColor: '#fff',
 						boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
@@ -298,7 +299,7 @@ export default {
 					tooltipStyle: '工具提示样式',
 					piecewise: '是否显示分段样式',
 					reverse: '是否反向组件',
-					format: '格式化tooltip的值',
+					formatter: '格式化tooltip的值',
 					processStyle: '进度条样式',
 					sliderStyle: '滑块样式',
 					bgStyle: '组件背景样式',
@@ -370,6 +371,7 @@ export default {
     display: block;
     background-color: #333;
     color: #fff;
+    overflow-x: auto;
     font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
     border-radius: 5px;
     white-space: pre-line;

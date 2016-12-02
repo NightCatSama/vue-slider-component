@@ -103,6 +103,7 @@ export default {
 	padding: 0;
 }
 body {
+    overflow-x: hidden;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -176,6 +177,7 @@ canvas {
     display: block;
     background-color: #333;
     color: #fff;
+    overflow-x: auto;
     font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
     border-radius: 5px;
 	white-space: pre;

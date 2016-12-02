@@ -20,11 +20,8 @@
 				</template>
 			</template>
 			<template v-if="piecewise">
-				<ul v-if="direction === 'vertical'" class="vue-slider-piecewise">
-					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { bottom: gap * (i + 1) - width / 2 + 'px', left: '0px' }]"></li>
-				</ul>
-				<ul v-else class="vue-slider-piecewise">
-					<li v-for="i in (total - 1)" :style="[ piecewiseStyle, { left: gap * (i + 1) - height / 2 + 'px', top: '0px' }]"></li>
+				<ul class="vue-slider-piecewise">
+					<li v-for="position in piecewiseDotPos" :style="[piecewiseStyle, position]"></li>
 				</ul>
 			</template>
 			<div v-el:process class="vue-slider-process"></div>
@@ -279,6 +276,19 @@ export default {
 				width: `${this.height}px`,
 				height: `${this.height}px`
 			}
+		},
+		piecewiseDotPos: function() {
+			let arr = []
+			for (let i = 1; i < this.total; i++) {
+				arr.push(this.direction === 'vertical' ? {
+					bottom: `${this.gap * i - this.width / 2}px`,
+					left: '0px'
+				} : {
+					left: `${this.gap * i - this.height / 2}px`,
+					top: '0px'
+				})
+			}
+			return arr
 		}
 	},
 	watch: {
