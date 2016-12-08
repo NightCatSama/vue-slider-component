@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
-		<h1 @click="show = !show">Example</h1>
-		<section data-title="Default" id="demo1" v-show="show">
+		<h1>Example</h1>
+		<section data-title="Default" id="demo1">
 			<div>
 				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.value }}</h3>
@@ -130,7 +130,6 @@ export default {
 	},
 	data () {
 		return {
-			show: false,
 			demo: {
 				default: {
 					width: 'auto',
