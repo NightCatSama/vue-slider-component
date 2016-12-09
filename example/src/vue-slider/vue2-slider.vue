@@ -59,9 +59,6 @@ export default {
 			type: [Number, String],
 			default: 6
 		},
-		bgStyle: {
-			type: Object
-		},
 		data: {
 			type: Array,
 			default: null
@@ -69,9 +66,6 @@ export default {
 		dotSize: {
 			type: Number,
 			default: 16
-		},
-		sliderStyle: {
-			type: Object
 		},
 		min: {
 			type: Number,
@@ -97,12 +91,6 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		piecewiseStyle: {
-			type: Object
-		},
-		processStyle: {
-			type: Object
-		},
 		tooltip: {
 			type: [String, Boolean],
 			default: 'always'
@@ -114,12 +102,6 @@ export default {
 		direction: {
 			type: String,
 			default: 'horizontal'
-		},
-		tooltipDir: {
-			type: String
-		},
-		tooltipStyle: {
-			type: Object
 		},
 		reverse: {
 			type: Boolean,
@@ -133,13 +115,17 @@ export default {
 			type: Number,
 			default: 0.5
 		},
-		formatter: {
-			type: [String, Function]
-		},
 		value: {
 			type: [String, Number, Array],
 			default: 0
-		}
+		},
+		sliderStyle: Object,
+		tooltipDir: String,
+		formatter: [String, Function],
+		piecewiseStyle: Object,
+		processStyle: Object,
+		bgStyle: Object,
+		tooltipStyle: Object
 	},
 	computed: {
 		flowDirection() {
@@ -149,22 +135,13 @@ export default {
 			return this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
 		},
 		tooltipStatus() {
-			if (this.tooltip === 'hover' && this.flag) return 'vue-slider-always'
-			return this.tooltip ? `vue-slider-${this.tooltip}` : ''
+			return this.tooltip === 'hover' && this.flag ? 'vue-slider-always' : this.tooltip ? `vue-slider-${this.tooltip}` : ''
 		},
 		tooltipClass() {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
 		isMoblie() {
-			if (this.eventType === 'touch') {
-				return true
-			}
-			else if (this.eventType === 'mouse') {
-				return false
-			}
-			else {
-				return /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
-			}
+			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
 		},
 		isDisabled() {
 			return this.eventType === 'none' ? true : this.disabled
@@ -176,28 +153,14 @@ export default {
 			return Array.isArray(this.value)
 		},
 		slider() {
-			if (this.isRange) {
-				return [this.$refs.dot0, this.$refs.dot1]
-			}
-			else {
-				return this.$refs.dot
-			}
+			return this.isRange ? [this.$refs.dot0, this.$refs.dot1] : this.$refs.dot
 		},
 		minimum() {
-			if (this.data) {
-				return 0
-			}
-			return this.min
+			return this.data ? 0 : this.min
 		},
 		val: {
 			get() {
-				if (this.data) {
-					if (this.isRange) {
-						return [this.data[this.currentValue[0]], this.data[this.currentValue[1]]]
-					}
-					return this.data[this.currentValue]
-				}
-				return this.currentValue
+				return this.data ? (this.isRange ? [this.data[this.currentValue[0]], this.data[this.currentValue[1]]] : this.data[this.currentValue]) : this.currentValue
 			},
 			set(val) {
 				if (this.data) {
@@ -221,23 +184,17 @@ export default {
 			}
 		},
 		maximum() {
-			if (this.data) {
-				return this.data.length - 1
-			}
-			return this.max
+			return this.data ? (this.data.length - 1) : this.max
 		},
 		spacing() {
-			if (this.data) {
-				return 1
-			}
-			return this.interval
+			return this.data ? 1 : this.interval
 		},
 		total() {
 			if (this.data) {
 				return this.data.length - 1
 			}
-			if ((this.maximum - this.minimum) % this.interval !== 0) {
-				console.error('[Vue warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
+			else if ((this.maximum - this.minimum) % this.interval !== 0) {
+				console.error('[Vue-slider warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
 			}
 			return (this.maximum - this.minimum) / this.interval
 		},
@@ -245,68 +202,47 @@ export default {
 			return this.size / this.total
 		},
 		position() {
-			if (this.isRange) {
-				return [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap]
-			}
-			return (this.currentValue - this.minimum) / this.spacing * this.gap
+			return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
 		},
 		limit() {
-			if (this.isRange) {
-				return [[0, this.position[1]], [this.position[0], this.size]]
-			}
-			return [0, this.size]
+			return this.isRange ? [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
 		},
 		valueLimit() {
-			if (this.isRange) {
-				return [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]]
-			}
-			return [this.minimum, this.maximum]
+			return this.isRange ? [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
 		},
 		wrapStyles() {
-			if (this.direction === 'vertical') {
-				return {
-					height: typeof this.height === 'number' ? `${this.height}px` : this.height,
-					padding: `${this.dotSize / 2}px`
-				}
-			}
-			return {
+			return this.direction === 'vertical' ? {
+				height: typeof this.height === 'number' ? `${this.height}px` : this.height,
+				padding: `${this.dotSize / 2}px`
+			} : {
 				width: typeof this.width === 'number' ? `${this.width}px` : this.width,
 				padding: `${this.dotSize / 2}px`
 			}
 		},
 		elemStyles() {
-			if (this.direction === 'vertical') {
-				return {
-					width: `${this.width}px`,
-					height: '100%'
-				}
-			}
-			return {
+			return this.direction === 'vertical' ? {
+				width: `${this.width}px`,
+				height: '100%'
+			} : {
 				height: `${this.height}px`
 			}
 		},
 		dotStyles() {
-			if (this.direction === 'vertical') {
-				return {
-					width: `${this.dotSize}px`,
-					height: `${this.dotSize}px`,
-					left: `${(-(this.dotSize - this.width) / 2)}px`
-				}
-			}
-			return {
+			return this.direction === 'vertical' ? {
+				width: `${this.dotSize}px`,
+				height: `${this.dotSize}px`,
+				left: `${(-(this.dotSize - this.width) / 2)}px`
+			} : {
 				width: `${this.dotSize}px`,
 				height: `${this.dotSize}px`,
 				top: `${(-(this.dotSize - this.height) / 2)}px`
 			}
 		},
 		piecewiseStyles() {
-			if (this.direction === 'vertical') {
-				return {
-					width: `${this.width}px`,
-					height: `${this.width}px`
-				}
-			}
-			return {
+			return this.direction === 'vertical' ? {
+				width: `${this.width}px`,
+				height: `${this.width}px`
+			} : {
 				width: `${this.height}px`,
 				height: `${this.height}px`
 			}
@@ -361,22 +297,10 @@ export default {
 			}
 		},
 		formatting(value) {
-			if (typeof this.formatter === 'string') {
-				return this.formatter.replace(/\{value\}/, value)
-			}
-			else {
-				return this.formatter(value)
-			}
+			return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
 		},
 		getPos(e) {
-			let pos
-			if (this.direction === 'vertical') {
-				pos = this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))
-			}
-			else {
-				pos = this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset)
-			}
-			return pos
+			return this.direction === 'vertical' ? (this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))) : (this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset))
 		},
 		wrapClick(e) {
 			if (this.isDisabled) return false
@@ -555,12 +479,7 @@ export default {
 		},
 		getIndex() {
 			if (Array.isArray(this.currentValue)) {
-				if (this.data) {
-					return this.currentValue
-				}
-				else {
-					return [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
-				}
+				return this.data ? this.currentValue : [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
 			}
 			else {
 				return (this.currentValue - this.minimum) / this.spacing
