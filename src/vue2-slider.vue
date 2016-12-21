@@ -505,6 +505,7 @@ export default {
 		})
 	},
 	beforeDestroy() {
+	    console.log('before destroy');
 		this.unbindEvents()
 	}
 }
