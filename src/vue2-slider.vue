@@ -486,14 +486,14 @@ export default {
 			}
 		},
 		getStaticData() {
-		    if (this.$refs.elem) {
-                this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
-                this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
-			}
+            this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
+            this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
 		},
 		refresh() {
-			this.getStaticData()
-			this.setPosition(0)
+		    if(this.$refs.elem){
+                this.getStaticData()
+                this.setPosition(0)
+			}
 		}
 	},
 	created() {
