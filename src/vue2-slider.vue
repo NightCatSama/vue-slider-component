@@ -486,8 +486,10 @@ export default {
 			}
 		},
 		getStaticData() {
-			this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
-			this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
+		    if (this.$refs.elem) {
+                this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
+                this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
+			}
 		},
 		refresh() {
 			this.getStaticData()
@@ -505,7 +507,6 @@ export default {
 		})
 	},
 	beforeDestroy() {
-	    console.log('before destroy');
 		this.unbindEvents()
 	}
 }
