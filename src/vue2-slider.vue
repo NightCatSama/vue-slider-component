@@ -286,6 +286,8 @@ export default {
 			}
 		},
 		unbindEvents() {
+            window.removeEventListener('resize', this.refresh)
+
 			if (this.isMoblie) {
 				document.removeEventListener('touchmove', this.moving)
 				document.removeEventListener('touchend', this.moveEnd)
@@ -490,10 +492,8 @@ export default {
             this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
 		},
 		refresh() {
-		    if(this.$refs.elem){
-                this.getStaticData()
-                this.setPosition(0)
-			}
+            this.getStaticData()
+            this.setPosition(0)
 		}
 	},
 	created() {
