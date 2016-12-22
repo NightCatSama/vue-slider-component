@@ -319,6 +319,8 @@ export default {
 			}
 		},
 		unbindEvents() {
+            window.removeEventListener('resize', this.refresh)
+
 			if (this.isMoblie) {
 				document.removeEventListener('touchmove', this.moving)
 				document.removeEventListener('touchend', this.moveEnd)
