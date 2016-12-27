@@ -332,7 +332,7 @@ export default {
 				this.$emit('drag-end', this)
 				if (this.lazy && this.isDiff(this.val, this.value)) {
 					this.$emit('callback', this.val)
-					this.$emit('input', this.val)
+					this.$emit('input', this.isRange ? this.val.slice() : this.val)
 				}
 			}
 			else {
@@ -376,7 +376,7 @@ export default {
 					this.currentValue.splice(this.currentSlider, 1, val)
 					if (!this.lazy || !this.flag) {
 						this.$emit('callback', this.val)
-						this.$emit('input', this.val)
+						this.$emit('input', this.isRange ? this.val.slice() : this.val)
 					}
 				}
 			}
@@ -384,7 +384,7 @@ export default {
 				this.currentValue = val
 				if (!this.lazy || !this.flag) {
 					this.$emit('callback', this.val)
-					this.$emit('input', this.val)
+					this.$emit('input', this.isRange ? this.val.slice() : this.val)
 				}
 			}
 			bool || this.setPosition()
@@ -412,7 +412,7 @@ export default {
 			if (this.isDiff(this.val, val)) {
 				this.val = val
 				this.$emit('callback', this.val)
-				this.$emit('input', this.val)
+				this.$emit('input', this.isRange ? this.val.slice() : this.val)
 			}
 			this.setPosition()
 		},
