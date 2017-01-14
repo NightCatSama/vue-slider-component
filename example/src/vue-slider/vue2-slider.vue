@@ -339,7 +339,7 @@ export default {
 				return false
 			}
 			this.flag = false
-			this.setPosition(this.speed)
+			this.setPosition()
 		},
 		setValueOnPos(pos, bool) {
 			let range = this.isRange ? this.limit[this.currentSlider] : this.limit
@@ -408,16 +408,16 @@ export default {
 				this.setCurrentValue(val)
 			}
 		},
-		setValue(val) {
+		setValue(val, speed) {
 			if (this.isDiff(this.val, val)) {
 				this.val = val
 				this.$emit('callback', this.val)
 				this.$emit('input', this.isRange ? this.val.slice() : this.val)
 			}
-			this.setPosition()
+			this.setPosition(speed)
 		},
-		setPosition() {
-			this.flag || this.setTransitionTime(this.speed)
+		setPosition(speed) {
+			this.flag || this.setTransitionTime(speed === undefined ? this.speed : speed)
 			if (this.isRange) {
 				this.currentSlider = 0
 				this.setTransform(this.position[this.currentSlider])
@@ -496,7 +496,7 @@ export default {
 		refresh() {
 			if (this.$refs.elem) {
 				this.getStaticData()
-				this.setPosition(0)
+				this.setPosition()
 			}
 		}
 	},
@@ -506,7 +506,7 @@ export default {
 	mounted() {
 		this.$nextTick(() => {
 			this.getStaticData()
-			this.setValue(this.value)
+			this.setValue(this.value, 0)
 			this.bindEvents()
 		})
 	},
