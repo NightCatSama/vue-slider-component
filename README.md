@@ -134,6 +134,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | slider-style*     | Object | null  | The style of the slider. |
 | process-style*     | Object | null  | The style of the process bar. |
 | piecewise-style*     | Object | null  | The style of the piecewise dot. |
+| tooltip-style*     | Object | null  | The style of the tooltip. |
 
 prop*: [only support vue2]
 
