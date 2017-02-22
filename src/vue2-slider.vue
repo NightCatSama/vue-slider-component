@@ -414,7 +414,9 @@ export default {
 				this.$emit('callback', this.val)
 				this.$emit('input', this.isRange ? this.val.slice() : this.val)
 			}
-			this.setPosition(speed)
+			this.$nextTick(() => {
+				this.setPosition()
+			})
 		},
 		setPosition(speed) {
 			this.flag || this.setTransitionTime(speed === undefined ? this.speed : speed)
@@ -453,9 +455,11 @@ export default {
 				this.slider.style.msTransform = translateValue
 				if (this.direction === 'vertical') {
 					this.$refs.process.style.height = `${val}px`
+					this.$refs.process.style[this.reverse ? 'top' : 'bottom'] = 0
 				}
 				else {
 					this.$refs.process.style.width = `${val}px`
+					this.$refs.process.style[this.reverse ? 'right' : 'left'] = 0
 				}
 			}
 		},
