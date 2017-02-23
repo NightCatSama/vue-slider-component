@@ -123,7 +123,6 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | show        | Boolean       | true     | display of the component |
 | speed       | Number        | 0.5      | transition time |
 | disabled    | Boolean       | false    | whether to disable components |
-| clickable   | Boolean       | true     | whether to clickable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String        | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
