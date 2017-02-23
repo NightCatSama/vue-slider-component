@@ -75,6 +75,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		clickable: {
+			type: Boolean,
+			default: true
+		},
 		piecewise: {
 			type: Boolean,
 			default: false
@@ -342,7 +346,7 @@ export default {
 			return pos
 		},
 		wrapClick(e) {
-			if (this.isDisabled) return false
+			if (this.isDisabled || !this.clickable) return false
 			let pos = this.getPos(e)
 			if (this.isRange) {
 				this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0

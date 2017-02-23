@@ -111,6 +111,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		clickable: {
+			type: Boolean,
+			default: true
+		},
 		speed: {
 			type: Number,
 			default: 0.5
@@ -305,7 +309,7 @@ export default {
 			return this.direction === 'vertical' ? (this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))) : (this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset))
 		},
 		wrapClick(e) {
-			if (this.isDisabled) return false
+			if (this.isDisabled || !this.clickable) return false
 			let pos = this.getPos(e)
 			if (this.isRange) {
 				this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0

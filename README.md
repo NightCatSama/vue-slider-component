@@ -24,6 +24,7 @@ npm install vue-slider-component
  - Support ie 9+
  - Add props `*-style` for the custom style
  - Add `formatter` prop
+ - Add `clickable` prop
 
 ## Todo
 
@@ -122,6 +123,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | show        | Boolean       | true     | display of the component |
 | speed       | Number        | 0.5      | transition time |
 | disabled    | Boolean       | false    | whether to disable components |
+| clickable   | Boolean       | true     | whether to clickable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String        | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
@@ -165,7 +167,7 @@ The solution:
  2. use prop `show` to control display.
  3. After the set `v-show="true"`, to call the `refresh` method.
 
-for example: 
+for example:
 ```
 this.show = true
 this.$nextTick(() => {
