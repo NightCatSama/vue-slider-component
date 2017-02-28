@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
 		<h1>Example</h1>
-		<section data-title="Default" id="demo1">
+		<section data-title="Default" id="demo">
 			<div>
-				<vue-slider ref="slider1" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
+				<vue-slider ref="slider" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.value }}</h3>
 			</div>
 			<div>
@@ -13,17 +13,17 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Piecewise + Lazy" id="demo2">
+		<section data-title="Piecewise + Lazy" id="demo1">
 			<div>
-				<vue-slider ref="slider2" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
+				<vue-slider ref="slider1" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo1', 21)">set value = 21</button>
-					<button @click="setIndex('slider2', 2)">set index = 2</button>
+					<button @click="setIndex('slider1', 2)">set index = 2</button>
 					<button @click="setDisabled('demo1')">set disabled</button>
 					<button @click="setTooltip('demo1')">switch tooltip</button>
-					<button @click="getValue('slider2')">getValue()</button>
-					<button @click="getIndex('slider2')">getIndex()</button>
+					<button @click="getValue('slider1')">getValue()</button>
+					<button @click="getIndex('slider1')">getIndex()</button>
 				</div>
 			</div>
 			<div>
@@ -33,17 +33,17 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Custom Data + RTL" id="demo3">
+		<section data-title="Custom Data + RTL" id="demo2">
 			<div>
-				<vue-slider ref="slider3" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
+				<vue-slider ref="slider2" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo2.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo2', '2016-10-06')">set value = 2016-10-06</button>
-					<button @click="setIndex('slider3', 3)">set index = 3</button>
+					<button @click="setIndex('slider2', 3)">set index = 3</button>
 					<button @click="setDisabled('demo2')">set disabled</button>
 					<button @click="setTooltip('demo2')">switch tooltip</button>
-					<button @click="getValue('slider3')">getValue()</button>
-					<button @click="getIndex('slider3')">getIndex()</button>
+					<button @click="getValue('slider2')">getValue()</button>
+					<button @click="getIndex('slider2')">getIndex()</button>
 				</div>
 			</div>
 			<div>
@@ -53,17 +53,17 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Range + Custom Style" id="demo4">
+		<section data-title="Range + Formatter" id="demo3">
 			<div>
-				<vue-slider ref="slider4" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
+				<vue-slider ref="slider3" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
-					<button @click="setIndex('slider4', [50, 60])">set index = [50, 60]</button>
+					<button @click="setIndex('slider3', [50, 60])">set index = [50, 60]</button>
 					<button @click="setDisabled('demo3')">set disabled</button>
 					<button @click="setTooltip('demo3')">switch tooltip</button>
-					<button @click="getValue('slider4')">getValue()</button>
-					<button @click="getIndex('slider4')">getIndex()</button>
+					<button @click="getValue('slider3')">getValue()</button>
+					<button @click="getIndex('slider3')">getIndex()</button>
 				</div>
 			</div>
 			<div>
@@ -73,17 +73,17 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Range + Custom Data" id="demo5">
+		<section data-title="Range + Custom Data" id="demo4">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
+				<vue-slider ref="slider4" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
-					<button @click="setIndex('slider5', [3, 10])">set index = [3, 10]</button>
+					<button @click="setIndex('slider4', [3, 10])">set index = [3, 10]</button>
 					<button @click="setDisabled('demo4')">set disabled</button>
 					<button @click="setTooltip('demo4')">switch tooltip</button>
-					<button @click="getValue('slider5')">getValue()</button>
-					<button @click="getIndex('slider5')">getIndex()</button>
+					<button @click="getValue('slider4')">getValue()</button>
+					<button @click="getIndex('slider4')">getIndex()</button>
 				</div>
 			</div>
 			<div>
@@ -93,18 +93,18 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Vertical + Custom Class" id="demo6">
+		<section data-title="Vertical + Custom Class" id="demo5">
 			<div>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
-				<vue-slider ref="slider6" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
-					<button @click="setIndex('slider6', 15)">set index = 15</button>
+					<button @click="setIndex('slider5', 15)">set index = 15</button>
 					<button @click="setDisabled('demo5')">set disabled</button>
 					<button @click="setTooltip('demo5')">switch tooltip</button>
-					<button @click="getValue('slider6')">getValue()</button>
-					<button @click="getIndex('slider6')">getIndex()</button>
+					<button @click="getValue('slider5')">getValue()</button>
+					<button @click="getIndex('slider5')">getIndex()</button>
 				</div>
 			</div>
 			<div>
@@ -115,6 +115,27 @@
 						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
 						&nbsp;&nbsp;return value
 					}</span>
+				}</code>
+			</div>
+		</section>
+		<section data-title="Pretty slider" id="demo6">
+			<div>
+				<vue-slider ref="slider6" id="pretty-slider" v-bind="demo.demo6" v-model="demo.demo6.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.demo6.value }}</h3>
+				<div class="btn-group">
+					<button @click="setValue('demo6', 100)">set value = 100</button>
+					<button @click="setValue('demo6', [0, 200])">set value = [0, 200]</button>
+					<button @click="setDisabled('demo6')">set disabled</button>
+					<button @click="setTooltip('demo6')">switch tooltip</button>
+					<button @click="getValue('slider6')">getValue()</button>
+					<button @click="getIndex('slider6')">getIndex()</button>
+				</div>
+			</div>
+			<div>
+				<code>{
+				<template v-for="(value, key, index) of demo.demo6">
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
+				</template>
 				}</code>
 			</div>
 		</section>
@@ -281,6 +302,41 @@ export default {
 						backgroundColor: '#fff'
 					}
 				},
+				demo6: {
+					width: '100%',
+					height: 8,
+					dotSize: 20,
+					min: 0,
+					max: 200,
+					disabled: false,
+					show: true,
+					tooltip: 'always',
+					tooltipDir: ['bottom', 'top'],
+					piecewise: false,
+					value: [0, 200],
+					style: {
+						marginBottom: '30px'
+					},
+					bgStyle: {
+						backgroundColor: '#fff',
+						boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
+					},
+					sliderStyle: [{
+						backgroundColor: '#f05b72'
+					}, {
+						backgroundColor: '#3498db'
+					}],
+					tooltipStyle: [{
+						backgroundColor: '#f05b72',
+						borderColor: '#f05b72'
+					}, {
+						backgroundColor: '#3498db',
+						borderColor: '#3498db'
+					}],
+					processStyle: {
+						backgroundImage: '-webkit-linear-gradient(left, #f05b72, #3498db)'
+					}
+				},
 				annotation: {
 					width: '组件宽度',
 					height: '组件高度',
@@ -441,5 +497,9 @@ section::after {
 	background-size: contain;
 	box-shadow: none;
 	border-radius: 0;
+}
+
+#pretty-slider .vue-slider-process {
+	background-image: -webkit-linear-gradient(left, #f05b72, #3498db);
 }
 </style>

@@ -25,6 +25,7 @@ npm install vue-slider-component
  - Add props `*-style` for the custom style
  - Add `formatter` prop
  - Add `clickable` prop
+ - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
 
 ## Todo
 
@@ -125,18 +126,18 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | display of the piecewise |
 | tooltip     | String,Boolean| false    | control the tooltip, optional value: ['hover', 'always', false] |
-| tooltip-dir | String        | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
+| tooltip-dir | String[,Array(in range model)| top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
 | value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
-| formatter*     | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo4) |
-| bg-style*     | Object | null  | The style of the background. |
-| slider-style*     | Object | null  | The style of the slider. |
-| process-style*     | Object | null  | The style of the process bar. |
-| piecewise-style*     | Object | null  | The style of the piecewise dot. |
-| tooltip-style*     | Object | null  | The style of the tooltip. |
+| formatter*        | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo4) |
+| bg-style*         | Object | null  | The style of the background. |
+| slider-style*     | Object[,Array(in range model)] | null  | The style of the slider. |
+| process-style*    | Object | null  | The style of the process bar. |
+| piecewise-style*  | Object | null  | The style of the piecewise dot. |
+| tooltip-style*    | Object[,Array(in range model)] | null  | The style of the tooltip. |
 
 prop*: [only support vue2]
 

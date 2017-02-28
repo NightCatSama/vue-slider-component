@@ -3,31 +3,31 @@
 		<div ref="elem" class="vue-slider" :style="[elemStyles, bgStyle]">
 			<template v-if="isMoblie">
 				<template v-if="isRange">
-					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @touchstart="moveStart(0)">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @touchstart="moveStart(0)">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection[0]}`, 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
 					</div>
-					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @touchstart="moveStart(1)">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @touchstart="moveStart(1)">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection[1]}`, 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
 					</div>
 				</template>
 				<template v-else>
-					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @touchstart="moveStart">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val) : val}}</span>
+					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @touchstart="moveStart">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
 					</div>
 				</template>
 			</template>
 			<template v-else>
 				<template v-if="isRange">
-					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @mousedown="moveStart(0)">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @mousedown="moveStart(0)">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection[0]}`, 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
 					</div>
-					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @mousedown="moveStart(1)">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @mousedown="moveStart(1)">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection[1]}`, 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
 					</div>
 				</template>
 				<template v-else>
-					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyle, dotStyles]" @mousedown="moveStart">
-						<span :class="tooltipClass" :style="tooltipStyle">{{ formatter ? formatting(val) : val}}</span>
+					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @mousedown="moveStart">
+						<span :class="[`vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
 					</div>
 				</template>
 			</template>
@@ -123,20 +123,26 @@ export default {
 			type: [String, Number, Array],
 			default: 0
 		},
-		sliderStyle: Object,
-		tooltipDir: String,
+		sliderStyle: [Array, Object],
+		tooltipDir: [Array, String],
 		formatter: [String, Function],
 		piecewiseStyle: Object,
 		processStyle: Object,
 		bgStyle: Object,
-		tooltipStyle: Object
+		tooltipStyle: [Array, Object]
 	},
 	computed: {
 		flowDirection() {
 			return `vue-slider-${this.direction + (this.reverse ? '-reverse' : '')}`
 		},
 		tooltipDirection() {
-			return this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
+			let dir = this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
+			if (Array.isArray(dir)) {
+				return this.isRange ? dir : dir[1]
+			}
+			else {
+				return this.isRange ? [dir, dir] : dir
+			}
 		},
 		tooltipStatus() {
 			return this.tooltip === 'hover' && this.flag ? 'vue-slider-always' : this.tooltip ? `vue-slider-${this.tooltip}` : ''
@@ -221,6 +227,22 @@ export default {
 			} : {
 				width: typeof this.width === 'number' ? `${this.width}px` : this.width,
 				padding: `${this.dotSize / 2}px`
+			}
+		},
+		sliderStyles() {
+			if (Array.isArray(this.sliderStyle)) {
+				return this.isRange ? this.sliderStyle : this.sliderStyle[1]
+			}
+			else {
+				return this.isRange ? [this.sliderStyle, this.sliderStyle] : this.sliderStyle
+			}
+		},
+		tooltipStyles() {
+			if (Array.isArray(this.tooltipStyle)) {
+				return this.isRange ? this.tooltipStyle : this.tooltipStyle[1]
+			}
+			else {
+				return this.isRange ? [this.tooltipStyle, this.tooltipStyle] : this.tooltipStyle
 			}
 		},
 		elemStyles() {
@@ -437,7 +459,7 @@ export default {
 		},
 		setTransform(val) {
 			let value = (this.direction === 'vertical' ? ((this.dotSize / 2) - val) : (val - (this.dotSize / 2))) * (this.reverse ? -1 : 1)
-			let translateValue = this.direction === 'vertical' ? `translateY( ${value}px )` : `translateX( ${value}px )`
+			let translateValue = this.direction === 'vertical' ? `translate3d(0, ${value}px, 0)` : `translate3d(${value}px, 0, 0)`
 			let processSize = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
 			let processPos = `${this.currentSlider === 0 ? val : this.position[0]}px`
 			if (this.isRange) {
