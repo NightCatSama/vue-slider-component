@@ -196,6 +196,10 @@ export default {
 		maximum() {
 			return this.data ? (this.data.length - 1) : this.max
 		},
+		multiple() {
+			let decimals = `${this.interval}`.split('.')[1]
+			return decimals ? Math.pow(10, decimals.length) : 1
+		},
 		spacing() {
 			return this.data ? 1 : this.interval
 		},
@@ -203,7 +207,7 @@ export default {
 			if (this.data) {
 				return this.data.length - 1
 			}
-			else if ((this.maximum - this.minimum) % this.interval !== 0) {
+			else if (((this.maximum - this.minimum) * this.multiple) % (this.interval * this.multiple) !== 0) {
 				console.error('[Vue-slider warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
 			}
 			return (this.maximum - this.minimum) / this.interval
@@ -372,7 +376,7 @@ export default {
 			let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
 			if (pos >= range[0] && pos <= range[1]) {
 				this.setTransform(pos)
-				let v = Math.round(pos / this.gap) * this.spacing + this.minimum
+				let v = Math.round(pos / this.gap) * (this.spacing * this.multiple) / this.multiple + this.minimum
 				this.setCurrentValue(v, bool)
 			}
 			else if (pos < range[0]) {
