@@ -4,30 +4,30 @@
 			<template v-if="isMoblie">
 				<template v-if="isRange">
 					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @touchstart="moveStart(0)">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection[0]}`, 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
 					</div>
 					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @touchstart="moveStart(1)">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection[1]}`, 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
 					</div>
 				</template>
 				<template v-else>
 					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @touchstart="moveStart">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
 					</div>
 				</template>
 			</template>
 			<template v-else>
 				<template v-if="isRange">
 					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @mousedown="moveStart(0)">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection[0]}`, 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
 					</div>
 					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @mousedown="moveStart(1)">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection[1]}`, 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
 					</div>
 				</template>
 				<template v-else>
 					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @mousedown="moveStart">
-						<span :class="[`vue-slider-tooltip-${tooltipDirection}`, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
 					</div>
 				</template>
 			</template>
@@ -463,7 +463,7 @@ export default {
 		},
 		setTransform(val) {
 			let value = (this.direction === 'vertical' ? ((this.dotSize / 2) - val) : (val - (this.dotSize / 2))) * (this.reverse ? -1 : 1)
-			let translateValue = this.direction === 'vertical' ? `translate3d(0, ${value}px, 0)` : `translate3d(${value}px, 0, 0)`
+			let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
 			let processSize = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
 			let processPos = `${this.currentSlider === 0 ? val : this.position[0]}px`
 			if (this.isRange) {
@@ -618,6 +618,7 @@ export default {
 	background-color: #fff;
 	box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
 	transition: all 0s;
+	will-change: transform;
 	cursor: pointer;
 	z-index: 3;
 }
@@ -674,10 +675,8 @@ export default {
 	left: 50%;
 	width: 0;
 	height: 0;
-	border-width: 5px;
-	border-width: 6px\0;
-	border-style: solid;
-	border-color: transparent;
+	border: 5px solid transparent;
+	border: 6px solid transparent\0;
 	border-top-color: inherit;
 	transform: translate(-50%, 0);
 }
@@ -688,10 +687,8 @@ export default {
 	left: 50%;
 	width: 0;
 	height: 0;
-	border-width: 5px;
-	border-width: 6px\0;
-	border-style: solid;
-	border-color: transparent;
+	border: 5px solid transparent;
+	border: 6px solid transparent\0;
 	border-bottom-color: inherit;
 	transform: translate(-50%, 0);
 }
@@ -702,10 +699,8 @@ export default {
 	right: -10px;
 	width: 0;
 	height: 0;
-	border-width: 5px;
-	border-width: 6px\0;
-	border-style: solid;
-	border-color: transparent;
+	border: 5px solid transparent;
+	border: 6px solid transparent\0;
 	border-left-color: inherit;
 	transform: translate(0, -50%);
 }
@@ -716,10 +711,8 @@ export default {
 	left: -10px;
 	width: 0;
 	height: 0;
-	border-width: 5px;
-	border-width: 6px\0;
-	border-style: solid;
-	border-color: transparent;
+	border: 5px solid transparent;
+	border: 6px solid transparent\0;
 	border-right-color: inherit;
 	transform: translate(0, -50%);
 }
