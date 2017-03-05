@@ -445,7 +445,7 @@ export default {
 				this.$emit('input', this.isRange ? this.val.slice() : this.val)
 			}
 			this.$nextTick(() => {
-				this.setPosition()
+				this.setPosition(speed)
 			})
 		},
 		setPosition(speed) {
