@@ -119,6 +119,10 @@ export default {
 			type: Number,
 			default: 0.5
 		},
+		realTime: {
+			type: Boolean,
+			default: false
+		},
 		value: {
 			type: [String, Number, Array],
 			default: 0
@@ -332,6 +336,7 @@ export default {
 			return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
 		},
 		getPos(e) {
+			this.realTime && this.getStaticData()
 			return this.direction === 'vertical' ? (this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))) : (this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset))
 		},
 		wrapClick(e) {

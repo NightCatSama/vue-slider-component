@@ -26,6 +26,7 @@ npm install vue-slider-component
  - Add `formatter` prop
  - Add `clickable` prop
  - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
+ - Add `real-time` prop, 
 
 ## Todo
 
@@ -131,6 +132,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
+| real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
 | lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
 | formatter*        | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo4) |
 | bg-style*         | Object | null  | The style of the background. |
@@ -164,17 +166,10 @@ prop*: [only support vue2]
 if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, because the component unable to initialize the size in `display: none` ).
 
 The solution:
- 1. using `v-if` instead of `v-show`.
- 2. use prop `show` to control display.
- 3. After the set `v-show="true"`, to call the `refresh` method.
-
-for example:
-```
-this.show = true
-this.$nextTick(() => {
-    this.$refs.slider.refresh()
-})
-```
+ 1. set prop `:real-time="true"`
+ 2. using `v-if` instead of `v-show` or `display: none`.
+ 3. use prop `show` to control display.
+ 4. After the set `v-show="true"`, to call the `refresh` method.
 
 ## License
 
