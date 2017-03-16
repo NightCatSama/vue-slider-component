@@ -26,7 +26,7 @@ npm install vue-slider-component
  - Add `formatter` prop
  - Add `clickable` prop
  - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
- - Add `real-time` prop, 
+ - Add `real-time` prop for real-time computing the layout of the components
 
 ## Todo
 
