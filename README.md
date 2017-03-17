@@ -166,7 +166,7 @@ prop*: [only support vue2]
 if the component initialization in a `v-show="false"` container, will appear exception( The slider cannot be used, because the component unable to initialize the size in `display: none` ).
 
 The solution:
- 1. set prop `:real-time="true"`
+ 1. set prop `:real-time="true"`, if the initial value not equal to the minimum, need to call the `refresh` method
  2. using `v-if` instead of `v-show` or `display: none`.
  3. use prop `show` to control display.
  4. After the set `v-show="true"`, to call the `refresh` method.
