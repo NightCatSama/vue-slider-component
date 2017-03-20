@@ -310,8 +310,8 @@ export default {
 	methods: {
 		bindEvents() {
 			if (this.isMoblie) {
-				document.addEventListener('touchmove', this.moving)
-				document.addEventListener('touchend', this.moveEnd)
+				this.$refs.wrap.addEventListener('touchmove', this.moving)
+				this.$refs.wrap.addEventListener('touchend', this.moveEnd)
 			}
 			else {
 				document.addEventListener('mousemove', this.moving)
@@ -323,8 +323,8 @@ export default {
 			window.removeEventListener('resize', this.refresh)
 
 			if (this.isMoblie) {
-				document.removeEventListener('touchmove', this.moving)
-				document.removeEventListener('touchend', this.moveEnd)
+				this.$refs.wrap.removeEventListener('touchmove', this.moving)
+				this.$refs.wrap.removeEventListener('touchend', this.moveEnd)
 			}
 			else {
 				document.removeEventListener('mousemove', this.moving)
