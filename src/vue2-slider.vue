@@ -310,26 +310,26 @@ export default {
 	methods: {
 		bindEvents() {
 			if (this.isMoblie) {
-				document.addEventListener('touchmove', this.moving)
-				document.addEventListener('touchend', this.moveEnd)
+				document.addEventListener('touchmove', this.moving, {passive: false})
+				document.addEventListener('touchend', this.moveEnd, {passive: false})
 			}
 			else {
-				document.addEventListener('mousemove', this.moving)
-				document.addEventListener('mouseup', this.moveEnd)
-				document.addEventListener('mouseleave', this.moveEnd)
+				document.addEventListener('mousemove', this.moving, {passive: false})
+				document.addEventListener('mouseup', this.moveEnd, {passive: false})
+				document.addEventListener('mouseleave', this.moveEnd, {passive: false})
 			}
 		},
 		unbindEvents() {
 			window.removeEventListener('resize', this.refresh)
 
 			if (this.isMoblie) {
-				document.removeEventListener('touchmove', this.moving)
-				document.removeEventListener('touchend', this.moveEnd)
+				document.removeEventListener('touchmove', this.moving, {passive: false})
+				document.removeEventListener('touchend', this.moveEnd, {passive: false})
 			}
 			else {
-				document.removeEventListener('mousemove', this.moving)
-				document.removeEventListener('mouseup', this.moveEnd)
-				document.removeEventListener('mouseleave', this.moveEnd)
+				document.removeEventListener('mousemove', this.moving, {passive: false})
+				document.removeEventListener('mouseup', this.moveEnd, {passive: false})
+				document.removeEventListener('mouseleave', this.moveEnd, {passive: false})
 			}
 		},
 		formatting(value) {
