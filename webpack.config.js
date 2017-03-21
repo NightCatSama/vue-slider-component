@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
+  devtool: 'cheap-module-source-map',
   entry: './src/index.js',
   output: {
     path: './dist/',
@@ -10,34 +11,34 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: [ '', '.js', '.vue' ]
+    extensions: ['.js', '.vue']
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: __dirname,
         exclude: /node_modules/
       },
       {
         test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css'
+        loader: 'vue-loader',
+        include: __dirname,
+        exclude: /node_modules/
       }
     ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin( {
-      minimize : true,
-      sourceMap : false,
-      mangle: true,
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      comments: false,
       compress: {
         warnings: false
       }
-    } )
+    })
   ]
 }
