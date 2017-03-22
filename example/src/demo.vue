@@ -13,7 +13,7 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Piecewise + Lazy" id="demo1">
+		<section data-title="Lazy" id="demo1">
 			<div>
 				<vue-slider ref="slider1" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
@@ -33,7 +33,7 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Custom Data + RTL" id="demo2">
+		<section data-title="Label" id="demo2">
 			<div>
 				<vue-slider ref="slider2" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo2.value }}</h3>
@@ -53,13 +53,13 @@
 				</template>}</code>
 			</div>
 		</section>
-		<section data-title="Range + Formatter" id="demo3">
+		<section data-title="Formatter" id="demo3">
 			<div>
 				<vue-slider ref="slider3" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
-					<button @click="setIndex('slider3', [50, 60])">set index = [50, 60]</button>
+					<button @click="setIndex('slider3', 250)">set index = 250</button>
 					<button @click="setDisabled('demo3')">set disabled</button>
 					<button @click="setTooltip('demo3')">switch tooltip</button>
 					<button @click="getValue('slider3')">getValue()</button>
@@ -153,9 +153,9 @@ export default {
 		return {
 			demo: {
 				default: {
+					value: 0,
 					width: 'auto',
 					height: 6,
-					value: 0,
 					direction: 'horizontal',
 					dotSize: 16,
 					eventType: 'auto',
@@ -180,9 +180,9 @@ export default {
 					piecewiseStyle: null
 				},
 				demo1: {
-					width: 250,
-					height: 8,
 					value: 1,
+					width: 280,
+					height: 8,
 					dotSize: 20,
 					min: 1,
 					max: 25,
@@ -196,15 +196,15 @@ export default {
 					piecewise: true
 				},
 				demo2: {
+					value: '2016-10-01',
 					width: '80%',
 					tooltip: 'always',
 					disabled: false,
 					piecewise: true,
-					tooltipDir: 'bottom',
+					piecewiseLabel: true,
 					style: {
-						margin: '0 10% 50px',
+						marginLeft: '10%'
 					},
-					reverse: true,
 					data: [
 					  "2016-10-01",
 					  "2016-10-02",
@@ -215,22 +215,28 @@ export default {
 					  "2016-10-07"
 					],
 					piecewiseStyle: {
-						backgroundColor: '#fff'
+						backgroundColor: '#ccc',
+						visibility: 'visible',
+						width: '12px',
+						height: '12px'
 					},
-					value: '2016-10-01'
+					piecewiseActiveStyle: {
+						backgroundColor: '#3498db'
+					},
+					labelActiveStyle: {
+						color: '#3498db'
+					}
 				},
 				demo3: {
+					value: [0, 100],
 					width: '100%',
 					height: 8,
-					dotSize: 20,
+					dotSize: 16,
 					min: 0,
 					max: 500,
-					interval: 5,
 					disabled: false,
 					show: true,
 					tooltip: 'always',
-					piecewise: false,
-					value: [0, 100],
 					formatter: '¥{value}',
 					bgStyle: {
 						backgroundColor: '#fff',
@@ -245,6 +251,7 @@ export default {
 					}
 				},
 				demo4: {
+					value: ['10-01', '10-05'],
 					width: '100%',
 					height: 4,
 					dotSize: 14,
@@ -276,10 +283,10 @@ export default {
 						'10-18',
 						'10-19',
 						'10-20'
-					],
-					value: ['10-01', '10-05']
+					]
 				},
 				demo5: {
+					value: 0,
 					width: 4,
 					height: 300,
 					dotSize: 22,
@@ -298,12 +305,12 @@ export default {
 					class: "star-slider",
 					direction: 'vertical',
 					speed: 0.5,
-					value: 0,
 					processStyle: {
 						backgroundColor: '#fff'
 					}
 				},
 				demo6: {
+					value: [0, 200],
 					width: '100%',
 					height: 8,
 					dotSize: 20,
@@ -314,7 +321,6 @@ export default {
 					tooltip: 'always',
 					tooltipDir: ['bottom', 'top'],
 					piecewise: false,
-					value: [0, 200],
 					style: {
 						marginBottom: '30px'
 					},
@@ -437,7 +443,7 @@ export default {
 }
 
 section {
-	padding: 70px 30px 30px 30px;
+	padding: 70px 20px 20px 20px;
 	margin: 50px auto;
 	box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, .36);
 	max-width: 800px;

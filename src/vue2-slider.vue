@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
+	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
 		<div ref="elem" class="vue-slider" :style="[elemStyles, bgStyle]">
 			<template v-if="isMoblie">
 				<template v-if="isRange">
@@ -27,13 +27,16 @@
 				</template>
 				<template v-else>
 					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @mousedown="moveStart">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
 					</div>
 				</template>
 			</template>
 			<template v-if="piecewise">
 				<ul class="vue-slider-piecewise">
-					<li v-for="position in piecewiseDotPos" :style="[piecewiseStyles, piecewiseStyle, position]"></li>
+					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" :style="[piecewiseDotStyle, piecewiseObj.style]">
+						<span class="vue-slider-piecewise-dot" :style="[piecewiseStyle, piecewiseObj.inRange ? piecewiseActiveStyle : null]"></span>
+						<span v-if="piecewiseLabel" class="vue-slider-piecewise-label" :style="[labelStyle, piecewiseObj.inRange ? labelActiveStyle : null]">{{ piecewiseObj.label }}</span>
+					</li>
 				</ul>
 			</template>
 			<div ref="process" class="vue-slider-process" :style="processStyle"></div>
@@ -127,13 +130,20 @@ export default {
 			type: [String, Number, Array],
 			default: 0
 		},
+		piecewiseLabel: {
+			type: Boolean,
+			default: false
+		},
 		sliderStyle: [Array, Object],
 		tooltipDir: [Array, String],
 		formatter: [String, Function],
 		piecewiseStyle: Object,
+		piecewiseActiveStyle: Object,
 		processStyle: Object,
 		bgStyle: Object,
-		tooltipStyle: [Array, Object]
+		tooltipStyle: [Array, Object],
+		labelStyle: Object,
+		labelActiveStyle: Object
 	},
 	computed: {
 		flowDirection() {
@@ -195,6 +205,22 @@ export default {
 				else {
 					this.currentValue = val
 				}
+			}
+		},
+		currentIndex() {
+			if (this.isRange) {
+				return this.data ? this.currentValue : [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
+			}
+			else {
+				return (this.currentValue - this.minimum) / this.spacing
+			}
+		},
+		indexRange() {
+			if (this.isRange) {
+				return this.currentIndex
+			}
+			else {
+				return [0, this.currentIndex]
 			}
 		},
 		maximum() {
@@ -272,7 +298,7 @@ export default {
 				top: `${(-(this.dotSize - this.height) / 2)}px`
 			}
 		},
-		piecewiseStyles() {
+		piecewiseDotStyle() {
 			return this.direction === 'vertical' ? {
 				width: `${this.width}px`,
 				height: `${this.width}px`
@@ -281,15 +307,27 @@ export default {
 				height: `${this.height}px`
 			}
 		},
-		piecewiseDotPos() {
+		piecewiseDotWrap() {
+			if (!this.piecewise) {
+				return false
+			}
+
 			let arr = []
-			for (let i = 1; i < this.total; i++) {
-				arr.push(this.direction === 'vertical' ? {
+			let gap = (this.size - (this.direction === 'vertical' ? this.width : this.height)) / this.total
+			for (let i = 0; i <= this.total; i++) {
+				let style = this.direction === 'vertical' ? {
 					bottom: `${this.gap * i - this.width / 2}px`,
-					left: '0'
+					left: '200px'
 				} : {
 					left: `${this.gap * i - this.height / 2}px`,
 					top: '0'
+				}
+				let index = this.reverse ? (this.total - i) : i
+				let label = this.data ? this.data[index] : (this.spacing * index) + this.min
+				arr.push({
+					style,
+					label: this.formatter ? this.formatting(label) : label,
+					inRange: index >= this.indexRange[0] && index <= this.indexRange[1]
 				})
 			}
 			return arr
@@ -376,13 +414,13 @@ export default {
 			this.flag = false
 			this.setPosition()
 		},
-		setValueOnPos(pos, bool) {
+		setValueOnPos(pos, isDrag) {
 			let range = this.isRange ? this.limit[this.currentSlider] : this.limit
 			let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
 			if (pos >= range[0] && pos <= range[1]) {
 				this.setTransform(pos)
-				let v = (Math.round(pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
-				this.setCurrentValue(v, bool)
+				let v = (Math[isDrag ? ((this.isRange && !this.currentSlider) ? 'ceil' : 'floor') : 'round'](pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
+				this.setCurrentValue(v, isDrag)
 			}
 			else if (pos < range[0]) {
 				this.setTransform(range[0])
@@ -519,12 +557,7 @@ export default {
 			return this.val
 		},
 		getIndex() {
-			if (Array.isArray(this.currentValue)) {
-				return this.data ? this.currentValue : [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
-			}
-			else {
-				return (this.currentValue - this.minimum) / this.spacing
-			}
+			return this.currentIndex
 		},
 		getStaticData() {
 			if (this.$refs.elem) {
@@ -568,6 +601,9 @@ export default {
 	opacity: .5;
 	cursor: not-allowed;
 }
+.vue-slider-wrap.vue-slider-has-label {
+	margin-bottom: 15px;
+}
 .vue-slider-wrap.vue-slider-disabled .vue-slider-dot {
 	cursor: not-allowed;
 }
@@ -598,12 +634,14 @@ export default {
 	height: 100%;
 	top: 0;
 	left: 0;
+	will-change: width;
 }
 .vue-slider-vertical .vue-slider-process {
 	width: 100%;
 	height: 0;
 	bottom: 0;
 	left: 0;
+	will-change: height;
 }
 .vue-slider-horizontal-reverse .vue-slider-process {
 	width: 0;
@@ -739,14 +777,34 @@ export default {
 }
 .vue-slider-piecewise li {
 	position: absolute;
+	width: 8px;
+	height: 8px;
+}
+.vue-slider-piecewise .vue-slider-piecewise-dot {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
 	background-color: rgba(0, 0, 0, 0.16);
 	border-radius: 50%;
+	transform: translate(-50%, -50%);
     z-index: 2;
+	transition: all .3s;
 }
-.vue-slider-horizontal .vue-slider-piecewise li {
-	top: 0;
+.vue-slider-piecewise li:first-child .vue-slider-piecewise-dot, .vue-slider-piecewise li:last-child .vue-slider-piecewise-dot {
+	visibility: hidden;
 }
-.vue-slider-vertical .vue-slider-piecewise li {
-	left: 0;
+.vue-slider-piecewise .vue-slider-piecewise-label {
+	position: absolute;
+	display: inline-block;
+	top: 15px;
+	left: 50%;
+	white-space: nowrap;
+	font-size: 12px;
+	color: #333;
+	transform: translateX(-50%);
+	visibility: visible;
 }
 </style>
