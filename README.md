@@ -10,7 +10,7 @@ Can use the slider in vue1.x and vue2.x
 
 ## Install
 ``` bash
-npm install vue-slider-component
+npm install vue-slider-component --save
 ```
 
 ## Update
@@ -27,6 +27,7 @@ npm install vue-slider-component
  - Add `clickable` prop
  - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
  - Add `real-time` prop for real-time computing the layout of the components
+ - Add labels of piecewise, and the style of the corresponding
 
 ## Todo
 
