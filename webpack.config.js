@@ -1,10 +1,11 @@
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: './src/index.js',
   output: {
-    path: './dist/',
+    path: path.resolve(__dirname, './dist/'),
     filename: 'index.js',
     library: 'vue-slider-component',
     libraryTarget: 'umd',

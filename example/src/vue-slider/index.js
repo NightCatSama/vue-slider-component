@@ -1,3 +1,3 @@
-import vueSlider from './vue2-slider'
+var vueSlider = require('./vue2-slider')
 
 module.exports = vueSlider

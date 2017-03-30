@@ -337,6 +337,48 @@ export default {
 		value(val) {
 			this.flag || this.setValue(val)
 		},
+		max(val) {
+			if (this.flag || this.data) {
+				this.refresh()
+			}
+			else if (this.isRange) {
+				let bool
+				val = this.val.map((v) => {
+					if (v > val) {
+						bool = true
+						return val
+					}
+					return v
+				})
+				bool && this.setValue(val)
+				this.refresh()
+			}
+			else {
+				this.val > val && this.setValue(val)
+				this.refresh()
+			}
+		},
+		min(val) {
+			if (this.flag || this.data) {
+				this.refresh()
+			}
+			else if (this.isRange) {
+				let bool
+				val = this.val.map((v) => {
+					if (v < val) {
+						bool = true
+						return val
+					}
+					return v
+				})
+				bool && this.setValue(val)
+				this.refresh()
+			}
+			else {
+				this.val < val && this.setValue(val)
+				this.refresh()
+			}
+		},
 		show(bool) {
 			if (bool && !this.size) {
 				this.$nextTick(() => {
