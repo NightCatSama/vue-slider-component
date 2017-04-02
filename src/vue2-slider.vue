@@ -446,8 +446,7 @@ export default {
 			if (this.flag) {
 				this.$emit('drag-end', this)
 				if (this.lazy && this.isDiff(this.val, this.value)) {
-					this.$emit('callback', this.val)
-					this.$emit('input', this.isRange ? this.val.slice() : this.val)
+					this.syncValue()
 				}
 			}
 			else {
@@ -461,7 +460,7 @@ export default {
 			let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
 			if (pos >= range[0] && pos <= range[1]) {
 				this.setTransform(pos)
-				let v = (Math[isDrag ? ((this.isRange && !this.currentSlider) ? 'ceil' : 'floor') : 'round'](pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
+				let v = (Math.round(pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
 				this.setCurrentValue(v, isDrag)
 			}
 			else if (pos < range[0]) {
@@ -490,16 +489,14 @@ export default {
 				if (this.isDiff(this.currentValue[this.currentSlider], val)) {
 					this.currentValue.splice(this.currentSlider, 1, val)
 					if (!this.lazy || !this.flag) {
-						this.$emit('callback', this.val)
-						this.$emit('input', this.isRange ? this.val.slice() : this.val)
+						this.syncValue()
 					}
 				}
 			}
 			else if (this.isDiff(this.currentValue, val)) {
 				this.currentValue = val
 				if (!this.lazy || !this.flag) {
-					this.$emit('callback', this.val)
-					this.$emit('input', this.isRange ? this.val.slice() : this.val)
+					this.syncValue()
 				}
 			}
 			bool || this.setPosition()
@@ -523,11 +520,10 @@ export default {
 				this.setCurrentValue(val)
 			}
 		},
-		setValue(val, speed) {
+		setValue(val, speed, isInit) {
 			if (this.isDiff(this.val, val)) {
 				this.val = val
-				this.$emit('callback', this.val)
-				this.$emit('input', this.isRange ? this.val.slice() : this.val)
+				!isInit && this.syncValue()
 			}
 			this.$nextTick(() => {
 				this.setPosition(speed)
@@ -595,6 +591,10 @@ export default {
 				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 		},
+		syncValue() {
+			this.$emit('callback', this.val)
+			this.$emit('input', this.isRange ? this.val.slice() : this.val)
+		},
 		getValue() {
 			return this.val
 		},
@@ -620,7 +620,7 @@ export default {
 	mounted() {
 		this.$nextTick(() => {
 			this.getStaticData()
-			this.setValue(this.value, 0)
+			this.setValue(this.value, 0, true)
 			this.bindEvents()
 		})
 	},
