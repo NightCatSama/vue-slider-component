@@ -522,7 +522,7 @@ export default {
 		},
 		setValue(val, speed, isInit) {
 			if (this.isDiff(this.val, val)) {
-				this.val = val
+				this.val = this.isRange ? val.concat() : val
 				!isInit && this.syncValue()
 			}
 			this.$nextTick(() => {
@@ -593,7 +593,7 @@ export default {
 		},
 		syncValue() {
 			this.$emit('callback', this.val)
-			this.$emit('input', this.isRange ? this.val.slice() : this.val)
+			this.$emit('input', this.isRange ? this.val.concat() : this.val)
 		},
 		getValue() {
 			return this.val

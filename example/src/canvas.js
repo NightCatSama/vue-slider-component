@@ -26,7 +26,7 @@ const MyCanvas = function(el, option) {
 }
 
 MyCanvas.prototype = {
-
+	constructor: MyCanvas,
 	render: function() {
 		this.context.clearRect(0, 0, this.width, this.height)
 		this.writeName()
@@ -44,13 +44,6 @@ MyCanvas.prototype = {
 			if (value > 1) value = value % 1
 			grad.addColorStop(value, this.colors[i])
 		}
-		/*
-			Array.from(this.colors, (color, index) => {
-				value = this.Gradient + differ * index
-				if (value > 1) value = value % 1
-				grad.addColorStop(value, color)
-			})
-		 */
 
 		cxt.font = this.font
 		cxt.textAlign = "center"

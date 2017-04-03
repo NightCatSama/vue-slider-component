@@ -95,8 +95,8 @@
 		</section>
 		<section data-title="Vertical + Custom Class" id="demo5">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="start" @drag-end="end"></vue-slider>
-				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="start" @drag-end="end"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
+				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
@@ -406,10 +406,10 @@ export default {
 			let slider = this.$refs[name]
 			alert(slider.getIndex())
 		},
-		start() {
+		dragStart() {
 			this.demo.demo5.speed = 0
 		},
-		end() {
+		dragEnd() {
 			this.demo.demo5.speed = 0.5
 		}
 	}
