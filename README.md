@@ -151,7 +151,7 @@ prop*: [only support vue2]
 ### Function
 | Name        | Type           | Description                |
 | ----------- |:---------------| ---------------------------|
-| setValue    | Params: value  | set value of the component |
+| setValue    | Params: value [, noCallback] | set value of the component |
 | setIndex    | Params: index* | set index of the component |
 | getValue    | Return: value  | get value of the component |
 | getIndex    | Return: index* | get index of the component |
