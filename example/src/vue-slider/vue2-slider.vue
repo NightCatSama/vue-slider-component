@@ -335,7 +335,7 @@ export default {
 	},
 	watch: {
 		value(val) {
-			this.flag || this.setValue(val)
+			this.flag || this.setValue(val, true)
 		},
 		max(val) {
 			if (this.flag || this.data) {
@@ -520,10 +520,10 @@ export default {
 				this.setCurrentValue(val)
 			}
 		},
-		setValue(val, speed, isInit) {
+		setValue(val, noCb, speed) {
 			if (this.isDiff(this.val, val)) {
 				this.val = this.isRange ? val.concat() : val
-				!isInit && this.syncValue()
+				this.syncValue(noCb)
 			}
 			this.$nextTick(() => {
 				this.setPosition(speed)
@@ -591,8 +591,8 @@ export default {
 				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 		},
-		syncValue() {
-			this.$emit('callback', this.val)
+		syncValue(noCb) {
+			noCb || this.$emit('callback', this.val)
 			this.$emit('input', this.isRange ? this.val.concat() : this.val)
 		},
 		getValue() {
@@ -620,7 +620,7 @@ export default {
 	mounted() {
 		this.$nextTick(() => {
 			this.getStaticData()
-			this.setValue(this.value, 0, true)
+			this.setValue(this.value, true, 0)
 			this.bindEvents()
 		})
 	},
