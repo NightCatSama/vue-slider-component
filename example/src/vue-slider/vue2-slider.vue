@@ -335,7 +335,7 @@ export default {
 	},
 	watch: {
 		value(val) {
-			this.flag || this.setValue(val, true, 0)
+			this.flag || this.setValue(val, true)
 		},
 		max(val) {
 			if (this.flag || this.data) {
