@@ -335,49 +335,17 @@ export default {
 	},
 	watch: {
 		value(val) {
-			this.flag || this.setValue(val)
+			this.flag || this.setValue(val, true)
 		},
 		max(val) {
-			if (this.flag || this.data) {
-				this.refresh()
-			}
-			else if (this.isRange) {
-				let bool
-				val = this.val.map((v) => {
-					if (v > val) {
-						bool = true
-						return val
-					}
-					return v
-				})
-				bool && this.setValue(val)
-				this.refresh()
-			}
-			else {
-				this.val > val && this.setValue(val)
-				this.refresh()
-			}
+			let resetVal = this.limitValue(this.val)
+			resetVal !== false && this.setValue(resetVal)
+			this.refresh()
 		},
 		min(val) {
-			if (this.flag || this.data) {
-				this.refresh()
-			}
-			else if (this.isRange) {
-				let bool
-				val = this.val.map((v) => {
-					if (v < val) {
-						bool = true
-						return val
-					}
-					return v
-				})
-				bool && this.setValue(val)
-				this.refresh()
-			}
-			else {
-				this.val < val && this.setValue(val)
-				this.refresh()
-			}
+			let resetVal = this.limitValue(this.val)
+			resetVal !== false && this.setValue(resetVal)
+			this.refresh()
 		},
 		show(bool) {
 			if (bool && !this.size) {
@@ -520,10 +488,16 @@ export default {
 				this.setCurrentValue(val)
 			}
 		},
-		setValue(val, speed, isInit) {
+		setValue(val, noCb, speed) {
 			if (this.isDiff(this.val, val)) {
-				this.val = this.isRange ? val.concat() : val
-				!isInit && this.syncValue()
+				let resetVal = this.limitValue(val)
+				if (resetVal !== false) {
+					this.val = this.isRange ? resetVal.concat() : resetVal
+				}
+				else {
+					this.val = this.isRange ? val.concat() : val
+				}
+				this.syncValue(noCb)
 			}
 			this.$nextTick(() => {
 				this.setPosition(speed)
@@ -591,8 +565,33 @@ export default {
 				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 		},
-		syncValue() {
-			this.$emit('callback', this.val)
+		limitValue(val) {
+			let bool = false
+			if (this.isRange) {
+				val = val.map((v) => {
+					if (v < this.min) {
+						bool = true
+						return this.min
+					}
+					else if (v > this.max) {
+						bool = true
+						return this.max
+					}
+					return v
+				})
+			}
+			else if (val > this.max) {
+				bool = true
+				val = this.max
+			}
+			else if (val < this.min) {
+				bool = true
+				val = this.min
+			}
+			return bool && val
+		},
+		syncValue(noCb) {
+			noCb || this.$emit('callback', this.val)
 			this.$emit('input', this.isRange ? this.val.concat() : this.val)
 		},
 		getValue() {
@@ -620,7 +619,7 @@ export default {
 	mounted() {
 		this.$nextTick(() => {
 			this.getStaticData()
-			this.setValue(this.value, 0, true)
+			this.setValue(this.value, true, 0)
 			this.bindEvents()
 		})
 	},

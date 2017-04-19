@@ -3,7 +3,7 @@
 		<h1>Example</h1>
 		<section data-title="Default" id="demo">
 			<div>
-				<vue-slider ref="slider" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.default.value }}</h3>
 			</div>
 			<div>
@@ -15,7 +15,7 @@
 		</section>
 		<section data-title="Lazy" id="demo1">
 			<div>
-				<vue-slider ref="slider1" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider1" v-bind="demo.demo1" v-model="demo.demo1.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo1.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo1', 21)">set value = 21</button>
@@ -35,7 +35,7 @@
 		</section>
 		<section data-title="Label" id="demo2">
 			<div>
-				<vue-slider ref="slider2" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider2" v-bind="demo.demo2" v-model="demo.demo2.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo2.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo2', '2016-10-06')">set value = 2016-10-06</button>
@@ -55,7 +55,7 @@
 		</section>
 		<section data-title="Formatter" id="demo3">
 			<div>
-				<vue-slider ref="slider3" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider3" v-bind="demo.demo3" v-model="demo.demo3.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo3.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo3', [100, 200])">set value = [100, 200]</button>
@@ -75,7 +75,7 @@
 		</section>
 		<section data-title="Range + Custom Data" id="demo4">
 			<div>
-				<vue-slider ref="slider4" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider4" v-bind="demo.demo4" v-model="demo.demo4.value"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo4.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo4', ['10-02', '10-12'])">set value = ["10-02", "10-12"]</button>
@@ -95,8 +95,8 @@
 		</section>
 		<section data-title="Vertical + Custom Class" id="demo5">
 			<div>
-				<vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
-				<vue-slider v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
+				<vue-slider  @callback="cb" ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
+				<vue-slider  @callback="cb" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
 				<h3><small>Value: </small>{{ demo.demo5.value }}</h3>
 				<div class="btn-group">
 					<button @click="setValue('demo5', 80)">set value = 80</button>
@@ -359,7 +359,7 @@ export default {
 					realTime: '是否实时计算组件布局',
 					speed: '动画速度',
 					tooltip: '是否显示工具提示',
-					lazy: '是否在拖拽结束后同步值(只支持vue2)',
+					lazy: '是否在拖拽结束后同步值',
 					tooltipDir: '工具提示方向',
 					tooltipStyle: '工具提示样式',
 					piecewise: '是否显示分段样式',
@@ -411,6 +411,9 @@ export default {
 		},
 		dragEnd() {
 			this.demo.demo5.speed = 0.5
+		},
+		cb(val) {
+			console.log(val)
 		}
 	}
 }
