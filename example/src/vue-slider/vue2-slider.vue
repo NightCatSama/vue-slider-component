@@ -489,8 +489,11 @@ export default {
 			}
 		},
 		setValue(val, noCb, speed) {
+			console.log(val)
 			if (this.isDiff(this.val, val)) {
 				let resetVal = this.limitValue(val)
+				console.log(resetVal)
+				console.log('=====')
 				if (resetVal !== false) {
 					this.val = this.isRange ? resetVal.concat() : resetVal
 				}
@@ -566,6 +569,10 @@ export default {
 			}
 		},
 		limitValue(val) {
+			if (this.data) {
+				return val
+			}
+			
 			let bool = false
 			if (this.isRange) {
 				val = val.map((v) => {
