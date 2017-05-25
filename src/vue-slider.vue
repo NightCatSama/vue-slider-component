@@ -1,7 +1,7 @@
 <template>
 	<div v-el:wrap :class="['vue-slider-wrap', flowDirection, disabledClass]" v-show="show" :style="wrapStyles" @click="wrapClick">
 		<div v-el:elem class="vue-slider" :style="elemStyles">
-			<template v-if="isMoblie">
+			<template v-if="isMobile">
 				<template v-if="isRange">
 					<div v-el:dot0 :data-slierValue="val[0]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(0)"></div>
 					<div v-el:dot1 :data-slierValue="val[1]" :class="[ tooltipStatus, 'vue-slider-tooltip-' + tooltipDirection, 'vue-slider-dot']" :style="dotStyles" @touchstart="moveStart(1)"></div>
@@ -122,7 +122,7 @@ export default {
 			if (this.tooltip === 'hover' && this.flag) return 'vue-slider-always'
 			return this.tooltip ? `vue-slider-${this.tooltip}` : ''
 		},
-		isMoblie: function() {
+		isMobile: function() {
 			if (this.eventType === 'touch') {
 				return true
 			}
@@ -130,7 +130,7 @@ export default {
 				return false
 			}
 			else {
-				return /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
+				return /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent||navigator.vendor||window.opera))
 			}
 		},
 		isDisabled: function() {
@@ -312,7 +312,7 @@ export default {
 	},
 	methods: {
 		bindEvents() {
-			if (this.isMoblie) {
+			if (this.isMobile) {
 				this.$els.wrap.addEventListener('touchmove', this.moving)
 				this.$els.wrap.addEventListener('touchend', this.moveEnd)
 			}
@@ -325,7 +325,7 @@ export default {
 		unbindEvents() {
 			window.removeEventListener('resize', this.refresh)
 
-			if (this.isMoblie) {
+			if (this.isMobile) {
 				this.$els.wrap.removeEventListener('touchmove', this.moving)
 				this.$els.wrap.removeEventListener('touchend', this.moveEnd)
 			}
@@ -365,7 +365,7 @@ export default {
 			if (!this.flag) return false
 			e.preventDefault()
 
-			if (this.isMoblie) e = e.targetTouches[0]
+			if (this.isMobile) e = e.targetTouches[0]
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd(e) {

@@ -1,7 +1,7 @@
 <template>
 	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
 		<div ref="elem" class="vue-slider" :style="[elemStyles, bgStyle]">
-			<template v-if="isMoblie">
+			<template v-if="isMobile">
 				<template v-if="isRange">
 					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @touchstart="moveStart(0)">
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
@@ -164,7 +164,7 @@ export default {
 		tooltipClass() {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
-		isMoblie() {
+		isMobile() {
 			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
 		},
 		isDisabled() {
@@ -357,7 +357,7 @@ export default {
 	},
 	methods: {
 		bindEvents() {
-			if (this.isMoblie) {
+			if (this.isMobile) {
 				this.$refs.wrap.addEventListener('touchmove', this.moving)
 				this.$refs.wrap.addEventListener('touchend', this.moveEnd)
 			}
@@ -370,7 +370,7 @@ export default {
 		unbindEvents() {
 			window.removeEventListener('resize', this.refresh)
 
-			if (this.isMoblie) {
+			if (this.isMobile) {
 				this.$refs.wrap.removeEventListener('touchmove', this.moving)
 				this.$refs.wrap.removeEventListener('touchend', this.moveEnd)
 			}
@@ -407,7 +407,7 @@ export default {
 			if (!this.flag) return false
 			e.preventDefault()
 
-			if (this.isMoblie) e = e.targetTouches[0]
+			if (this.isMobile) e = e.targetTouches[0]
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd(e) {
@@ -566,6 +566,10 @@ export default {
 			}
 		},
 		limitValue(val) {
+			if (this.data) {
+				return val
+			}
+			
 			let bool = false
 			if (this.isRange) {
 				val = val.map((v) => {
