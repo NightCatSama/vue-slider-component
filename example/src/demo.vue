@@ -413,7 +413,7 @@ export default {
 			this.demo.demo5.speed = 0.5
 		},
 		cb(val) {
-			console.log(val)
+			// console.log(val)
 		}
 	}
 }
