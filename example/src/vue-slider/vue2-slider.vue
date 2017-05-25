@@ -165,7 +165,7 @@ export default {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
 		isMobile() {
-			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(iPhone|iPad|iPod|iOS|Android|SymbianOS|Windows Phone|Mobile)/i.test(navigator.userAgent)
+			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent||navigator.vendor||window.opera))
 		},
 		isDisabled() {
 			return this.eventType === 'none' ? true : this.disabled
@@ -569,7 +569,7 @@ export default {
 			if (this.data) {
 				return val
 			}
-			
+
 			let bool = false
 			if (this.isRange) {
 				val = val.map((v) => {
