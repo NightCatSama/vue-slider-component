@@ -28,7 +28,7 @@ npm install vue-slider-component --save
  - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
  - Add `real-time` prop for real-time computing the layout of the components
  - Add labels of piecewise, and the style of the corresponding
- - Add Tooltip slot (only vue 2.1.0+)
+ - Add Tooltip slot ([#Scoped-Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) only vue 2.1.0+)
 
 ## Todo
 
