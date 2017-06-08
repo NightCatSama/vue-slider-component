@@ -171,10 +171,20 @@ prop*: [only support vue2]
 ### slot
 | Name          | Description  |
 | --------------|--------------|
-| tooltip       | Customize the slot,  |
+| tooltip       | Customize the slot |
 
 [#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` to get the `value` and `index` (`index` only range model).
 
+e.g.
+```html
+<vue-slider v-model="value">
+  <template slot="tooltip" scope="tooltip">
+    <div class="diy-tooltip">
+      {{ tooltip.value }}
+    </div>
+  </template>
+</vue-slider>
+```
 
 
 ## Exceptions
