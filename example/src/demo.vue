@@ -461,7 +461,10 @@ export default {
 	},
 	mounted () {
 		let code = `<template slot="tooltip" scope="tooltip">
-	{{ tooltip.value }}
+	<div class="diy-tooltip">
+		<img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
+		{{ tooltip.value }}
+	</div>
 </template>`
 		this.diy_tooltip = Prism.highlight(code, Prism.languages.html)
 	}
