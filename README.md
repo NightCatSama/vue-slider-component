@@ -28,6 +28,7 @@ npm install vue-slider-component --save
  - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
  - Add `real-time` prop for real-time computing the layout of the components
  - Add labels of piecewise, and the style of the corresponding
+ - Add Tooltip slot (only vue 2.1.0+)
 
 ## Todo
 
@@ -166,6 +167,15 @@ prop*: [only support vue2]
 | callback      | Params: value[Number]  | values change when the callback function |
 | drag-start    | Params: context[Object]| Drag the staUnable to initialize the width componentsrt event |
 | drag-end      | Params: context[Object]| Drag the end event |
+
+### slot
+| Name          | Description  |
+| --------------|--------------|
+| tooltip       | Customize the slot,  |
+
+[#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` to get the `value` and `index` (`index` only range model).
+
+
 
 ## Exceptions
 if the component initialization in a `v-show="false" / display: none` container or use `transform / animation` to appear component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).

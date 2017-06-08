@@ -4,30 +4,54 @@
 			<template v-if="isMobile">
 				<template v-if="isRange">
 					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @touchstart="moveStart(0)">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val[0]" :index="0">
+								<span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+							</slot>
+						</span>
 					</div>
 					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @touchstart="moveStart(1)">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val[1]" :index="1">
+								<span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+							</slot>
+						</span>
 					</div>
 				</template>
 				<template v-else>
 					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @touchstart="moveStart">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val}}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val" :style="tooltipStyles">
+								{{ formatter ? formatting(val) : val}}
+							</slot>
+						</span>
 					</div>
 				</template>
 			</template>
 			<template v-else>
 				<template v-if="isRange">
 					<div ref="dot0" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[0], dotStyles]" @mousedown="moveStart(0)">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip']" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val[0]" :index="0">
+								<span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+							</slot>
+						</span>
 					</div>
 					<div ref="dot1" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles[1], dotStyles]" @mousedown="moveStart(1)">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip']" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val[1]" :index="1">
+								<span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+							</slot>
+						</span>
 					</div>
 				</template>
 				<template v-else>
 					<div ref="dot" :class="[tooltipStatus, 'vue-slider-dot']" :style="[sliderStyles, dotStyles]" @mousedown="moveStart">
-						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip']" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
+						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
+							<slot name="tooltip" :value="val">
+								<span class="vue-slider-tooltip" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
+							</slot>
+						</span>
 					</div>
 				</template>
 			</template>
@@ -569,7 +593,7 @@ export default {
 			if (this.data) {
 				return val
 			}
-			
+
 			let bool = false
 			if (this.isRange) {
 				val = val.map((v) => {
@@ -722,11 +746,15 @@ export default {
 .vue-slider-vertical-reverse .vue-slider-dot {
 	top: 0;
 }
-.vue-slider-tooltip {
+.vue-slider-tooltip-wrap {
 	display: none;
+	position: absolute;
+	z-index: 9;
+}
+.vue-slider-tooltip {
+	display: block;
 	font-size: 14px;
 	white-space: nowrap;
-	position: absolute;
 	padding: 2px 5px;
 	min-width: 20px;
 	text-align: center;
@@ -734,29 +762,28 @@ export default {
 	border-radius: 5px;
 	border: 1px solid #3498db;
 	background-color: #3498db;
-	z-index: 9;
 }
-.vue-slider-tooltip.vue-slider-tooltip-top  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-top {
 	top: -9px;
 	left: 50%;
 	transform: translate(-50%, -100%);
 }
-.vue-slider-tooltip.vue-slider-tooltip-bottom  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-bottom {
 	bottom: -9px;
 	left: 50%;
 	transform: translate(-50%, 100%);
 }
-.vue-slider-tooltip.vue-slider-tooltip-left  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-left {
 	top: 50%;
 	left: -9px;
 	transform: translate(-100%, -50%);
 }
-.vue-slider-tooltip.vue-slider-tooltip-right  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-right {
 	top: 50%;
 	right: -9px;
 	transform: translate(100%, -50%);
 }
-.vue-slider-tooltip.vue-slider-tooltip-top::before {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before {
 	content: '';
 	position: absolute;
 	bottom: -10px;
@@ -768,7 +795,7 @@ export default {
 	border-top-color: inherit;
 	transform: translate(-50%, 0);
 }
-.vue-slider-tooltip.vue-slider-tooltip-bottom::before {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip::before {
 	content: '';
 	position: absolute;
 	top: -10px;
@@ -780,7 +807,7 @@ export default {
 	border-bottom-color: inherit;
 	transform: translate(-50%, 0);
 }
-.vue-slider-tooltip.vue-slider-tooltip-left::before  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip::before {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -792,7 +819,7 @@ export default {
 	border-left-color: inherit;
 	transform: translate(0, -50%);
 }
-.vue-slider-tooltip.vue-slider-tooltip-right::before  {
+.vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip::before {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -804,10 +831,10 @@ export default {
 	border-right-color: inherit;
 	transform: translate(0, -50%);
 }
-.vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip {
+.vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap {
 	display: block;
 }
-.vue-slider-dot.vue-slider-always .vue-slider-tooltip {
+.vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap {
 	display: block!important;
 }
 .vue-slider-piecewise {

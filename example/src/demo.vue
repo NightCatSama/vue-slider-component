@@ -139,6 +139,36 @@
 				}</code>
 			</div>
 		</section>
+		<section data-title="DIY Tooltip" id="demo7">
+			<div>
+				<vue-slider ref="slider7" id="diy-tootip" v-bind="demo.demo7" v-model="demo.demo7.value">
+					<template slot="tooltip" scope="tooltip">
+						<div class="diy-tooltip">
+							<img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
+							{{ tooltip.value }}
+						</div>
+					</template>
+				</vue-slider>
+				<h3><small>Value: </small>{{ demo.demo7.value }}</h3>
+				<div class="btn-group">
+					<button @click="setValue('demo7', 50)">set value = 50</button>
+					<button @click="setValue('demo7', 100)">set value = 100</button>
+					<button @click="setDisabled('demo7')">set disabled</button>
+					<button @click="setTooltip('demo7')">switch tooltip</button>
+					<button @click="getValue('slider7')">getValue()</button>
+					<button @click="getIndex('slider7')">getIndex()</button>
+				</div>
+			</div>
+			<div>
+				<pre class="language-html" v-html="diy_tooltip">
+				</pre>
+				<code>{
+				<template v-for="(value, key, index) of demo.demo7">
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
+				</template>
+				}</code>
+			</div>
+		</section>
 	</div>
 </template>
 
@@ -151,6 +181,8 @@ export default {
 	},
 	data () {
 		return {
+			black_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/62223522.jpg',
+			orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
 			demo: {
 				default: {
 					value: 0,
@@ -344,6 +376,16 @@ export default {
 						backgroundImage: '-webkit-linear-gradient(left, #f05b72, #3498db)'
 					}
 				},
+				demo7: {
+					width: '100%',
+					value: [0, 20],
+					min: 0,
+					max: 100,
+					disabled: false,
+					show: true,
+					clickable: false,
+					tooltip: 'always'
+				},
 				annotation: {
 					width: '组件宽度',
 					height: '组件高度',
@@ -371,7 +413,8 @@ export default {
 					piecewiseStyle: '分割点的样式',
 					value: '值'
 				}
-			}
+			},
+			diy_tooltip: ''
 		}
 	},
 	methods: {
@@ -415,6 +458,12 @@ export default {
 		cb(val) {
 			// console.log(val)
 		}
+	},
+	mounted () {
+		let code = `<template slot="tooltip" scope="tooltip">
+	{{ tooltip.value }}
+</template>`
+		this.diy_tooltip = Prism.highlight(code, Prism.languages.html)
 	}
 }
 </script>
@@ -512,5 +561,13 @@ section::after {
 
 #pretty-slider .vue-slider-process {
 	background-image: -webkit-linear-gradient(left, #f05b72, #3498db);
+}
+
+.diy-tooltip {
+	text-align: center;
+}
+
+.diy-tooltip img {
+	display: block;
 }
 </style>
