@@ -114,8 +114,7 @@
 				</template><span class="green">formatter</span>: <span class="yellow">function (value) {
 						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
 						&nbsp;&nbsp;return value
-					}</span>
-				}</code>
+					}</span>}</code>
 			</div>
 		</section>
 		<section data-title="Pretty slider" id="demo6">
@@ -135,8 +134,7 @@
 				<code>{
 				<template v-for="(value, key, index) of demo.demo6">
 					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
-				</template>
-				}</code>
+				</template>}</code>
 			</div>
 		</section>
 		<section data-title="DIY Tooltip" id="demo7">
@@ -151,8 +149,7 @@
 				</vue-slider>
 				<h3><small>Value: </small>{{ demo.demo7.value }}</h3>
 				<div class="btn-group">
-					<button @click="setValue('demo7', 50)">set value = 50</button>
-					<button @click="setValue('demo7', 100)">set value = 100</button>
+					<button @click="setValue('demo7', [50, 100])">set value = [50, 100]</button>
 					<button @click="setDisabled('demo7')">set disabled</button>
 					<button @click="setTooltip('demo7')">switch tooltip</button>
 					<button @click="getValue('slider7')">getValue()</button>
@@ -165,8 +162,7 @@
 				<code>{
 				<template v-for="(value, key, index) of demo.demo7">
 					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
-				</template>
-				}</code>
+				</template>}</code>
 			</div>
 		</section>
 	</div>
@@ -378,12 +374,11 @@ export default {
 				},
 				demo7: {
 					width: '100%',
+					show: true,
 					value: [0, 20],
 					min: 0,
 					max: 100,
 					disabled: false,
-					show: true,
-					clickable: false,
 					tooltip: 'always'
 				},
 				annotation: {
