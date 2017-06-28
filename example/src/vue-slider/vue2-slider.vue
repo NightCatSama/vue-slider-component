@@ -1,6 +1,6 @@
 <template>
 	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
-		<div ref="elem" class="vue-slider" :style="[elemStyles, bgStyle]">
+		<div ref="elem" aria-hidden="true" class="vue-slider" :style="[elemStyles, bgStyle]">
 			<template v-if="isMobile">
 				<template v-if="isRange">
 					<div
@@ -8,12 +8,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles[0], dotStyles]"
 						@touchstart="moveStart(0)"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val[0]"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val[0]" :index="0">
@@ -26,12 +20,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles[1], dotStyles]"
 						@touchstart="moveStart(1)"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val[1]"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val[1]" :index="1">
@@ -46,12 +34,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles, dotStyles]"
 						@touchstart="moveStart"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val" :style="tooltipStyles">
@@ -68,12 +50,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles[0], dotStyles]"
 						@mousedown="moveStart(0)"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val[0]"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val[0]" :index="0">
@@ -86,12 +62,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles[1], dotStyles]"
 						@mousedown="moveStart(1)"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val[1]"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val[1]" :index="1">
@@ -106,12 +76,6 @@
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[sliderStyles, dotStyles]"
 						@mousedown="moveStart"
-						role="slider"
-						:aria-valuemin="min"
-						:aria-valuemax="max"
-						:aria-valuenow="val"
-						aria-disabled="false"
-						aria-hidden="false"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val">
@@ -131,6 +95,7 @@
 			</template>
 			<div ref="process" class="vue-slider-process" :style="processStyle"></div>
 		</div>
+		<input v-if="!isRange && !data" class="vue-slider-sr-only" type="range" v-model="val" :min="min" :max="max" />
 	</div>
 </template>
 <script>
@@ -944,5 +909,12 @@ export default {
 	color: #333;
 	transform: translateX(-50%);
 	visibility: visible;
+}
+.vue-slider-sr-only { 
+   clip: rect(1px, 1px, 1px, 1px); 
+   height: 1px; 
+   width: 1px; 
+   overflow: hidden; 
+   position: absolute !important;
 }
 </style>
