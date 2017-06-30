@@ -6,7 +6,9 @@
 
 Can use the slider in vue1.x and vue2.x
 
-[Live Demo](https://nightcatsama.github.io/vue-slider-component/example/)
+[Demo](https://nightcatsama.github.io/vue-slider-component/example/)
+
+[Live Demo](https://jsfiddle.net/NightCatSama/9pp3dqkq/)
 
 ## Install
 ``` bash
