@@ -85,11 +85,38 @@
 					</div>
 				</template>
 			</template>
-			<template v-if="piecewise">
+			<template>
 				<ul class="vue-slider-piecewise">
 					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" :style="[piecewiseDotStyle, piecewiseObj.style]">
-						<span class="vue-slider-piecewise-dot" :style="[piecewiseStyle, piecewiseObj.inRange ? piecewiseActiveStyle : null]"></span>
-						<span v-if="piecewiseLabel" class="vue-slider-piecewise-label" :style="[labelStyle, piecewiseObj.inRange ? labelActiveStyle : null]">{{ piecewiseObj.label }}</span>
+						<slot
+							name="piecewiseL"
+							:label="piecewiseObj.label"
+							:index="index"
+							:first="index === 0"
+							:last="index === piecewiseDotWrap.length - 1"
+						>
+							<span
+								v-if="piecewise"
+								class="vue-slider-piecewise-dot"
+								:style="[ piecewiseStyle, piecewiseObj.inRange ? piecewiseActiveStyle : null ]"
+							></span>
+						</slot>
+
+						<slot
+							name="label"
+							:label="piecewiseObj.label"
+							:index="index"
+							:first="index === 0"
+							:last="index === piecewiseDotWrap.length - 1"
+						>
+							<span
+								v-if="piecewiseLabel"
+								class="vue-slider-piecewise-label"
+								:style="[ labelStyle, piecewiseObj.inRange ? labelActiveStyle : null ]"
+							>
+								{{ piecewiseObj.label }}
+							</span>
+						</slot>
 					</li>
 				</ul>
 			</template>
@@ -363,7 +390,7 @@ export default {
 			}
 		},
 		piecewiseDotWrap() {
-			if (!this.piecewise) {
+			if (!this.piecewise && !this.piecewiseLabel) {
 				return false
 			}
 
@@ -372,7 +399,7 @@ export default {
 			for (let i = 0; i <= this.total; i++) {
 				let style = this.direction === 'vertical' ? {
 					bottom: `${this.gap * i - this.width / 2}px`,
-					left: '200px'
+					left: 0
 				} : {
 					left: `${this.gap * i - this.height / 2}px`,
 					top: '0'
@@ -899,15 +926,26 @@ export default {
 .vue-slider-piecewise li:first-child .vue-slider-piecewise-dot, .vue-slider-piecewise li:last-child .vue-slider-piecewise-dot {
 	visibility: hidden;
 }
-.vue-slider-piecewise .vue-slider-piecewise-label {
+.vue-slider-horizontal .vue-slider-piecewise-label, .vue-slider-horizontal-reverse .vue-slider-piecewise-label {
 	position: absolute;
 	display: inline-block;
-	top: 15px;
+	top: 100%;
 	left: 50%;
 	white-space: nowrap;
 	font-size: 12px;
 	color: #333;
-	transform: translateX(-50%);
+	transform: translate(-50%, 8px);
+	visibility: visible;
+}
+.vue-slider-vertical .vue-slider-piecewise-label, .vue-slider-vertical-reverse .vue-slider-piecewise-label {
+	position: absolute;
+	display: inline-block;
+	top: 50%;
+	left: 100%;
+	white-space: nowrap;
+	font-size: 12px;
+	color: #333;
+	transform: translate(8px, -50%);
 	visibility: visible;
 }
 .vue-slider-sr-only {

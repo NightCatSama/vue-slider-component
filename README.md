@@ -174,6 +174,8 @@ prop*: [only support vue2]
 | Name          | Description  |
 | --------------|--------------|
 | tooltip       | Customize the tooltip slot |
+| piecewise     | Customize the piecewise slot |
+| label         | Customize the label slot |
 
 [#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` to get the `value` and `index` (`index` only range model).
 
