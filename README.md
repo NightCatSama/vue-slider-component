@@ -167,7 +167,7 @@ prop*: [only support vue2]
 | Name          | Type          | Description  |
 | --------------|:--------------|--------------|
 | callback      | Params: value[Number]  | values change when the callback function |
-| drag-start    | Params: context[Object]| Drag the staUnable to initialize the width componentsrt event |
+| drag-start    | Params: context[Object]| Drag the start event |
 | drag-end      | Params: context[Object]| Drag the end event |
 
 ### slot
