@@ -59,15 +59,15 @@ export default {
 		}
 	},
 	watch: {
-		scrollTop: function(v) {
+		scrollTop: function (v) {
 			this.isScreen(v)
 		}
 	},
 	methods: {
-		scroll(e) {
+		scroll (e) {
 			this.scrollTop = document.body.scrollTop
 		},
-		isScreen(v) {
+		isScreen (v) {
 			if (v > this._offsetHeight) {
 				this.myCanvas.stop()
 			}
@@ -76,13 +76,13 @@ export default {
 			}
 		}
 	},
-	mounted() {
+	mounted () {
 		this.$nextTick(() => {
 			let header = this.$refs.header
 			this._offsetHeight = header.offsetHeight
 
 			this.myCanvas = new MyCanvas(this.$refs.canvas, {
-				width:  header.offsetWidth,
+				width: header.offsetWidth,
 				height: this._offsetHeight,
 				txt: 'vue-slider-component',
 				time: 3,

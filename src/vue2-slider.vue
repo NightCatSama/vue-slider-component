@@ -127,7 +127,7 @@
 </template>
 <script>
 export default {
-	data() {
+	data () {
 		return {
 			flag: false,
 			size: 0,
@@ -228,10 +228,10 @@ export default {
 		labelActiveStyle: Object
 	},
 	computed: {
-		flowDirection() {
+		flowDirection () {
 			return `vue-slider-${this.direction + (this.reverse ? '-reverse' : '')}`
 		},
-		tooltipDirection() {
+		tooltipDirection () {
 			let dir = this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
 			if (Array.isArray(dir)) {
 				return this.isRange ? dir : dir[1]
@@ -240,35 +240,35 @@ export default {
 				return this.isRange ? [dir, dir] : dir
 			}
 		},
-		tooltipStatus() {
+		tooltipStatus () {
 			return this.tooltip === 'hover' && this.flag ? 'vue-slider-always' : this.tooltip ? `vue-slider-${this.tooltip}` : ''
 		},
-		tooltipClass() {
+		tooltipClass () {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
-		isMobile() {
-			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent||navigator.vendor||window.opera))
+		isMobile () {
+			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent || navigator.vendor || window.opera))
 		},
-		isDisabled() {
+		isDisabled () {
 			return this.eventType === 'none' ? true : this.disabled
 		},
-		disabledClass() {
+		disabledClass () {
 			return this.disabled ? 'vue-slider-disabled' : ''
 		},
-		isRange() {
+		isRange () {
 			return Array.isArray(this.value)
 		},
-		slider() {
+		slider () {
 			return this.isRange ? [this.$refs.dot0, this.$refs.dot1] : this.$refs.dot
 		},
-		minimum() {
+		minimum () {
 			return this.data ? 0 : this.min
 		},
 		val: {
-			get() {
+			get () {
 				return this.data ? (this.isRange ? [this.data[this.currentValue[0]], this.data[this.currentValue[1]]] : this.data[this.currentValue]) : this.currentValue
 			},
-			set(val) {
+			set (val) {
 				if (this.data) {
 					if (this.isRange) {
 						let index0 = this.data.indexOf(val[0])
@@ -289,7 +289,7 @@ export default {
 				}
 			}
 		},
-		currentIndex() {
+		currentIndex () {
 			if (this.isRange) {
 				return this.data ? this.currentValue : [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
 			}
@@ -297,7 +297,7 @@ export default {
 				return (this.currentValue - this.minimum) / this.spacing
 			}
 		},
-		indexRange() {
+		indexRange () {
 			if (this.isRange) {
 				return this.currentIndex
 			}
@@ -305,17 +305,17 @@ export default {
 				return [0, this.currentIndex]
 			}
 		},
-		maximum() {
+		maximum () {
 			return this.data ? (this.data.length - 1) : this.max
 		},
-		multiple() {
+		multiple () {
 			let decimals = `${this.interval}`.split('.')[1]
 			return decimals ? Math.pow(10, decimals.length) : 1
 		},
-		spacing() {
+		spacing () {
 			return this.data ? 1 : this.interval
 		},
-		total() {
+		total () {
 			if (this.data) {
 				return this.data.length - 1
 			}
@@ -324,19 +324,19 @@ export default {
 			}
 			return (this.maximum - this.minimum) / this.interval
 		},
-		gap() {
+		gap () {
 			return this.size / this.total
 		},
-		position() {
+		position () {
 			return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
 		},
-		limit() {
+		limit () {
 			return this.isRange ? [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
 		},
-		valueLimit() {
+		valueLimit () {
 			return this.isRange ? [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
 		},
-		wrapStyles() {
+		wrapStyles () {
 			return this.direction === 'vertical' ? {
 				height: typeof this.height === 'number' ? `${this.height}px` : this.height,
 				padding: `${this.dotSize / 2}px`
@@ -345,7 +345,7 @@ export default {
 				padding: `${this.dotSize / 2}px`
 			}
 		},
-		sliderStyles() {
+		sliderStyles () {
 			if (Array.isArray(this.sliderStyle)) {
 				return this.isRange ? this.sliderStyle : this.sliderStyle[1]
 			}
@@ -353,7 +353,7 @@ export default {
 				return this.isRange ? [this.sliderStyle, this.sliderStyle] : this.sliderStyle
 			}
 		},
-		tooltipStyles() {
+		tooltipStyles () {
 			if (Array.isArray(this.tooltipStyle)) {
 				return this.isRange ? this.tooltipStyle : this.tooltipStyle[1]
 			}
@@ -361,7 +361,7 @@ export default {
 				return this.isRange ? [this.tooltipStyle, this.tooltipStyle] : this.tooltipStyle
 			}
 		},
-		elemStyles() {
+		elemStyles () {
 			return this.direction === 'vertical' ? {
 				width: `${this.width}px`,
 				height: '100%'
@@ -369,7 +369,7 @@ export default {
 				height: `${this.height}px`
 			}
 		},
-		dotStyles() {
+		dotStyles () {
 			return this.direction === 'vertical' ? {
 				width: `${this.dotSize}px`,
 				height: `${this.dotSize}px`,
@@ -380,7 +380,7 @@ export default {
 				top: `${(-(this.dotSize - this.height) / 2)}px`
 			}
 		},
-		piecewiseDotStyle() {
+		piecewiseDotStyle () {
 			return this.direction === 'vertical' ? {
 				width: `${this.width}px`,
 				height: `${this.width}px`
@@ -389,20 +389,19 @@ export default {
 				height: `${this.height}px`
 			}
 		},
-		piecewiseDotWrap() {
+		piecewiseDotWrap () {
 			if (!this.piecewise && !this.piecewiseLabel) {
 				return false
 			}
 
 			let arr = []
-			let gap = (this.size - (this.direction === 'vertical' ? this.width : this.height)) / this.total
 			for (let i = 0; i <= this.total; i++) {
 				let style = this.direction === 'vertical' ? {
 					bottom: `${this.gap * i - this.width / 2}px`,
 					left: 0
 				} : {
 					left: `${this.gap * i - this.height / 2}px`,
-					top: '0'
+					top: 0
 				}
 				let index = this.reverse ? (this.total - i) : i
 				let label = this.data ? this.data[index] : (this.spacing * index) + this.min
@@ -416,20 +415,20 @@ export default {
 		}
 	},
 	watch: {
-		value(val) {
+		value (val) {
 			this.flag || this.setValue(val, true)
 		},
-		max(val) {
+		max (val) {
 			let resetVal = this.limitValue(this.val)
 			resetVal !== false && this.setValue(resetVal)
 			this.refresh()
 		},
-		min(val) {
+		min (val) {
 			let resetVal = this.limitValue(this.val)
 			resetVal !== false && this.setValue(resetVal)
 			this.refresh()
 		},
-		show(bool) {
+		show (bool) {
 			if (bool && !this.size) {
 				this.$nextTick(() => {
 					this.refresh()
@@ -438,7 +437,7 @@ export default {
 		}
 	},
 	methods: {
-		bindEvents() {
+		bindEvents () {
 			if (this.isMobile) {
 				this.$refs.wrap.addEventListener('touchmove', this.moving)
 				this.$refs.wrap.addEventListener('touchend', this.moveEnd)
@@ -449,7 +448,7 @@ export default {
 				document.addEventListener('mouseleave', this.moveEnd)
 			}
 		},
-		unbindEvents() {
+		unbindEvents () {
 			window.removeEventListener('resize', this.refresh)
 
 			if (this.isMobile) {
@@ -462,14 +461,14 @@ export default {
 				document.removeEventListener('mouseleave', this.moveEnd)
 			}
 		},
-		formatting(value) {
+		formatting (value) {
 			return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
 		},
-		getPos(e) {
+		getPos (e) {
 			this.realTime && this.getStaticData()
 			return this.direction === 'vertical' ? (this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))) : (this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset))
 		},
-		wrapClick(e) {
+		wrapClick (e) {
 			if (this.isDisabled || !this.clickable) return false
 			let pos = this.getPos(e)
 			if (this.isRange) {
@@ -477,7 +476,7 @@ export default {
 			}
 			this.setValueOnPos(pos)
 		},
-		moveStart(index) {
+		moveStart (index) {
 			if (this.isDisabled) return false
 			else if (this.isRange) {
 				this.currentSlider = index
@@ -485,14 +484,14 @@ export default {
 			this.flag = true
 			this.$emit('drag-start', this)
 		},
-		moving(e) {
+		moving (e) {
 			if (!this.flag) return false
 			e.preventDefault()
 
 			if (this.isMobile) e = e.targetTouches[0]
 			this.setValueOnPos(this.getPos(e), true)
 		},
-		moveEnd(e) {
+		moveEnd (e) {
 			if (this.flag) {
 				this.$emit('drag-end', this)
 				if (this.lazy && this.isDiff(this.val, this.value)) {
@@ -505,7 +504,7 @@ export default {
 			this.flag = false
 			this.setPosition()
 		},
-		setValueOnPos(pos, isDrag) {
+		setValueOnPos (pos, isDrag) {
 			let range = this.isRange ? this.limit[this.currentSlider] : this.limit
 			let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
 			if (pos >= range[0] && pos <= range[1]) {
@@ -524,7 +523,7 @@ export default {
 				if (this.currentSlider === 0) this.currentSlider = 1
 			}
 		},
-		isDiff(a, b) {
+		isDiff (a, b) {
 			if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) {
 				return true
 			}
@@ -533,7 +532,7 @@ export default {
 			}
 			return a !== b
 		},
-		setCurrentValue(val, bool) {
+		setCurrentValue (val, bool) {
 			if (val < this.minimum || val > this.maximum) return false
 			if (this.isRange) {
 				if (this.isDiff(this.currentValue[this.currentSlider], val)) {
@@ -551,7 +550,7 @@ export default {
 			}
 			bool || this.setPosition()
 		},
-		setIndex(val) {
+		setIndex (val) {
 			if (Array.isArray(val) && this.isRange) {
 				let value
 				if (this.data) {
@@ -570,7 +569,7 @@ export default {
 				this.setCurrentValue(val)
 			}
 		},
-		setValue(val, noCb, speed) {
+		setValue (val, noCb, speed) {
 			if (this.isDiff(this.val, val)) {
 				let resetVal = this.limitValue(val)
 				if (resetVal !== false) {
@@ -581,11 +580,10 @@ export default {
 				}
 				this.syncValue(noCb)
 			}
-			this.$nextTick(() => {
-				this.setPosition(speed)
-			})
+
+			this.$nextTick(() => this.setPosition(speed))
 		},
-		setPosition(speed) {
+		setPosition (speed) {
 			this.flag || this.setTransitionTime(speed === undefined ? this.speed : speed)
 			if (this.isRange) {
 				this.currentSlider = 0
@@ -598,7 +596,7 @@ export default {
 			}
 			this.flag || this.setTransitionTime(0)
 		},
-		setTransform(val) {
+		setTransform (val) {
 			let value = (this.direction === 'vertical' ? ((this.dotSize / 2) - val) : (val - (this.dotSize / 2))) * (this.reverse ? -1 : 1)
 			let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
 			let processSize = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
@@ -630,7 +628,7 @@ export default {
 				}
 			}
 		},
-		setTransitionTime(time) {
+		setTransitionTime (time) {
 			time || this.$refs.process.offsetWidth
 			if (this.isRange) {
 				for (let i = 0; i < this.slider.length; i++) {
@@ -647,7 +645,7 @@ export default {
 				this.$refs.process.style.WebkitTransitionDuration = `${time}s`
 			}
 		},
-		limitValue(val) {
+		limitValue (val) {
 			if (this.data) {
 				return val
 			}
@@ -676,40 +674,40 @@ export default {
 			}
 			return bool && val
 		},
-		syncValue(noCb) {
+		syncValue (noCb) {
 			noCb || this.$emit('callback', this.val)
 			this.$emit('input', this.isRange ? this.val.concat() : this.val)
 		},
-		getValue() {
+		getValue () {
 			return this.val
 		},
-		getIndex() {
+		getIndex () {
 			return this.currentIndex
 		},
-		getStaticData() {
+		getStaticData () {
 			if (this.$refs.elem) {
 				this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
 				this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
 			}
 		},
-		refresh() {
+		refresh () {
 			if (this.$refs.elem) {
 				this.getStaticData()
 				this.setPosition()
 			}
 		}
 	},
-	created() {
+	created () {
 		window.addEventListener('resize', this.refresh)
 	},
-	mounted() {
+	mounted () {
 		this.$nextTick(() => {
 			this.getStaticData()
 			this.setValue(this.value, true, 0)
 			this.bindEvents()
 		})
 	},
-	beforeDestroy() {
+	beforeDestroy () {
 		this.unbindEvents()
 	}
 }

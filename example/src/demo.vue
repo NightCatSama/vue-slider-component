@@ -112,7 +112,7 @@
 				<template v-for="(value, key, index) of demo.demo5">
 					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
 				</template><span class="green">formatter</span>: <span class="yellow">function (value) {
-						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
+						&nbsp;&nbsp;this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value / 100})`
 						&nbsp;&nbsp;return value
 					}</span>}</code>
 			</div>
@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import vueSlider from './vue-slider/';
+import vueSlider from './vue-slider/'
 
 export default {
 	components: {
@@ -234,13 +234,13 @@ export default {
 						marginLeft: '10%'
 					},
 					data: [
-					  "2016-10-01",
-					  "2016-10-02",
-					  "2016-10-03",
-					  "2016-10-04",
-					  "2016-10-05",
-					  "2016-10-06",
-					  "2016-10-07"
+						'2016-10-01',
+						'2016-10-02',
+						'2016-10-03',
+						'2016-10-04',
+						'2016-10-05',
+						'2016-10-06',
+						'2016-10-07'
 					],
 					piecewiseStyle: {
 						backgroundColor: '#ccc',
@@ -330,7 +330,7 @@ export default {
 						display: 'inline-block',
 						marginLeft: '30px'
 					},
-					class: "star-slider",
+					class: 'star-slider',
 					direction: 'vertical',
 					speed: 0.5,
 					processStyle: {
@@ -413,44 +413,44 @@ export default {
 		}
 	},
 	methods: {
-		format(value) {
+		format (value) {
 			return value === null ? 'null' : (typeof value === 'string' ? `"${value}"` : value)
 		},
-		formatting(value) {
-			this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value/100})`
+		formatting (value) {
+			this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value / 100})`
 			return value
 		},
-		setDisabled(name) {
+		setDisabled (name) {
 			let obj = this.demo[name]
 			obj.disabled = !obj.disabled
 		},
-		setTooltip(name) {
+		setTooltip (name) {
 			let obj = this.demo[name]
 			obj.tooltip = obj.tooltip === 'hover' ? 'always' : 'hover'
 		},
-		setValue(name, num) {
+		setValue (name, num) {
 			let obj = this.demo[name]
 			obj.value = num
 		},
-		setIndex(name, num) {
+		setIndex (name, num) {
 			let slider = this.$refs[name]
 			slider.setIndex(num)
 		},
-		getValue(name) {
+		getValue (name) {
 			let slider = this.$refs[name]
 			alert(slider.getValue())
 		},
-		getIndex(name) {
+		getIndex (name) {
 			let slider = this.$refs[name]
 			alert(slider.getIndex())
 		},
-		dragStart() {
+		dragStart () {
 			this.demo.demo5.speed = 0
 		},
-		dragEnd() {
+		dragEnd () {
 			this.demo.demo5.speed = 0.5
 		},
-		cb(val) {
+		cb (val) {
 			// console.log(val)
 		}
 	},

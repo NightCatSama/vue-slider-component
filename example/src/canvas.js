@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const _default = {
 	width: document.body.offsetWidth,
@@ -9,7 +9,7 @@ const _default = {
 	colors: ['rgba(6, 219, 198, 1)', 'rgba(155, 89, 182, 1)', 'rgba(52, 152, 255, 1)', 'rgba(253, 99, 53, 1)', 'rgba(253, 236, 53, 1)', 'rgba(102, 219, 6, 1)']
 }
 
-const MyCanvas = function(el, option) {
+const MyCanvas = function (el, option) {
 	/*
 	 * Object.assign(this, _default, option)
 	 */
@@ -27,11 +27,11 @@ const MyCanvas = function(el, option) {
 
 MyCanvas.prototype = {
 	constructor: MyCanvas,
-	render: function() {
+	render: function () {
 		this.context.clearRect(0, 0, this.width, this.height)
 		this.writeName()
 	},
-	writeName: function() {
+	writeName: function () {
 		let cxt = this.context
 		let grad = cxt.createLinearGradient(0, 0, this.width, this.height)
 
@@ -46,16 +46,16 @@ MyCanvas.prototype = {
 		}
 
 		cxt.font = this.font
-		cxt.textAlign = "center"
+		cxt.textAlign = 'center'
 		cxt.fillStyle = grad
 		cxt.shadowColor = '#000'
 		cxt.shadowOffsetX = 5
 		cxt.shadowOffsetY = 5
 		cxt.shadowBlur = 3
 		cxt.fillText(this.txt, this.width / 2, this.height / 2)
-		cxt.globalCompositeOperation = "source-over"
+		cxt.globalCompositeOperation = 'source-over'
 	},
-	start: function() {
+	start: function () {
 		if (this.animate) return false
 		this.animate = true
 		const step = () => {
@@ -65,7 +65,7 @@ MyCanvas.prototype = {
 		}
 		requestAnimationFrame(step)
 	},
-	stop: function() {
+	stop: function () {
 		this.animate = false
 	}
 }
