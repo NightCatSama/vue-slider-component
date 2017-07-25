@@ -204,8 +204,8 @@ The solution:
 This hack is just to avoid the server side 'document' error when using it with Nuxt.js. 
 Use it if you don't need to have this component rendered on the server side.
 
-1. Install [this](https://github.com/egoist/vue-no-ssr) and add it to the variable `componets`. i.e.
-```
+1. Install [this](https://github.com/egoist/vue-no-ssr) and add it to the variable `components`. i.e.
+```js
 import NoSSR from 'vue-no-ssr'
 
 let components = {
@@ -218,14 +218,14 @@ let components = {
 ```  
 
 2. In your template, encapsulate 'vue-slider-component' into the 'no-ssr' component to avoid redner the html on the server like this:
-```
+```html
 <no-ssr>
     <vue-slider ref="slider"></vue-slider>
 </no-ssr>
 ```
 
 3. Require the library just for client side and add the 'vue-slider-component' component to the template component list
-```
+```js
 if (process.BROWSER_BUILD) {
     let VueSlider = require('vue-slider-component')
     components['vue-slider'] = VueSlider
@@ -233,7 +233,7 @@ if (process.BROWSER_BUILD) {
 ```
 
 4. Apply the components
-```
+```js
 export default {
     components
 }
