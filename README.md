@@ -190,7 +190,6 @@ e.g.
 </vue-slider>
 ```
 
-
 ## Exceptions
 if the component initialization in a `v-show="false" / display: none` container or use `transform / animation` to appear component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
 
@@ -199,6 +198,46 @@ The solution:
  2. using `v-if` instead of `v-show` or `display: none`.
  3. use prop `show` to control display.
  4. After the component appears, to call the `refresh` method.
+
+## Using it with NUXT.js
+
+This hack is just to avoid the server side 'document' error when using it with Nuxt.js. 
+Use it if you don't need to have this component rendered on the server side.
+
+1. Install [this](https://github.com/egoist/vue-no-ssr) and add it to the variable `componets`. i.e.
+```
+import NoSSR from 'vue-no-ssr'
+
+let components = {
+    /**
+     * Add No Server Side Render component
+     * to make client DOM math the server DOM
+     */
+    'no-ssr': NoSSR
+}
+```  
+
+2. In your template, encapsulate 'vue-slider-component' into the 'no-ssr' component to avoid redner the html on the server like this:
+```
+<no-ssr>
+    <vue-slider ref="slider"></vue-slider>
+</no-ssr>
+```
+
+3. Require the library just for client side and add the 'vue-slider-component' component to the template component list
+```
+if (process.BROWSER_BUILD) {
+    let VueSlider = require('vue-slider-component')
+    components['vue-slider'] = VueSlider
+}
+```
+
+4. Apply the components
+```
+export default {
+    components
+}
+```
 
 ## License
 
