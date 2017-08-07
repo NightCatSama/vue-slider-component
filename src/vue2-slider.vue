@@ -483,7 +483,7 @@ export default {
 				this.currentSlider = index
 			}
 			this.flag = true
-			this.$emit('drag-start', this)
+			this.$emit('drag-start')
 		},
 		moving(e) {
 			if (!this.flag) return false
@@ -494,7 +494,7 @@ export default {
 		},
 		moveEnd(e) {
 			if (this.flag) {
-				this.$emit('drag-end', this)
+				this.$emit('drag-end')
 				if (this.lazy && this.isDiff(this.val, this.value)) {
 					this.syncValue()
 				}
