@@ -247,6 +247,7 @@ export default {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
 		isMobile() {
+			if (typeof navigator === 'undefined') return false
 			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent||navigator.vendor||window.opera))
 		},
 		isDisabled() {
@@ -443,13 +444,15 @@ export default {
 				this.$refs.wrap.addEventListener('touchmove', this.moving)
 				this.$refs.wrap.addEventListener('touchend', this.moveEnd)
 			}
-			else {
+			else if (typeof document !== 'undefined') {
 				document.addEventListener('mousemove', this.moving)
 				document.addEventListener('mouseup', this.moveEnd)
 				document.addEventListener('mouseleave', this.moveEnd)
 			}
 		},
 		unbindEvents() {
+			if (typeof window === 'undefined') return
+
 			window.removeEventListener('resize', this.refresh)
 
 			if (this.isMobile) {
@@ -687,6 +690,7 @@ export default {
 			return this.currentIndex
 		},
 		getStaticData() {
+			if (typeof window === 'undefined') return
 			if (this.$refs.elem) {
 				this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
 				this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
@@ -700,6 +704,7 @@ export default {
 		}
 	},
 	created() {
+		if (typeof window === 'undefined') return
 		window.addEventListener('resize', this.refresh)
 	},
 	mounted() {
