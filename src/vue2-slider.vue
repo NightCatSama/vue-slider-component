@@ -247,6 +247,8 @@ export default {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
 		},
 		isMobile () {
+			if (typeof navigator === 'undefined') return false
+
 			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent || navigator.vendor || window.opera))
 		},
 		isDisabled () {
@@ -446,6 +448,8 @@ export default {
 				document.addEventListener('mousemove', this.moving)
 				document.addEventListener('mouseup', this.moveEnd)
 				document.addEventListener('mouseleave', this.moveEnd)
+
+				window.addEventListener('resize', this.refresh)
 			}
 		},
 		unbindEvents () {
@@ -697,10 +701,9 @@ export default {
 			}
 		}
 	},
-	created () {
-		window.addEventListener('resize', this.refresh)
-	},
 	mounted () {
+		if (typeof window === 'undefined' || typeof document === 'undefined') return
+
 		this.$nextTick(() => {
 			this.getStaticData()
 			this.setValue(this.value, true, 0)
