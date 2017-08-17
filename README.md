@@ -131,7 +131,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | disabled    | Boolean       | false    | whether to disable components |
 | piecewise   | Boolean       | false    | whether to display the piecewise |
 | piecewise-label*   | Boolean  | false  | whether to display the label. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
-| tooltip     | String, Boolean | false    | control the tooltip, optional value: ['hover', 'always', false] |
+| tooltip     | String, Boolean | always    | control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
 | value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
