@@ -36,8 +36,8 @@
 						@touchstart="moveStart"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
-							<slot name="tooltip" :value="val" :style="tooltipStyles">
-								{{ formatter ? formatting(val) : val }}
+							<slot name="tooltip" :value="val">
+								<span class="vue-slider-tooltip" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
 							</slot>
 						</span>
 					</div>
@@ -87,7 +87,7 @@
 			</template>
 			<template>
 				<ul class="vue-slider-piecewise">
-					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" :style="[piecewiseDotStyle, piecewiseObj.style]">
+					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
 						<slot
 							name="piecewiseL"
 							:label="piecewiseObj.label"
