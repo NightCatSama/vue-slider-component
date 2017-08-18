@@ -29,7 +29,7 @@ export default {
 	components: {
 		vueSlider
 	},
-	data: function() {
+	data () {
 		return {
 			value: 0
 		}
@@ -103,7 +103,7 @@ export default {
 	padding: 0;
 }
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -111,17 +111,12 @@ body {
 	height: 100vh;
 	position: relative;
 	width:  100%;
-	background: #151515;
-	background: -webkit-linear-gradient(-40deg, #000, #999);
-	background: linear-gradient(-40deg, #000, #999);
+	background-color: #151515;
+	background-image: -webkit-linear-gradient(-40deg, #000, #999);
+	background-image: linear-gradient(-40deg, #000, #999);
 	color: #fff;
 	text-align: center;
 	animation: mymove 2s linear 0s infinite;
-}
-
-.header h1 {
-	font-size: 50px;
-	padding-top: 200px;
 }
 
 canvas {

@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrap" :class="['vue-slider-wrap', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
+	<div ref="wrap" :class="['vue-slider-component', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
 		<div ref="elem" aria-hidden="true" class="vue-slider" :style="[elemStyles, bgStyle]">
 			<template v-if="isMobile">
 				<template v-if="isRange">
@@ -87,9 +87,9 @@
 			</template>
 			<template>
 				<ul class="vue-slider-piecewise">
-					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
+					<li v-for="(piecewiseObj, index) in piecewiseDotWrap" class="vue-slider-piecewise-item" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
 						<slot
-							name="piecewiseL"
+							name="piecewise"
 							:label="piecewiseObj.label"
 							:index="index"
 							:first="index === 0"
@@ -716,244 +716,244 @@ export default {
 }
 </script>
 
-<style scoped>
-.vue-slider-wrap {
-	position: relative;
-	box-sizing: border-box;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.vue-slider-wrap.vue-slider-disabled {
-	opacity: .5;
-	cursor: not-allowed;
-}
-.vue-slider-wrap.vue-slider-has-label {
-	margin-bottom: 15px;
-}
-.vue-slider-wrap.vue-slider-disabled .vue-slider-dot {
-	cursor: not-allowed;
-}
-.vue-slider-wrap .vue-slider {
-	position: relative;
-	display: block;
-	border-radius: 15px;
-	background-color: #ccc;
-}
-.vue-slider-wrap .vue-slider::after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 2;
-}
-.vue-slider-process {
-	position: absolute;
-	border-radius: 15px;
-	background-color: #3498db;
-	transition: all 0s;
-	z-index: 1;
-}
-.vue-slider-horizontal .vue-slider-process {
-	width: 0;
-	height: 100%;
-	top: 0;
-	left: 0;
-	will-change: width;
-}
-.vue-slider-vertical .vue-slider-process {
-	width: 100%;
-	height: 0;
-	bottom: 0;
-	left: 0;
-	will-change: height;
-}
-.vue-slider-horizontal-reverse .vue-slider-process {
-	width: 0;
-	height: 100%;
-	top: 0;
-	right: 0;
-}
-.vue-slider-vertical-reverse .vue-slider-process {
-	width: 100%;
-	height: 0;
-	top: 0;
-	left: 0;
-}
-.vue-slider-dot {
-	position: absolute;
-	border-radius: 50%;
-	background-color: #fff;
-	box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
-	transition: all 0s;
-	will-change: transform;
-	cursor: pointer;
-	z-index: 3;
-}
-.vue-slider-horizontal .vue-slider-dot {
-	left: 0;
-}
-.vue-slider-vertical .vue-slider-dot {
-	bottom: 0;
-}
-.vue-slider-horizontal-reverse .vue-slider-dot {
-	right: 0;
-}
-.vue-slider-vertical-reverse .vue-slider-dot {
-	top: 0;
-}
-.vue-slider-tooltip-wrap {
-	display: none;
-	position: absolute;
-	z-index: 9;
-}
-.vue-slider-tooltip {
-	display: block;
-	font-size: 14px;
-	white-space: nowrap;
-	padding: 2px 5px;
-	min-width: 20px;
-	text-align: center;
-	color: #fff;
-	border-radius: 5px;
-	border: 1px solid #3498db;
-	background-color: #3498db;
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-top {
-	top: -9px;
-	left: 50%;
-	transform: translate(-50%, -100%);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-bottom {
-	bottom: -9px;
-	left: 50%;
-	transform: translate(-50%, 100%);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-left {
-	top: 50%;
-	left: -9px;
-	transform: translate(-100%, -50%);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-right {
-	top: 50%;
-	right: -9px;
-	transform: translate(100%, -50%);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before {
-	content: '';
-	position: absolute;
-	bottom: -10px;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border: 6px solid transparent\0;
-	border-top-color: inherit;
-	transform: translate(-50%, 0);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip::before {
-	content: '';
-	position: absolute;
-	top: -10px;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border: 6px solid transparent\0;
-	border-bottom-color: inherit;
-	transform: translate(-50%, 0);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	right: -10px;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border: 6px solid transparent\0;
-	border-left-color: inherit;
-	transform: translate(0, -50%);
-}
-.vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: -10px;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border: 6px solid transparent\0;
-	border-right-color: inherit;
-	transform: translate(0, -50%);
-}
-.vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap {
-	display: block;
-}
-.vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap {
-	display: block!important;
-}
-.vue-slider-piecewise {
-	position: absolute;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	left: 0;
-	top: 0;
-	height: 100%;
-	list-style: none;
-}
-.vue-slider-piecewise li {
-	position: absolute;
-	width: 8px;
-	height: 8px;
-}
-.vue-slider-piecewise .vue-slider-piecewise-dot {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 100%;
-	height: 100%;
-	display: inline-block;
-	background-color: rgba(0, 0, 0, 0.16);
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-    z-index: 2;
-	transition: all .3s;
-}
-.vue-slider-piecewise li:first-child .vue-slider-piecewise-dot, .vue-slider-piecewise li:last-child .vue-slider-piecewise-dot {
-	visibility: hidden;
-}
-.vue-slider-horizontal .vue-slider-piecewise-label, .vue-slider-horizontal-reverse .vue-slider-piecewise-label {
-	position: absolute;
-	display: inline-block;
-	top: 100%;
-	left: 50%;
-	white-space: nowrap;
-	font-size: 12px;
-	color: #333;
-	transform: translate(-50%, 8px);
-	visibility: visible;
-}
-.vue-slider-vertical .vue-slider-piecewise-label, .vue-slider-vertical-reverse .vue-slider-piecewise-label {
-	position: absolute;
-	display: inline-block;
-	top: 50%;
-	left: 100%;
-	white-space: nowrap;
-	font-size: 12px;
-	color: #333;
-	transform: translate(8px, -50%);
-	visibility: visible;
-}
-.vue-slider-sr-only {
-   clip: rect(1px, 1px, 1px, 1px);
-   height: 1px;
-   width: 1px;
-   overflow: hidden;
-   position: absolute !important;
-}
+<style>
+	.vue-slider-component {
+		position: relative;
+		box-sizing: border-box;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.vue-slider-component.vue-slider-disabled {
+		opacity: .5;
+		cursor: not-allowed;
+	}
+	.vue-slider-component.vue-slider-has-label {
+		margin-bottom: 15px;
+	}
+	.vue-slider-component.vue-slider-disabled .vue-slider-dot {
+		cursor: not-allowed;
+	}
+	.vue-slider-component .vue-slider {
+		position: relative;
+		display: block;
+		border-radius: 15px;
+		background-color: #ccc;
+	}
+	.vue-slider-component .vue-slider::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+	}
+	.vue-slider-component .vue-slider-process {
+		position: absolute;
+		border-radius: 15px;
+		background-color: #3498db;
+		transition: all 0s;
+		z-index: 1;
+	}
+	.vue-slider-component.vue-slider-horizontal .vue-slider-process {
+		width: 0;
+		height: 100%;
+		top: 0;
+		left: 0;
+		will-change: width;
+	}
+	.vue-slider-component.vue-slider-vertical .vue-slider-process {
+		width: 100%;
+		height: 0;
+		bottom: 0;
+		left: 0;
+		will-change: height;
+	}
+	.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-process {
+		width: 0;
+		height: 100%;
+		top: 0;
+		right: 0;
+	}
+	.vue-slider-component.vue-slider-vertical-reverse .vue-slider-process {
+		width: 100%;
+		height: 0;
+		top: 0;
+		left: 0;
+	}
+	.vue-slider-component .vue-slider-dot {
+		position: absolute;
+		border-radius: 50%;
+		background-color: #fff;
+		box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+		transition: all 0s;
+		will-change: transform;
+		cursor: pointer;
+		z-index: 3;
+	}
+	.vue-slider-component.vue-slider-horizontal .vue-slider-dot {
+		left: 0;
+	}
+	.vue-slider-component.vue-slider-vertical .vue-slider-dot {
+		bottom: 0;
+	}
+	.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-dot {
+		right: 0;
+	}
+	.vue-slider-component.vue-slider-vertical-reverse .vue-slider-dot {
+		top: 0;
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap {
+		display: none;
+		position: absolute;
+		z-index: 9;
+	}
+	.vue-slider-component .vue-slider-tooltip {
+		display: block;
+		font-size: 14px;
+		white-space: nowrap;
+		padding: 2px 5px;
+		min-width: 20px;
+		text-align: center;
+		color: #fff;
+		border-radius: 5px;
+		border: 1px solid #3498db;
+		background-color: #3498db;
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top {
+		top: -9px;
+		left: 50%;
+		transform: translate(-50%, -100%);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom {
+		bottom: -9px;
+		left: 50%;
+		transform: translate(-50%, 100%);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left {
+		top: 50%;
+		left: -9px;
+		transform: translate(-100%, -50%);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right {
+		top: 50%;
+		right: -9px;
+		transform: translate(100%, -50%);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border: 5px solid transparent;
+		border: 6px solid transparent\0;
+		border-top-color: inherit;
+		transform: translate(-50%, 0);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip::before {
+		content: '';
+		position: absolute;
+		top: -10px;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border: 5px solid transparent;
+		border: 6px solid transparent\0;
+		border-bottom-color: inherit;
+		transform: translate(-50%, 0);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: -10px;
+		width: 0;
+		height: 0;
+		border: 5px solid transparent;
+		border: 6px solid transparent\0;
+		border-left-color: inherit;
+		transform: translate(0, -50%);
+	}
+	.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: -10px;
+		width: 0;
+		height: 0;
+		border: 5px solid transparent;
+		border: 6px solid transparent\0;
+		border-right-color: inherit;
+		transform: translate(0, -50%);
+	}
+	.vue-slider-component .vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap {
+		display: block;
+	}
+	.vue-slider-component .vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap {
+		display: block!important;
+	}
+	.vue-slider-component .vue-slider-piecewise {
+		position: absolute;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		left: 0;
+		top: 0;
+		height: 100%;
+		list-style: none;
+	}
+	.vue-slider-component .vue-slider-piecewise-item {
+		position: absolute;
+		width: 8px;
+		height: 8px;
+	}
+	.vue-slider-component .vue-slider-piecewise-dot {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 100%;
+		height: 100%;
+		display: inline-block;
+		background-color: rgba(0, 0, 0, 0.16);
+		border-radius: 50%;
+		transform: translate(-50%, -50%);
+			z-index: 2;
+		transition: all .3s;
+	}
+	.vue-slider-component .vue-slider-piecewise-item:first-child .vue-slider-piecewise-dot, .vue-slider-component .vue-slider-piecewise-item:last-child .vue-slider-piecewise-dot {
+		visibility: hidden;
+	}
+	.vue-slider-component.vue-slider-horizontal .vue-slider-piecewise-label, .vue-slider-component.vue-slider-horizontal-reverse .vue-slider-piecewise-label {
+		position: absolute;
+		display: inline-block;
+		top: 100%;
+		left: 50%;
+		white-space: nowrap;
+		font-size: 12px;
+		color: #333;
+		transform: translate(-50%, 8px);
+		visibility: visible;
+	}
+	.vue-slider-component.vue-slider-vertical .vue-slider-piecewise-label, .vue-slider-component.vue-slider-vertical-reverse .vue-slider-piecewise-label {
+		position: absolute;
+		display: inline-block;
+		top: 50%;
+		left: 100%;
+		white-space: nowrap;
+		font-size: 12px;
+		color: #333;
+		transform: translate(8px, -50%);
+		visibility: visible;
+	}
+	.vue-slider-component .vue-slider-sr-only {
+		clip: rect(1px, 1px, 1px, 1px);
+		height: 1px;
+		width: 1px;
+		overflow: hidden;
+		position: absolute !important;
+	}
 </style>
