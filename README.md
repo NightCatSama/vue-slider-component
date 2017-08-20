@@ -1,8 +1,8 @@
 # vue-slider-component
 
-[![build](https://img.shields.io/wercker/ci/wercker/docs.svg)](https://github.com/NightCatSama/vue-slider-component)
-[![build](https://img.shields.io/badge/npm-1.0.4-blue.svg)](https://github.com/NightCatSama/vue-slider-component)
-[![build](https://img.shields.io/npm/l/express.svg)](https://github.com/NightCatSama/vue-slider-component)
+[![downloads](https://img.shields.io/npm/dt/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
+[![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
+[![license](https://img.shields.io/github/license/NightCatSama/vue-slider-component.svg?maxAge=1800)]()
 
 Can use the slider in vue1.x and vue2.x
 
@@ -44,7 +44,7 @@ npm install vue-slider-component --save
 - [x] The vertical component
 
 
-## Example
+## Run example
 ``` bash
 cd example/
 
@@ -55,7 +55,7 @@ npm install
 npm run dev
 ```
 
-## usage
+## Usage
 Use in vue1.x
 
 e.g:
@@ -170,7 +170,7 @@ prop*: [only support vue2]
 | drag-start    | Params: context[Object]| Drag the start event |
 | drag-end      | Params: context[Object]| Drag the end event |
 
-### slot
+### Slot
 | Name          | Description  |
 | --------------|--------------|
 | tooltip       | Customize the tooltip slot |
@@ -241,4 +241,4 @@ export default {
 
 ## License
 
-[MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)
+[MIT](LICENSE)
