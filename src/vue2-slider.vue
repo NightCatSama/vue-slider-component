@@ -6,7 +6,7 @@
 					<div
 						ref="dot0"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles[0], dotStyles]"
+						:style="[dotStyles, sliderStyles[0]]"
 						@touchstart="moveStart(0)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
@@ -18,7 +18,7 @@
 					<div
 						ref="dot1"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles[1], dotStyles]"
+						:style="[dotStyles, sliderStyles[1]]"
 						@touchstart="moveStart(1)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
@@ -32,7 +32,7 @@
 					<div
 						ref="dot"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles, dotStyles]"
+						:style="[dotStyles, sliderStyles]"
 						@touchstart="moveStart"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
@@ -48,7 +48,7 @@
 					<div
 						ref="dot0"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles[0], dotStyles]"
+						:style="[dotStyles, sliderStyles[0]]"
 						@mousedown="moveStart(0)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
@@ -60,7 +60,7 @@
 					<div
 						ref="dot1"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles[1], dotStyles]"
+						:style="[dotStyles, sliderStyles[1]]"
 						@mousedown="moveStart(1)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
@@ -74,7 +74,7 @@
 					<div
 						ref="dot"
 						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[sliderStyles, dotStyles]"
+						:style="[dotStyles, sliderStyles]"
 						@mousedown="moveStart"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">

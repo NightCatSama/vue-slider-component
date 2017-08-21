@@ -202,7 +202,7 @@ export default {
 					speed: 0.5,
 					formatter: null,
 					bgStyle: null,
-					sliderStyle: null,
+					sliderStyle: { borderRadius: '0', width: '30px' },
 					tooltipStyle: null,
 					processStyle: null,
 					piecewiseStyle: null
