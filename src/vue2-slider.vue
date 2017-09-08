@@ -1,12 +1,13 @@
 <template>
 	<div ref="wrap" :class="['vue-slider-component', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
 		<div ref="elem" aria-hidden="true" class="vue-slider" :style="[elemStyles, bgStyle]">
-			<template v-if="isMobile">
+			<template>
 				<template v-if="isRange">
 					<div
 						ref="dot0"
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[dotStyles, sliderStyles[0]]"
+						@mousedown="moveStart(0)"
 						@touchstart="moveStart(0)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
@@ -19,6 +20,7 @@
 						ref="dot1"
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[dotStyles, sliderStyles[1]]"
+						@mousedown="moveStart(1)"
 						@touchstart="moveStart(1)"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
@@ -33,49 +35,8 @@
 						ref="dot"
 						:class="[tooltipStatus, 'vue-slider-dot']"
 						:style="[dotStyles, sliderStyles]"
-						@touchstart="moveStart"
-					>
-						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
-							<slot name="tooltip" :value="val">
-								<span class="vue-slider-tooltip" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
-							</slot>
-						</span>
-					</div>
-				</template>
-			</template>
-			<template v-else>
-				<template v-if="isRange">
-					<div
-						ref="dot0"
-						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[dotStyles, sliderStyles[0]]"
-						@mousedown="moveStart(0)"
-					>
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
-							<slot name="tooltip" :value="val[0]" :index="0">
-								<span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
-							</slot>
-						</span>
-					</div>
-					<div
-						ref="dot1"
-						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[dotStyles, sliderStyles[1]]"
-						@mousedown="moveStart(1)"
-					>
-						<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
-							<slot name="tooltip" :value="val[1]" :index="1">
-								<span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
-							</slot>
-						</span>
-					</div>
-				</template>
-				<template v-else>
-					<div
-						ref="dot"
-						:class="[tooltipStatus, 'vue-slider-dot']"
-						:style="[dotStyles, sliderStyles]"
 						@mousedown="moveStart"
+						@touchstart="moveStart"
 					>
 						<span :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
 							<slot name="tooltip" :value="val">
@@ -245,11 +206,6 @@ export default {
 		},
 		tooltipClass () {
 			return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
-		},
-		isMobile () {
-			if (typeof navigator === 'undefined') return false
-
-			return this.eventType === 'touch' || this.eventType !== 'mouse' && /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test((navigator.userAgent || navigator.vendor || window.opera))
 		},
 		isDisabled () {
 			return this.eventType === 'none' ? true : this.disabled
@@ -440,30 +396,22 @@ export default {
 	},
 	methods: {
 		bindEvents () {
-			if (this.isMobile) {
-				this.$refs.wrap.addEventListener('touchmove', this.moving)
-				this.$refs.wrap.addEventListener('touchend', this.moveEnd)
-			}
-			else {
-				document.addEventListener('mousemove', this.moving)
-				document.addEventListener('mouseup', this.moveEnd)
-				document.addEventListener('mouseleave', this.moveEnd)
+			document.addEventListener('touchmove', this.moving, {passive: false})
+			document.addEventListener('touchend', this.moveEnd, {passive: false})
+			document.addEventListener('mousemove', this.moving)
+			document.addEventListener('mouseup', this.moveEnd)
+			document.addEventListener('mouseleave', this.moveEnd)
 
-				window.addEventListener('resize', this.refresh)
-			}
+			window.addEventListener('resize', this.refresh)
 		},
 		unbindEvents () {
 			window.removeEventListener('resize', this.refresh)
-
-			if (this.isMobile) {
-				this.$refs.wrap.removeEventListener('touchmove', this.moving)
-				this.$refs.wrap.removeEventListener('touchend', this.moveEnd)
-			}
-			else {
-				document.removeEventListener('mousemove', this.moving)
-				document.removeEventListener('mouseup', this.moveEnd)
-				document.removeEventListener('mouseleave', this.moveEnd)
-			}
+			
+			document.removeEventListener('touchmove', this.moving)
+			document.removeEventListener('touchend', this.moveEnd)
+			document.removeEventListener('mousemove', this.moving)
+			document.removeEventListener('mouseup', this.moveEnd)
+			document.removeEventListener('mouseleave', this.moveEnd)
 		},
 		formatting (value) {
 			return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
@@ -492,10 +440,11 @@ export default {
 			if (!this.flag) return false
 			e.preventDefault()
 
-			if (this.isMobile) e = e.targetTouches[0]
+			if (e.targetTouches && e.targetTouches[0]) e = e.targetTouches[0]
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd (e) {
+			e.preventDefault();
 			if (this.flag) {
 				this.$emit('drag-end', this)
 				if (this.lazy && this.isDiff(this.val, this.value)) {
