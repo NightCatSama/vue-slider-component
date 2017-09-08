@@ -31,6 +31,7 @@ npm install vue-slider-component --save
  - Add `real-time` prop for real-time computing the layout of the components
  - Add labels of piecewise, and the style of the corresponding
  - Add Tooltip slot ([#Scoped-Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) only vue 2.1.0+)
+ - The `event-type` prop no longer supports `mouse` and `touch` (bind touch and mouse events by default)
 
 ## Todo
 
@@ -201,7 +202,7 @@ The solution:
 
 ## Using it with NUXT.js
 
-This hack is just to avoid the server side 'document' error when using it with Nuxt.js. 
+This hack is just to avoid the server side 'document' error when using it with Nuxt.js.
 Use it if you don't need to have this component rendered on the server side.
 
 1. Install [this](https://github.com/egoist/vue-no-ssr) and add it to the variable `components`. i.e.
@@ -215,7 +216,7 @@ let components = {
      */
     'no-ssr': NoSSR
 }
-```  
+```
 
 2. In your template, encapsulate 'vue-slider-component' into the 'no-ssr' component to avoid redner the html on the server like this:
 ```html
