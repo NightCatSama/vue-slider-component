@@ -720,9 +720,6 @@ export default {
 	.vue-slider-component {
 		position: relative;
 		box-sizing: border-box;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
 		user-select: none;
 	}
 	.vue-slider-component.vue-slider-disabled {

@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "2.3.9",
+  "version": "2.4.0",
   "description": "Can use the Slider component in vue1.x and vue2.x",
   "keywords": [
     "vue",
@@ -24,6 +24,7 @@
     "build": "rm -rf ./dist && webpack --colors --hide-modules"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.4",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -31,6 +32,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "css-loader": "^0.23.1",
+    "postcss-load": "^0.1.6",
     "style-loader": "^0.15.0",
     "vue": "^2.2.4",
     "vue-html-loader": "^1.2.4",
