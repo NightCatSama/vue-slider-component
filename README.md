@@ -8,7 +8,7 @@ Can use the slider in vue1.x and vue2.x
 
 [Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
-[Live Demo](https://jsfiddle.net/NightCatSama/2xy72dod/)
+[Live Demo](https://jsfiddle.net/NightCatSama/2xy72dod/83/)
 
 ## Install
 ``` bash
@@ -120,7 +120,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | Props       | Type          | Default  | Description  |
 | ----------- |:--------------| ---------|--------------|
 | direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
-| event-type  | String        | auto   | the event type, optional value: ['auto', 'touch', 'mouse', 'none'] |
+| event-type  | String        | auto   | the event type, optional value: ['auto', 'none'] |
 | width       | Number[,String(in horizontal)] | auto | width of the component |
 | height      | Number[,String(in vertical)] | 6        | height of the component |
 | dot-size    | Number        | 16       | size of the sliders |
