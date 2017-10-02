@@ -227,7 +227,8 @@ let components = {
 
 3. Require the library just for client side and add the 'vue-slider-component' component to the template component list
 ```js
-if (process.BROWSER_BUILD) {
+if (process.browser) { 
+    // in older versions of nuxt, it's process.BROWSER_BUILD
     let VueSlider = require('vue-slider-component')
     components['vue-slider'] = VueSlider
 }
