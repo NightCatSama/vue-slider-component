@@ -123,7 +123,9 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | event-type  | String        | auto   | the event type, optional value: ['auto', 'none'] |
 | width       | Number[,String(in horizontal)] | auto | width of the component |
 | height      | Number[,String(in vertical)] | 6        | height of the component |
-| dot-size    | Number        | 16       | size of the sliders |
+| dot-size    | Number        | 16       | determines width and height of the sliders. to set different values of `width` & `height` use `dot-width` & `dot-height` props |
+| dot-width   | Number        | value of `dot-size` prop | width of sliders. if specified, overrides value of `dot-size` |
+| dot-height  | Number        | value of `dot-size` prop | height of sliders. if specified, overrides value of `dot-size` |
 | min         | Number        | 0        | the minimum value   |
 | max         | Number        | 100      | the maximum value   |
 | interval    | Number        | 1        | the gap between the values |
