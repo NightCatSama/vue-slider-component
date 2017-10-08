@@ -168,7 +168,7 @@
 		<section data-title="Customize dot dimensions" id="demo8">
 			<div>
 				<vue-slider  @callback="cb" ref="slider" v-bind="demo.demo8" v-model="demo.demo8.value"></vue-slider>
-				<h3><small>Value: </small>{{ demo.default.value }}</h3>
+				<h3><small>Value: </small>{{ demo.demo8.value }}</h3>
 			</div>
 			<div>
 				<code>{
@@ -180,7 +180,7 @@
 		<section data-title="Customize dot dimensions 2" id="demo9">
 			<div>
 				<vue-slider  @callback="cb" ref="slider" v-bind="demo.demo9" v-model="demo.demo9.value"></vue-slider>
-				<h3><small>Value: </small>{{ demo.default.value }}</h3>
+				<h3><small>Value: </small>{{ demo.demo9.value }}</h3>
 			</div>
 			<div>
 				<code>{
