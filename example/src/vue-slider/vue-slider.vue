@@ -35,7 +35,9 @@ export default {
 			flag: false,
 			size: 0,
 			currentValue: 0,
-			currentSlider: 0
+			currentSlider: 0,
+			dotWidthVal: typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize,
+			dotHeightVal: typeof this.dotHeight === 'number' ? this.dotHeight : this.dotSize
 		}
 	},
 	props: {
@@ -54,6 +56,14 @@ export default {
 		dotSize: {
 			type: Number,
 			default: 16
+		},
+		dotWidth: {
+			type: Number,
+			required: false
+		},
+		dotHeight: {
+			type: Number,
+			required: false
 		},
 		min: {
 			type: Number,
@@ -236,12 +246,12 @@ export default {
 			if (this.direction === 'vertical') {
 				return {
 					height: typeof this.height === 'number' ? `${this.height}px` : this.height,
-					padding: `${this.dotSize / 2}px`
+					padding: `${this.dotHeightVal / 2}px ${this.dotWidthVal / 2}px`
 				}
 			}
 			return {
 				width: typeof this.width === 'number' ? `${this.width}px` : this.width,
-				padding: `${this.dotSize / 2}px`
+				padding: `${this.dotHeightVal / 2}px ${this.dotWidthVal / 2}px`
 			}
 		},
 		elemStyles: function() {
@@ -258,15 +268,15 @@ export default {
 		dotStyles: function() {
 			if (this.direction === 'vertical') {
 				return {
-					width: `${this.dotSize}px`,
-					height: `${this.dotSize}px`,
-					left: `${(-(this.dotSize - this.width) / 2)}px`
+					width: `${this.dotWidthVal}px`,
+					height: `${this.dotHeightVal}px`,
+					left: `${(-(this.dotWidthVal - this.width) / 2)}px`
 				}
 			}
 			return {
-				width: `${this.dotSize}px`,
-				height: `${this.dotSize}px`,
-				top: `${(-(this.dotSize - this.height) / 2)}px`
+				width: `${this.dotWidthVal}px`,
+				height: `${this.dotHeightVal}px`,
+				top: `${(-(this.dotHeightVal - this.height) / 2)}px`
 			}
 		},
 		piecewiseStyle: function() {
@@ -462,7 +472,7 @@ export default {
 			this.flag || this.setTransitionTime(0)
 		},
 		setTransform(val) {
-			let value = (this.direction === 'vertical' ? ((this.dotSize / 2) - val) : (val - (this.dotSize / 2))) * (this.reverse ? -1 : 1)
+			let value = (this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1)
 			let translateValue = this.direction === 'vertical' ? `translateY( ${value}px )` : `translateX( ${value}px )`
 			let processSize = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
 			let processPos = `${this.currentSlider === 0 ? val : this.position[0]}px`

@@ -165,6 +165,30 @@
 				</template>}</code>
 			</div>
 		</section>
+		<section data-title="Customize dot dimensions" id="demo8">
+			<div>
+				<vue-slider  @callback="cb" ref="slider" v-bind="demo.demo8" v-model="demo.demo8.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.default.value }}</h3>
+			</div>
+			<div>
+				<code>{
+				<template v-for="(value, key, index) of demo.demo8">
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+				</template>}</code>
+			</div>
+		</section>
+		<section data-title="Customize dot dimensions 2" id="demo9">
+			<div>
+				<vue-slider  @callback="cb" ref="slider" v-bind="demo.demo9" v-model="demo.demo9.value"></vue-slider>
+				<h3><small>Value: </small>{{ demo.default.value }}</h3>
+			</div>
+			<div>
+				<code>{
+				<template v-for="(value, key, index) of demo.demo9">
+					<span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+				</template>}</code>
+			</div>
+		</section>
 	</div>
 </template>
 
@@ -380,6 +404,62 @@ export default {
 					max: 100,
 					disabled: false,
 					tooltip: 'always'
+				},
+				demo8: {
+					value: 0,
+					width: 'auto',
+					height: 6,
+					direction: 'horizontal',
+					dotWidth: 16,
+					dotHeight: 24,
+					eventType: 'auto',
+					min: 0,
+					max: 100,
+					interval: 1,
+					disabled: false,
+					show: true,
+					realTime: false,
+					tooltip: 'always',
+					clickable: true,
+					tooltipDir: 'top',
+					piecewise: false,
+					lazy: false,
+					reverse: false,
+					speed: 0.5,
+					formatter: null,
+					bgStyle: null,
+					sliderStyle: null,
+					tooltipStyle: null,
+					processStyle: null,
+					piecewiseStyle: null
+				},
+				demo9: {
+					value: 0,
+					width: 6,
+					height: 300,
+					direction: 'vertical',
+					dotWidth: 24,
+					dotHeight: 16,
+					eventType: 'auto',
+					min: 0,
+					max: 100,
+					interval: 1,
+					disabled: false,
+					show: true,
+					realTime: false,
+					tooltip: 'always',
+					clickable: true,
+					tooltipDir: 'top',
+					piecewise: false,
+					lazy: false,
+					reverse: false,
+					speed: 0.5,
+					formatter: null,
+					bgStyle: null,
+					sliderStyle: null,
+					tooltipStyle: null,
+					processStyle: null,
+					piecewiseStyle: null
 				},
 				annotation: {
 					width: '组件宽度',
