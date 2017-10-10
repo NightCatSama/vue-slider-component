@@ -89,9 +89,7 @@ export default {
 			flag: false,
 			size: 0,
 			currentValue: 0,
-			currentSlider: 0,
-			dotWidthVal: typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize,
-			dotHeightVal: typeof this.dotHeight === 'number' ? this.dotHeight : this.dotSize
+			currentSlider: 0
 		}
 	},
 	props: {
@@ -195,6 +193,12 @@ export default {
 		labelActiveStyle: Object
 	},
 	computed: {
+		dotWidthVal () {
+			return typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize
+		},
+		dotHeightVal () {
+			return typeof this.dotHeight === 'number' ? this.dotHeight : this.dotSize
+		},
 		flowDirection () {
 			return `vue-slider-${this.direction + (this.reverse ? '-reverse' : '')}`
 		},
