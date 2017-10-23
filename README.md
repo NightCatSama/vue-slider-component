@@ -8,7 +8,7 @@ Can use the slider in vue1.x and vue2.x
 
 [Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
-[Live Demo](https://jsfiddle.net/NightCatSama/2xy72dod/83/)
+[Live Demo](https://jsfiddle.net/2xy72dod/167/)
 
 ## Install
 ``` bash
@@ -191,6 +191,13 @@ e.g.
     </div>
   </template>
 </vue-slider>
+
+<!-- In vue2.5 above, please use slot-scope instead of scope -->
+<vue-slider v-model="value">
+  <div class="diy-tooltip" slot="tooltip" slot-scope="tooltip">
+    {{ tooltip.value }}
+  </div>
+</vue-slider>
 ```
 
 ## Exceptions
@@ -229,7 +236,7 @@ let components = {
 
 3. Require the library just for client side and add the 'vue-slider-component' component to the template component list
 ```js
-if (process.browser) { 
+if (process.browser) {
     // in older versions of nuxt, it's process.BROWSER_BUILD
     let VueSlider = require('vue-slider-component')
     components['vue-slider'] = VueSlider

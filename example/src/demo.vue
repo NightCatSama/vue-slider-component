@@ -535,7 +535,8 @@ export default {
 		}
 	},
 	mounted () {
-		let code = `<template slot="tooltip" scope="tooltip">
+		let code = `<!-- In vue2.5 above, please use slot-scope instead of scope -->
+<template slot="tooltip" scope="tooltip">
 	<div class="diy-tooltip">
 		<img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
 		{{ tooltip.value }}
