@@ -6,8 +6,8 @@
 					ref="dot0"
 					:class="[tooltipStatus, 'vue-slider-dot']"
 					:style="[dotStyles, sliderStyles[0]]"
-					@mousedown="moveStart(0)"
-					@touchstart="moveStart(0)"
+					@mousedown="moveStart($event, 0)"
+					@touchstart="moveStart($event, 0)"
 				>
 					<span :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
 						<slot name="tooltip" :value="val[0]" :index="0">
@@ -19,8 +19,8 @@
 					ref="dot1"
 					:class="[tooltipStatus, 'vue-slider-dot']"
 					:style="[dotStyles, sliderStyles[1]]"
-					@mousedown="moveStart(1)"
-					@touchstart="moveStart(1)"
+					@mousedown="moveStart($event, 1)"
+					@touchstart="moveStart($event, 1)"
 				>
 					<span :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
 						<slot name="tooltip" :value="val[1]" :index="1">
@@ -89,9 +89,7 @@ export default {
 			flag: false,
 			size: 0,
 			currentValue: 0,
-			currentSlider: 0,
-			dotWidthVal: typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize,
-			dotHeightVal: typeof this.dotHeight === 'number' ? this.dotHeight : this.dotSize
+			currentSlider: 0
 		}
 	},
 	props: {
@@ -175,6 +173,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		stopPropagation: {
+			type: Boolean,
+			default: false
+		},
 		value: {
 			type: [String, Number, Array],
 			default: 0
@@ -195,6 +197,12 @@ export default {
 		labelActiveStyle: Object
 	},
 	computed: {
+		dotWidthVal () {
+			return typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize
+		},
+		dotHeightVal () {
+			return typeof this.dotHeight === 'number' ? this.dotHeight : this.dotSize
+		},
 		flowDirection () {
 			return `vue-slider-${this.direction + (this.reverse ? '-reverse' : '')}`
 		},
@@ -434,7 +442,11 @@ export default {
 			}
 			this.setValueOnPos(pos)
 		},
-		moveStart (index) {
+		moveStart (e, index) {
+			if (this.stopPropagation) {
+				e.stopPropagation()
+			}
+
 			if (this.isDisabled) return false
 			else if (this.isRange) {
 				this.currentSlider = index
@@ -443,6 +455,10 @@ export default {
 			this.$emit('drag-start', this)
 		},
 		moving (e) {
+			if (this.stopPropagation) {
+				e.stopPropagation()
+			}
+
 			if (!this.flag) return false
 			e.preventDefault()
 
@@ -450,6 +466,10 @@ export default {
 			this.setValueOnPos(this.getPos(e), true)
 		},
 		moveEnd (e) {
+			if (this.stopPropagation) {
+				e.stopPropagation()
+			}
+
 			if (this.flag) {
 				this.$emit('drag-end', this)
 				if (this.lazy && this.isDiff(this.val, this.value)) {
