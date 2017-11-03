@@ -84,6 +84,7 @@
 </template>
 <script>
 export default {
+	name: 'VueSliderComponent',
 	data () {
 		return {
 			flag: false,
