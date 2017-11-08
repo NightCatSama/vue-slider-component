@@ -2,7 +2,7 @@
 
 [![downloads](https://img.shields.io/npm/dt/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
 [![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
-[![license](https://img.shields.io/github/license/NightCatSama/vue-slider-component.svg?maxAge=1800)]()
+[![license](https://img.shields.io/npm/l/express.svg)]()
 
 Can use the slider in vue1.x and vue2.x
 
