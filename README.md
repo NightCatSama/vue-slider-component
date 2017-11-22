@@ -58,9 +58,8 @@ npm run dev
 
 ## Usage
 
-### Use in vue1.x
+#### Use in vue1.x:
 
-e.g:
 ```html
 <template>
   <div>
@@ -84,9 +83,8 @@ new Vue({
 ```
 <br>
 
-### Use in vue2.x
+#### Use in vue2.x:
 
-e.g:
 ```html
 <template>
   <div>
@@ -111,10 +109,9 @@ new Vue({
 </script>
 ```
 <br>
-Use with Browserify (vueify)
-<br>Use this little fix:
 
-e.g:
+#### Use with Browserify (vueify):
+
 ```js
 import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 ```
