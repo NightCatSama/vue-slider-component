@@ -57,7 +57,8 @@ npm run dev
 ```
 
 ## Usage
-Use in vue1.x
+
+### Use in vue1.x
 
 e.g:
 ```html
@@ -67,6 +68,7 @@ e.g:
   </div>
 </template>
 <script>
+// Used only in vue1.x version
 import vueSlider from 'vue-slider-component/src/vue-slider.vue';
 
 new Vue({
@@ -81,7 +83,8 @@ new Vue({
 </script>
 ```
 <br>
-Use in vue2.x
+
+### Use in vue2.x
 
 e.g:
 ```html
@@ -91,7 +94,10 @@ e.g:
   </div>
 </template>
 <script>
+// Used only in vue2.x version
 import vueSlider from 'vue-slider-component'
+// or
+// import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 
 new Vue({
   el: '#app',
