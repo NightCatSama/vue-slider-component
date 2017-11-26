@@ -208,10 +208,11 @@ e.g.
 if the component initialization in a `v-show="false" / display: none` container or use `transform / animation` to appear component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
 
 The solution:
- 1. set prop `:real-time="true"`, if the initial value not equal to the minimum, still need to call the `refresh` method
- 2. using `v-if` instead of `v-show` or `display: none`.
- 3. use prop `show` to control display.
- 4. After the component appears, to call the `refresh` method. [example](https://jsfiddle.net/2xy72dod/80/)
+ 1. using `v-if` instead of `v-show` or `display: none`.
+ 2. use prop `show` to control display.
+ 3. After the component appears, to call the `refresh` method. 
+ 
+Example: <https://jsfiddle.net/2xy72dod/254/>
 
 ## Using it with NUXT.js
 
