@@ -180,26 +180,26 @@ prop*: [only support vue2]
 ### Slot
 | Name          | Description  |
 | --------------|--------------|
-| tooltip       | Customize the tooltip slot |
-| piecewise     | Customize the piecewise slot |
-| label         | Customize the label slot |
+| tooltip       | Customize the tooltip slot. optional value: [`value`, `index`(only range model)] |
+| piecewise     | Customize the piecewise slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
+| label         | Customize the label slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
 
-[#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` to get the `value` and `index` (`index` only range model).
+[#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` or `slot-scope` to get the value.
 
 e.g.
 ```html
 <vue-slider v-model="value">
-  <template slot="tooltip" scope="tooltip">
+  <template slot="tooltip" scope="{ value }">
     <div class="diy-tooltip">
-      {{ tooltip.value }}
+      {{ value }}
     </div>
   </template>
 </vue-slider>
 
 <!-- In vue2.5 above, please use slot-scope instead of scope -->
 <vue-slider v-model="value">
-  <div class="diy-tooltip" slot="tooltip" slot-scope="tooltip">
-    {{ tooltip.value }}
+  <div class="diy-tooltip" slot="tooltip" slot-scope="{ value }">
+    {{ value }}
   </div>
 </vue-slider>
 ```
@@ -210,8 +210,8 @@ if the component initialization in a `v-show="false" / display: none` container 
 The solution:
  1. using `v-if` instead of `v-show` or `display: none`.
  2. use prop `show` to control display.
- 3. After the component appears, to call the `refresh` method. 
- 
+ 3. After the component appears, to call the `refresh` method.
+
 Example: <https://jsfiddle.net/2xy72dod/254/>
 
 ## Using it with NUXT.js

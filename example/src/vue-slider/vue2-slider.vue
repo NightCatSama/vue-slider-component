@@ -52,6 +52,7 @@
 						:index="index"
 						:first="index === 0"
 						:last="index === piecewiseDotWrap.length - 1"
+						:active="piecewiseObj.inRange"
 					>
 						<span
 							v-if="piecewise"
@@ -66,6 +67,7 @@
 						:index="index"
 						:first="index === 0"
 						:last="index === piecewiseDotWrap.length - 1"
+						:active="piecewiseObj.inRange"
 					>
 						<span
 							v-if="piecewiseLabel"
