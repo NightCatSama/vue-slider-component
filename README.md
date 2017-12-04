@@ -148,11 +148,11 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
 | formatter*        | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
 | bg-style*         | Object | null  | The style of the background. |
-| slider-style*     | Object[,Array(in range model)] | null  | The style of the slider. |
+| slider-style*     | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the slider. |
 | process-style*    | Object | null  | The style of the process bar. |
 | piecewise-style*  | Object | null  | The style of the piecewise dot. |
 | piecewise-active-style*  | Object | null  | The style of the piecewise dot in the activated state. |
-| tooltip-style*    | Object[,Array(in range model)] | null  | The style of the tooltip. |
+| tooltip-style*    | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the tooltip. |
 | label-style*      | Object | null  | The style of the label. |
 | label-active-style*      | Object | null  | The style of the label in the activated state. |
 
