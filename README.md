@@ -10,21 +10,6 @@ Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can
 
 [Live Demo](https://jsfiddle.net/2xy72dod/167/)
 
-## Exceptions
-if the component initialization in a `v-show="false" / display: none` container or use `transform / animation / margin` to change style of the component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
-
-The solution:
- 1. using `v-if` instead of `v-show` or `display: none`.
- 2. use prop `show` to control display.
- 3. After the component appears, to call the `refresh` method.
-
-Example: <https://jsfiddle.net/2xy72dod/254/>
-
-## Install
-``` bash
-npm install vue-slider-component --save
-```
-
 ## Todo
 
 - [x] Basis
@@ -36,6 +21,20 @@ npm install vue-slider-component --save
 - [x] Range
 - [x] The vertical component
 
+## Install
+``` bash
+npm install vue-slider-component --save
+```
+
+## Exceptions
+if the component initialization in a `v-show="false" / display: none` container or use `transform / animation / margin` to change the location of the component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
+
+The solution:
+ 1. using `v-if` instead of `v-show` or `display: none`.
+ 2. use prop `show` to control display.
+ 3. After the component appears, to call the `refresh` method.
+
+Example: <https://jsfiddle.net/2xy72dod/254/>
 
 ## Run example
 ``` bash
