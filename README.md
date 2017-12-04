@@ -4,34 +4,26 @@
 [![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
 [![license](https://img.shields.io/npm/l/express.svg)]()
 
-Can use the slider in vue1.x and vue2.x
+Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can be normal use)
 
 [Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
 [Live Demo](https://jsfiddle.net/2xy72dod/167/)
 
+## Exceptions
+if the component initialization in a `v-show="false" / display: none` container or use `transform / animation / margin` to change style of the component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
+
+The solution:
+ 1. using `v-if` instead of `v-show` or `display: none`.
+ 2. use prop `show` to control display.
+ 3. After the component appears, to call the `refresh` method.
+
+Example: <https://jsfiddle.net/2xy72dod/254/>
+
 ## Install
 ``` bash
 npm install vue-slider-component --save
 ```
-
-## Update
-
- - Remove class-name & styles (can use vue native props [style, class])
- - Remove val prop, use v-model set value (Don't need to manually two-way binding)
- - Optimize the click range
- - No longer update vue1.x, but still can be normal use
- - Add `lazy` prop
- - Support array setIndex method parameters
- - Support ie 9+
- - Add props `*-style` for the custom style
- - Add `formatter` prop
- - Add `clickable` prop
- - `tooltipDir` and `sliderStyle` and `tooltipStyle` prop support type: Array
- - Add `real-time` prop for real-time computing the layout of the components
- - Add labels of piecewise, and the style of the corresponding
- - Add Tooltip slot ([#Scoped-Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) only vue 2.1.0+)
- - The `event-type` prop no longer supports `mouse` and `touch` (bind touch and mouse events by default)
 
 ## Todo
 
@@ -203,16 +195,6 @@ e.g.
   </div>
 </vue-slider>
 ```
-
-## Exceptions
-if the component initialization in a `v-show="false" / display: none` container or use `transform / animation` to appear component, there may be an exception ( The slider cannot be used, because the component can not initialize the size or slider position ).
-
-The solution:
- 1. using `v-if` instead of `v-show` or `display: none`.
- 2. use prop `show` to control display.
- 3. After the component appears, to call the `refresh` method.
-
-Example: <https://jsfiddle.net/2xy72dod/254/>
 
 ## Using it with NUXT.js
 
