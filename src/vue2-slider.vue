@@ -638,8 +638,9 @@
         return bool && val
       },
       syncValue (noCb) {
-        noCb || this.$emit('callback', this.val)
-        this.$emit('input', this.isRange ? this.val.concat() : this.val)
+        let val = this.isRange ? this.val.concat() : this.val
+        this.$emit('input', val)
+        noCb || this.$emit('callback', val)
       },
       getValue () {
         return this.val
