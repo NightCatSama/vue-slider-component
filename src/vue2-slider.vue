@@ -92,7 +92,8 @@
         flag: false,
         size: 0,
         currentValue: 0,
-        currentSlider: 0
+        currentSlider: 0,
+        isComponentExists: true
       }
     },
     props: {
@@ -662,15 +663,20 @@
       }
     },
     mounted () {
+      this.isComponentExists = true;
+
       if (typeof window === 'undefined' || typeof document === 'undefined') return
 
       this.$nextTick(() => {
-        this.getStaticData()
-        this.setValue(this.value, true, 0)
-        this.bindEvents()
+        if (this.isComponentExists) {
+          this.getStaticData()
+          this.setValue(this.value, true, 0)
+          this.bindEvents()
+        }
       })
     },
     beforeDestroy () {
+      this.isComponentExists = false;
       this.unbindEvents()
     }
   }
