@@ -665,8 +665,9 @@
     mounted () {
       this.isComponentExists = true
 
-      if (typeof window === 'undefined' || typeof document === 'undefined')
+      if (typeof window === 'undefined' || typeof document === 'undefined') {
         return console.warn('[VueSlider warn]: window or document is undefined, can not be initialization.')
+      }
 
       this.$nextTick(() => {
         if (this.isComponentExists) {

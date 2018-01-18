@@ -27,7 +27,7 @@ module.exports = {
     'no-tabs': 0,
     'no-new': 0,
     'semi': ['error', 'never'],
-    'indent': ['error', 'tab'],
+    'indent': ['error', 2],
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
