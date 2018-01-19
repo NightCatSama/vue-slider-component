@@ -290,7 +290,7 @@
         if (this.data) {
           return this.data.length - 1
         } else if (~~((this.maximum - this.minimum) * this.multiple) % (this.interval * this.multiple) !== 0) {
-          console.error('[Vue-slider warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
+          console.error('[VueSlider error]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
         }
         return (this.maximum - this.minimum) / this.interval
       },
@@ -391,13 +391,21 @@
         this.flag || this.setValue(val, true)
       },
       max (val) {
+        if (val < this.min) {
+          return console.error('[VueSlider error]: The maximum value can not be less than the minimum value.')
+        }
+
         let resetVal = this.limitValue(this.val)
-        resetVal !== false && this.setValue(resetVal)
+        this.setValue(resetVal)
         this.refresh()
       },
       min (val) {
+        if (val > this.max) {
+          return console.error('[VueSlider error]: The minimum value can not be greater than the maximum value.')
+        }
+
         let resetVal = this.limitValue(this.val)
-        resetVal !== false && this.setValue(resetVal)
+        this.setValue(resetVal)
         this.refresh()
       },
       show (bool) {
@@ -543,11 +551,7 @@
       setValue (val, noCb, speed) {
         if (this.isDiff(this.val, val)) {
           let resetVal = this.limitValue(val)
-          if (resetVal !== false) {
-            this.val = this.isRange ? resetVal.concat() : resetVal
-          } else {
-            this.val = this.isRange ? val.concat() : val
-          }
+          this.val = this.isRange ? resetVal.concat() : resetVal
           this.syncValue(noCb)
         }
 
@@ -617,26 +621,22 @@
           return val
         }
 
-        let bool = false
-        if (this.isRange) {
-          val = val.map((v) => {
-            if (v < this.min) {
-              bool = true
-              return this.min
-            } else if (v > this.max) {
-              bool = true
-              return this.max
-            }
-            return v
-          })
-        } else if (val > this.max) {
-          bool = true
-          val = this.max
-        } else if (val < this.min) {
-          bool = true
-          val = this.min
+        const inRange = (v) => {
+          if (v < this.min) {
+            console.error(`[VueSlider warn]: The value of the slider is ${val}, the minimum value is ${this.min}, the value of this slider can not be less than the minimum value`)
+            return this.min
+          } else if (v > this.max) {
+            console.error(`[VueSlider warn]: The value of the slider is ${val}, the maximum value is ${this.max}, the value of this slider can not be greater than the maximum value`)
+            return this.max
+          }
+          return v
         }
-        return bool && val
+
+        if (this.isRange) {
+          return val.map((v) => inRange(v))
+        } else {
+          return inRange(val)
+        }
       },
       syncValue (noCb) {
         let val = this.isRange ? this.val.concat() : this.val
@@ -666,13 +666,13 @@
       this.isComponentExists = true
 
       if (typeof window === 'undefined' || typeof document === 'undefined') {
-        return console.warn('[VueSlider warn]: window or document is undefined, can not be initialization.')
+        return console.error('[VueSlider error]: window or document is undefined, can not be initialization.')
       }
 
       this.$nextTick(() => {
         if (this.isComponentExists) {
           this.getStaticData()
-          this.setValue(this.value, true, 0)
+          this.setValue(this.limitValue(this.value), true, 0)
           this.bindEvents()
         }
       })

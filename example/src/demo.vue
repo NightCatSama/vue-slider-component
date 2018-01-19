@@ -211,7 +211,7 @@ export default {
           direction: 'horizontal',
           dotSize: 16,
           eventType: 'auto',
-          min: 0,
+          min: 10,
           max: 100,
           interval: 1,
           disabled: false,
@@ -532,7 +532,6 @@ export default {
     },
     cb (val) {
       console.log(val)
-      console.log(this.demo.default.value)
     }
   },
   mounted () {
