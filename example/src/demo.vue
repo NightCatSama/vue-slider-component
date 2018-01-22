@@ -211,7 +211,7 @@ export default {
           direction: 'horizontal',
           dotSize: 16,
           eventType: 'auto',
-          min: 10,
+          min: 0,
           max: 100,
           interval: 1,
           disabled: false,
