@@ -191,7 +191,7 @@
       },
       debug: {
         type: Boolean,
-        default: process && process.env && process.env.NODE_ENV !== 'production'
+        default: true
       },
       sliderStyle: [Array, Object, Function],
       tooltipDir: [Array, String],

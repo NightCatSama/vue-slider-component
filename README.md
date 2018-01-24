@@ -126,7 +126,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | show        | Boolean       | true     | display of the component |
 | speed       | Number        | 0.5      | transition time |
 | disabled    | Boolean       | false    | whether to disable components |
-| debug       | Boolean       | process.env.NODE_ENV !== 'production' | `debug="true"` will print errors in the console |
+| debug       | Boolean       | true | if you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
 | piecewise   | Boolean       | false    | whether to display the piecewise |
 | piecewise-label*   | Boolean  | false  | whether to display the label. [demo here](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
 | tooltip     | String, Boolean | always    | control the tooltip, optional value: ['hover', 'always', false] |
