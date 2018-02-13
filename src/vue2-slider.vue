@@ -182,7 +182,7 @@
         default: false
       },
       value: {
-        type: [String, Number, Array],
+        type: [String, Number, Array, Object],
         default: 0
       },
       piecewiseLabel: {
