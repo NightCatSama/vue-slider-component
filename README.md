@@ -132,7 +132,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | tooltip     | String, Boolean | always    | control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
-| value       | Number,Array  | 0        | initial value (if the value for the array open range model) |
+| value       | Number, String, Array, Object  | 0        | initial value (if the value for the array open range model) |
 | data        | Array         | null     | the custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
