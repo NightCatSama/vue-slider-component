@@ -137,11 +137,11 @@
         </template>}</code>
       </div>
     </section>
-    <section data-title="DIY Tooltip" id="demo7">
+    <section data-title="Custom Tooltip" id="demo7">
       <div>
-        <vue-slider ref="slider7" id="diy-tootip" v-bind="demo.demo7" v-model="demo.demo7.value">
+        <vue-slider ref="slider7" id="custom-tootip" v-bind="demo.demo7" v-model="demo.demo7.value">
           <template slot="tooltip" scope="tooltip">
-            <div class="diy-tooltip">
+            <div class="custom-tooltip">
               <img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
               {{ tooltip.value }}
             </div>
@@ -165,19 +165,34 @@
         </template>}</code>
       </div>
     </section>
-    <section data-title="Customize dot dimensions" id="demo8">
+    <section data-title="Custom Label" id="demo8">
       <div>
-        <vue-slider  @callback="cb" ref="slider" v-bind="demo.demo8" v-model="demo.demo8.value"></vue-slider>
+        <vue-slider ref="slider7" id="custom-tootip" v-bind="demo.demo8" v-model="demo.demo8.value">
+          <template slot="label" scope="{ label, active }">
+            <span :class="['custom-label', { active }]" v-if="label % 10 === 0">
+              {{ label }}
+            </span>
+          </template>
+        </vue-slider>
         <h3><small>Value: </small>{{ demo.demo8.value }}</h3>
+        <div class="btn-group">
+          <button @click="setValue('demo8', 50)">set value = 50</button>
+          <button @click="setDisabled('demo8')">set disabled</button>
+          <button @click="setTooltip('demo8')">switch tooltip</button>
+          <button @click="getValue('slider7')">getValue()</button>
+          <button @click="getIndex('slider7')">getIndex()</button>
+        </div>
       </div>
       <div>
+        <pre class="language-html" v-html="diy_label">
+        </pre>
         <code>{
         <template v-for="(value, key, index) of demo.demo8">
-          <span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+          <span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><br>
         </template>}</code>
       </div>
     </section>
-    <section data-title="Customize dot dimensions 2" id="demo9">
+    <section data-title="Customize dot dimensions" id="demo9">
       <div>
         <vue-slider  @callback="cb" ref="slider" v-bind="demo.demo9" v-model="demo.demo9.value"></vue-slider>
         <h3><small>Value: </small>{{ demo.demo9.value }}</h3>
@@ -185,6 +200,18 @@
       <div>
         <code>{
         <template v-for="(value, key, index) of demo.demo9">
+          <span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
+        </template>}</code>
+      </div>
+    </section>
+    <section data-title="Customize dot dimensions 2" id="demo10">
+      <div>
+        <vue-slider  @callback="cb" ref="slider" v-bind="demo.demo10" v-model="demo.demo10.value"></vue-slider>
+        <h3><small>Value: </small>{{ demo.demo10.value }}</h3>
+      </div>
+      <div>
+        <code>{
+        <template v-for="(value, key, index) of demo.demo10">
           <span class="green">{{ key }}</span>: <span class="yellow preWrap">{{ format(value) }}</span><small class="gray ml-sm">// {{ demo.annotation[key] }}</small><br>
         </template>}</code>
       </div>
@@ -407,6 +434,15 @@ export default {
           tooltip: 'always'
         },
         demo8: {
+          width: '100%',
+          show: true,
+          value: 0,
+          min: 0,
+          max: 100,
+          piecewiseLabel: true,
+          tooltip: false
+        },
+        demo9: {
           value: 0,
           width: 'auto',
           height: 6,
@@ -434,7 +470,7 @@ export default {
           processStyle: null,
           piecewiseStyle: null
         },
-        demo9: {
+        demo10: {
           value: 0,
           width: 6,
           height: 300,
@@ -465,6 +501,8 @@ export default {
         annotation: {
           width: '组件宽度',
           height: '组件高度',
+          dotWidth: '滑块宽度',
+          dotHeight: '滑块高度',
           direction: '组件方向',
           eventType: '事件类型',
           dotSize: '滑块大小',
@@ -491,7 +529,8 @@ export default {
           value: '值'
         }
       },
-      diy_tooltip: ''
+      diy_tooltip: '',
+      diy_label: ''
     }
   },
   methods: {
@@ -539,12 +578,20 @@ export default {
   mounted () {
     let code = `<!-- In vue2.5 above, please use slot-scope instead of scope -->
 <template slot="tooltip" scope="tooltip">
-  <div class="diy-tooltip">
+  <div class="custom-tooltip">
     <img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
     {{ tooltip.value }}
   </div>
 </template>`
     this.diy_tooltip = Prism.highlight(code, Prism.languages.html)
+
+    let labelCode = `<!-- In vue2.5 above, please use slot-scope instead of scope -->
+<template slot="label" scope="{ label, active }">
+  <span :class="['custom-label', { active }]" v-if="label % 10 === 0">
+    {{ label }}
+  </span>
+</template>`
+    this.diy_label = Prism.highlight(labelCode, Prism.languages.html)
   }
 }
 </script>
@@ -644,11 +691,38 @@ section::after {
   background-image: -webkit-linear-gradient(left, #f05b72, #3498db);
 }
 
-.diy-tooltip {
+.custom-tooltip {
   text-align: center;
 }
 
-.diy-tooltip img {
+.custom-tooltip img {
   display: block;
+}
+
+.custom-label {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  transform: translate(-50%, -12px);
+  margin-left: 3px;
+}
+.custom-label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 5px);
+  width: 1px;
+  height: 5px;
+  background-color: #000;
+}
+
+.custom-label.active {
+  color: #2980b9;
+  font-weight: bold;
+}
+.custom-label.active::after {
+  background-color: #2980b9;
+  width: 2px;
 }
 </style>
