@@ -220,7 +220,7 @@ export default {
           eventType: 'auto',
           min: 0,
           max: 100,
-          interval: 3,
+          interval: 1,
           debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,

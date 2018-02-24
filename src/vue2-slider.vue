@@ -1,5 +1,11 @@
 <template>
-  <div ref="wrap" :class="['vue-slider-component', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" v-show="show" :style="wrapStyles" @click="wrapClick">
+  <div 
+    ref="wrap" 
+    :class="['vue-slider-component', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" 
+    v-show="show" 
+    :style="wrapStyles"
+    @click="wrapClick"
+  >
     <div ref="elem" aria-hidden="true" class="vue-slider" :style="[elemStyles, bgStyle]">
       <template v-if="isRange">
         <div
@@ -79,7 +85,14 @@
           </slot>
         </li>
       </ul>
-      <div ref="process" class="vue-slider-process" :style="processStyle"></div>
+      <div 
+        ref="process" 
+        :class="['vue-slider-process', { 'vue-slider-process-dragable': fixed }]" 
+        :style="processStyle"
+        @click="processClick"
+        @mousedown="moveStart($event, 0, true)"
+        @touchstart="moveStart($event, 0, true)"
+      ></div>
     </div>
     <input v-if="!isRange && !data" class="vue-slider-sr-only" type="range" v-model="val" :min="min" :max="max" />
   </div>
@@ -170,7 +183,7 @@
       },
       stopPropagation: {
         type: Boolean,
-        default: false
+        default: true
       },
       value: {
         type: [String, Number, Array, Object],
@@ -202,6 +215,8 @@
     data () {
       return {
         flag: false,
+        processFlag: false,
+        processSign: null,
         size: 0,
         fixedValue: 0,
         currentValue: 0,
@@ -457,22 +472,33 @@
         this.realTime && this.getStaticData()
         return this.direction === 'vertical' ? (this.reverse ? (e.pageY - this.offset) : (this.size - (e.pageY - this.offset))) : (this.reverse ? (this.size - (e.clientX - this.offset)) : (e.clientX - this.offset))
       },
+      processClick (e) {
+        if (this.fixed) {
+          e.stopPropagation()
+        }
+      },
       wrapClick (e) {
-        if (this.isDisabled || !this.clickable) return false
+        if (this.isDisabled || !this.clickable || this.processFlag) return false
         let pos = this.getPos(e)
         if (this.isRange) {
           this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
         }
         this.setValueOnPos(pos)
       },
-      moveStart (e, index) {
+      moveStart (e, index, isProcess) {
+        if (this.isDisabled) {
+          return false
+        }
         if (this.stopPropagation) {
           e.stopPropagation()
         }
-
-        if (this.isDisabled) return false
-        else if (this.isRange) {
+        if (this.isRange) {
           this.currentSlider = index
+
+          if (isProcess) {
+            this.processFlag = true
+            this.processSign = [this.position[0], this.getPos((e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0] : e)]
+          }
         }
         this.flag = true
         this.$emit('drag-start', this)
@@ -486,7 +512,11 @@
         e.preventDefault()
 
         if (e.targetTouches && e.targetTouches[0]) e = e.targetTouches[0]
-        this.setValueOnPos(this.getPos(e), true)
+        if (this.processFlag) {
+          this.setValueOnPos(this.processSign[0] + this.getPos(e) - this.processSign[1], true)
+        } else {
+          this.setValueOnPos(this.getPos(e), true)
+        }
       },
       moveEnd (e) {
         if (this.stopPropagation) {
@@ -502,6 +532,9 @@
           return false
         }
         this.flag = false
+        window.setTimeout(() => {
+          this.processFlag = false
+        }, 0)
         this.setPosition()
       },
       setValueOnPos (pos, isDrag) {
@@ -767,6 +800,10 @@
     transition: all 0s;
     z-index: 1;
   }
+  .vue-slider-component .vue-slider-process.vue-slider-process-dragable {
+    cursor: pointer;
+    z-index: 3;
+  }
   .vue-slider-component.vue-slider-horizontal .vue-slider-process {
     width: 0;
     height: 100%;
@@ -801,7 +838,7 @@
     transition: all 0s;
     will-change: transform;
     cursor: pointer;
-    z-index: 3;
+    z-index: 4;
   }
   .vue-slider-component.vue-slider-horizontal .vue-slider-dot {
     left: 0;
@@ -931,7 +968,7 @@
     background-color: rgba(0, 0, 0, 0.16);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-      z-index: 2;
+    z-index: 2;
     transition: all .3s;
   }
   .vue-slider-component .vue-slider-piecewise-item:first-child .vue-slider-piecewise-dot, .vue-slider-component .vue-slider-piecewise-item:last-child .vue-slider-piecewise-dot {
