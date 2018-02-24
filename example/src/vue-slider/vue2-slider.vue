@@ -87,15 +87,6 @@
 <script>
   export default {
     name: 'VueSliderComponent',
-    data () {
-      return {
-        flag: false,
-        size: 0,
-        currentValue: 0,
-        currentSlider: 0,
-        isComponentExists: true
-      }
-    },
     props: {
       width: {
         type: [Number, String],
@@ -193,6 +184,10 @@
         type: Boolean,
         default: true
       },
+      fixed: {
+        type: Boolean,
+        default: false
+      },
       sliderStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
       formatter: [String, Function],
@@ -203,6 +198,16 @@
       tooltipStyle: [Array, Object, Function],
       labelStyle: Object,
       labelActiveStyle: Object
+    },
+    data () {
+      return {
+        flag: false,
+        size: 0,
+        fixedValue: 0,
+        currentValue: 0,
+        currentSlider: 0,
+        isComponentExists: true
+      }
     },
     computed: {
       dotWidthVal () {
@@ -294,7 +299,7 @@
         if (this.data) {
           return this.data.length - 1
         } else if (Math.floor((this.maximum - this.minimum) * this.multiple) % (this.interval * this.multiple) !== 0) {
-          this.printError('[VueSlider error]: Prop[interval] is illegal, Please make sure that the interval can be divisible')
+          this.printError('Prop[interval] is illegal, Please make sure that the interval can be divisible')
         }
         return (this.maximum - this.minimum) / this.interval
       },
@@ -305,10 +310,13 @@
         return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
       },
       limit () {
-        return this.isRange ? [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
+        return this.isRange ? this.fixed ? [[0, (this.maximum - this.fixedValue * this.spacing) / this.spacing * this.gap], [(this.minimum + this.fixedValue * this.spacing) / this.spacing * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
       },
       valueLimit () {
-        return this.isRange ? [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
+        return this.isRange ? this.fixed ? [[this.minimum, this.maximum - this.fixedValue * this.spacing], [this.minimum + this.fixedValue * this.spacing, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
+      },
+      idleSlider () {
+        return this.currentSlider === 0 ? 1 : 0
       },
       wrapStyles () {
         return this.direction === 'vertical' ? {
@@ -396,7 +404,7 @@
       },
       max (val) {
         if (val < this.min) {
-          return this.printError('[VueSlider error]: The maximum value can not be less than the minimum value.')
+          return this.printError('The maximum value can not be less than the minimum value.')
         }
 
         let resetVal = this.limitValue(this.val)
@@ -405,7 +413,7 @@
       },
       min (val) {
         if (val > this.max) {
-          return this.printError('[VueSlider error]: The minimum value can not be greater than the maximum value.')
+          return this.printError('The minimum value can not be greater than the maximum value.')
         }
 
         let resetVal = this.limitValue(this.val)
@@ -418,6 +426,9 @@
             this.refresh()
           })
         }
+      },
+      fixed () {
+        this.computedFixedValue()
       }
     },
     methods: {
@@ -500,14 +511,29 @@
           this.setTransform(pos)
           let v = (Math.round(pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
           this.setCurrentValue(v, isDrag)
+          if (this.isRange && this.fixed) {
+            this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
+            this.setCurrentValue(v + (this.fixedValue * this.spacing * (this.currentSlider === 0 ? 1 : -1)), isDrag, true)
+          }
+          this.setCurrentValue(v, isDrag)
         } else if (pos < range[0]) {
           this.setTransform(range[0])
           this.setCurrentValue(valueRange[0])
-          if (this.currentSlider === 1) this.currentSlider = 0
+          if (this.isRange && this.fixed) {
+            this.setTransform(this.limit[this.idleSlider][0], true)
+            this.setCurrentValue(this.valueLimit[this.idleSlider][0], isDrag, true)
+          } else if (!this.fixed && this.currentSlider === 1) {
+            this.currentSlider = 0
+          }
         } else {
           this.setTransform(range[1])
           this.setCurrentValue(valueRange[1])
-          if (this.currentSlider === 0) this.currentSlider = 1
+          if (this.isRange && this.fixed) {
+            this.setTransform(this.limit[this.idleSlider][1], true)
+            this.setCurrentValue(this.valueLimit[this.idleSlider][1], isDrag, true)
+          } else if (!this.fixed && this.currentSlider === 0) {
+            this.currentSlider = 1
+          }
         }
       },
       isDiff (a, b) {
@@ -518,11 +544,12 @@
         }
         return a !== b
       },
-      setCurrentValue (val, bool) {
+      setCurrentValue (val, bool, isIdleSlider) {
+        let slider = isIdleSlider ? this.idleSlider : this.currentSlider
         if (val < this.minimum || val > this.maximum) return false
         if (this.isRange) {
-          if (this.isDiff(this.currentValue[this.currentSlider], val)) {
-            this.currentValue.splice(this.currentSlider, 1, val)
+          if (this.isDiff(this.currentValue[slider], val)) {
+            this.currentValue.splice(slider, 1, val)
             if (!this.lazy || !this.flag) {
               this.syncValue()
             }
@@ -556,32 +583,40 @@
         if (this.isDiff(this.val, val)) {
           let resetVal = this.limitValue(val)
           this.val = this.isRange ? resetVal.concat() : resetVal
+          this.computedFixedValue()
           this.syncValue(noCb)
         }
 
         this.$nextTick(() => this.setPosition(speed))
       },
+      computedFixedValue () {
+        if (!this.fixed) {
+          this.fixedValue = 0
+          return false
+        }
+
+        this.fixedValue = this.currentIndex[1] - this.currentIndex[0]
+      },
       setPosition (speed) {
         this.flag || this.setTransitionTime(speed === undefined ? this.speed : speed)
         if (this.isRange) {
-          this.currentSlider = 0
-          this.setTransform(this.position[this.currentSlider])
-          this.currentSlider = 1
-          this.setTransform(this.position[this.currentSlider])
+          this.setTransform(this.position[0], this.currentSlider === 1)
+          this.setTransform(this.position[1], this.currentSlider === 0)
         } else {
           this.setTransform(this.position)
         }
         this.flag || this.setTransitionTime(0)
       },
-      setTransform (val) {
+      setTransform (val, isIdleSlider) {
+        let slider = isIdleSlider ? this.idleSlider : this.currentSlider
         let value = (this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1)
         let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
-        let processSize = `${this.currentSlider === 0 ? this.position[1] - val : val - this.position[0]}px`
-        let processPos = `${this.currentSlider === 0 ? val : this.position[0]}px`
+        let processSize = this.fixed ? `${this.fixedValue * this.gap}px` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}px`
+        let processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}px` : `${slider === 0 ? val : this.position[0]}px`
         if (this.isRange) {
-          this.slider[this.currentSlider].style.transform = translateValue
-          this.slider[this.currentSlider].style.WebkitTransform = translateValue
-          this.slider[this.currentSlider].style.msTransform = translateValue
+          this.slider[slider].style.transform = translateValue
+          this.slider[slider].style.WebkitTransform = translateValue
+          this.slider[slider].style.msTransform = translateValue
           if (this.direction === 'vertical') {
             this.$refs.process.style.height = processSize
             this.$refs.process.style[this.reverse ? 'top' : 'bottom'] = processPos
@@ -627,10 +662,10 @@
 
         const inRange = (v) => {
           if (v < this.min) {
-            this.printError(`[VueSlider warn]: The value of the slider is ${val}, the minimum value is ${this.min}, the value of this slider can not be less than the minimum value`)
+            this.printError(`The value of the slider is ${val}, the minimum value is ${this.min}, the value of this slider can not be less than the minimum value`)
             return this.min
           } else if (v > this.max) {
-            this.printError(`[VueSlider warn]: The value of the slider is ${val}, the maximum value is ${this.max}, the value of this slider can not be greater than the maximum value`)
+            this.printError(`The value of the slider is ${val}, the maximum value is ${this.max}, the value of this slider can not be greater than the maximum value`)
             return this.max
           }
           return v
@@ -662,12 +697,13 @@
       refresh () {
         if (this.$refs.elem) {
           this.getStaticData()
+          this.computedFixedValue()
           this.setPosition()
         }
       },
       printError (msg) {
         if (this.debug) {
-          console.error(msg)
+          console.error(`[VueSlider error]: ${msg}`)
         }
       }
     },
@@ -675,7 +711,7 @@
       this.isComponentExists = true
 
       if (typeof window === 'undefined' || typeof document === 'undefined') {
-        return this.printError('[VueSlider error]: window or document is undefined, can not be initialization.')
+        return this.printError('window or document is undefined, can not be initialization.')
       }
 
       this.$nextTick(() => {
