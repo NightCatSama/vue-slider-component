@@ -563,7 +563,6 @@
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
             this.setCurrentValue(v + (this.fixedValue * this.spacing * (this.currentSlider === 0 ? 1 : -1)), isDrag, true)
           }
-          this.setCurrentValue(v, isDrag)
         } else if (pos < range[0]) {
           this.setTransform(range[0])
           this.setCurrentValue(valueRange[0])
