@@ -137,8 +137,9 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
 | real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
-| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
-| fixed*  | Boolean       | false    | Fixed distance between two values (valid only in range mode). [example](https://nightcatsama.github.io/vue-slider-component/example/#demo9) |
+| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) [example](https://nightcatsama.github.io/vue-slider-component/example/#demo1) |
+| fixed*  | Boolean       | false    | Fixed distance between two values (valid only in range mode). [example]
+| process-dragable*  | Boolean       | false    | Whether the process bar is draggable (valid only in range mode). [example](https://nightcatsama.github.io/vue-slider-component/example/#demo9) |
 | formatter*        | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
 | bg-style*         | Object | null  | The style of the background. |
 | slider-style*     | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the slider. |

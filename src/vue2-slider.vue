@@ -1,7 +1,7 @@
 <template>
   <div 
     ref="wrap" 
-    :class="['vue-slider-component', flowDirection, disabledClass, { 'vue-slider-has-label': piecewiseLabel }]" 
+    :class="['vue-slider-component', flowDirection, disabledClass, stateClass, { 'vue-slider-has-label': piecewiseLabel }]" 
     v-show="show" 
     :style="wrapStyles"
     @click="wrapClick"
@@ -87,7 +87,7 @@
       </ul>
       <div 
         ref="process" 
-        :class="['vue-slider-process', { 'vue-slider-process-dragable': fixed }]" 
+        :class="['vue-slider-process', { 'vue-slider-process-dragable': isRange && processDragable }]" 
         :style="processStyle"
         @click="processClick"
         @mousedown="moveStart($event, 0, true)"
@@ -201,6 +201,10 @@
         type: Boolean,
         default: false
       },
+      processDragable: {
+        type: Boolean,
+        default: false
+      },
       sliderStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
       formatter: [String, Function],
@@ -253,6 +257,9 @@
       },
       disabledClass () {
         return this.disabled ? 'vue-slider-disabled' : ''
+      },
+      stateClass () {
+        return this.flag ? this.processFlag ? 'vue-slider-state-process-drag' : 'vue-slider-state-drag' : null
       },
       isRange () {
         return Array.isArray(this.value)
@@ -496,8 +503,14 @@
           this.currentSlider = index
 
           if (isProcess) {
+            if (!this.processDragable) {
+              return false
+            }
             this.processFlag = true
-            this.processSign = [this.position[0], this.getPos((e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0] : e)]
+            this.processSign = {
+              pos: this.position,
+              start: this.getPos((e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0] : e)
+            }
           }
         }
         this.flag = true
@@ -513,7 +526,10 @@
 
         if (e.targetTouches && e.targetTouches[0]) e = e.targetTouches[0]
         if (this.processFlag) {
-          this.setValueOnPos(this.processSign[0] + this.getPos(e) - this.processSign[1], true)
+          this.currentSlider = 0
+          this.setValueOnPos(this.processSign.pos[0] + this.getPos(e) - this.processSign.start, true)
+          this.currentSlider = 1
+          this.setValueOnPos(this.processSign.pos[1] + this.getPos(e) - this.processSign.start, true)
         } else {
           this.setValueOnPos(this.getPos(e), true)
         }
@@ -522,7 +538,6 @@
         if (this.stopPropagation) {
           e.stopPropagation()
         }
-
         if (this.flag) {
           this.$emit('drag-end', this)
           if (this.lazy && this.isDiff(this.val, this.value)) {
@@ -767,6 +782,9 @@
     position: relative;
     box-sizing: border-box;
     user-select: none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -o-user-select:none;
   }
   .vue-slider-component.vue-slider-disabled {
     opacity: .5;

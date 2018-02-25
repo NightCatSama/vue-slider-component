@@ -427,7 +427,8 @@ export default {
           min: 0,
           max: 100,
           interval: 1,
-          fixed: true
+          fixed: true,
+          processDragable: true
         },
         annotation: {
           width: '组件宽度',
@@ -441,6 +442,8 @@ export default {
           max: '最大值',
           interval: '分段间隔',
           debug: '是否为开发环境（打印错误）',
+          fixed: '是否固定距离',
+          processDragable: '进度条是否可拖拽（只限范围模式）',
           disabled: '是否不可用',
           clickable: '是否可点击的',
           show: '是否显示组件',
