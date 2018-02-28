@@ -230,9 +230,11 @@ export default {
           tooltipDir: 'top',
           piecewise: false,
           lazy: false,
+          useKeyboard: false,
           reverse: false,
           speed: 0.5,
           formatter: null,
+          focusStyle: null,
           bgStyle: null,
           sliderStyle: null,
           tooltipStyle: null,
@@ -296,6 +298,7 @@ export default {
           max: 500,
           disabled: false,
           show: true,
+          useKeyboard: true,
           tooltip: 'always',
           formatter: '¥{value}',
           bgStyle: {
@@ -451,6 +454,7 @@ export default {
           speed: '动画速度',
           tooltip: '是否显示工具提示',
           lazy: '是否在拖拽结束后同步值',
+          useKeyboard: '是否使用键盘控制',
           tooltipDir: '工具提示方向',
           tooltipStyle: '工具提示样式',
           piecewise: '是否显示分段样式',
@@ -460,6 +464,7 @@ export default {
           sliderStyle: '滑块样式',
           bgStyle: '组件背景样式',
           piecewiseStyle: '分割点的样式',
+          focusStyle: '键盘控制时，算滑块获得焦点时样式',
           value: '值'
         }
       },

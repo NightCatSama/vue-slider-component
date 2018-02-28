@@ -10,8 +10,8 @@
       <template v-if="isRange">
         <div
           ref="dot0"
-          :class="[tooltipStatus, 'vue-slider-dot']"
-          :style="[dotStyles, sliderStyles[0]]"
+          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 0 }]"
+          :style="[dotStyles, sliderStyles[0], focusFlag && focusSlider === 0 ? focusStyles[0] : null]"
           @mousedown="moveStart($event, 0)"
           @touchstart="moveStart($event, 0)"
         >
@@ -23,8 +23,8 @@
         </div>
         <div
           ref="dot1"
-          :class="[tooltipStatus, 'vue-slider-dot']"
-          :style="[dotStyles, sliderStyles[1]]"
+          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 1 }]"
+          :style="[dotStyles, sliderStyles[1], focusFlag && focusSlider === 1 ? focusStyles[1] : null]"
           @mousedown="moveStart($event, 1)"
           @touchstart="moveStart($event, 1)"
         >
@@ -38,8 +38,8 @@
       <template v-else>
         <div
           ref="dot"
-          :class="[tooltipStatus, 'vue-slider-dot']"
-          :style="[dotStyles, sliderStyles]"
+          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 0 }]"
+          :style="[dotStyles, sliderStyles, focusFlag && focusSlider === 0 ? focusStyles : null]"
           @mousedown="moveStart"
           @touchstart="moveStart"
         >
@@ -183,7 +183,7 @@
       },
       stopPropagation: {
         type: Boolean,
-        default: true
+        default: false
       },
       value: {
         type: [String, Number, Array, Object],
@@ -205,7 +205,18 @@
         type: Boolean,
         default: false
       },
+      useKeyboard: {
+        type: Boolean,
+        default: false
+      },
+      actionsKeyboard: {
+        type: Array,
+        default () {
+          return [(i) => i - 1, (i) => i + 1]
+        }
+      },
       sliderStyle: [Array, Object, Function],
+      focusStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
       formatter: [String, Function],
       piecewiseStyle: Object,
@@ -219,10 +230,13 @@
     data () {
       return {
         flag: false,
+        keydownFlag: null,
+        focusFlag: false,
         processFlag: false,
         processSign: null,
         size: 0,
         fixedValue: 0,
+        focusSlider: 0,
         currentValue: 0,
         currentSlider: 0,
         isComponentExists: true
@@ -259,7 +273,11 @@
         return this.disabled ? 'vue-slider-disabled' : ''
       },
       stateClass () {
-        return this.flag ? this.processFlag ? 'vue-slider-state-process-drag' : 'vue-slider-state-drag' : null
+        return {
+          'vue-slider-state-process-drag': this.processFlag,
+          'vue-slider-state-drag': this.flag && !this.processFlag && !this.keydownFlag,
+          'vue-slider-state-focus': this.focusFlag
+        }
       },
       isRange () {
         return Array.isArray(this.value)
@@ -356,6 +374,15 @@
           return this.sliderStyle(this.val, this.currentIndex)
         } else {
           return this.isRange ? [this.sliderStyle, this.sliderStyle] : this.sliderStyle
+        }
+      },
+      focusStyles () {
+        if (Array.isArray(this.focusStyle)) {
+          return this.isRange ? this.focusStyle : this.focusStyle[1]
+        } else if (typeof this.focusStyle === 'function') {
+          return this.focusStyle(this.val, this.currentIndex)
+        } else {
+          return this.isRange ? [this.focusStyle, this.focusStyle] : this.focusStyle
         }
       },
       tooltipStyles () {
@@ -457,20 +484,79 @@
       bindEvents () {
         document.addEventListener('touchmove', this.moving, {passive: false})
         document.addEventListener('touchend', this.moveEnd, {passive: false})
+        document.addEventListener('mousedown', this.blurSlider)
         document.addEventListener('mousemove', this.moving)
         document.addEventListener('mouseup', this.moveEnd)
         document.addEventListener('mouseleave', this.moveEnd)
-
+        document.addEventListener('keydown', this.handleKeydown)
+        document.addEventListener('keyup', this.handleKeyup)
         window.addEventListener('resize', this.refresh)
       },
       unbindEvents () {
-        window.removeEventListener('resize', this.refresh)
-
         document.removeEventListener('touchmove', this.moving)
         document.removeEventListener('touchend', this.moveEnd)
+        document.removeEventListener('mousedown', this.blurSlider)
         document.removeEventListener('mousemove', this.moving)
         document.removeEventListener('mouseup', this.moveEnd)
         document.removeEventListener('mouseleave', this.moveEnd)
+        document.removeEventListener('keydown', this.handleKeydown)
+        document.removeEventListener('keyup', this.handleKeyup)
+        window.removeEventListener('resize', this.refresh)
+      },
+      handleKeydown (e) {
+        if (!this.useKeyboard || !this.focusFlag) {
+          return false
+        }
+        switch (e.keyCode) {
+        case 37:
+        case 40:
+          e.preventDefault()
+          this.keydownFlag = true
+          this.flag = true
+          this.changeFocusSlider(this.actionsKeyboard[0])
+          break
+        case 38:
+        case 39:
+          e.preventDefault()
+          this.keydownFlag = true
+          this.flag = true
+          this.changeFocusSlider(this.actionsKeyboard[1])
+          break
+        }
+      },
+      handleKeyup () {
+        if (this.keydownFlag) {
+          this.keydownFlag = false
+          this.flag = false
+        }
+      },
+      changeFocusSlider (fn) {
+        if (this.isRange) {
+          let arr = this.currentIndex.map((index, i) => {
+            if (i === this.focusSlider || this.fixed) {
+              let val = fn(index)
+              let range = this.fixed ? this.valueLimit[i] : [this.minimum, this.maximum]
+              if (val <= range[1] && val >= range[0]) {
+                return val
+              }
+            }
+            return index
+          })
+          if (arr[0] > arr[1]) {
+            this.focusSlider = this.focusSlider === 0 ? 1 : 0
+            arr = arr.reverse()
+          }
+          this.setIndex(arr)
+        } else {
+          this.setIndex(fn(this.currentIndex))
+        }
+      },
+      blurSlider (e) {
+        let dot = this.isRange ? this.$refs[`dot${this.focusSlider}`] : this.$refs.dot
+        if (!dot || dot === e.target) {
+          return false
+        }
+        this.focusFlag = false
       },
       formatting (value) {
         return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
@@ -492,7 +578,7 @@
         }
         this.setValueOnPos(pos)
       },
-      moveStart (e, index, isProcess) {
+      moveStart (e, index = 0, isProcess) {
         if (this.isDisabled) {
           return false
         }
@@ -512,6 +598,10 @@
               start: this.getPos((e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0] : e)
             }
           }
+        }
+        if (!isProcess && this.useKeyboard) {
+          this.focusFlag = true
+          this.focusSlider = index
         }
         this.flag = true
         this.$emit('drag-start', this)
@@ -856,6 +946,9 @@
     will-change: transform;
     cursor: pointer;
     z-index: 4;
+  }
+  .vue-slider-component .vue-slider-dot.vue-slider-dot-focus {
+    box-shadow: 0 0 2px 1px #3498db;
   }
   .vue-slider-component.vue-slider-horizontal .vue-slider-dot {
     left: 0;
