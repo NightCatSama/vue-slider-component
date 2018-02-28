@@ -660,6 +660,7 @@
             this.setTransform(this.limit[this.idleSlider][0], true)
             this.setCurrentValue(this.valueLimit[this.idleSlider][0], isDrag, true)
           } else if (!this.fixed && this.currentSlider === 1) {
+            this.focusSlider = 0
             this.currentSlider = 0
           }
         } else {
@@ -669,6 +670,7 @@
             this.setTransform(this.limit[this.idleSlider][1], true)
             this.setCurrentValue(this.valueLimit[this.idleSlider][1], isDrag, true)
           } else if (!this.fixed && this.currentSlider === 0) {
+            this.focusSlider = 1
             this.currentSlider = 1
           }
         }
