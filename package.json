@@ -21,7 +21,22 @@
   },
   "homepage": "https://github.com/NightCatSama/vue-slider-component#readme",
   "scripts": {
-    "build": "rm -rf ./dist && webpack --colors --hide-modules"
+    "build": "rm -rf ./dist && webpack --colors --hide-modules",
+    "commitmsg": "commitplease .git/COMMIT_EDITMSG"
+  },
+  "commitplease": {
+    "nohook": true,
+    "components": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "test",
+      "chore",
+      "wip",
+      "conf"
+    ]
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -45,5 +60,8 @@
     "transform": [
       "vueify"
     ]
+  },
+  "dependencies": {
+    "commitplease": "^3.2.0"
   }
 }
