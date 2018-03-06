@@ -8,7 +8,7 @@ Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can
 
 [Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
-[Live Demo](https://jsfiddle.net/2xy72dod/167/)
+[Live Demo](https://jsfiddle.net/2xy72dod/1240/)
 
 ## [Changelog](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md)
 
