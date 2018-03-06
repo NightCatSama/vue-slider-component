@@ -1,6 +1,6 @@
 {
-  "name": "vue-range",
-  "description": "A Vue.js project",
+  "name": "vue-slider-component-demo",
+  "description": "A demo",
   "author": "NightCatSama <642163903@qq.com>",
   "private": true,
   "scripts": {
