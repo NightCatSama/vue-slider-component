@@ -4,7 +4,6 @@
 
 ### Features
 
-* add Keyboard Control ([3961687](https://github.com/NightCatSama/vue-slider-component/commit/3961687))
 * sharp text [#166](https://github.com/NightCatSama/vue-slider-component/issues/166) ([639595c](https://github.com/NightCatSama/vue-slider-component/commit/639595c))
 
 
