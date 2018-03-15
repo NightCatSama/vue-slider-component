@@ -98,6 +98,12 @@
   </div>
 </template>
 <script>
+  // Unsharp text [#166](https://github.com/NightCatSama/vue-slider-component/issues/166)
+  const roundToDPR = (function () {
+    const r = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
+    return value => Math.round(value * r) / r
+  })()
+
   export default {
     name: 'VueSliderComponent',
     props: {
@@ -748,7 +754,7 @@
       },
       setTransform (val, isIdleSlider) {
         let slider = isIdleSlider ? this.idleSlider : this.currentSlider
-        let value = (this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1)
+        let value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
         let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
         let processSize = this.fixed ? `${this.fixedValue * this.gap}px` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}px`
         let processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}px` : `${slider === 0 ? val : this.position[0]}px`
