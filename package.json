@@ -22,22 +22,7 @@
   "homepage": "https://github.com/NightCatSama/vue-slider-component#readme",
   "scripts": {
     "build": "rm -rf ./dist && webpack --colors --hide-modules",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1 && git add CHANGELOG.md",
-    "commitmsg": "commitplease .git/COMMIT_EDITMSG"
-  },
-  "commitplease": {
-    "nohook": true,
-    "components": [
-      "feat",
-      "fix",
-      "docs",
-      "style",
-      "refactor",
-      "test",
-      "chore",
-      "wip",
-      "conf"
-    ]
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1 && git add CHANGELOG.md"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
