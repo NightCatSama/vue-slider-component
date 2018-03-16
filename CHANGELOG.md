@@ -1,3 +1,12 @@
+<a name="2.6.1"></a>
+## [2.6.1](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.6.1) (2018-03-16)
+
+
+### Fixed
+
+* Fix dependent location is incorrect
+
+
 <a name="2.5.9"></a>
 ## [2.5.9](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.5.9) (2018-03-15)
 
