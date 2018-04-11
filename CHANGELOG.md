@@ -1,3 +1,12 @@
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.6.2) (2018-04-11)
+
+
+### Bug Fixes
+
+* Fixed incorrect decimal point in keyboard mode ([1587842](https://github.com/NightCatSama/vue-slider-component/commit/1587842))
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.6.1) (2018-03-16)
 
