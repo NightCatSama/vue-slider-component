@@ -319,9 +319,9 @@
       },
       currentIndex () {
         if (this.isRange) {
-          return this.data ? this.currentValue : [(this.currentValue[0] - this.minimum) / this.spacing, (this.currentValue[1] - this.minimum) / this.spacing]
+          return this.data ? this.currentValue : [this.getIndexByValue(this.currentValue[0]), this.getIndexByValue(this.currentValue[1])]
         } else {
-          return (this.currentValue - this.minimum) / this.spacing
+          return this.getIndexByValue(this.currentValue)
         }
       },
       indexRange () {
@@ -653,7 +653,7 @@
         let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
         if (pos >= range[0] && pos <= range[1]) {
           this.setTransform(pos)
-          let v = (Math.round(pos / this.gap) * (this.spacing * this.multiple) + (this.minimum * this.multiple)) / this.multiple
+          let v = this.getValueByIndex(Math.round(pos / this.gap))
           this.setCurrentValue(v, isDrag)
           if (this.isRange && this.fixed) {
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
@@ -707,17 +707,23 @@
         }
         bool || this.setPosition()
       },
+      getValueByIndex (index) {
+        return ((this.spacing * this.multiple) * index + (this.minimum * this.multiple)) / this.multiple
+      },
+      getIndexByValue (value) {
+        return ((value - this.minimum) * this.multiple) / (this.spacing * this.multiple)
+      },
       setIndex (val) {
         if (Array.isArray(val) && this.isRange) {
           let value
           if (this.data) {
             value = [this.data[val[0]], this.data[val[1]]]
           } else {
-            value = [this.spacing * val[0] + this.minimum, this.spacing * val[1] + this.minimum]
+            value = [this.getValueByIndex(val[0]), this.getValueByIndex(val[1])]
           }
           this.setValue(value)
         } else {
-          val = this.spacing * val + this.minimum
+          val = this.getValueByIndex(val)
           if (this.isRange) {
             this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
           }
