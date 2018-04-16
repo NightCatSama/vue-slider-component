@@ -115,23 +115,23 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 ### Props
 | Props       | Type          | Default  | Description  |
 | ----------- |:--------------| ---------|--------------|
-| direction   | String        | horizontal | set the direction of the component, optional value: ['horizontal', 'vertical'] |
-| event-type  | String        | auto   | the event type, optional value: ['auto', 'none'] |
-| width       | Number[,String(in horizontal)] | auto | width of the component |
-| height      | Number[,String(in vertical)] | 6        | height of the component |
-| dot-size    | Number        | 16       | determines width and height of the sliders. to set different values of `width` & `height` use `dot-width` & `dot-height` props |
-| dot-width   | Number        | value of `dot-size` prop | width of sliders. if specified, overrides value of `dot-size` |
-| dot-height  | Number        | value of `dot-size` prop | height of sliders. if specified, overrides value of `dot-size` |
-| min         | Number        | 0        | the minimum value   |
-| max         | Number        | 100      | the maximum value   |
-| interval    | Number        | 1        | the gap between the values |
-| show        | Boolean       | true     | display of the component |
-| speed       | Number        | 0.5      | transition time |
-| disabled    | Boolean       | false    | whether to disable components |
+| direction   | String        | horizontal | Set the direction of the component, optional value: ['horizontal', 'vertical'] |
+| event-type  | String        | auto   | The event type, optional value: ['auto', 'none'] |
+| width       | Number[,String(in horizontal)] | auto | Width of the component |
+| height      | Number[,String(in vertical)] | 6        | Height of the component |
+| dot-size    | Number        | 16       | Determines width and height of the sliders. to set different values of `width` & `height` use `dot-width` & `dot-height` props |
+| dot-width   | Number        | value of `dot-size` prop | Width of sliders. If specified, overrides value of `dot-size` |
+| dot-height  | Number        | value of `dot-size` prop | Height of sliders. If specified, overrides value of `dot-size` |
+| min         | Number        | 0        | The minimum numerical value that can be selected  |
+| max         | Number        | 100      | The maximum numerical value that can be selected  |
+| interval    | Number        | 1        | The gap between the values |
+| show        | Boolean       | true     | Display of the component |
+| speed       | Number        | 0.5      | Transition time |
+| disabled    | Boolean       | false    | Whether to disable the component |
 | debug       | Boolean       | true | if you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
-| piecewise   | Boolean       | false    | whether to display the piecewise |
-| piecewise-label*   | Boolean  | false  | whether to display the label. [example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
-| tooltip     | String, Boolean | always    | control the tooltip, optional value: ['hover', 'always', false] |
+| piecewise   | Boolean       | false    | Whether to display sub-values as as piecewise nodes |
+| piecewise-label*   | Boolean  | false  | Whether to display the label. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
+| tooltip     | String, Boolean | always    | Control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
 | value       | Number, String, Array, Object  | 0        | initial value (if the value for the array open range model) |
@@ -139,23 +139,23 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
 | real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
-| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) [example](https://nightcatsama.github.io/vue-slider-component/example/#demo1) |
-| fixed*  | Boolean       | false    | Fixed distance between two values (valid only in range mode). [example]
-| process-dragable*  | Boolean       | false    | Whether the process bar is draggable (valid only in range mode). [example](https://nightcatsama.github.io/vue-slider-component/example/#demo9) |
-| formatter*        | String,Function | null   | Formatting a tooltip values, Example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
-| use-keyboard*        | Boolnea | false   | Whether to open the keyboard control (Only support the arrow keys). [example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
+| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo1) |
+| fixed*  | Boolean       | false    | Fixed distance between two values (valid only in range mode). [Example]
+| process-dragable*  | Boolean       | false    | Whether the process bar is draggable (valid only in range mode). [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo9) |
+| formatter*        | String,Function | null   | Formatting of a tooltip's values, for example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
+| use-keyboard*        | Boolean | false   | Whether to open the keyboard control (Only support the arrow keys). [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
 | actions-keyboard*        | Array | `[(i) => i - 1, (i) => i + 1]`  | In the keyboard control mode, reduce(←, ↓) and increase(→, ↑) the calling method.(`i` is the index value) |
 | bg-style*         | Object | null  | The style of the background. |
-| slider-style*     | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the slider. |
+| slider-style*     | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the slider. |
 | process-style*    | Object | null  | The style of the process bar. |
 | piecewise-style*  | Object | null  | The style of the piecewise dot. |
 | piecewise-active-style*  | Object | null  | The style of the piecewise dot in the activated state. |
-| tooltip-style*    | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the tooltip. |
+| tooltip-style*    | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the tooltip. |
 | label-style*      | Object | null  | The style of the label. |
 | label-active-style*      | Object | null  | The style of the label in the activated state. |
-| focus-style*     | Object[,Array(in range model), Function<Value, Index>] | null  | The style of the slider when it is focused. (Works only when `use-keyboard` is `true`) |
+| focus-style*     | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the slider when it is focused. (Works only when `use-keyboard` is `true`) |
 
-prop*: [only support vue2]
+prop*: [only supported in vue2]
 
 ### Function
 | Name        | Type           | Description                |
