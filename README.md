@@ -128,14 +128,14 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | show        | Boolean       | true     | Display of the component |
 | speed       | Number        | 0.5      | Transition time |
 | disabled    | Boolean       | false    | Whether to disable the component |
-| debug       | Boolean       | true | if you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
+| debug       | Boolean       | true | If you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
 | piecewise   | Boolean       | false    | Whether to display sub-values as as piecewise nodes |
 | piecewise-label*   | Boolean  | false  | Whether to display the label. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
 | tooltip     | String, Boolean | always    | Control the tooltip, optional value: ['hover', 'always', false] |
-| tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
-| reverse     | Boolean       | false    | whether the component reverse (such as Right to left, Top to bottom) |
-| value       | Number, String, Array, Object  | 0        | initial value (if the value for the array open range model) |
-| data        | Array         | null     | the custom data. |
+| tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | Set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
+| reverse     | Boolean       | false    | Whether the component reverse (such as Right to left, Top to bottom) |
+| value       | Number, String, Array, Object  | 0        | Initial value (if the value for the array open range model) |
+| data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
 | real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
