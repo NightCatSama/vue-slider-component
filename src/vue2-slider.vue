@@ -10,8 +10,19 @@
       <template v-if="isRange">
         <div
           ref="dot0"
-          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 0 }]"
-          :style="[dotStyles, sliderStyles[0], focusFlag && focusSlider === 0 ? focusStyles[0] : null]"
+          :class="[
+            tooltipStatus, 
+            'vue-slider-dot', 
+            { 
+              'vue-slider-dot-focus': focusFlag && focusSlider === 0, 
+              'vue-slider-dot-dragging': flag && currentSlider === 0 
+            }
+          ]"
+          :style="[
+            dotStyles, 
+            sliderStyles[0
+            ], focusFlag && focusSlider === 0 ? focusStyles[0] 
+          : null]"
           @mousedown="moveStart($event, 0)"
           @touchstart="moveStart($event, 0)"
         >
@@ -23,8 +34,19 @@
         </div>
         <div
           ref="dot1"
-          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 1 }]"
-          :style="[dotStyles, sliderStyles[1], focusFlag && focusSlider === 1 ? focusStyles[1] : null]"
+          :class="[
+            tooltipStatus, 
+            'vue-slider-dot', 
+            { 
+              'vue-slider-dot-focus': focusFlag && focusSlider === 1, 
+              'vue-slider-dot-dragging': flag && currentSlider === 1 
+            }
+          ]"
+          :style="[
+            dotStyles, 
+            sliderStyles[1
+            ], focusFlag && focusSlider === 1 ? focusStyles[1] 
+          : null]"
           @mousedown="moveStart($event, 1)"
           @touchstart="moveStart($event, 1)"
         >
@@ -38,8 +60,19 @@
       <template v-else>
         <div
           ref="dot"
-          :class="[tooltipStatus, 'vue-slider-dot', { 'vue-slider-dot-focus': focusFlag && focusSlider === 0 }]"
-          :style="[dotStyles, sliderStyles, focusFlag && focusSlider === 0 ? focusStyles : null]"
+          :class="[
+            tooltipStatus, 
+            'vue-slider-dot', 
+            { 
+              'vue-slider-dot-focus': focusFlag && focusSlider === 0, 
+              'vue-slider-dot-dragging': flag && currentSlider === 0 
+            }
+          ]"
+          :style="[
+            dotStyles, 
+            sliderStyles, 
+            focusFlag && focusSlider === 0 ? focusStyles : null
+          ]"
           @mousedown="moveStart"
           @touchstart="moveStart"
         >
@@ -963,6 +996,9 @@
   }
   .vue-slider-component .vue-slider-dot.vue-slider-dot-focus {
     box-shadow: 0 0 2px 1px #3498db;
+  }
+  .vue-slider-component .vue-slider-dot.vue-slider-dot-dragging {
+    z-index: 5;
   }
   .vue-slider-component.vue-slider-horizontal .vue-slider-dot {
     left: 0;
