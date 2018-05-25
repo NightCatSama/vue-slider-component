@@ -26,7 +26,7 @@
           @mousedown="moveStart($event, 0)"
           @touchstart="moveStart($event, 0)"
         >
-          <div :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
+          <div ref="tooltip0" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[0]" :index="0">
               <span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
             </slot>
@@ -50,7 +50,7 @@
           @mousedown="moveStart($event, 1)"
           @touchstart="moveStart($event, 1)"
         >
-          <div :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
+          <div ref="tooltip1" :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[1]" :index="1">
               <span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
             </slot>
@@ -126,7 +126,7 @@
         @mousedown="moveStart($event, 0, true)"
         @touchstart="moveStart($event, 0, true)"
       >
-      <div class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
+      <div ref="mergedTooltip" class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']" :style="tooltipMergedPosition">
           <slot name="tooltip">
             <span class="vue-slider-tooltip" :style="tooltipStyles">
               {{ formatter ? formatting(val[0]) : val[0] }} - {{ formatter ? formatting(val[1]) : val[1] }}
@@ -286,7 +286,8 @@
         focusSlider: 0,
         currentValue: 0,
         currentSlider: 0,
-        isComponentExists: true
+        isComponentExists: true,
+        isMounted: false
       }
     },
     computed: {
@@ -298,6 +299,27 @@
       },
       flowDirection () {
         return `vue-slider-${this.direction + (this.reverse ? '-reverse' : '')}`
+      },
+      tooltipMergedPosition () {
+        if (!this.isMounted) return {}
+
+        const tooltipDirection = this.tooltipDirection[0]
+        const mergedTooltip = this.$refs.mergedTooltip.getBoundingClientRect()
+        const dot0 = this.$refs.dot0
+
+        if (this.direction === 'vertical' && dot0) {
+          const style = {}
+          style[tooltipDirection] = `-${dot0.getBoundingClientRect().width}px`
+          return style
+        } else {
+          // top or bottom: +9 or -9 position
+          const mergedTooltipWidth = mergedTooltip.width / 2
+          const position = mergedTooltip.height + 11.5
+          const style = {}
+          style[tooltipDirection] = `-${position}px`
+          style['left'] = `calc(50% - ${mergedTooltipWidth}px)`
+          return style
+        }
       },
       tooltipDirection () {
         let dir = this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
@@ -528,30 +550,6 @@
       }
     },
     methods: {
-      handleOverlapTooltip () {
-        const hasSingleDot = this.$refs.dot
-        const isDirectionSame = this.tooltipDirection[0] === this.tooltipDirection[1]
-        if (!hasSingleDot && isDirectionSame) {
-          const tooltipDirection = this.tooltipDirection[0]
-          const tooltip0 = this.$refs.dot0.getElementsByClassName(`vue-slider-tooltip-${tooltipDirection}`)[0]
-          const tooltip1 = this.$refs.dot1.getElementsByClassName(`vue-slider-tooltip-${tooltipDirection}`)[0]
-
-          const tooltip0Right = tooltip0.getBoundingClientRect().right
-          const tooltip1Left = tooltip1.getBoundingClientRect().left
-
-          const mergedTooltip = this.$refs.process.getElementsByClassName('vue-merged-tooltip')[0]
-
-          if (tooltip0Right > tooltip1Left) {
-            tooltip0.style.visibility = 'hidden'
-            tooltip1.style.visibility = 'hidden'
-            mergedTooltip.style.display = 'block'
-          } else {
-            tooltip0.style.visibility = 'visible'
-            tooltip1.style.visibility = 'visible'
-            mergedTooltip.style.display = 'none'
-          }
-        }
-      },
       bindEvents () {
         document.addEventListener('touchmove', this.moving, {passive: false})
         document.addEventListener('touchend', this.moveEnd, {passive: false})
@@ -562,6 +560,11 @@
         document.addEventListener('keydown', this.handleKeydown)
         document.addEventListener('keyup', this.handleKeyup)
         window.addEventListener('resize', this.refresh)
+
+        if (this.isRange) {
+          this.$refs.dot0.addEventListener('transitionend', this.handleOverlapTooltip)
+          this.$refs.dot1.addEventListener('transitionend', this.handleOverlapTooltip)
+        }
       },
       unbindEvents () {
         document.removeEventListener('touchmove', this.moving)
@@ -573,6 +576,11 @@
         document.removeEventListener('keydown', this.handleKeydown)
         document.removeEventListener('keyup', this.handleKeyup)
         window.removeEventListener('resize', this.refresh)
+
+        if (this.isRange) {
+          this.$refs.dot0.removeEventListener('transitionend', this.handleOverlapTooltip)
+          this.$refs.dot1.removeEventListener('transitionend', this.handleOverlapTooltip)
+        }
       },
       handleKeydown (e) {
         if (!this.useKeyboard || !this.focusFlag) {
@@ -678,7 +686,6 @@
         this.$emit('drag-start', this)
       },
       moving (e) {
-        this.handleOverlapTooltip()
         if (this.stopPropagation) {
           e.stopPropagation()
         }
@@ -695,6 +702,8 @@
         } else {
           this.setValueOnPos(this.getPos(e), true)
         }
+
+        this.handleOverlapTooltip()
       },
       moveEnd (e) {
         if (this.stopPropagation) {
@@ -922,6 +931,44 @@
         if (this.debug) {
           console.error(`[VueSlider error]: ${msg}`)
         }
+      },
+      handleOverlapTooltip () {
+        const isDirectionSame = this.tooltipDirection[0] === this.tooltipDirection[1]
+
+        if (this.isRange && isDirectionSame) {
+          const tooltip0 = this.$refs.tooltip0
+          const tooltip1 = this.$refs.tooltip1
+
+          const tooltip0Right = tooltip0.getBoundingClientRect().right
+          const tooltip1Left = tooltip1.getBoundingClientRect().left
+
+          const tooltip0Y = tooltip0.getBoundingClientRect().y
+          const tooltip1Y = tooltip1.getBoundingClientRect().y + tooltip1.getBoundingClientRect().height
+
+          const horizontalOverlap = this.direction === 'horizontal' && tooltip0Right > tooltip1Left
+          const verticalOverlap = this.direction === 'vertical' && tooltip1Y > tooltip0Y
+
+          if (horizontalOverlap || verticalOverlap) {
+            this.handleDisplayMergedTooltip(true)
+          } else {
+            this.handleDisplayMergedTooltip(false)
+          }
+        }
+      },
+      handleDisplayMergedTooltip (show) {
+        const tooltip0 = this.$refs.tooltip0
+        const tooltip1 = this.$refs.tooltip1
+        const mergedTooltip = this.$refs.process.getElementsByClassName('vue-merged-tooltip')[0]
+
+        if (show) {
+          tooltip0.style.visibility = 'hidden'
+          tooltip1.style.visibility = 'hidden'
+          mergedTooltip.style.visibility = 'visible'
+        } else {
+          tooltip0.style.visibility = 'visible'
+          tooltip1.style.visibility = 'visible'
+          mergedTooltip.style.visibility = 'hidden'
+        }
       }
     },
     mounted () {
@@ -938,6 +985,8 @@
           this.bindEvents()
         }
       })
+
+      this.isMounted = true
     },
     beforeDestroy () {
       this.isComponentExists = false
@@ -1083,7 +1132,7 @@
     transform: translate(100%, -50%);
   }
   .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before,
-  .vue-slider-component .vue-merged-tooltip .vue-slider-tooltip::before {
+  .vue-slider-component .vue-slider-tooltip-top .vue-merged-tooltip .vue-slider-tooltip::before {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -1095,7 +1144,12 @@
     border-top-color: inherit;
     transform: translate(-50%, 0);
   }
-  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip::before {
+  .vue-slider-component .vue-slider-tooltip-wrap.vue-merged-tooltip {
+    display: block;
+    visibility: hidden;
+  }
+  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip::before,
+  .vue-slider-component .vue-slider-tooltip-bottom .vue-merged-tooltip .vue-slider-tooltip::before {
     content: '';
     position: absolute;
     top: -10px;
@@ -1107,7 +1161,8 @@
     border-bottom-color: inherit;
     transform: translate(-50%, 0);
   }
-  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip::before {
+  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip::before,
+  .vue-slider-component .vue-slider-tooltip-left .vue-merged-tooltip .vue-slider-tooltip::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -1119,7 +1174,8 @@
     border-left-color: inherit;
     transform: translate(0, -50%);
   }
-  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip::before {
+  .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip::before,
+  .vue-slider-component .vue-slider-tooltip-right .vue-merged-tooltip .vue-slider-tooltip::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -1196,15 +1252,5 @@
     width: 1px;
     overflow: hidden;
     position: absolute !important;
-  }
-  .vue-slider-component .vue-merged-tooltip {
-    bottom: 24px;
-    left: -22px;
-  }
-  .vue-slider-component .vue-merged-tooltip .vue-slider-tooltip {
-    display: inline;
-  }
-  .vue-slider-component .vue-merged-tooltip .vue-slider-tooltip::before {
-    bottom: -13px !important;
   }
 </style>
