@@ -1,3 +1,13 @@
+<a name="2.6.3"></a>
+
+## [2.6.3](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.6.3) (2018-05-25)
+
+
+### Bug Fixes
+
+* useKeyBoard bug ([bde0e7d](https://github.com/NightCatSama/vue-slider-component/commit/bde0e7d))
+
+
 <a name="2.6.2"></a>
 ## [2.6.2](https://github.com/NightCatSama/vue-slider-component/compare/v2.3.5...v2.6.2) (2018-04-11)
 
