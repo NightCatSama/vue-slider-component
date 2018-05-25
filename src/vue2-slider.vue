@@ -304,21 +304,20 @@
         if (!this.isMounted) return {}
 
         const tooltipDirection = this.tooltipDirection[0]
-        const mergedTooltip = this.$refs.mergedTooltip.getBoundingClientRect()
         const dot0 = this.$refs.dot0
 
-        if (this.direction === 'vertical' && dot0) {
-          const style = {}
-          style[tooltipDirection] = `-${dot0.getBoundingClientRect().width}px`
-          return style
-        } else {
-          // top or bottom: +9 or -9 position
-          const mergedTooltipWidth = mergedTooltip.width / 2
-          const position = mergedTooltip.height + 11.5
-          const style = {}
-          style[tooltipDirection] = `-${position}px`
-          style['left'] = `calc(50% - ${mergedTooltipWidth}px)`
-          return style
+        if (dot0) {
+          const dot0Width = dot0.getBoundingClientRect().width
+          if (this.direction === 'vertical') {
+            const style = {}
+            style[tooltipDirection] = `-${dot0Width}px`
+            return style
+          } else {
+            const style = {}
+            style[tooltipDirection] = `-${dot0Width}px`
+            style['left'] = `50%`
+            return style
+          }
         }
       },
       tooltipDirection () {
