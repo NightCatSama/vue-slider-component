@@ -613,7 +613,7 @@
           let arr = this.currentIndex.map((index, i) => {
             if (i === this.focusSlider || this.fixed) {
               let val = fn(index)
-              let range = this.fixed ? this.valueLimit[i] : [this.minimum, this.maximum]
+              let range = this.fixed ? this.valueLimit[i] : [0, this.total]
               if (val <= range[1] && val >= range[0]) {
                 return val
               }
