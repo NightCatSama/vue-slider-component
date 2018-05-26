@@ -129,7 +129,7 @@
       <div ref="mergedTooltip" class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']" :style="tooltipMergedPosition">
           <slot name="tooltip">
             <span class="vue-slider-tooltip" :style="tooltipStyles">
-              {{ overlapFormatter ? tooltipFormatting(val[0], val[1]) : (formatter ? `${formatting(val[0])} - ${formatting(val[1])}` : `${val[0]} - ${val[1]}`) }}
+              {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? `${formatting(val[0])} - ${formatting(val[1])}` : `${val[0]} - ${val[1]}`) }}
             </span>
           </slot>
       </div>
@@ -262,7 +262,7 @@
           return [(i) => i - 1, (i) => i + 1]
         }
       },
-      tooltipOverlap: {
+      tooltipMerge: {
         type: Boolean,
         default: true
       },
@@ -270,7 +270,7 @@
       focusStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
       formatter: [String, Function],
-      overlapFormatter: [String, Function],
+      mergeFormatter: [String, Function],
       piecewiseStyle: Object,
       piecewiseActiveStyle: Object,
       processStyle: Object,
@@ -564,7 +564,7 @@
         document.addEventListener('keyup', this.handleKeyup)
         window.addEventListener('resize', this.refresh)
 
-        if (this.isRange && this.tooltipOverlap) {
+        if (this.isRange && this.tooltipMerge) {
           this.$refs.dot0.addEventListener('transitionend', this.handleOverlapTooltip)
           this.$refs.dot1.addEventListener('transitionend', this.handleOverlapTooltip)
         }
@@ -580,7 +580,7 @@
         document.removeEventListener('keyup', this.handleKeyup)
         window.removeEventListener('resize', this.refresh)
 
-        if (this.isRange && this.tooltipOverlap) {
+        if (this.isRange && this.tooltipMerge) {
           this.$refs.dot0.removeEventListener('transitionend', this.handleOverlapTooltip)
           this.$refs.dot1.removeEventListener('transitionend', this.handleOverlapTooltip)
         }
@@ -643,8 +643,8 @@
       formatting (value) {
         return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
       },
-      tooltipFormatting (value1, value2) {
-        return typeof this.overlapFormatter === 'string' ? this.overlapFormatter.replace(/\{(value1|value2)\}/g, (_, key) => key === 'value1' ? value1 : value2) : this.overlapFormatter(value1, value2)
+      mergeFormatting (value1, value2) {
+        return typeof this.mergeFormatter === 'string' ? this.mergeFormatter.replace(/\{(value1|value2)\}/g, (_, key) => key === 'value1' ? value1 : value2) : this.mergeFormatter(value1, value2)
       },
       getPos (e) {
         this.realTime && this.getStaticData()
@@ -709,7 +709,7 @@
           this.setValueOnPos(this.getPos(e), true)
         }
 
-        if (this.isRange && this.tooltipOverlap) {
+        if (this.isRange && this.tooltipMerge) {
           this.handleOverlapTooltip()
         }
       },
