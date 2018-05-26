@@ -1,9 +1,6 @@
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.0) (2018-05-26)
 
-
-### Bug Fixes
-
 ### Features
 
 * Handle overlapping tooltips[#192](https://github.com/NightCatSama/vue-slider-component/issues/192) && add props tooltipOverlap and overlapFormatter ([4d91119](https://github.com/NightCatSama/vue-slider-component/commit/4d91119))
