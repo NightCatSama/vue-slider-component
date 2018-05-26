@@ -1,3 +1,12 @@
+<a name="2.7.1"></a>
+## [2.7.1](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.1) (2018-05-26)
+
+
+### Bug Fixes
+
+* floats calculation error ([18d55c4](https://github.com/NightCatSama/vue-slider-component/commit/18d55c4))
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.0) (2018-05-26)
 
