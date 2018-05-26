@@ -794,7 +794,7 @@
         return ((this.spacing * this.multiple) * index + (this.minimum * this.multiple)) / this.multiple
       },
       getIndexByValue (value) {
-        return ((value - this.minimum) * this.multiple) / (this.spacing * this.multiple)
+        return Math.round((value - this.minimum) * this.multiple) / (this.spacing * this.multiple)
       },
       setIndex (val) {
         if (Array.isArray(val) && this.isRange) {
