@@ -129,7 +129,7 @@
       <div ref="mergedTooltip" class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']" :style="tooltipMergedPosition">
           <slot name="tooltip">
             <span class="vue-slider-tooltip" :style="tooltipStyles">
-              {{ formatter ? formatting(val[0]) : val[0] }} - {{ formatter ? formatting(val[1]) : val[1] }}
+              {{ overlapFormatter ? tooltipFormatting(val[0], val[1]) : (formatter ? `${formatting(val[0])} - ${formatting(val[1])}` : `${val[0]} - ${val[1]}`) }}
             </span>
           </slot>
       </div>
@@ -262,10 +262,15 @@
           return [(i) => i - 1, (i) => i + 1]
         }
       },
+      tooltipOverlap: {
+        type: Boolean,
+        default: true
+      },
       sliderStyle: [Array, Object, Function],
       focusStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
       formatter: [String, Function],
+      overlapFormatter: [String, Function],
       piecewiseStyle: Object,
       piecewiseActiveStyle: Object,
       processStyle: Object,
@@ -307,14 +312,13 @@
         const dot0 = this.$refs.dot0
 
         if (dot0) {
-          const dot0Width = dot0.getBoundingClientRect().width
           if (this.direction === 'vertical') {
             const style = {}
-            style[tooltipDirection] = `-${dot0Width}px`
+            style[tooltipDirection] = `-${(this.dotHeightVal / 2) - (this.width / 2) + 9}px`
             return style
           } else {
             const style = {}
-            style[tooltipDirection] = `-${dot0Width}px`
+            style[tooltipDirection] = `-${(this.dotWidthVal / 2) - (this.height / 2) + 9}px`
             style['left'] = `50%`
             return style
           }
@@ -560,7 +564,7 @@
         document.addEventListener('keyup', this.handleKeyup)
         window.addEventListener('resize', this.refresh)
 
-        if (this.isRange) {
+        if (this.isRange && this.tooltipOverlap) {
           this.$refs.dot0.addEventListener('transitionend', this.handleOverlapTooltip)
           this.$refs.dot1.addEventListener('transitionend', this.handleOverlapTooltip)
         }
@@ -576,7 +580,7 @@
         document.removeEventListener('keyup', this.handleKeyup)
         window.removeEventListener('resize', this.refresh)
 
-        if (this.isRange) {
+        if (this.isRange && this.tooltipOverlap) {
           this.$refs.dot0.removeEventListener('transitionend', this.handleOverlapTooltip)
           this.$refs.dot1.removeEventListener('transitionend', this.handleOverlapTooltip)
         }
@@ -638,6 +642,9 @@
       },
       formatting (value) {
         return typeof this.formatter === 'string' ? this.formatter.replace(/\{value\}/, value) : this.formatter(value)
+      },
+      tooltipFormatting (value1, value2) {
+        return typeof this.overlapFormatter === 'string' ? this.overlapFormatter.replace(/\{(value1|value2)\}/g, (_, key) => key === 'value1' ? value1 : value2) : this.overlapFormatter(value1, value2)
       },
       getPos (e) {
         this.realTime && this.getStaticData()
@@ -702,7 +709,9 @@
           this.setValueOnPos(this.getPos(e), true)
         }
 
-        this.handleOverlapTooltip()
+        if (this.isRange && this.tooltipOverlap) {
+          this.handleOverlapTooltip()
+        }
       },
       moveEnd (e) {
         if (this.stopPropagation) {

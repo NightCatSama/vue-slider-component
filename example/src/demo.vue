@@ -89,8 +89,25 @@
     </section>
     <section data-title="Vertical + Custom Class" id="demo5">
       <div>
-        <vue-slider ref="slider5" v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="true" tooltipDir="left" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
-        <vue-slider v-bind="demo.demo5" v-model="demo.demo5.value" :formatter="formatting" :reverse="false" tooltipDir="right" @drag-start="dragStart" @drag-end="dragEnd"></vue-slider>
+        <vue-slider 
+          ref="slider5" 
+          v-bind="demo.demo5" 
+          v-model="demo.demo5.value" 
+          :reverse="true" 
+          tooltipDir="left" 
+          @drag-start="dragStart" 
+          @drag-end="dragEnd" 
+          @callback="val => demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${val / 100})`"
+        ></vue-slider>
+        <vue-slider 
+          v-bind="demo.demo5" 
+          v-model="demo.demo5.value" 
+          :reverse="false" 
+          tooltipDir="right" 
+          @drag-start="dragStart" 
+          @drag-end="dragEnd" 
+          @callback="val => demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${val / 100})`"
+        ></vue-slider>
         <h3><small>Value: </small>{{ demo.demo5.value }}</h3>
         <div class="btn-group">
           <button @click="setValue('demo5', 80)">set value = 80</button>
@@ -301,6 +318,7 @@ export default {
           useKeyboard: true,
           tooltip: 'always',
           formatter: '¥{value}',
+          overlapFormatter: '¥{value1} ~ ¥{value2}',
           bgStyle: {
             backgroundColor: '#fff',
             boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
@@ -414,6 +432,7 @@ export default {
           min: 0,
           max: 100,
           disabled: false,
+          tooltipOverlap: false,
           tooltip: 'always'
         },
         demo8: {
@@ -475,10 +494,6 @@ export default {
   methods: {
     format (value) {
       return value === null ? 'null' : (typeof value === 'string' ? `"${value}"` : value)
-    },
-    formatting (value) {
-      this.demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${value / 100})`
-      return value
     },
     setDisabled (name) {
       let obj = this.demo[name]
