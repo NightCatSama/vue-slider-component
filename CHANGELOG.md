@@ -1,3 +1,11 @@
+<a name="2.7.2"></a>
+## [2.7.2](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.2) (2018-06-20)
+
+
+### Bug Fixes
+
+* Switch mode causes confusion ([6ef5562](https://github.com/NightCatSama/vue-slider-component/commit/6ef5562))
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.1) (2018-05-26)
 
