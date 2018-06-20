@@ -10,6 +10,7 @@
       <template v-if="isRange">
         <div
           ref="dot0"
+          key="dot0"
           :class="[
             tooltipStatus, 
             'vue-slider-dot', 
@@ -34,6 +35,7 @@
         </div>
         <div
           ref="dot1"
+          key="dot1"
           :class="[
             tooltipStatus, 
             'vue-slider-dot', 
@@ -60,6 +62,7 @@
       <template v-else>
         <div
           ref="dot"
+          key="dot"
           :class="[
             tooltipStatus, 
             'vue-slider-dot', 
@@ -119,7 +122,7 @@
         </li>
       </ul>
       <div 
-        ref="process" 
+        ref="process"
         :class="['vue-slider-process', { 'vue-slider-process-dragable': isRange && processDragable }]" 
         :style="processStyle"
         @click="processClick"

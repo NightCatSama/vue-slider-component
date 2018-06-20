@@ -110,8 +110,7 @@
         ></vue-slider>
         <h3><small>Value: </small>{{ demo.demo5.value }}</h3>
         <div class="btn-group">
-          <button @click="setValue('demo5', 80)">set value = 80</button>
-          <button @click="setIndex('slider5', 15)">set index = 15</button>
+          <button @click="setIndex('slider5', 50)">set index = 50</button>
           <button @click="getValue('slider5')">getValue()</button>
           <button @click="getIndex('slider5')">getIndex()</button>
         </div>
