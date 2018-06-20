@@ -162,7 +162,7 @@ prop*: [only supported in vue2]
 ### Function
 | Name        | Type           | Description                |
 | ----------- |:---------------| ---------------------------|
-| setValue    | Params: value [, noCallback] | set value of the component |
+| setValue    | Params: value [, noCallback: boolean, speed: number] | set value of the component |
 | setIndex    | Params: index* | set index of the component |
 | getValue    | Return: value  | get value of the component |
 | getIndex    | Return: index* | get index of the component |
@@ -174,7 +174,7 @@ prop*: [only supported in vue2]
 ### Events
 | Name          | Type          | Description  |
 | --------------|:--------------|--------------|
-| callback      | Params: value[Number]  | values change when the callback function |
+| callback      | Params: value[Number]  | values change when the callback function. (Changes in the direct assignment value will not trigger the callback, it is recommended to use `setValue` method) |
 | drag-start    | Params: context[Object]| Drag the start event |
 | drag-end      | Params: context[Object]| Drag the end event |
 
