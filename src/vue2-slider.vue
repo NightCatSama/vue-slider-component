@@ -947,8 +947,8 @@
         const isDirectionSame = this.tooltipDirection[0] === this.tooltipDirection[1]
 
         if (this.isRange && isDirectionSame) {
-          const tooltip0 = this.$refs.tooltip0
-          const tooltip1 = this.$refs.tooltip1
+          const tooltip0 = this.reverse ? this.$refs.tooltip1 : this.$refs.tooltip0
+          const tooltip1 = this.reverse ? this.$refs.tooltip0 : this.$refs.tooltip1
 
           const tooltip0Right = tooltip0.getBoundingClientRect().right
           const tooltip1Left = tooltip1.getBoundingClientRect().left

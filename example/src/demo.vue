@@ -228,7 +228,7 @@ export default {
       orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
       demo: {
         default: {
-          value: 0,
+          value: [40, 60],
           width: 'auto',
           height: 6,
           direction: 'horizontal',
@@ -237,6 +237,7 @@ export default {
           min: 0,
           max: 100,
           interval: 1,
+          tooltipMerge: true,
           debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,
@@ -247,7 +248,7 @@ export default {
           piecewise: false,
           lazy: false,
           useKeyboard: false,
-          reverse: false,
+          reverse: true,
           speed: 0.5,
           focusStyle: null,
           bgStyle: null,
