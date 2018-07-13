@@ -425,10 +425,10 @@
         return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
       },
       limit () {
-        return this.isRange ? this.fixed ? [[0, (this.maximum - this.fixedValue * this.spacing) / this.spacing * this.gap], [(this.minimum + this.fixedValue * this.spacing) / this.spacing * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
+        return this.isRange ? this.fixed ? [[0, (this.total - this.fixedValue) * this.gap], [this.fixedValue * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
       },
       valueLimit () {
-        return this.isRange ? this.fixed ? [[this.minimum, this.maximum - this.fixedValue * this.spacing], [this.minimum + this.fixedValue * this.spacing, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
+        return this.isRange ? this.fixed ? [[this.minimum, this.maximum - (this.fixedValue * (this.spacing * this.multiple)) / this.multiple], [this.minimum + (this.fixedValue * (this.spacing * this.multiple)) / this.multiple, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
       },
       idleSlider () {
         return this.currentSlider === 0 ? 1 : 0
@@ -743,7 +743,7 @@
           this.setCurrentValue(v, isDrag)
           if (this.isRange && this.fixed) {
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
-            this.setCurrentValue(v + (this.fixedValue * this.spacing * (this.currentSlider === 0 ? 1 : -1)), isDrag, true)
+            this.setCurrentValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
           }
         } else if (pos < range[0]) {
           this.setTransform(range[0])

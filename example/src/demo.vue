@@ -249,7 +249,6 @@ export default {
           useKeyboard: false,
           reverse: false,
           speed: 0.5,
-          formatter: null,
           focusStyle: null,
           bgStyle: null,
           sliderStyle: null,
