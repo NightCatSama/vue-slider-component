@@ -29,7 +29,7 @@
           @touchstart="moveStart($event, 0)"
         >
           <div ref="tooltip0" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
-            <slot name="tooltip" :value="val[0]" :index="0">
+            <slot name="tooltip" :value="val[0]" :index="0" :disabled="!boolDisabled && disabledArray[0]">
               <span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
             </slot>
           </div>
@@ -55,7 +55,7 @@
           @touchstart="moveStart($event, 1)"
         >
           <div ref="tooltip1" :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
-            <slot name="tooltip" :value="val[1]" :index="1">
+            <slot name="tooltip" :value="val[1]" :index="1" :disabled="!boolDisabled && disabledArray[1]">
               <span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
             </slot>
           </div>

@@ -183,7 +183,7 @@ prop*: [only supported in vue2]
 ### Slot
 | Name          | Description  |
 | --------------|--------------|
-| tooltip       | Customize the tooltip slot. optional value: [`value`, `index`(only range model)] |
+| tooltip       | Customize the tooltip slot. optional value: [`value`, `index`, `disabled`(only range model)] |
 | piecewise     | Customize the piecewise slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
 | label         | Customize the label slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
 

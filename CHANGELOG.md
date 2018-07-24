@@ -1,3 +1,16 @@
+<a name="2.7.5"></a>
+## [2.7.5](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.5) (2018-07-24)
+
+
+### Bug Fixes
+
+* Fixed range bug[#211](https://github.com/NightCatSama/vue-slider-component/issues/211) ([2a52173](https://github.com/NightCatSama/vue-slider-component/commit/2a52173))
+
+### Features
+* Support for single dot disabled state ([2682913](https://github.com/NightCatSama/vue-slider-component/commit/2682913))
+
+
+
 <a name="2.7.2"></a>
 ## [2.7.2](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.2) (2018-06-20)
 
