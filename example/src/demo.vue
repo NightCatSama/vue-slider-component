@@ -228,7 +228,7 @@ export default {
       orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
       demo: {
         default: {
-          value: [40, 60],
+          value: 0,
           width: 'auto',
           height: 6,
           direction: 'horizontal',
@@ -248,14 +248,15 @@ export default {
           piecewise: false,
           lazy: false,
           useKeyboard: false,
-          reverse: true,
+          reverse: false,
           speed: 0.5,
           focusStyle: null,
           bgStyle: null,
           sliderStyle: null,
           tooltipStyle: null,
           processStyle: null,
-          piecewiseStyle: null
+          piecewiseStyle: null,
+          disabledStyle: null
         },
         demo1: {
           value: 1,
@@ -482,6 +483,7 @@ export default {
           sliderStyle: '滑块样式',
           bgStyle: '组件背景样式',
           piecewiseStyle: '分割点的样式',
+          disabledStyle: '组件禁用状态下样式',
           focusStyle: '键盘控制时，算滑块获得焦点时样式',
           value: '值'
         }

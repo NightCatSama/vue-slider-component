@@ -3,7 +3,7 @@
     ref="wrap" 
     :class="['vue-slider-component', flowDirection, disabledClass, stateClass, { 'vue-slider-has-label': piecewiseLabel }]" 
     v-show="show" 
-    :style="wrapStyles"
+    :style="[wrapStyles, boolDisabled ? disabledStyle : null]"
     @click="wrapClick"
   >
     <div ref="elem" aria-hidden="true" class="vue-slider" :style="[elemStyles, bgStyle]">
@@ -16,13 +16,14 @@
             'vue-slider-dot', 
             { 
               'vue-slider-dot-focus': focusFlag && focusSlider === 0, 
-              'vue-slider-dot-dragging': flag && currentSlider === 0 
+              'vue-slider-dot-dragging': flag && currentSlider === 0,
+              'vue-slider-dot-disabled': !boolDisabled && disabledArray[0]
             }
           ]"
           :style="[
-            dotStyles, 
-            sliderStyles[0
-            ], focusFlag && focusSlider === 0 ? focusStyles[0] 
+            dotStyles,
+            (!boolDisabled && disabledArray[0]) ? disabledDotStyles[0] : null,
+            sliderStyles[0], focusFlag && focusSlider === 0 ? focusStyles[0] 
           : null]"
           @mousedown="moveStart($event, 0)"
           @touchstart="moveStart($event, 0)"
@@ -41,13 +42,14 @@
             'vue-slider-dot', 
             { 
               'vue-slider-dot-focus': focusFlag && focusSlider === 1, 
-              'vue-slider-dot-dragging': flag && currentSlider === 1 
+              'vue-slider-dot-dragging': flag && currentSlider === 1,
+              'vue-slider-dot-disabled': !boolDisabled && disabledArray[1]
             }
           ]"
           :style="[
-            dotStyles, 
-            sliderStyles[1
-            ], focusFlag && focusSlider === 1 ? focusStyles[1] 
+            dotStyles,
+            (!boolDisabled && disabledArray[1]) ? disabledDotStyles[1] : null,
+            sliderStyles[1], focusFlag && focusSlider === 1 ? focusStyles[1] 
           : null]"
           @mousedown="moveStart($event, 1)"
           @touchstart="moveStart($event, 1)"
@@ -68,7 +70,7 @@
             'vue-slider-dot', 
             { 
               'vue-slider-dot-focus': focusFlag && focusSlider === 0, 
-              'vue-slider-dot-dragging': flag && currentSlider === 0 
+              'vue-slider-dot-dragging': flag && currentSlider === 0
             }
           ]"
           :style="[
@@ -132,7 +134,7 @@
       <div ref="mergedTooltip" class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']" :style="tooltipMergedPosition">
           <slot name="tooltip">
             <span class="vue-slider-tooltip" :style="tooltipStyles">
-              {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? `${formatting(val[0])} - ${formatting(val[1])}` : `${val[0]} - ${val[1]}`) }}
+              {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? (val[0] === val[1] ? formatting(val[0]) : `${formatting(val[0])} - ${formatting(val[1])}`) : (val[0] === val[1] ? val[0] : `${val[0]} - ${val[1]}`)) }}
             </span>
           </slot>
       </div>
@@ -192,7 +194,7 @@
         default: true
       },
       disabled: {
-        type: Boolean,
+        type: [Boolean, Array],
         default: false
       },
       piecewise: {
@@ -275,10 +277,12 @@
       formatter: [String, Function],
       mergeFormatter: [String, Function],
       piecewiseStyle: Object,
+      disabledStyle: Object,
       piecewiseActiveStyle: Object,
       processStyle: Object,
       bgStyle: Object,
       tooltipStyle: [Array, Object, Function],
+      disabledDotStyle: [Array, Object, Function],
       labelStyle: Object,
       labelActiveStyle: Object
     },
@@ -341,11 +345,17 @@
       tooltipClass () {
         return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
       },
+      disabledArray () {
+        return Array.isArray(this.disabled) ? this.disabled : [this.disabled, this.disabled]
+      },
+      boolDisabled () {
+        return this.disabledArray.every(b => b === true)
+      },
       isDisabled () {
-        return this.eventType === 'none' ? true : this.disabled
+        return this.eventType === 'none' ? true : this.boolDisabled
       },
       disabledClass () {
-        return this.disabled ? 'vue-slider-disabled' : ''
+        return this.boolDisabled ? 'vue-slider-disabled' : ''
       },
       stateClass () {
         return {
@@ -458,6 +468,23 @@
           return this.focusStyle(this.val, this.currentIndex)
         } else {
           return this.isRange ? [this.focusStyle, this.focusStyle] : this.focusStyle
+        }
+      },
+      disabledDotStyles () {
+        const disabledStyle = this.disabledDotStyle
+        if (Array.isArray(disabledStyle)) {
+          return disabledStyle
+        } else if (typeof disabledStyle === 'function') {
+          const style = disabledStyle(this.val, this.currentIndex)
+          return Array.isArray(style) ? style : [style, style]
+        } else if (disabledStyle) {
+          return [disabledStyle, disabledStyle]
+        } else {
+          return [{
+            backgroundColor: '#ccc'
+          }, {
+            backgroundColor: '#ccc'
+          }]
         }
       },
       tooltipStyles () {
@@ -662,12 +689,28 @@
         if (this.isDisabled || !this.clickable || this.processFlag) return false
         let pos = this.getPos(e)
         if (this.isRange) {
-          this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+          if (this.disabledArray.every(b => b === false)) {
+            this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+          } else if (this.disabledArray[0]) {
+            if (pos < this.position[0]) return false
+            this.currentSlider = 1
+          } else if (this.disabledArray[1]) {
+            if (pos > this.position[1]) return false
+            this.currentSlider = 0
+          }
+        }
+        if (this.disabledArray[this.currentSlider]) {
+          return false
         }
         this.setValueOnPos(pos)
+
+        if (this.isRange && this.tooltipMerge) {
+          const timer = setInterval(() => this.handleOverlapTooltip(), 16.7)
+          setTimeout(() => window.clearInterval(timer), this.speed * 1000)
+        }
       },
       moveStart (e, index = 0, isProcess) {
-        if (this.isDisabled) {
+        if (this.disabledArray[index]) {
           return false
         }
         if (this.stopPropagation) {
@@ -751,7 +794,7 @@
           if (this.isRange && this.fixed) {
             this.setTransform(this.limit[this.idleSlider][0], true)
             this.setCurrentValue(this.valueLimit[this.idleSlider][0], isDrag, true)
-          } else if (!this.fixed && this.currentSlider === 1) {
+          } else if (!this.fixed && !this.disabledArray[0] && this.currentSlider === 1) {
             this.focusSlider = 0
             this.currentSlider = 0
           }
@@ -761,7 +804,7 @@
           if (this.isRange && this.fixed) {
             this.setTransform(this.limit[this.idleSlider][1], true)
             this.setCurrentValue(this.valueLimit[this.idleSlider][1], isDrag, true)
-          } else if (!this.fixed && this.currentSlider === 0) {
+          } else if (!this.fixed && !this.disabledArray[1] && this.currentSlider === 0) {
             this.focusSlider = 1
             this.currentSlider = 1
           }
@@ -775,7 +818,7 @@
         }
         return a !== b
       },
-      setCurrentValue (val, bool, isIdleSlider) {
+      setCurrentValue (val, isDrag, isIdleSlider) {
         let slider = isIdleSlider ? this.idleSlider : this.currentSlider
         if (val < this.minimum || val > this.maximum) return false
         if (this.isRange) {
@@ -791,7 +834,7 @@
             this.syncValue()
           }
         }
-        bool || this.setPosition()
+        isDrag || this.setPosition()
       },
       getValueByIndex (index) {
         return ((this.spacing * this.multiple) * index + (this.minimum * this.multiple)) / this.multiple
@@ -1085,13 +1128,16 @@
     transition: all 0s;
     will-change: transform;
     cursor: pointer;
-    z-index: 4;
+    z-index: 5;
   }
   .vue-slider-component .vue-slider-dot.vue-slider-dot-focus {
     box-shadow: 0 0 2px 1px #3498db;
   }
   .vue-slider-component .vue-slider-dot.vue-slider-dot-dragging {
     z-index: 5;
+  }
+  .vue-slider-component .vue-slider-dot.vue-slider-dot-disabled {
+    z-index: 4;
   }
   .vue-slider-component.vue-slider-horizontal .vue-slider-dot {
     left: 0;

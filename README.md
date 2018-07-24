@@ -127,7 +127,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | interval    | Number        | 1        | The gap between the values |
 | show        | Boolean       | true     | Display of the component |
 | speed       | Number        | 0.5      | Transition time |
-| disabled    | Boolean       | false    | Whether to disable the component |
+| disabled    | Boolean[, Array<Boolean>(in range model)]  | false    | Whether to disable the component |
 | debug       | Boolean       | true | If you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
 | piecewise   | Boolean       | false    | Whether to display sub-values as as piecewise nodes |
 | piecewise-label*   | Boolean  | false  | Whether to display the label. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
@@ -138,7 +138,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | tooltip-merge* | Boolean       | true    | Whether to merge with tooltip overlap |
-| merge-formatter* | String,Function       | null    | Formatting of the merged value, for example: `merge-formatter="¥{value1} ~ ¥{value2}"` or `` merge-formatter: (v1, v2) => `¥${v1} ~ ¥${v2}` ``. |
+| merge-formatter* | String, Function  | null    | Formatting of the merged value, for example: `merge-formatter="¥{value1} ~ ¥{value2}"` or `` merge-formatter: (v1, v2) => `¥${v1} ~ ¥${v2}` ``. |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
 | real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
 | lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo1) |
@@ -149,6 +149,8 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | actions-keyboard*        | Array | `[(i) => i - 1, (i) => i + 1]`  | In the keyboard control mode, reduce(←, ↓) and increase(→, ↑) the calling method.(`i` is the index value) |
 | bg-style*         | Object | null  | The style of the background. |
 | slider-style*     | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the slider. |
+| disabled-style*   | Object | null  | The style of the slider in disabled state. |
+| disabled-dot-style*   | Object, Array, Function<Value, Index>] | null  | The style of the dot in disabled state. |
 | process-style*    | Object | null  | The style of the process bar. |
 | piecewise-style*  | Object | null  | The style of the piecewise dot. |
 | piecewise-active-style*  | Object | null  | The style of the piecewise dot in the activated state. |
