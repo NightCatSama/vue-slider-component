@@ -435,7 +435,7 @@ export default {
           min: 0,
           max: 100,
           disabled: false,
-          tooltipOverlap: false,
+          tooltipMerge: false,
           tooltip: 'always'
         },
         demo8: {
