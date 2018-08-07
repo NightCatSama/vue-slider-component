@@ -3,7 +3,7 @@
     <h1>Example</h1>
     <section data-title="Default" id="demo">
       <div>
-        <vue-slider ref="slider" v-bind="demo.default" v-model="demo.default.value"></vue-slider>
+        <vue-slider ref="slider" v-model="demo.default.customProp.value" v-bind="demo.default"></vue-slider>
         <h3><small>Value: </small>{{ demo.default.value }}</h3>
       </div>
       <div>
@@ -228,7 +228,10 @@ export default {
       orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
       demo: {
         default: {
-          value: 0,
+          customProp: {
+            value: 2
+          },
+          // value: void 0,
           width: 'auto',
           height: 6,
           direction: 'horizontal',
@@ -238,7 +241,7 @@ export default {
           max: 100,
           interval: 1,
           tooltipMerge: true,
-          debug: process && process.env && process.env.NODE_ENV !== 'production',
+          // debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,
           realTime: false,
@@ -318,7 +321,7 @@ export default {
           useKeyboard: true,
           tooltip: 'always',
           formatter: '¥{value}',
-          overlapFormatter: '¥{value1} ~ ¥{value2}',
+          mergeFormatter: '¥{value1} ~ ¥{value2}',
           bgStyle: {
             backgroundColor: '#fff',
             boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
