@@ -137,6 +137,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | value       | Number, String, Array, Object  | 0        | Initial value (if the value for the array open range model) |
 | data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
+| startAnimation | Boolean    | false    | Whether to enable the initial animation |
 | tooltip-merge* | Boolean       | true    | Whether to merge with tooltip overlap |
 | merge-formatter* | String, Function  | null    | Formatting of the merged value, for example: `merge-formatter="¥{value1} ~ ¥{value2}"` or `` merge-formatter: (v1, v2) => `¥${v1} ~ ¥${v2}` ``. |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |

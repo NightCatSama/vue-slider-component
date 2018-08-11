@@ -3,7 +3,7 @@
     <h1>Example</h1>
     <section data-title="Default" id="demo">
       <div>
-        <vue-slider ref="slider" v-model="demo.default.customProp.value" v-bind="demo.default"></vue-slider>
+        <vue-slider ref="slider" v-model="demo.default.value" v-bind="demo.default"></vue-slider>
         <h3><small>Value: </small>{{ demo.default.value }}</h3>
       </div>
       <div>
@@ -228,10 +228,7 @@ export default {
       orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
       demo: {
         default: {
-          customProp: {
-            value: 2
-          },
-          // value: void 0,
+          value: 50,
           width: 'auto',
           height: 6,
           direction: 'horizontal',
@@ -240,8 +237,9 @@ export default {
           min: 0,
           max: 100,
           interval: 1,
+          startAnimation: false,
           tooltipMerge: true,
-          // debug: process && process.env && process.env.NODE_ENV !== 'production',
+          debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,
           realTime: false,
@@ -488,6 +486,7 @@ export default {
           piecewiseStyle: '分割点的样式',
           disabledStyle: '组件禁用状态下样式',
           focusStyle: '键盘控制时，算滑块获得焦点时样式',
+          startAnimation: '是否开启初始动画',
           value: '值'
         }
       },

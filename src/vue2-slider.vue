@@ -271,6 +271,10 @@
         type: Boolean,
         default: true
       },
+      startAnimation: {
+        type: Boolean,
+        default: false
+      },
       sliderStyle: [Array, Object, Function],
       focusStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
@@ -1035,7 +1039,7 @@
       this.$nextTick(() => {
         if (this.isComponentExists) {
           this.getStaticData()
-          this.setValue(this.limitValue(this.value), true, 0)
+          this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
           this.bindEvents()
         }
       })
