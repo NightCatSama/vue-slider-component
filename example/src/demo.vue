@@ -228,7 +228,7 @@ export default {
       orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
       demo: {
         default: {
-          value: 50,
+          value: 0,
           width: 'auto',
           height: 6,
           direction: 'horizontal',
