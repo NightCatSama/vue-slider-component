@@ -1,3 +1,11 @@
+<a name="2.7.7"></a>
+## [2.7.7](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.7) (2018-07-24)
+
+
+### Features
+* add key evente ([b5bd724](https://github.com/NightCatSama/vue-slider-component/commit/b5bd724))
+
+
 <a name="2.7.5"></a>
 ## [2.7.5](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.5) (2018-07-24)
 
