@@ -177,9 +177,10 @@ prop*: [only supported in vue2]
 ### Events
 | Name          | Type          | Description  |
 | --------------|:--------------|--------------|
-| callback      | Params: value[Number]  | values change when the callback function. (Changes in the direct assignment value will not trigger the callback, it is recommended to use `setValue` method) |
+| callback      | Params: value[Number | Array]  | values change when the callback function. (Changes in the direct assignment value will not trigger the callback, it is recommended to use `setValue` method) |
 | drag-start    | Params: context[Object]| Drag the start event |
 | drag-end      | Params: context[Object]| Drag the end event |
+| on-keypress   | Params: value[Number | Array]| keyboard event |
 
 ### Slot
 | Name          | Description  |
