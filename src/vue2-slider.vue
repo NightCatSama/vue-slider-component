@@ -1042,6 +1042,10 @@
           this.getStaticData()
           this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
           this.bindEvents()
+
+          if (this.isRange && this.tooltipMerge) {
+            this.handleOverlapTooltip()
+          }
         }
       })
 
