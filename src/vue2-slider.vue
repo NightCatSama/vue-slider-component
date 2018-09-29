@@ -131,8 +131,12 @@
         @mousedown="moveStart($event, 0, true)"
         @touchstart="moveStart($event, 0, true)"
       >
-      <div ref="mergedTooltip" class="vue-merged-tooltip" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']" :style="tooltipMergedPosition">
-          <slot name="tooltip" :range="value">
+      <div
+        ref="mergedTooltip"
+        :class="['vue-merged-tooltip', 'vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']"
+        :style="tooltipMergedPosition"
+      >
+          <slot name="tooltip" :value="val" :merge="true">
             <span class="vue-slider-tooltip" :style="tooltipStyles">
               {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? (val[0] === val[1] ? formatting(val[0]) : `${formatting(val[0])} - ${formatting(val[1])}`) : (val[0] === val[1] ? val[0] : `${val[0]} - ${val[1]}`)) }}
             </span>
