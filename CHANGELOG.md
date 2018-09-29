@@ -1,3 +1,20 @@
+<a name="2.7.8"></a>
+## [2.7.8](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.8) (2018-09-29)
+
+
+### Bug Fixes
+
+* Component initialization triggers the merge tooltip ([1231880](https://github.com/NightCatSama/vue-slider-component/commit/1231880))
+
+### Features
+
+* add startAnimation ([fa187fc](https://github.com/NightCatSama/vue-slider-component/commit/fa187fc))
+* Handle overlapping tooltips[#192](https://github.com/NightCatSama/vue-slider-component/issues/192) && add props tooltipOverlap and overlapFormatter ([4d91119](https://github.com/NightCatSama/vue-slider-component/commit/4d91119))
+* Improve the slot when the tooltip is merged ([e08278b](https://github.com/NightCatSama/vue-slider-component/commit/e08278b))
+* Support for single dot disabled state ([2682913](https://github.com/NightCatSama/vue-slider-component/commit/2682913))
+
+
+
 <a name="2.7.7"></a>
 ## [2.7.7](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.7) (2018-07-24)
 
