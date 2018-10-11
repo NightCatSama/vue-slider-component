@@ -279,6 +279,10 @@
         type: Boolean,
         default: false
       },
+      enableCross: {
+        type: Boolean,
+        default: true
+      },
       sliderStyle: [Array, Object, Function],
       focusStyle: [Array, Object, Function],
       tooltipDir: [Array, String],
@@ -297,6 +301,8 @@
     data () {
       return {
         flag: false,
+        dragFlag: false,
+        crossFlag: false,
         keydownFlag: null,
         focusFlag: false,
         processFlag: false,
@@ -694,7 +700,7 @@
         }
       },
       wrapClick (e) {
-        if (this.isDisabled || !this.clickable || this.processFlag) return false
+        if (this.isDisabled || !this.clickable || this.processFlag || this.dragFlag) return false
         let pos = this.getPos(e)
         if (this.isRange) {
           if (this.disabledArray.every(b => b === false)) {
@@ -737,6 +743,10 @@
               start: this.getPos((e.targetTouches && e.targetTouches[0]) ? e.targetTouches[0] : e)
             }
           }
+
+          if (!this.enableCross && this.val[0] === this.val[1]) {
+            this.crossFlag = true
+          }
         }
         if (!isProcess && this.useKeyboard) {
           this.focusFlag = true
@@ -760,6 +770,7 @@
           this.currentSlider = 1
           this.setValueOnPos(this.processSign.pos[1] + this.getPos(e) - this.processSign.start, true)
         } else {
+          this.dragFlag = true
           this.setValueOnPos(this.getPos(e), true)
         }
 
@@ -781,6 +792,8 @@
         }
         this.flag = false
         window.setTimeout(() => {
+          this.crossFlag = false
+          this.dragFlag = false
           this.processFlag = false
         }, 0)
         this.setPosition()
@@ -789,34 +802,27 @@
         let range = this.isRange ? this.limit[this.currentSlider] : this.limit
         let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
         if (pos >= range[0] && pos <= range[1]) {
-          this.setTransform(pos)
           let v = this.getValueByIndex(Math.round(pos / this.gap))
+          this.setTransform(pos)
           this.setCurrentValue(v, isDrag)
           if (this.isRange && this.fixed) {
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
             this.setCurrentValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
           }
-        } else if (pos < range[0]) {
-          this.setTransform(range[0])
-          this.setCurrentValue(valueRange[0])
-          if (this.isRange && this.fixed) {
-            this.setTransform(this.limit[this.idleSlider][0], true)
-            this.setCurrentValue(this.valueLimit[this.idleSlider][0], isDrag, true)
-          } else if (!this.fixed && !this.disabledArray[0] && this.currentSlider === 1) {
-            this.focusSlider = 0
-            this.currentSlider = 0
-          }
         } else {
-          this.setTransform(range[1])
-          this.setCurrentValue(valueRange[1])
+          const nextSlider = pos < range[0] ? 0 : 1
+          const currentSlider = nextSlider === 0 ? 1 : 0
+          this.setTransform(range[nextSlider])
+          this.setCurrentValue(valueRange[nextSlider])
           if (this.isRange && this.fixed) {
-            this.setTransform(this.limit[this.idleSlider][1], true)
-            this.setCurrentValue(this.valueLimit[this.idleSlider][1], isDrag, true)
-          } else if (!this.fixed && !this.disabledArray[1] && this.currentSlider === 0) {
-            this.focusSlider = 1
-            this.currentSlider = 1
+            this.setTransform(this.limit[this.idleSlider][nextSlider], true)
+            this.setCurrentValue(this.valueLimit[this.idleSlider][nextSlider], isDrag, true)
+          } else if (this.isRange && (this.enableCross || this.crossFlag) && !this.fixed && !this.disabledArray[nextSlider] && this.currentSlider === currentSlider) {
+            this.focusSlider = nextSlider
+            this.currentSlider = nextSlider
           }
         }
+        this.crossFlag = false
       },
       isDiff (a, b) {
         if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) {

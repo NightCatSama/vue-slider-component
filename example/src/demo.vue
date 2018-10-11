@@ -89,23 +89,23 @@
     </section>
     <section data-title="Vertical + Custom Class" id="demo5">
       <div>
-        <vue-slider 
-          ref="slider5" 
-          v-bind="demo.demo5" 
-          v-model="demo.demo5.value" 
-          :reverse="true" 
-          tooltipDir="left" 
-          @drag-start="dragStart" 
-          @drag-end="dragEnd" 
+        <vue-slider
+          ref="slider5"
+          v-bind="demo.demo5"
+          v-model="demo.demo5.value"
+          :reverse="true"
+          tooltipDir="left"
+          @drag-start="dragStart"
+          @drag-end="dragEnd"
           @callback="val => demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${val / 100})`"
         ></vue-slider>
-        <vue-slider 
-          v-bind="demo.demo5" 
-          v-model="demo.demo5.value" 
-          :reverse="false" 
-          tooltipDir="right" 
-          @drag-start="dragStart" 
-          @drag-end="dragEnd" 
+        <vue-slider
+          v-bind="demo.demo5"
+          v-model="demo.demo5.value"
+          :reverse="false"
+          tooltipDir="right"
+          @drag-start="dragStart"
+          @drag-end="dragEnd"
           @callback="val => demo.demo5.processStyle.backgroundColor = `rgba(71, 113, 255, ${val / 100})`"
         ></vue-slider>
         <h3><small>Value: </small>{{ demo.demo5.value }}</h3>
@@ -242,13 +242,14 @@ export default {
           debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,
+          enableCross: true,
           realTime: false,
           tooltip: 'always',
           clickable: true,
           tooltipDir: 'top',
           piecewise: false,
           lazy: false,
-          useKeyboard: false,
+          useKeyboard: true,
           reverse: false,
           speed: 0.5,
           focusStyle: null,
@@ -319,6 +320,7 @@ export default {
           useKeyboard: true,
           tooltip: 'always',
           formatter: '¥{value}',
+          enableCross: false,
           mergeFormatter: '¥{value1} ~ ¥{value2}',
           bgStyle: {
             backgroundColor: '#fff',
@@ -487,7 +489,8 @@ export default {
           disabledStyle: '组件禁用状态下样式',
           focusStyle: '键盘控制时，算滑块获得焦点时样式',
           startAnimation: '是否开启初始动画',
-          value: '值'
+          value: '值',
+          enableCross: '在范围模式中，是否允许交叉'
         }
       },
       diy_tooltip: '',

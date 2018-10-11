@@ -8,7 +8,7 @@ Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can
 
 [Demo](https://nightcatsama.github.io/vue-slider-component/example/)
 
-[Live Demo](https://jsfiddle.net/2xy72dod/1240/)
+[Live Demo](https://jsfiddle.net/2xy72dod/8746/)
 
 ## [Changelog](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md)
 
@@ -137,6 +137,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | value       | Number, String, Array, Object  | 0        | Initial value (if the value for the array open range model) |
 | data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
+| enable-cross   | Boolean    | true     | Whether to allow crossover in range mode |
 | start-animation | Boolean    | false    | Whether to enable the initial animation |
 | tooltip-merge* | Boolean       | true    | Whether to merge with tooltip overlap |
 | merge-formatter* | String, Function  | null    | Formatting of the merged value, for example: `merge-formatter="¥{value1} ~ ¥{value2}"` or `` merge-formatter: (v1, v2) => `¥${v1} ~ ¥${v2}` ``. |
