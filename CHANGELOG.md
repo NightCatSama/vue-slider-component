@@ -1,3 +1,13 @@
+<a name="2.7.9"></a>
+## [2.7.9](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.8...v2.7.9) (2018-10-11)
+
+
+### Features
+
+* add enable-cross ([4678344](https://github.com/NightCatSama/vue-slider-component/commit/4678344))
+
+
+
 <a name="2.7.8"></a>
 ## [2.7.8](https://github.com/NightCatSama/vue-slider-component/compare/v2.5.9...v2.7.8) (2018-09-29)
 
