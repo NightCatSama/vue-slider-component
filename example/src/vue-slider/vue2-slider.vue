@@ -352,7 +352,7 @@
         }
       },
       tooltipDirection () {
-        let dir = this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
+        const dir = this.tooltipDir || (this.direction === 'vertical' ? 'left' : 'top')
         if (Array.isArray(dir)) {
           return this.isRange ? dir : dir[1]
         } else {
@@ -400,13 +400,13 @@
         set (val) {
           if (this.data) {
             if (this.isRange) {
-              let index0 = this.data.indexOf(val[0])
-              let index1 = this.data.indexOf(val[1])
+              const index0 = this.data.indexOf(val[0])
+              const index1 = this.data.indexOf(val[1])
               if (index0 > -1 && index1 > -1) {
                 this.currentValue = [index0, index1]
               }
             } else {
-              let index = this.data.indexOf(val)
+              const index = this.data.indexOf(val)
               if (index > -1) {
                 this.currentValue = index
               }
@@ -434,7 +434,7 @@
         return this.data ? (this.data.length - 1) : this.max
       },
       multiple () {
-        let decimals = `${this.interval}`.split('.')[1]
+        const decimals = `${this.interval}`.split('.')[1]
         return decimals ? Math.pow(10, decimals.length) : 1
       },
       spacing () {
@@ -454,11 +454,14 @@
       position () {
         return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
       },
+      isFixed () {
+        return this.fixed || this.minRange
+      },
       limit () {
-        return this.isRange ? this.fixed ? [[0, (this.total - this.fixedValue) * this.gap], [this.fixedValue * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
+        return this.isRange ? this.isFixed ? [[0, (this.total - this.fixedValue) * this.gap], [this.fixedValue * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
       },
       valueLimit () {
-        return this.isRange ? this.fixed ? [[this.minimum, this.maximum - (this.fixedValue * (this.spacing * this.multiple)) / this.multiple], [this.minimum + (this.fixedValue * (this.spacing * this.multiple)) / this.multiple, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
+        return this.isRange ? this.isFixed ? [[this.minimum, this.maximum - (this.fixedValue * (this.spacing * this.multiple)) / this.multiple], [this.minimum + (this.fixedValue * (this.spacing * this.multiple)) / this.multiple, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
       },
       idleSlider () {
         return this.currentSlider === 0 ? 1 : 0
@@ -551,15 +554,15 @@
 
         let arr = []
         for (let i = 0; i <= this.total; i++) {
-          let style = this.direction === 'vertical' ? {
+          const style = this.direction === 'vertical' ? {
             bottom: `${this.gap * i - this.width / 2}px`,
             left: 0
           } : {
             left: `${this.gap * i - this.height / 2}px`,
             top: 0
           }
-          let index = this.reverse ? (this.total - i) : i
-          let label = this.data ? this.data[index] : (this.spacing * index) + this.min
+          const index = this.reverse ? (this.total - i) : i
+          const label = this.data ? this.data[index] : (this.spacing * index) + this.min
           arr.push({
             style,
             label: this.formatter ? this.formatting(label) : label,
@@ -578,7 +581,7 @@
           return this.printError('The maximum value can not be less than the minimum value.')
         }
 
-        let resetVal = this.limitValue(this.val)
+        const resetVal = this.limitValue(this.val)
         this.setValue(resetVal)
         this.refresh()
       },
@@ -587,7 +590,7 @@
           return this.printError('The minimum value can not be greater than the maximum value.')
         }
 
-        let resetVal = this.limitValue(this.val)
+        const resetVal = this.limitValue(this.val)
         this.setValue(resetVal)
         this.refresh()
       },
@@ -599,6 +602,9 @@
         }
       },
       fixed () {
+        this.computedFixedValue()
+      },
+      minRange () {
         this.computedFixedValue()
       }
     },
@@ -666,8 +672,8 @@
         if (this.isRange) {
           let arr = this.currentIndex.map((index, i) => {
             if (i === this.focusSlider || this.fixed) {
-              let val = fn(index)
-              let range = this.fixed ? this.valueLimit[i] : [0, this.total]
+              const val = fn(index)
+              const range = this.fixed ? this.valueLimit[i] : [0, this.total]
               if (val <= range[1] && val >= range[0]) {
                 return val
               }
@@ -684,7 +690,7 @@
         }
       },
       blurSlider (e) {
-        let dot = this.isRange ? this.$refs[`dot${this.focusSlider}`] : this.$refs.dot
+        const dot = this.isRange ? this.$refs[`dot${this.focusSlider}`] : this.$refs.dot
         if (!dot || dot === e.target) {
           return false
         }
@@ -707,7 +713,7 @@
       },
       wrapClick (e) {
         if (this.isDisabled || !this.clickable || this.processFlag || this.dragFlag) return false
-        let pos = this.getPos(e)
+        const pos = this.getPos(e)
         if (this.isRange) {
           if (this.disabledArray.every(b => b === false)) {
             this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -805,11 +811,11 @@
         this.setPosition()
       },
       setValueOnPos (pos, isDrag) {
-        let range = this.isRange ? this.limit[this.currentSlider] : this.limit
-        let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
+        const range = this.isRange ? this.limit[this.currentSlider] : this.limit
+        const valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
+        const index = Math.round(pos / this.gap)
         if (pos >= range[0] && pos <= range[1]) {
-          let index = Math.round(pos / this.gap)
-          let v = this.getValueByIndex(index)
+          const v = this.getValueByIndex(index)
           this.setTransform(pos)
           this.setCurrentValue(v, isDrag)
           if (this.isRange && (this.fixed || this.isLessRange(pos, index))) {
@@ -817,16 +823,16 @@
             this.setCurrentValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
           }
         } else {
-          const nextSlider = pos < range[0] ? 0 : 1
-          const currentSlider = nextSlider === 0 ? 1 : 0
-          this.setTransform(range[nextSlider])
-          this.setCurrentValue(valueRange[nextSlider])
-          if (this.isRange && this.fixed) {
-            this.setTransform(this.limit[this.idleSlider][nextSlider], true)
-            this.setCurrentValue(this.valueLimit[this.idleSlider][nextSlider], isDrag, true)
-          } else if (this.isRange && (this.enableCross || this.crossFlag) && !this.fixed && !this.disabledArray[nextSlider] && this.currentSlider === currentSlider) {
-            this.focusSlider = nextSlider
-            this.currentSlider = nextSlider
+          const anotherSlider = pos < range[0] ? 0 : 1
+          const currentSlider = anotherSlider === 0 ? 1 : 0
+          this.setTransform(range[anotherSlider])
+          this.setCurrentValue(valueRange[anotherSlider])
+          if (this.isRange && (this.fixed || this.isLessRange(pos, index))) {
+            this.setTransform(this.limit[this.idleSlider][anotherSlider], true)
+            this.setCurrentValue(this.valueLimit[this.idleSlider][anotherSlider], isDrag, true)
+          } else if (this.isRange && (this.enableCross || this.crossFlag) && !this.isFixed && !this.disabledArray[anotherSlider] && this.currentSlider === currentSlider) {
+            this.focusSlider = anotherSlider
+            this.currentSlider = anotherSlider
           }
         }
         this.crossFlag = false
@@ -845,6 +851,7 @@
           this.fixedValue = this.maxRange
           return true
         }
+        this.computedFixedValue()
         return false
       },
       isDiff (a, b) {
@@ -856,7 +863,7 @@
         return a !== b
       },
       setCurrentValue (val, isDrag, isIdleSlider) {
-        let slider = isIdleSlider ? this.idleSlider : this.currentSlider
+        const slider = isIdleSlider ? this.idleSlider : this.currentSlider
         if (val < this.minimum || val > this.maximum) return false
         if (this.isRange) {
           if (this.isDiff(this.currentValue[slider], val)) {
@@ -898,7 +905,7 @@
       },
       setValue (val, noCb, speed) {
         if (this.isDiff(this.val, val)) {
-          let resetVal = this.limitValue(val)
+          const resetVal = this.limitValue(val)
           this.val = this.isRange ? resetVal.concat() : resetVal
           this.computedFixedValue()
           this.syncValue(noCb)
@@ -907,12 +914,12 @@
         this.$nextTick(() => this.setPosition(speed))
       },
       computedFixedValue () {
-        if (!this.fixed) {
+        if (!this.isFixed) {
           this.fixedValue = 0
           return false
         }
 
-        this.fixedValue = this.currentIndex[1] - this.currentIndex[0]
+        this.fixedValue = Math.max(this.fixed ? this.currentIndex[1] - this.currentIndex[0] : 0, this.minRange || 0)
       },
       setPosition (speed) {
         this.flag || this.setTransitionTime(speed === undefined ? this.speed : speed)
@@ -925,11 +932,11 @@
         this.flag || this.setTransitionTime(0)
       },
       setTransform (val, isIdleSlider) {
-        let slider = isIdleSlider ? this.idleSlider : this.currentSlider
-        let value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
-        let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
-        let processSize = this.fixed ? `${this.fixedValue * this.gap}px` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}px`
-        let processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}px` : `${slider === 0 ? val : this.position[0]}px`
+        const slider = isIdleSlider ? this.idleSlider : this.currentSlider
+        const value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
+        const translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
+        const processSize = this.fixed ? `${this.fixedValue * this.gap}px` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}px`
+        const processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}px` : `${slider === 0 ? val : this.position[0]}px`
         if (this.isRange) {
           this.slider[slider].style.transform = translateValue
           this.slider[slider].style.WebkitTransform = translateValue
