@@ -257,6 +257,12 @@
         type: Boolean,
         default: false
       },
+      minRange: {
+        type: Number
+      },
+      maxRange: {
+        type: Number
+      },
       processDragable: {
         type: Boolean,
         default: false
@@ -802,10 +808,11 @@
         let range = this.isRange ? this.limit[this.currentSlider] : this.limit
         let valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
         if (pos >= range[0] && pos <= range[1]) {
-          let v = this.getValueByIndex(Math.round(pos / this.gap))
+          let index = Math.round(pos / this.gap)
+          let v = this.getValueByIndex(index)
           this.setTransform(pos)
           this.setCurrentValue(v, isDrag)
-          if (this.isRange && this.fixed) {
+          if (this.isRange && (this.fixed || this.isLessRange(pos, index))) {
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
             this.setCurrentValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
           }
@@ -823,6 +830,22 @@
           }
         }
         this.crossFlag = false
+      },
+      isLessRange (pos, index) {
+        if (!this.isRange || (!this.minRange && !this.maxRange)) {
+          return false
+        }
+
+        const diff = this.currentSlider === 0 ? this.currentIndex[1] - index : index - this.currentIndex[0]
+        if (this.minRange && diff <= this.minRange) {
+          this.fixedValue = this.minRange
+          return true
+        }
+        if (this.maxRange && diff >= this.maxRange) {
+          this.fixedValue = this.maxRange
+          return true
+        }
+        return false
       },
       isDiff (a, b) {
         if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) {

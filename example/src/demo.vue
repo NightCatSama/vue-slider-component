@@ -148,7 +148,7 @@
         <vue-slider ref="slider7" id="custom-tootip" v-bind="demo.demo7" v-model="demo.demo7.value">
           <template slot="tooltip" scope="tooltip">
             <div class="custom-tooltip">
-              <img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
+              <img :src="tooltip.index === 1 ? blackCat : orangeCat" :width="tooltip.value"></img>
               {{ tooltip.value }}
             </div>
           </template>
@@ -224,8 +224,8 @@ export default {
   },
   data () {
     return {
-      black_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/62223522.jpg',
-      orange_cat: 'http://7xqnme.com1.z0.glb.clouddn.com/17-6-8/88421800.jpg',
+      blackCat: require('./assets/blackCat.png'),
+      orangeCat: require('./assets/orangeCat.png'),
       demo: {
         default: {
           value: 0,
@@ -239,6 +239,10 @@ export default {
           interval: 1,
           startAnimation: false,
           tooltipMerge: true,
+          processDragable: false,
+          minRange: null,
+          maxRange: null,
+          fixed: false,
           debug: process && process.env && process.env.NODE_ENV !== 'production',
           disabled: false,
           show: true,
@@ -490,7 +494,9 @@ export default {
           focusStyle: '键盘控制时，算滑块获得焦点时样式',
           startAnimation: '是否开启初始动画',
           value: '值',
-          enableCross: '在范围模式中，是否允许交叉'
+          enableCross: '在范围模式中，是否允许交叉',
+          minRange: '最小范围',
+          maxRange: '最大范围'
         }
       },
       diy_tooltip: '',
@@ -539,7 +545,7 @@ export default {
     let code = `<!-- In vue2.5 above, please use slot-scope instead of scope -->
 <template slot="tooltip" scope="tooltip">
   <div class="custom-tooltip">
-    <img :src="tooltip.index === 1 ? black_cat : orange_cat" :width="tooltip.value"></img>
+    <img :src="tooltip.index === 1 ? blackCat : orangeCat" :width="tooltip.value"></img>
     {{ tooltip.value }}
   </div>
 </template>`
