@@ -1,3 +1,13 @@
+<a name="2.7.11"></a>
+## [2.7.11](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.10...v2.7.11) (2018-10-14)
+
+
+### Bug Fixes
+
+* bugs in restricted range mode ([33d3388](https://github.com/NightCatSama/vue-slider-component/commit/33d3388))
+
+
+
 <a name="2.7.10"></a>
 ## [2.7.10](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.9...v2.7.10) (2018-10-14)
 
