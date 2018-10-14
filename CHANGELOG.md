@@ -1,3 +1,13 @@
+<a name="2.7.10"></a>
+## [2.7.10](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.9...v2.7.10) (2018-10-14)
+
+
+### Features
+
+* add minRange & maxRange ([2c1966b](https://github.com/NightCatSama/vue-slider-component/commit/2c1966b))
+
+
+
 <a name="2.7.9"></a>
 ## [2.7.9](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.8...v2.7.9) (2018-10-11)
 
