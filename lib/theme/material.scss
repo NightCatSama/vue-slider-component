@@ -1,0 +1,97 @@
+$themeColor: #6200ee;
+$bgColor: #bda1f3;
+$disabledRailColor: #ccc;
+$disabledColor: #666;
+
+// component style
+.vue-slider-disabled {
+  .vue-slider-rail {
+    background-color: $disabledRailColor;
+  }
+  .vue-slider-dot-handle {
+    background-color: $disabledColor;
+  }
+  .vue-slider-process {
+    background-color: $disabledColor;
+  }
+  .vue-slider-mark-step {
+    background-color: $disabledColor;
+    &-active {
+      background-color: $disabledRailColor;
+    }
+  }
+}
+
+// rail style
+.vue-slider-rail {
+  background-color: $bgColor;
+  border-radius: 15px;
+}
+
+// process style
+.vue-slider-process {
+  background-color: $themeColor;
+  border-radius: 15px;
+}
+
+// mark style
+.vue-slider-mark {
+  z-index: 4;
+
+  // &:first-child,
+  // &:last-child {
+  //   .vue-slider-mark-step {
+  //     display: none;
+  //   }
+  // }
+
+  @at-root &-step {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: $themeColor;
+
+    &-active {
+      background-color: $bgColor;
+    }
+  }
+
+  @at-root &-label {
+    font-size: 14px;
+  }
+}
+
+// dot style
+.vue-slider-dot {
+  @at-root &-handle {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: $themeColor;
+    box-sizing: border-box;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 200%;
+      height: 200%;
+      background-color: rgba($themeColor, 0.38);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: -1;
+      transition: transform 0.2s;
+    }
+
+    @at-root &-focus::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    @at-root &-disabled {
+      cursor: not-allowed;
+      background-color: $disabledColor;
+    }
+  }
+}

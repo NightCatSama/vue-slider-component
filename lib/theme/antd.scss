@@ -1,0 +1,79 @@
+$themeColor: #69c0ff;
+$hoverColor: #1890ff;
+$focusColor: #46a6ff;
+$focusShadowColor: #8cc8ff;
+$stepColor: #e8e8e8;
+$bgColor: #e1e1e1;
+$disabledColor: #a7a7a7;
+
+// component style
+.vue-slider-disabled {
+  .vue-slider-process {
+    background-color: $disabledColor;
+  }
+  .vue-slider-dot-handle {
+    border-color: $disabledColor;
+  }
+  .vue-slider-mark-step {
+    &-active {
+      box-shadow: 0 0 0 2px $disabledColor;
+    }
+  }
+}
+
+// rail style
+.vue-slider-rail {
+  background-color: $bgColor;
+  border-radius: 15px;
+}
+
+// process style
+.vue-slider-process {
+  background-color: $themeColor;
+  border-radius: 15px;
+}
+
+// mark style
+.vue-slider-mark {
+  @at-root &-step {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px $stepColor;
+    background-color: #fff;
+
+    &-active {
+      box-shadow: 0 0 0 2px $themeColor;
+    }
+  }
+
+  @at-root &-label {
+    font-size: 14px;
+  }
+}
+
+// dot style
+.vue-slider-dot {
+  @at-root &-handle {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid $themeColor;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s, border-color 0.3s;
+
+    @at-root &-focus {
+      border-color: $focusColor;
+      box-shadow: 0 0 0 5px $focusShadowColor;
+    }
+    @at-root &:hover {
+      border-color: $hoverColor;
+    }
+    @at-root &-disabled {
+      cursor: not-allowed;
+      border: 2px solid #ddd;
+    }
+  }
+}

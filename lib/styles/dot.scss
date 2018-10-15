@@ -1,0 +1,13 @@
+.vue-slider-dot {
+  position: absolute;
+  will-change: transform;
+  transition: all 0s;
+  z-index: 5;
+
+  @at-root &-handle {
+    @at-root &-focus {
+    }
+    @at-root &-disabled {
+    }
+  }
+}

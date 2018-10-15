@@ -1,0 +1,62 @@
+$themeColor: #3498db;
+$bgColor: #ccc;
+
+// component style
+.vue-slider-disabled {
+  opacity: 0.5;
+}
+
+// rail style
+.vue-slider-rail {
+  background-color: $bgColor;
+  border-radius: 15px;
+}
+
+// process style
+.vue-slider-process {
+  background-color: $themeColor;
+  border-radius: 15px;
+}
+
+// mark style
+.vue-slider-mark {
+  z-index: 4;
+
+  &:first-child,
+  &:last-child {
+    .vue-slider-mark-step {
+      display: none;
+    }
+  }
+
+  @at-root &-step {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.16);
+  }
+
+  @at-root &-label {
+    font-size: 14px;
+  }
+}
+
+// dot style
+.vue-slider-dot {
+  @at-root &-handle {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+
+    @at-root &-focus {
+      box-shadow: 0px 0px 1px 2px rgba($themeColor, 0.36);
+    }
+    @at-root &-disabled {
+      cursor: not-allowed;
+    }
+  }
+}

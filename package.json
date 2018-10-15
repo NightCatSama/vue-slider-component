@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "2.7.11",
+  "version": "3.0.0",
   "description": "Can use the Slider component in vue1.x and vue2.x",
   "keywords": [
     "vue",
@@ -21,30 +21,41 @@
   },
   "homepage": "https://github.com/NightCatSama/vue-slider-component#readme",
   "scripts": {
-    "build": "rm -rf ./dist && webpack --colors --hide-modules",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1 && git add CHANGELOG.md"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "package": "vue-cli-service build --target lib --name vue-slider-component lib/index.ts",
+    "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,scss}": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.4",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-2": "^6.22.0",
-    "babel-runtime": "^6.23.0",
-    "css-loader": "^0.23.1",
-    "postcss-load": "^0.1.6",
-    "style-loader": "^0.15.0",
-    "vue": "^2.2.4",
-    "vue-html-loader": "^1.2.4",
-    "vue-loader": "^11.1.4",
-    "vue-style-loader": "^2.0.4",
-    "vue-template-compiler": "^2.2.4",
-    "webpack": "^2.2.1"
-  },
-  "browserify": {
-    "transform": [
-      "vueify"
-    ]
+    "@types/chai": "^4.1.0",
+    "@types/mocha": "^5.2.4",
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-typescript": "^3.0.5",
+    "@vue/cli-plugin-unit-mocha": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "chai": "^4.1.2",
+    "lint-staged": "^8.1.0",
+    "node-sass": "^4.9.0",
+    "prettier": "^1.15.2",
+    "sass-loader": "^7.0.1",
+    "typescript": "^3.0.0",
+    "vue-template-compiler": "^2.5.17"
   }
 }
