@@ -1,3 +1,13 @@
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.11...v2.8.0) (2018-10-19)
+
+
+### Features
+
+* add dot slot ([27c0e8b](https://github.com/NightCatSama/vue-slider-component/commit/27c0e8b))
+
+
+
 <a name="2.7.11"></a>
 ## [2.7.11](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.10...v2.7.11) (2018-10-14)
 
