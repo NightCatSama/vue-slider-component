@@ -20,14 +20,22 @@
               'vue-slider-dot-disabled': !boolDisabled && disabledArray[0]
             }
           ]"
-          :style="[
-            dotStyles,
-            (!boolDisabled && disabledArray[0]) ? disabledDotStyles[0] : null,
-            sliderStyles[0], focusFlag && focusSlider === 0 ? focusStyles[0]
-          : null]"
+          :style="dotStyles"
           @mousedown="moveStart($event, 0)"
           @touchstart="moveStart($event, 0)"
         >
+          <slot name="dot" :value="val[0]" :index="0" :disabled="disabledArray[0]">
+            <div 
+              class="vue-slider-dot-handle"
+              :style="[
+                (!boolDisabled && disabledArray[0])
+                ? disabledDotStyles[0]
+                : null,
+                sliderStyles[0], 
+                focusFlag && focusSlider === 0 ? focusStyles[0]: null
+              ]"
+            ></div>
+          </slot>
           <div ref="tooltip0" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[0]" :index="0" :disabled="!boolDisabled && disabledArray[0]">
               <span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
@@ -46,14 +54,22 @@
               'vue-slider-dot-disabled': !boolDisabled && disabledArray[1]
             }
           ]"
-          :style="[
-            dotStyles,
-            (!boolDisabled && disabledArray[1]) ? disabledDotStyles[1] : null,
-            sliderStyles[1], focusFlag && focusSlider === 1 ? focusStyles[1]
-          : null]"
+          :style="dotStyles"
           @mousedown="moveStart($event, 1)"
           @touchstart="moveStart($event, 1)"
         >
+          <slot name="dot" :value="val[1]" :index="1" :disabled="disabledArray[1]">
+            <div 
+              class="vue-slider-dot-handle"
+              :style="[
+                (!boolDisabled && disabledArray[1])
+                ? disabledDotStyles[1]
+                : null,
+                sliderStyles[1], 
+                focusFlag && focusSlider === 1 ? focusStyles[1]: null
+              ]"
+            ></div>
+          </slot>
           <div ref="tooltip1" :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[1]" :index="1" :disabled="!boolDisabled && disabledArray[1]">
               <span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
@@ -73,14 +89,19 @@
               'vue-slider-dot-dragging': flag && currentSlider === 0
             }
           ]"
-          :style="[
-            dotStyles,
-            sliderStyles,
-            focusFlag && focusSlider === 0 ? focusStyles : null
-          ]"
+          :style="dotStyles"
           @mousedown="moveStart"
           @touchstart="moveStart"
         >
+          <slot name="dot" :value="val" :disabled="boolDisabled">
+            <div 
+              class="vue-slider-dot-handle"
+              :style="[
+                sliderStyles,
+                focusFlag && focusSlider === 0 ? focusStyles : null
+              ]"
+            ></div>
+          </slot>
           <div :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val">
               <span class="vue-slider-tooltip" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
@@ -691,7 +712,7 @@
       },
       blurSlider (e) {
         const dot = this.isRange ? this.$refs[`dot${this.focusSlider}`] : this.$refs.dot
-        if (!dot || dot === e.target) {
+        if (!dot || dot === e.target || dot.contains(e.target)) {
           return false
         }
         this.focusFlag = false
@@ -1175,15 +1196,19 @@
   }
   .vue-slider-component .vue-slider-dot {
     position: absolute;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
     transition: all 0s;
     will-change: transform;
     cursor: pointer;
     z-index: 5;
   }
-  .vue-slider-component .vue-slider-dot.vue-slider-dot-focus {
+  .vue-slider-component .vue-slider-dot .vue-slider-dot-handle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+  }
+  .vue-slider-component .vue-slider-dot.vue-slider-dot-focus .vue-slider-dot-handle {
     box-shadow: 0 0 2px 1px #3498db;
   }
   .vue-slider-component .vue-slider-dot.vue-slider-dot-dragging {

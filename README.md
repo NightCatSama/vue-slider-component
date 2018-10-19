@@ -188,7 +188,8 @@ prop*: [only supported in vue2]
 ### Slot
 | Name          | Description  |
 | --------------|--------------|
-| tooltip       | Customize the tooltip slot. optional value: [`value`, `index`, `disabled`(only range model), `merge`(only tooltipMerge is `true`)] |
+| dot           | Customize the dot slot. optional value: [`value`,  `disabled`, `index`(only range model)] |
+| tooltip       | Customize the tooltip slot. optional value: [`value`, `disabled`(only range model), `index`(only range model), `merge`(only tooltipMerge is `true`)] |
 | piecewise     | Customize the piecewise slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
 | label         | Customize the label slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
 
