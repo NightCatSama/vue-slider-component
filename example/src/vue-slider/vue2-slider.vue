@@ -627,6 +627,10 @@
       },
       minRange () {
         this.computedFixedValue()
+      },
+      reverse () {
+        this.$refs.process.style.cssText = ''
+        this.refresh()
       }
     },
     methods: {
@@ -1044,7 +1048,7 @@
         if (this.$refs.elem) {
           this.getStaticData()
           this.computedFixedValue()
-          this.setPosition()
+          this.setPosition(0)
         }
       },
       printError (msg) {
