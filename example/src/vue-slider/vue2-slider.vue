@@ -25,13 +25,13 @@
           @touchstart="moveStart($event, 0)"
         >
           <slot name="dot" :value="val[0]" :index="0" :disabled="disabledArray[0]">
-            <div 
+            <div
               class="vue-slider-dot-handle"
               :style="[
                 (!boolDisabled && disabledArray[0])
                 ? disabledDotStyles[0]
                 : null,
-                sliderStyles[0], 
+                sliderStyles[0],
                 focusFlag && focusSlider === 0 ? focusStyles[0]: null
               ]"
             ></div>
@@ -59,13 +59,13 @@
           @touchstart="moveStart($event, 1)"
         >
           <slot name="dot" :value="val[1]" :index="1" :disabled="disabledArray[1]">
-            <div 
+            <div
               class="vue-slider-dot-handle"
               :style="[
                 (!boolDisabled && disabledArray[1])
                 ? disabledDotStyles[1]
                 : null,
-                sliderStyles[1], 
+                sliderStyles[1],
                 focusFlag && focusSlider === 1 ? focusStyles[1]: null
               ]"
             ></div>
@@ -94,7 +94,7 @@
           @touchstart="moveStart"
         >
           <slot name="dot" :value="val" :disabled="boolDisabled">
-            <div 
+            <div
               class="vue-slider-dot-handle"
               :style="[
                 sliderStyles,
@@ -113,6 +113,7 @@
         <li v-for="(piecewiseObj, index) in piecewiseDotWrap" class="vue-slider-piecewise-item" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
           <slot
             name="piecewise"
+            :value="val"
             :label="piecewiseObj.label"
             :index="index"
             :first="index === 0"
@@ -128,6 +129,7 @@
 
           <slot
             name="label"
+            :value="val"
             :label="piecewiseObj.label"
             :index="index"
             :first="index === 0"
