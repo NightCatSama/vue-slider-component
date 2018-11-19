@@ -113,6 +113,7 @@
         <li v-for="(piecewiseObj, index) in piecewiseDotWrap" class="vue-slider-piecewise-item" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
           <slot
             name="piecewise"
+            :value="val"
             :label="piecewiseObj.label"
             :index="index"
             :first="index === 0"
@@ -128,6 +129,7 @@
 
           <slot
             name="label"
+            :value="val"
             :label="piecewiseObj.label"
             :index="index"
             :first="index === 0"

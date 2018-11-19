@@ -190,8 +190,8 @@ prop*: [only supported in vue2]
 | --------------|--------------|
 | dot           | Customize the dot slot. optional value: [`value`,  `disabled`, `index`(only range model)] |
 | tooltip       | Customize the tooltip slot. optional value: [`value`, `disabled`(only range model), `index`(only range model), `merge`(only tooltipMerge is `true`)] |
-| piecewise     | Customize the piecewise slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
-| label         | Customize the label slot. optional value: [`label`, `index`, `active`, `first`, `last`] |
+| piecewise     | Customize the piecewise slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`] |
+| label         | Customize the label slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`] |
 
 [#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` or `slot-scope` to get the value.
 
