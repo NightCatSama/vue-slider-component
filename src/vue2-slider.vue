@@ -1114,7 +1114,7 @@
 
           window.setTimeout(() => {
             this.refresh()
-          }, 0);
+          }, 0)
 
           if (this.isRange && this.tooltipMerge && !this.startAnimation) {
             this.$nextTick(() => {
