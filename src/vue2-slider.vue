@@ -1112,6 +1112,10 @@
           this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
           this.bindEvents()
 
+          window.setTimeout(() => {
+            this.refresh()
+          }, 0);
+
           if (this.isRange && this.tooltipMerge && !this.startAnimation) {
             this.$nextTick(() => {
               this.handleOverlapTooltip()
