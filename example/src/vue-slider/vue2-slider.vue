@@ -110,7 +110,12 @@
         </div>
       </template>
       <ul class="vue-slider-piecewise">
-        <li v-for="(piecewiseObj, index) in piecewiseDotWrap" class="vue-slider-piecewise-item" :style="[piecewiseDotStyle, piecewiseObj.style]" :key="index">
+        <li 
+          v-for="(piecewiseObj, index) in piecewiseDotWrap" 
+          class="vue-slider-piecewise-item" 
+          :style="[piecewiseDotStyle, piecewiseObj.style]" 
+          :key="index"
+        >
           <slot
             name="piecewise"
             :value="val"
@@ -118,12 +123,12 @@
             :index="index"
             :first="index === 0"
             :last="index === piecewiseDotWrap.length - 1"
-            :active="piecewiseObj.inRange"
+            :active="isActive(piecewiseObj.index)"
           >
             <span
               v-if="piecewise"
               class="vue-slider-piecewise-dot"
-              :style="[ piecewiseStyle, piecewiseObj.inRange ? piecewiseActiveStyle : null ]"
+              :style="[ piecewiseStyle, isActive(piecewiseObj.index) ? piecewiseActiveStyle : null ]"
             ></span>
           </slot>
 
@@ -134,12 +139,12 @@
             :index="index"
             :first="index === 0"
             :last="index === piecewiseDotWrap.length - 1"
-            :active="piecewiseObj.inRange"
+            :active="isActive(piecewiseObj.index)"
           >
             <span
               v-if="piecewiseLabel"
               class="vue-slider-piecewise-label"
-              :style="[ labelStyle, piecewiseObj.inRange ? labelActiveStyle : null ]"
+              :style="[ labelStyle, isActive(piecewiseObj.index) ? labelActiveStyle : null ]"
             >
               {{ piecewiseObj.label }}
             </span>
@@ -299,6 +304,9 @@
         default () {
           return [(i) => i - 1, (i) => i + 1]
         }
+      },
+      piecewiseFilter: {
+        type: Function
       },
       tooltipMerge: {
         type: Boolean,
@@ -586,10 +594,13 @@
           }
           const index = this.reverse ? (this.total - i) : i
           const label = this.data ? this.data[index] : (this.spacing * index) + this.min
+          if (this.piecewiseFilter && !this.piecewiseFilter({ index, label })) {
+            continue
+          }
           arr.push({
             style,
-            label: this.formatter ? this.formatting(label) : label,
-            inRange: index >= this.indexRange[0] && index <= this.indexRange[1]
+            index,
+            label: this.formatter ? this.formatting(label) : label
           })
         }
         return arr
@@ -1027,6 +1038,9 @@
         } else {
           return inRange(val)
         }
+      },
+      isActive (index) {
+        return index >= this.indexRange[0] && index <= this.indexRange[1]
       },
       syncValue (noCb) {
         let val = this.isRange ? this.val.concat() : this.val

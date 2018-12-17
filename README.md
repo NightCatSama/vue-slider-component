@@ -131,6 +131,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | debug       | Boolean       | true | If you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
 | piecewise   | Boolean       | false    | Whether to display sub-values as as piecewise nodes |
 | piecewise-label*   | Boolean  | false  | Whether to display the label. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
+| piecewise-filter*   | Function  | null  | Used to filter piecewise, it works well when the data is large |
 | tooltip     | String, Boolean | always    | Control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | Set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
 | reverse     | Boolean       | false    | Whether the component reverse (such as Right to left, Top to bottom) |
