@@ -1,3 +1,13 @@
+<a name="2.8.3"></a>
+## [2.8.3](https://github.com/NightCatSama/vue-slider-component/compare/v2.8.1...v2.8.3) (2018-12-17)
+
+
+### Features
+
+* add piecewise-filter ([ee76b2d](https://github.com/NightCatSama/vue-slider-component/commit/ee76b2d))
+
+
+
 <a name="2.8.0"></a>
 # [2.8.0](https://github.com/NightCatSama/vue-slider-component/compare/v2.7.11...v2.8.0) (2018-10-19)
 
