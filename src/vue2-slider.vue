@@ -38,7 +38,7 @@
           </slot>
           <div ref="tooltip0" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[0]" :index="0" :disabled="!boolDisabled && disabledArray[0]">
-              <span class="vue-slider-tooltip" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+              <span class="vue-slider-tooltip"  :class="toolTipClass" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
             </slot>
           </div>
         </div>
@@ -72,7 +72,7 @@
           </slot>
           <div ref="tooltip1" :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[1]" :index="1" :disabled="!boolDisabled && disabledArray[1]">
-              <span class="vue-slider-tooltip" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+              <span class="vue-slider-tooltip" :class="toolTipClass" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
             </slot>
           </div>
         </div>
@@ -104,7 +104,7 @@
           </slot>
           <div :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val">
-              <span class="vue-slider-tooltip" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
+              <span class="vue-slider-tooltip"  :class="toolTipClass" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
             </slot>
           </div>
         </div>
@@ -153,7 +153,7 @@
       </ul>
       <div
         ref="process"
-        :class="['vue-slider-process', { 'vue-slider-process-dragable': isRange && processDragable }]"
+        :class="['vue-slider-process', { 'vue-slider-process-dragable': isRange && processDragable }, processClass]"
         :style="processStyle"
         @click="processClick"
         @mousedown="moveStart($event, 0, true)"
@@ -165,7 +165,7 @@
         :style="tooltipMergedPosition"
       >
           <slot name="tooltip" :value="val" :merge="true">
-            <span class="vue-slider-tooltip" :style="tooltipStyles">
+            <span class="vue-slider-tooltip" :class="toolTipClass"  :style="tooltipStyles">
               {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? (val[0] === val[1] ? formatting(val[0]) : `${formatting(val[0])} - ${formatting(val[1])}`) : (val[0] === val[1] ? val[0] : `${val[0]} - ${val[1]}`)) }}
             </span>
           </slot>
@@ -329,8 +329,10 @@
       disabledStyle: Object,
       piecewiseActiveStyle: Object,
       processStyle: Object,
+      processClass: String,
       bgStyle: Object,
       tooltipStyle: [Array, Object, Function],
+      toolTipClass: String,
       disabledDotStyle: [Array, Object, Function],
       labelStyle: Object,
       labelActiveStyle: Object

@@ -157,9 +157,11 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | disabled-style*   | Object | null  | The style of the slider in disabled state. |
 | disabled-dot-style*   | Object, Array, Function<Value, Index>] | null  | The style of the dot in disabled state. |
 | process-style*    | Object | null  | The style of the process bar. |
+| process-class*    | String | null  | The class of the process bar. |
 | piecewise-style*  | Object | null  | The style of the piecewise dot. |
 | piecewise-active-style*  | Object | null  | The style of the piecewise dot in the activated state. |
 | tooltip-style*    | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the tooltip. |
+| tooltip-class*    | String | null  | The class of the tool tip. |
 | label-style*      | Object | null  | The style of the label. |
 | label-active-style*      | Object | null  | The style of the label in the activated state. |
 | focus-style*     | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the slider when it is focused. (Works only when `use-keyboard` is `true`) |
