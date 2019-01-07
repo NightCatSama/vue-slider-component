@@ -38,7 +38,7 @@
           </slot>
           <div ref="tooltip0" :class="['vue-slider-tooltip-' + tooltipDirection[0], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[0]" :index="0" :disabled="!boolDisabled && disabledArray[0]">
-              <span class="vue-slider-tooltip"  :class="toolTipClass" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
+              <span class="vue-slider-tooltip"  :class="tooltipClass" :style="tooltipStyles[0]">{{ formatter ? formatting(val[0]) : val[0] }}</span>
             </slot>
           </div>
         </div>
@@ -72,7 +72,7 @@
           </slot>
           <div ref="tooltip1" :class="['vue-slider-tooltip-' + tooltipDirection[1], 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val[1]" :index="1" :disabled="!boolDisabled && disabledArray[1]">
-              <span class="vue-slider-tooltip" :class="toolTipClass" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
+              <span class="vue-slider-tooltip" :class="tooltipClass" :style="tooltipStyles[1]">{{ formatter ? formatting(val[1]) : val[1] }}</span>
             </slot>
           </div>
         </div>
@@ -104,7 +104,7 @@
           </slot>
           <div :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
             <slot name="tooltip" :value="val">
-              <span class="vue-slider-tooltip"  :class="toolTipClass" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
+              <span class="vue-slider-tooltip"  :class="tooltipClass" :style="tooltipStyles">{{ formatter ? formatting(val) : val }}</span>
             </slot>
           </div>
         </div>
@@ -165,7 +165,7 @@
         :style="tooltipMergedPosition"
       >
           <slot name="tooltip" :value="val" :merge="true">
-            <span class="vue-slider-tooltip" :class="toolTipClass"  :style="tooltipStyles">
+            <span class="vue-slider-tooltip" :class="tooltipClass"  :style="tooltipStyles">
               {{ mergeFormatter ? mergeFormatting(val[0], val[1]) : (formatter ? (val[0] === val[1] ? formatting(val[0]) : `${formatting(val[0])} - ${formatting(val[1])}`) : (val[0] === val[1] ? val[0] : `${val[0]} - ${val[1]}`)) }}
             </span>
           </slot>
@@ -332,7 +332,7 @@
       processClass: String,
       bgStyle: Object,
       tooltipStyle: [Array, Object, Function],
-      toolTipClass: String,
+      tooltipClass: String,
       disabledDotStyle: [Array, Object, Function],
       labelStyle: Object,
       labelActiveStyle: Object
@@ -394,9 +394,6 @@
       },
       tooltipStatus () {
         return this.tooltip === 'hover' && this.flag ? 'vue-slider-always' : this.tooltip ? `vue-slider-${this.tooltip}` : ''
-      },
-      tooltipClass () {
-        return [`vue-slider-tooltip-${this.tooltipDirection}`, 'vue-slider-tooltip']
       },
       disabledArray () {
         return Array.isArray(this.disabled) ? this.disabled : [this.disabled, this.disabled]
