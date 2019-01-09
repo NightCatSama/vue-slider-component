@@ -1107,10 +1107,10 @@
         if (show) {
           tooltip0.style.visibility = 'hidden'
           tooltip1.style.visibility = 'hidden'
-          mergedTooltip.style.visibility = 'visible'
+          mergedTooltip.style.visibility = 'inherit'
         } else {
-          tooltip0.style.visibility = 'visible'
-          tooltip1.style.visibility = 'visible'
+          tooltip0.style.visibility = 'inherit'
+          tooltip1.style.visibility = 'inherit'
           mergedTooltip.style.visibility = 'hidden'
         }
       }
