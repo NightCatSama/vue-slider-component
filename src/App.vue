@@ -54,7 +54,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueSlider from '../lib'
-import '../lib/theme/antd.scss'
+import '../lib/theme/material.scss'
 
 @Component({
   components: {

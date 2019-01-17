@@ -1,0 +1,75 @@
+.vue-slider-disabled .vue-slider-rail {
+  background-color: #ccc;
+}
+.vue-slider-disabled .vue-slider-dot-handle {
+  background-color: #666;
+}
+.vue-slider-disabled .vue-slider-process {
+  background-color: #666;
+}
+.vue-slider-disabled .vue-slider-mark-step {
+  background-color: #666;
+}
+.vue-slider-disabled .vue-slider-mark-step-active {
+  background-color: #ccc;
+}
+
+.vue-slider-rail {
+  background-color: #bda1f3;
+  border-radius: 15px;
+}
+
+.vue-slider-process {
+  background-color: #6200ee;
+  border-radius: 15px;
+}
+
+.vue-slider-mark {
+  z-index: 4;
+}
+.vue-slider-mark-step {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #6200ee;
+}
+.vue-slider-mark-step-active {
+  background-color: #bda1f3;
+}
+
+.vue-slider-mark-label {
+  font-size: 14px;
+}
+
+.vue-slider-dot-handle {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #6200ee;
+  box-sizing: border-box;
+}
+.vue-slider-dot-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200%;
+  height: 200%;
+  background-color: rgba(98, 0, 238, 0.38);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: -1;
+  transition: transform 0.2s;
+}
+.vue-slider-dot-handle-focus::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.vue-slider-dot-handle-disabled {
+  cursor: not-allowed;
+  background-color: #666;
+}
+
+/*# sourceMappingURL=material.css.map */

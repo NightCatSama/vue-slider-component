@@ -23,7 +23,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:library": "npm run package && npm run sass",
     "package": "vue-cli-service build --target lib --name vue-slider-component lib/index.ts",
+    "sass": "sass lib/theme:theme",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -54,6 +56,7 @@
     "lint-staged": "^8.1.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.15.2",
+    "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"

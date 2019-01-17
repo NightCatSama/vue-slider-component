@@ -6126,6 +6126,12 @@ sass-loader@^7.0.1:
     pify "^3.0.0"
     semver "^5.5.0"
 
+sass@^1.16.0:
+  version "1.16.0"
+  resolved "http://registry.npm.taobao.org/sass/download/sass-1.16.0.tgz#c7912449b5c93463e7e7f267d55fc1b8816d122b"
+  dependencies:
+    chokidar "^2.0.0"
+
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
