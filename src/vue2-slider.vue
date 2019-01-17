@@ -110,10 +110,10 @@
         </div>
       </template>
       <ul class="vue-slider-piecewise">
-        <li 
-          v-for="(piecewiseObj, index) in piecewiseDotWrap" 
-          class="vue-slider-piecewise-item" 
-          :style="[piecewiseDotStyle, piecewiseObj.style]" 
+        <li
+          v-for="(piecewiseObj, index) in piecewiseDotWrap"
+          class="vue-slider-piecewise-item"
+          :style="[piecewiseDotStyle, piecewiseObj.style]"
           :key="index"
         >
           <slot
@@ -945,6 +945,7 @@
           const resetVal = this.limitValue(val)
           this.val = this.isRange ? resetVal.concat() : resetVal
           this.computedFixedValue()
+          this.$emit('input', val)
           this.syncValue(noCb)
         }
 
@@ -1043,7 +1044,6 @@
       },
       syncValue (noCb) {
         let val = this.isRange ? this.val.concat() : this.val
-        this.$emit('input', val)
         this.keydownFlag && this.$emit('on-keypress', val)
         noCb || this.$emit('callback', val)
       },
