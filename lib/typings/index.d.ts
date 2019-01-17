@@ -6,7 +6,7 @@ export interface Styles {
 
 export type TDirection = 'ltr' | 'rtl' | 'ttb' | 'btt'
 
-export type TValue = number | string | symbol
+export type TValue = number | string
 
 // Mark
 export interface MarkOption {
@@ -19,6 +19,7 @@ export interface MarkOption {
 export interface Mark extends MarkOption {
   active?: boolean
   pos?: number
+  value: number
 }
 export interface Marks {
   [key: string]: string | MarkOption
@@ -41,6 +42,7 @@ export interface Dot extends DotOption {
   focus: boolean
 }
 
-export type ProcessProp = (dotsPos: number[]) => Array<[number, number]>
+export type ProcessOption = Array<[number, number, Styles?]>
+export type ProcessProp = (dotsPos: number[]) => ProcessOption
 
 export default VueSlider

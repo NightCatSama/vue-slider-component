@@ -8,7 +8,6 @@
       @error="({ type, message }) => log('error', type, message)"
       @dragStart="setSpeed(0)"
       @dragEnd="setSpeed(0.5)"
-      @change="log"
     >
     </vue-slider>
     <vue-slider
@@ -55,7 +54,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueSlider from '../lib'
-import '../lib/theme/material.scss'
+import '../lib/theme/antd.scss'
 
 @Component({
   components: {
@@ -63,8 +62,8 @@ import '../lib/theme/material.scss'
   },
 })
 export default class App extends Vue {
-  value = 0
-  // value = [0, 50, 150, 200]
+  // value = 0
+  value = [0, 20]
   // value = ['01', '03']
   show = true
 
@@ -74,9 +73,9 @@ export default class App extends Vue {
     // width: 6,
     // height: 380,
     // dotSize: 20,
-    min: 0,
-    max: 100,
-    interval: 20,
+    min: -30,
+    max: 180,
+    interval: 1,
     speed: .5,
     // order: false,
     // disabled: true,
@@ -84,25 +83,35 @@ export default class App extends Vue {
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
-    // minRange: 20,
-    // maxRange: 60,
+    minRange: 20,
+    maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
-    // process: (dots: any) => [[dots[0].pos, dots[1].pos], [dots[2].pos, dots[3].pos]],
-    marks: true,
-    // marks: (value: number) => ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
-    // marks: {
-    //   '-10': '-10℃',
-    //   '0': '0',
-    //   '26': '26℃',
-    //   '50': '50℃',
-    //   '100': {
-    //     label: '100℃',
-    //     labelStyle: {
-    //       color: 'red',
-    //     },
-    //   },
-    // },
+    // process: (dots: any) => [[0, dots[0], {
+    //   backgroundColor: 'blue'
+    // }], [dots[1], 100, {
+    //   backgroundColor: 'red'
+    // }]],
+    // included: true,
+    // marks: true,
+    // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
+    marks: {
+      '-30': {
+        label: '-30℃',
+        labelStyle: {
+          color: 'blue'
+        }
+      },
+      '0': '0℃',
+      '26': '26℃',
+      '60': '60℃',
+      '180': {
+        label: '180℃',
+        labelStyle: {
+          color: 'red',
+        },
+      },
+    },
     // marks: [0, 20, 40, 60, 80, 100],
     // hideLabel: true,
     // marks: [-20, 300, 1000, 2000],
@@ -165,7 +174,7 @@ export default class App extends Vue {
   }
 
   setSpeed(speed: number) {
-    // this.sliderOptions.speed = speed
+    this.sliderOptions.speed = speed
   }
 }
 </script>

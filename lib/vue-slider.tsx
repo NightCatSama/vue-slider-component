@@ -44,7 +44,6 @@ export default class VueSlider extends Vue {
   private control!: Control // 滑块逻辑控制
   private states: State = new State(SliderState) // 组件状态
   private scale: number = 1 // 比例，1% = ${scale}px
-  private dragRange: number[] = [] // 滑块拖拽范围，超过此范围切换拖拽滑块
 
   focusDotIndex: number = 0
 
@@ -149,6 +148,9 @@ export default class VueSlider extends Vue {
   @Prop([Boolean, Object, Array, Function])
   marks?: MarksProp
 
+  // 仅限 marks 不为空时有效，控制滑块是否只在 step 上有效
+  @Prop(Boolean) included?: boolean
+
   // 是否隐藏 label
   @Prop(Boolean) hideLabel?: boolean
 
@@ -204,7 +206,7 @@ export default class VueSlider extends Vue {
 
   // 进度条样式数组
   get processBaseStyleArray(): Styles[] {
-    return this.control.processArray.map(([start, end]) => {
+    return this.control.processArray.map(([start, end, style]) => {
       if (start > end) {
         /* tslint:disable:semicolon */
         ;[start, end] = [end, start]
@@ -217,6 +219,7 @@ export default class VueSlider extends Vue {
         [sizeStyleKey]: `${end - start}%`,
         transitionProperty: `${sizeStyleKey},${this.mainDirection}`,
         transitionDuration: `${this.animateTime}s`,
+        ...style,
       }
     })
   }
@@ -300,7 +303,7 @@ export default class VueSlider extends Vue {
 
   @Watch('value')
   onValueChanged() {
-    if (!this.states.has(SliderState.Drag)) {
+    if (!this.states.has(SliderState.Drag) && this.isDiff) {
       this.control.setValue(this.value)
     }
   }
@@ -373,8 +376,35 @@ export default class VueSlider extends Vue {
 
   // 同步值
   private syncValueByPos() {
+    let values = this.control.dotsValue
+    if (this.included && this.control.markList.length > 0) {
+      const getRecentValue = (val: TValue) => {
+        let curValue = val
+        let dir = this.max - this.min
+        this.control.markList.forEach(mark => {
+          if (typeof mark.value === 'number' && typeof val === 'number') {
+            const curDir = Math.abs(mark.value - val)
+            if (curDir < dir) {
+              dir = curDir
+              curValue = mark.value
+            }
+          }
+        })
+        return curValue
+      }
+      values = values.map(val => getRecentValue(val))
+    }
+    if (this.isDiff) {
+      this.$emit('change', values.length === 1 ? values[0] : values)
+    }
+  }
+
+  // 判断当前值和组件内部值是否不一致
+  private get isDiff() {
     const values = this.control.dotsValue
-    this.$emit('change', values.length === 1 ? values[0] : values)
+    return Array.isArray(this.value)
+      ? this.value.some((val, index) => val !== values[index])
+      : this.value !== values[0]
   }
 
   // 返回错误
@@ -393,17 +423,14 @@ export default class VueSlider extends Vue {
    * @returns {[number, number]} 范围 [start, end]
    * @memberof VueSlider
    */
-  private getDragRange(index: number): [number, number] {
-    const prevDot = this.dots[index - 1]
-    const nextDot = this.dots[index + 1]
+  private get dragRange(): [number, number] {
+    const prevDot = this.dots[this.focusDotIndex - 1]
+    const nextDot = this.dots[this.focusDotIndex + 1]
     return [prevDot ? prevDot.pos : -Infinity, nextDot ? nextDot.pos : Infinity]
   }
 
   // 拖拽开始
   private dragStart(index: number) {
-    if (this.canOrder) {
-      this.dragRange = this.getDragRange(index)
-    }
     this.focusDotIndex = index
     this.setScale()
     this.states.add(SliderState.Drag)
@@ -431,7 +458,6 @@ export default class VueSlider extends Vue {
       }
       if (curIndex !== this.focusDotIndex) {
         this.control.setDotPos(curPos, curIndex)
-        this.dragRange = this.getDragRange(this.focusDotIndex)
       }
     }
     this.control.setDotPos(pos, this.focusDotIndex)
@@ -451,8 +477,13 @@ export default class VueSlider extends Vue {
     }
 
     setTimeout(() => {
-      // 拖拽完毕后同步滑块的位置
-      this.control.syncDotsPos()
+      // included = true 的情况下，拖拽完毕需强制更新组件内部值
+      if (this.included && this.isDiff) {
+        this.control.setValue(this.value)
+      } else {
+        // 拖拽完毕后同步滑块的位置
+        this.control.syncDotsPos()
+      }
 
       this.states.delete(SliderState.Drag)
       this.$emit('dragEnd')
@@ -499,7 +530,6 @@ export default class VueSlider extends Vue {
       return false
     }
     const handleFunc = getKeyboardHandleFunc(e)
-    console.log('handleFunc', handleFunc)
   }
 
   // 处理键盘按键弹起

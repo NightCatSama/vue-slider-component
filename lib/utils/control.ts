@@ -1,5 +1,14 @@
 import Decimal from './decimal'
-import { TValue, Mark, Marks, MarksProp, ProcessProp, MarksFunction } from '../typings'
+import {
+  TValue,
+  Mark,
+  MarkOption,
+  Marks,
+  MarksProp,
+  ProcessProp,
+  ProcessOption,
+  MarksFunction,
+} from '../typings'
 
 // 每个滑块变化的距离
 type DotsPosChangeArray = number[]
@@ -70,6 +79,8 @@ export default class Control {
     this.minRange = options.minRange || 0
     this.maxRange = options.maxRange || 0
     this.marks = options.marks
+    this.process = options.process
+    this.onError = options.onError
     this.setValue(options.value)
   }
 
@@ -126,10 +137,11 @@ export default class Control {
     }
 
     // 通过值获取 Mark
-    const getMarkByValue = (value: TValue, mark?: Mark): Mark => {
+    const getMarkByValue = (value: TValue, mark?: MarkOption): Mark => {
       const pos = this.parseValue(value)
       return {
         pos,
+        value: typeof value === 'string' ? parseFloat(value) : value,
         label: value,
         active: this.isActiveByPos(pos),
         ...mark,
@@ -248,7 +260,7 @@ export default class Control {
       }
       // 是否在限制的范围中
       const inLimitRange = (pos2: number, pos1: number): boolean => {
-        const diff = isForward ? pos2 - pos1 : pos1 - pos2
+        const diff = Math.abs(pos2 - pos1)
         return isMinRange ? diff < this.minRangeDir : diff > this.maxRangeDir
       }
 
@@ -418,20 +430,19 @@ export default class Control {
    * 进度条数组
    *
    * @readonly
-   * @type {Array<[number, number]>}
+   * @type {ProcessOption}
    * @memberof Control
    */
-  get processArray(): Array<[number, number]> {
-    let processRangeArray: Array<[number, number]> = []
+  get processArray(): ProcessOption {
     if (this.process) {
-      processRangeArray = this.process(this.dotsPos)
+      return this.process(this.dotsPos)
     } else if (this.dotsPos.length === 1) {
-      processRangeArray = [[0, this.dotsPos[0]]]
+      return [[0, this.dotsPos[0]]]
     } else if (this.dotsPos.length > 1) {
-      processRangeArray = [[this.dotsPos[0], this.dotsPos[this.dotsPos.length - 1]]]
+      return [[Math.min(...this.dotsPos), Math.max(...this.dotsPos)]]
+    } else {
+      return []
     }
-
-    return processRangeArray
   }
 
   /**
