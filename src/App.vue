@@ -8,6 +8,7 @@
       @error="({ type, message }) => log('error', type, message)"
       @dragStart="setSpeed(0)"
       @dragEnd="setSpeed(0.5)"
+      @change="log"
     >
     </vue-slider>
     <vue-slider
@@ -62,7 +63,7 @@ import '../lib/theme/material.scss'
   },
 })
 export default class App extends Vue {
-  value = 50
+  value = 0
   // value = [0, 50, 150, 200]
   // value = ['01', '03']
   show = true
@@ -75,7 +76,7 @@ export default class App extends Vue {
     // dotSize: 20,
     min: 0,
     max: 100,
-    interval: 1,
+    interval: 20,
     speed: .5,
     // order: false,
     // disabled: true,
@@ -83,11 +84,12 @@ export default class App extends Vue {
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
-    minRange: 20,
+    // minRange: 20,
     // maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
     // process: (dots: any) => [[dots[0].pos, dots[1].pos], [dots[2].pos, dots[3].pos]],
+    marks: true,
     // marks: (value: number) => ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
     // marks: {
     //   '-10': '-10℃',
@@ -101,7 +103,7 @@ export default class App extends Vue {
     //     },
     //   },
     // },
-    marks: [0, 20, 40, 60, 80, 100],
+    // marks: [0, 20, 40, 60, 80, 100],
     // hideLabel: true,
     // marks: [-20, 300, 1000, 2000],
     // marks: (value: number) =>
@@ -163,7 +165,7 @@ export default class App extends Vue {
   }
 
   setSpeed(speed: number) {
-    this.sliderOptions.speed = speed
+    // this.sliderOptions.speed = speed
   }
 }
 </script>
