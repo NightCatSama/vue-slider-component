@@ -48,42 +48,22 @@ export default class Decimal {
   }
 
   plus(num2: number) {
-    return this.decimal(num2, '+', false)
-  }
-
-  plusChain(num2: number) {
     return this.decimal(num2, '+', true)
   }
 
   minus(num2: number) {
-    return this.decimal(num2, '-', false)
-  }
-
-  minusChain(num2: number) {
     return this.decimal(num2, '-', true)
   }
 
   multiply(num2: number) {
-    return this.decimal(num2, '*', false)
-  }
-
-  multiplyChain(num2: number) {
     return this.decimal(num2, '*', true)
   }
 
   divide(num2: number) {
-    return this.decimal(num2, '/', false)
-  }
-
-  divideChain(num2: number) {
     return this.decimal(num2, '/', true)
   }
 
   remainder(num2: number) {
-    return this.decimal(num2, '%', false)
-  }
-
-  remainderChain(num2: number) {
     return this.decimal(num2, '%', true)
   }
 

@@ -293,7 +293,10 @@ export default class Control {
         this.emitError(ERROR_TYPE.MAX)
         return 0
       }
-      val = new Decimal(val).minusChain(this.min).divide(this.interval)
+      val = new Decimal(val)
+        .minus(this.min)
+        .divide(this.interval)
+        .toNumber()
     }
 
     if (typeof val !== 'number') {
@@ -301,7 +304,7 @@ export default class Control {
       return 0
     }
 
-    const pos = new Decimal(val).multiply(this.gap)
+    const pos = new Decimal(val).multiply(this.gap).toNumber()
     return pos < 0 ? 0 : pos > 100 ? 100 : pos
   }
 
@@ -317,7 +320,10 @@ export default class Control {
     const index = Math.round(pos / this.gap)
     return this.data
       ? this.data[index]
-      : new Decimal(index).multiplyChain(this.interval).plus(this.min)
+      : new Decimal(index)
+          .multiply(this.interval)
+          .plus(this.min)
+          .toNumber()
   }
 
   /**
@@ -344,7 +350,10 @@ export default class Control {
       return this.data
     } else {
       return Array.from(new Array(this.total), (_, index) => {
-        return new Decimal(index).multiplyChain(this.interval).plus(this.min)
+        return new Decimal(index)
+          .multiply(this.interval)
+          .plus(this.min)
+          .toNumber()
       }).concat([this.max])
     }
   }
@@ -359,7 +368,7 @@ export default class Control {
   private getValuePos(): number[] {
     const gap = this.gap
     return Array.from(new Array(this.total), (_, index) => {
-      return new Decimal(index).multiply(gap)
+      return new Decimal(index).multiply(gap).toNumber()
     }).concat([100])
   }
 
@@ -396,7 +405,10 @@ export default class Control {
     if (this.data) {
       total = this.data.length - 1
     } else {
-      total = new Decimal(this.max).minusChain(this.min).divide(this.interval)
+      total = new Decimal(this.max)
+        .minus(this.min)
+        .divide(this.interval)
+        .toNumber()
     }
     if (total - Math.floor(total) !== 0) {
       this.emitError(ERROR_TYPE.INTERVAL)

@@ -327,7 +327,9 @@ export default class VueSlider extends Vue {
   getScale() {
     this.scale = new Decimal(
       Math.floor(this.isHorizontal ? this.$el.offsetWidth : this.$el.offsetHeight),
-    ).divide(100)
+    )
+      .divide(100)
+      .toNumber()
   }
 
   // 初始化
