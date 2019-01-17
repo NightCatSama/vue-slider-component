@@ -41,8 +41,8 @@ const DEFAULT_SLIDER_SIZE = 4
   inheritAttrs: false,
 })
 export default class VueSlider extends Vue {
-  private control!: Control
-  private states: State = new State(SliderState)
+  private control!: Control // 滑块逻辑控制
+  private states: State = new State(SliderState) // 组件状态
   private scale: number = 1 // 比例，1% = ${scale}px
   private dragRange: number[] = [] // 滑块拖拽范围，超过此范围切换拖拽滑块
 
@@ -100,26 +100,23 @@ export default class VueSlider extends Vue {
   @Prop({ type: Boolean, default: false })
   lazy!: boolean
 
-  // 初始化时候是否有过渡动画
-  @Prop({ type: Boolean, default: false })
-  startAnimation!: boolean
-
-  // 是否允许滑块交叉
+  // 是否允许滑块交叉，仅限 range 模式
   @Prop({ type: Boolean, default: true })
   enableCross!: boolean
 
-  // 是否固定滑块见间隔
+  // 是否固定滑块见间隔，仅限 range 模式
   @Prop({ type: Boolean, default: false })
   fixed!: boolean
 
-  // 是否排序值
+  // 是否排序值，仅限 range 模式，且当设置 minRange, fixed = true 或者 enableCross = false 后失效
+  // e.g. 当 order = false 时，[50, 30] 不会自动排序成 [30, 50]
   @Prop({ type: Boolean, default: true })
   order!: boolean
 
-  // 滑块之间的最小距离
+  // 滑块之间的最小距离，仅限 range 模式
   @Prop(Number) minRange?: number
 
-  // 滑块之间的最大距离
+  // 滑块之间的最大距离，仅限 range 模式
   @Prop(Number) maxRange?: number
 
   // tail style
@@ -324,7 +321,8 @@ export default class VueSlider extends Vue {
     document.removeEventListener('mouseleave', this.dragEnd)
   }
 
-  getScale() {
+  // 获取组件比例
+  setScale() {
     this.scale = new Decimal(
       Math.floor(this.isHorizontal ? this.$el.offsetWidth : this.$el.offsetHeight),
     )
@@ -370,7 +368,15 @@ export default class VueSlider extends Vue {
     })
   }
 
-  private getDragRange(index: number) {
+  /**
+   * 得到滑块的拖拽范围
+   *
+   * @private
+   * @param {number} index 滑块索引
+   * @returns {[number, number]} 范围 [start, end]
+   * @memberof VueSlider
+   */
+  private getDragRange(index: number): [number, number] {
     const prevDot = this.dots[index - 1]
     const nextDot = this.dots[index + 1]
     return [prevDot ? prevDot.pos : -Infinity, nextDot ? nextDot.pos : Infinity]
@@ -382,7 +388,7 @@ export default class VueSlider extends Vue {
       this.dragRange = this.getDragRange(index)
     }
     this.focusDotIndex = index
-    this.getScale()
+    this.setScale()
     this.states.add(SliderState.Drag)
     this.states.add(SliderState.FOCUS)
     this.$emit('dragStart')
@@ -435,6 +441,7 @@ export default class VueSlider extends Vue {
     })
   }
 
+  // 判断组件是否失去焦点
   private isBlurSlider(e: MouseEvent) {
     if (
       !this.states.has(SliderState.FOCUS) ||
@@ -451,7 +458,7 @@ export default class VueSlider extends Vue {
     if (this.states.has(SliderState.Drag)) {
       return
     }
-    this.getScale()
+    this.setScale()
     const pos = this.getPosByEvent(e)
     const index = this.control.getRecentDot(pos)
     if (this.isDisabledByDotIndex(index)) {
@@ -476,6 +483,7 @@ export default class VueSlider extends Vue {
     )
   }
 
+  // 渲染 slot
   private renderSlot<T>(name: string, data: T, defaultSlot: any): any {
     return this.$scopedSlots[name] ? this.$scopedSlots[name](data) : defaultSlot
   }

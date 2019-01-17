@@ -1,6 +1,10 @@
 import Decimal from './decimal'
 import { TValue, Mark, Marks, MarksProp, ProcessProp, MarksFunction } from '../typings'
 
+// 每个滑块变化的距离
+type DotsPosChangeArray = number[]
+
+// 错误类型
 export const enum ERROR_TYPE {
   VALUE = 1, // 值的类型不正确
   INTERVAL, // interval 不合法
@@ -8,10 +12,9 @@ export const enum ERROR_TYPE {
   MAX,
 }
 
-// 每个滑块变化的距离
-type DotsPosChangeArray = number[]
-
-const ERROR_MSG = {
+// 错误消息
+type ERROR_MESSAGE = { [key in ERROR_TYPE]: string }
+export const ERROR_MSG: ERROR_MESSAGE = {
   [ERROR_TYPE.VALUE]: 'The type of the "value" is illegal',
   [ERROR_TYPE.INTERVAL]:
     'The prop "interval" is invalid, "(max - min)" cannot be divisible by "interval"',
@@ -19,18 +22,24 @@ const ERROR_MSG = {
   [ERROR_TYPE.MAX]: 'The "value" cannot be greater than the maximum.',
 }
 
+/**
+ * 组件的逻辑控制中心
+ *
+ * @export
+ * @class Control
+ */
 export default class Control {
   dotsPos: number[] = [] // 每个滑块的位置
   dotsValue: TValue[] = [] // 每个滑块的值
 
-  private data: TValue[] | null // 自定义值
-  private enableCross: boolean // 是否允许滑块穿越，仅限 range 模式
-  private fixed: boolean // 是否开启固定模式
-  private max: number // 最大值
-  private min: number // 最小值
-  private interval: number // 每个值之间的间距
-  private minRange: number // 两个值之间的最小距离，仅限 range 模式
-  private maxRange: number // 两个值之间的最大距离，仅限 range 模式
+  private data: TValue[] | null
+  private enableCross: boolean
+  private fixed: boolean
+  private max: number
+  private min: number
+  private interval: number
+  private minRange: number
+  private maxRange: number
   private order: boolean
   private marks?: MarksProp
   private process?: ProcessProp
@@ -64,7 +73,12 @@ export default class Control {
     this.setValue(options.value)
   }
 
-  // 设置滑块的值
+  /**
+   * 设置滑块的值
+   *
+   * @param {(TValue | TValue[])} value
+   * @memberof Control
+   */
   setValue(value: TValue | TValue[]) {
     this.dotsValue = Array.isArray(value) ? value : [value]
     this.syncDotsPos()
@@ -72,7 +86,7 @@ export default class Control {
 
   /**
    * 设置滑块位置
-   * @param dotsPos
+   * @param {number[]} dotsPos 滑块位置的数组
    */
   setDotsPos(dotsPos: number[]) {
     // 只排序值不排序位置，在拖拽完成后再调用[syncDotsPos]排序位置
@@ -81,22 +95,37 @@ export default class Control {
     this.dotsValue = list.map(dotPos => this.parsePos(dotPos))
   }
 
-  // 排序滑块位置
+  /**
+   * 排序滑块位置
+   *
+   * @memberof Control
+   */
   sortDotsPos() {
     this.dotsPos = [...this.dotsPos].sort((a, b) => a - b)
   }
 
-  // 同步滑块位置
+  /**
+   * 同步滑块位置
+   *
+   * @memberof Control
+   */
   syncDotsPos() {
     this.dotsPos = this.dotsValue.map(v => this.parseValue(v))
   }
 
-  // 得到所有标志
+  /**
+   * 得到所有标志
+   *
+   * @readonly
+   * @type {Mark[]}
+   * @memberof Control
+   */
   get markList(): Mark[] {
     if (!this.marks) {
       return []
     }
 
+    // 通过值获取 Mark
     const getMarkByValue = (value: TValue, mark?: Mark): Mark => {
       const pos = this.parseValue(value)
       return {
@@ -385,7 +414,13 @@ export default class Control {
     }
   }
 
-  // 进度条数组
+  /**
+   * 进度条数组
+   *
+   * @readonly
+   * @type {Array<[number, number]>}
+   * @memberof Control
+   */
   get processArray(): Array<[number, number]> {
     let processRangeArray: Array<[number, number]> = []
     if (this.process) {
@@ -399,7 +434,14 @@ export default class Control {
     return processRangeArray
   }
 
-  // 所有可用值的个数
+  /**
+   * 值的总个数
+   *
+   * @readonly
+   * @private
+   * @type {number}
+   * @memberof Control
+   */
   private get total(): number {
     let total = 0
     if (this.data) {
@@ -417,22 +459,50 @@ export default class Control {
     return total
   }
 
-  // 每个可用值之间的距离
+  /**
+   * 每个可用值之间的距离
+   *
+   * @readonly
+   * @private
+   * @type {number}
+   * @memberof Control
+   */
   private get gap(): number {
     return 100 / this.total
   }
 
-  // 两个滑块最小的距离
+  /**
+   * 两个滑块最小的距离
+   *
+   * @readonly
+   * @private
+   * @type {number}
+   * @memberof Control
+   */
   private get minRangeDir(): number {
     return this.minRange ? this.minRange * this.gap : 0
   }
 
-  // 两个滑块最大的距离
+  /**
+   * 两个滑块最大的距离
+   *
+   * @readonly
+   * @private
+   * @type {number}
+   * @memberof Control
+   */
   private get maxRangeDir(): number {
     return this.maxRange ? this.maxRange * this.gap : 100
   }
 
-  // 每个滑块的滑动范围
+  /**
+   * 每个滑块的滑动范围
+   *
+   * @readonly
+   * @private
+   * @type {Array<[number, number]>}
+   * @memberof Control
+   */
   private get valuePosRange(): Array<[number, number]> {
     const dotsPos = this.dotsPos
     const valuePosRange: Array<[number, number]> = []

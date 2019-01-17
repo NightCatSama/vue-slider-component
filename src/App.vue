@@ -62,7 +62,7 @@ import '../lib/theme/material.scss'
   },
 })
 export default class App extends Vue {
-  value = [0, 20]
+  value = 50
   // value = [0, 50, 150, 200]
   // value = ['01', '03']
   show = true

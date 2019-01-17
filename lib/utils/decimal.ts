@@ -1,5 +1,11 @@
 type Operator = '+' | '-' | '*' | '/' | '%'
 
+/**
+ * 用于任意精准的浮点计算
+ *
+ * @export
+ * @class Decimal
+ */
 export default class Decimal {
   num: number
 
@@ -7,9 +13,7 @@ export default class Decimal {
     this.num = num
   }
 
-  decimal(num2: number, operator: Operator, isChain?: false): number
-  decimal(num2: number, operator: Operator, isChain: true): this
-  decimal(num2: number, operator: Operator, isChain?: boolean): number | this {
+  decimal(num2: number, operator: Operator, isChain?: boolean): this {
     const num1 = this.num
     const decimals1 = `${num1}`.split('.')[1] || ''
     const decimals2 = `${num2}`.split('.')[1] || ''
@@ -40,31 +44,27 @@ export default class Decimal {
     }
 
     this.num = n / multiple
-    if (isChain) {
-      return this
-    } else {
-      return this.num
-    }
+    return this
   }
 
   plus(num2: number) {
-    return this.decimal(num2, '+', true)
+    return this.decimal(num2, '+')
   }
 
   minus(num2: number) {
-    return this.decimal(num2, '-', true)
+    return this.decimal(num2, '-')
   }
 
   multiply(num2: number) {
-    return this.decimal(num2, '*', true)
+    return this.decimal(num2, '*')
   }
 
   divide(num2: number) {
-    return this.decimal(num2, '/', true)
+    return this.decimal(num2, '/')
   }
 
   remainder(num2: number) {
-    return this.decimal(num2, '%', true)
+    return this.decimal(num2, '%')
   }
 
   toNumber(): number {
