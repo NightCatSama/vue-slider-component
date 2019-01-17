@@ -185,6 +185,7 @@ prop*: [only supported in vue2]
 | --------------|:--------------|--------------|
 | callback      | Params: value[Number \| Array]  | values change when the callback function. (Changes in the direct assignment value will not trigger the callback, it is recommended to use `setValue` method) |
 | drag-start    | Params: context[Object]| Drag the start event |
+| drag    | Params: context[Object] | Drag event |
 | drag-end      | Params: context[Object]| Drag the end event |
 | on-keypress   | Params: value[Number \| Array]| keyboard event |
 

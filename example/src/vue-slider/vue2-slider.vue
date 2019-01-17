@@ -110,10 +110,10 @@
         </div>
       </template>
       <ul class="vue-slider-piecewise">
-        <li 
-          v-for="(piecewiseObj, index) in piecewiseDotWrap" 
-          class="vue-slider-piecewise-item" 
-          :style="[piecewiseDotStyle, piecewiseObj.style]" 
+        <li
+          v-for="(piecewiseObj, index) in piecewiseDotWrap"
+          class="vue-slider-piecewise-item"
+          :style="[piecewiseDotStyle, piecewiseObj.style]"
           :key="index"
         >
           <slot
@@ -826,6 +826,8 @@
         if (this.isRange && this.tooltipMerge) {
           this.handleOverlapTooltip()
         }
+
+        this.$emit('drag', this)
       },
       moveEnd (e) {
         if (this.stopPropagation) {
