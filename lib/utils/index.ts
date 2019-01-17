@@ -24,3 +24,39 @@ export const getPos = (
     y: isReverse ? elem.offsetHeight - posObj.y : posObj.y,
   }
 }
+
+const enum KEY_CODE {
+  PAGE_UP = 33,
+  PAGE_DOWN,
+  END,
+  HOME,
+  LEFT,
+  UP,
+  RIGHT,
+  DOWN,
+}
+type HandleFunction = () => null
+// TODO: 键盘处理逻辑
+export const getKeyboardHandleFunc = (e: KeyboardEvent): HandleFunction | null => {
+  switch (e.keyCode) {
+    case KEY_CODE.UP:
+    case KEY_CODE.RIGHT:
+      return () => null
+
+    case KEY_CODE.DOWN:
+    case KEY_CODE.LEFT:
+      return () => null
+
+    case KEY_CODE.END:
+      return () => null
+    case KEY_CODE.HOME:
+      return () => null
+    case KEY_CODE.PAGE_UP:
+      return () => null
+    case KEY_CODE.PAGE_DOWN:
+      return () => null
+
+    default:
+      return null
+  }
+}

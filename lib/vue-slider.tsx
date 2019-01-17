@@ -13,7 +13,7 @@ import {
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
 
-import { toPx, getPos } from './utils'
+import { toPx, getPos, getKeyboardHandleFunc } from './utils'
 import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
 import State, { StateMap } from './utils/state'
@@ -99,6 +99,17 @@ export default class VueSlider extends Vue {
   // 是否懒同步值
   @Prop({ type: Boolean, default: false })
   lazy!: boolean
+
+  // 是否支持键盘控制
+  @Prop(Boolean)
+  useKeyboard?: boolean
+
+  // 每次触发键盘控制，值的变化量
+  @Prop({
+    type: Array,
+    default: () => [(index: number) => index - 1, (index: number) => index + 1],
+  })
+  actionsKeyboard!: [(index: number) => number, (index: number) => number]
 
   // 是否允许滑块交叉，仅限 range 模式
   @Prop({ type: Boolean, default: true })
@@ -311,6 +322,8 @@ export default class VueSlider extends Vue {
     document.addEventListener('mousemove', this.dragMove)
     document.addEventListener('mouseup', this.dragEnd)
     document.addEventListener('mouseleave', this.dragEnd)
+    document.addEventListener('keydown', this.handleKeydown)
+    document.addEventListener('keyup', this.handleKeyup)
   }
 
   unbindEvent() {
@@ -319,6 +332,8 @@ export default class VueSlider extends Vue {
     document.removeEventListener('mousemove', this.dragMove)
     document.removeEventListener('mouseup', this.dragEnd)
     document.removeEventListener('mouseleave', this.dragEnd)
+    document.removeEventListener('keydown', this.handleKeydown)
+    document.removeEventListener('keyup', this.handleKeyup)
   }
 
   // 获取组件比例
@@ -401,6 +416,7 @@ export default class VueSlider extends Vue {
     }
     e.preventDefault()
     const pos = this.getPosByEvent(e)
+    // 如果组件是排序的，那当滑块交叉时，切换当前选中的滑块索引
     if (this.canOrder) {
       const curIndex = this.focusDotIndex
       let curPos = pos
@@ -473,6 +489,22 @@ export default class VueSlider extends Vue {
       // 拖拽完毕后同步滑块的位置
       this.control.syncDotsPos()
     })
+  }
+
+  // TODO: 处理键盘按键按下
+  handleKeydown(e: KeyboardEvent) {
+    if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
+      return false
+    }
+    const handleFunc = getKeyboardHandleFunc(e)
+    console.log('handleFunc', handleFunc)
+  }
+
+  // 处理键盘按键弹起
+  handleKeyup(e: KeyboardEvent) {
+    if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
+      return false
+    }
   }
 
   // 获取鼠标的位置
