@@ -100,7 +100,7 @@ export default class VueSlider extends Vue {
   lazy!: boolean
 
   // 是否支持键盘控制
-  @Prop(Boolean)
+  @Prop({ type: Boolean, default: true })
   useKeyboard?: boolean
 
   // 每次触发键盘控制，值的变化量
@@ -486,6 +486,10 @@ export default class VueSlider extends Vue {
       }
 
       this.states.delete(SliderState.Drag)
+      // 仅当支持键盘操作模式时，拖拽完毕后保留 FOCUS 状态
+      if (!this.useKeyboard) {
+        this.states.delete(SliderState.FOCUS)
+      }
       this.$emit('dragEnd')
     })
   }
@@ -514,9 +518,12 @@ export default class VueSlider extends Vue {
       return false
     }
     this.focusDotIndex = index
-    this.states.add(SliderState.FOCUS)
     this.control.setDotPos(pos, index)
     this.syncValueByPos()
+
+    if (this.useKeyboard) {
+      this.states.add(SliderState.FOCUS)
+    }
 
     setTimeout(() => {
       // 拖拽完毕后同步滑块的位置

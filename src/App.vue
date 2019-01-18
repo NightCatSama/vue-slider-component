@@ -33,7 +33,8 @@
         @error="({ type, message }) => log('error', type, message)"
         @dragStart="setSpeed(0)"
         @dragEnd="setSpeed(0.5)"
-      />
+      >
+      </vue-slider>
       <vue-slider
         v-show="show"
         class="slider"
@@ -53,12 +54,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VueSlider from '../lib'
+import VueSlider, { VueSliderMark } from '../lib'
 import '../lib/theme/antd.scss'
 
 @Component({
   components: {
     VueSlider,
+    VueSliderMark
   },
 })
 export default class App extends Vue {
@@ -77,14 +79,15 @@ export default class App extends Vue {
     max: 180,
     interval: 1,
     speed: .5,
+    // useKeyboard: false,
     // order: false,
     // disabled: true,
     // enableCross: false,
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
-    minRange: 20,
-    maxRange: 60,
+    // minRange: 20,
+    // maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
     // process: (dots: any) => [[0, dots[0], {
@@ -92,7 +95,7 @@ export default class App extends Vue {
     // }], [dots[1], 100, {
     //   backgroundColor: 'red'
     // }]],
-    // included: true,
+    included: true,
     // marks: true,
     // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
     marks: {

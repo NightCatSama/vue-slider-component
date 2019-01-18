@@ -1,4 +1,4 @@
-$labelGap: 8px;
+$labelGap: 10px;
 
 .vue-slider-marks {
   position: relative;
@@ -14,6 +14,7 @@ $labelGap: 8px;
     .vue-slider-rtl & {
     width: 0;
     height: 100%;
+    top: 50%;
 
     &-step {
       top: 0;
@@ -26,7 +27,7 @@ $labelGap: 8px;
   }
 
   @at-root .vue-slider-ltr & {
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 
     &-step {
       left: 0;
@@ -39,7 +40,7 @@ $labelGap: 8px;
   }
 
   @at-root .vue-slider-rtl & {
-    transform: translateX(50%);
+    transform: translate(50%, -50%);
 
     &-step {
       right: 0;
@@ -55,6 +56,7 @@ $labelGap: 8px;
     .vue-slider-btt & {
     width: 100%;
     height: 0;
+    left: 50%;
 
     &-step {
       left: 0;
@@ -67,7 +69,7 @@ $labelGap: 8px;
   }
 
   @at-root .vue-slider-btt & {
-    transform: translateY(50%);
+    transform: translate(-50%, 50%);
 
     &-step {
       top: 0;
@@ -80,7 +82,7 @@ $labelGap: 8px;
   }
 
   @at-root .vue-slider-ttb & {
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
 
     &-step {
       bottom: 0;
