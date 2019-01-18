@@ -19,8 +19,8 @@ export default class Decimal {
     const decimals2 = `${num2}`.split('.')[1] || ''
     const decimals = decimals1.length > decimals2.length ? decimals1 : decimals2
     let multiple = decimals ? Math.pow(10, decimals.length) : 1
-    const n1 = Math.floor(num1 * multiple)
-    const n2 = Math.floor(num2 * multiple)
+    const n1 = Math.round(num1 * multiple)
+    const n2 = Math.round(num2 * multiple)
     let n = 0
     switch (operator) {
       case '+':
