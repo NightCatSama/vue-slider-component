@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { TValue, Styles } from './typings'
+import { TValue, Styles, TooltipProp, TooltipFormatter } from './typings'
 
 import './styles/dot.scss'
 
@@ -13,14 +13,21 @@ export default class VueSliderDot extends Vue {
   @Prop({ default: 0 })
   value!: TValue
 
-  // 滑块大小
-  @Prop({ default: 16 })
-  dotSize!: number | [number, number]
+  // tooltip 样式
+  @Prop() tooltip!: TooltipProp
 
   // dot 样式
   @Prop() dotStyle?: Styles
 
-  @Prop(Boolean) focus?: boolean = false
+  // tooltip 样式
+  @Prop() tooltipStyle?: Styles
+
+  // 格式化 tooltip
+  @Prop({ type: [String, Function] })
+  tooltipFormatter?: TooltipFormatter
+
+  @Prop({ type: Boolean, default: false })
+  focus!: boolean
 
   // 是否禁用状态
   @Prop({ default: false })
@@ -46,6 +53,40 @@ export default class VueSliderDot extends Vue {
     ]
   }
 
+  get tooltipClasses() {
+    return [
+      'vue-slider-dot-tooltip',
+      {
+        'vue-slider-dot-tooltip-disabled': this.disabled,
+        'vue-slider-dot-tooltip-focus': this.focus,
+        'vue-slider-dot-tooltip-show': this.showTooltip,
+      },
+    ]
+  }
+
+  get showTooltip(): boolean {
+    switch (this.tooltip) {
+      case 'always':
+        return true
+      case 'none':
+        return false
+      case 'focus':
+        return !!this.focus
+      default:
+        return false
+    }
+  }
+
+  get tooltipValue(): TValue {
+    if (this.tooltipFormatter) {
+      return typeof this.tooltipFormatter === 'string'
+        ? this.tooltipFormatter.replace(/\{value\}/, String(this.value))
+        : this.tooltipFormatter(this.value)
+    } else {
+      return this.value
+    }
+  }
+
   // 拖拽开始
   dragStart(e: MouseEvent | TouchEvent) {
     if (this.disabled) {
@@ -62,8 +103,14 @@ export default class VueSliderDot extends Vue {
         class={this.dotClasses}
         onMousedown={this.dragStart}
         onTouchstart={this.dragStart}
+        data-value={this.value}
       >
         {this.$slots.default || <div class={this.handleClasses} style={this.dotStyle} />}
+        {this.$slots.tooltip || (
+          <div class={this.tooltipClasses} style={this.tooltipStyle}>
+            {this.tooltipValue}
+          </div>
+        )}
       </div>
     )
   }

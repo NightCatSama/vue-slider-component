@@ -9,6 +9,8 @@ import {
   Dot,
   TDirection,
   ProcessProp,
+  TooltipProp,
+  TooltipFormatter,
 } from './typings'
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
@@ -98,6 +100,18 @@ export default class VueSlider extends Vue {
   // 是否懒同步值
   @Prop({ type: Boolean, default: false })
   lazy!: boolean
+
+  // 设置 tooltip
+  @Prop({
+    type: String,
+    validator: val => ['none', 'always', 'focus'].includes(val),
+    default: 'focus',
+  })
+  tooltip!: TooltipProp
+
+  // 格式化 tooltip
+  @Prop({ type: [String, Function] })
+  tooltipFormatter?: TooltipFormatter
 
   // 是否支持键盘控制
   @Prop({ type: Boolean, default: true })
@@ -377,6 +391,7 @@ export default class VueSlider extends Vue {
   // 同步值
   private syncValueByPos() {
     let values = this.control.dotsValue
+    // 当开启 included 时，返回值为离最近的 mark 的值
     if (this.included && this.control.markList.length > 0) {
       const getRecentValue = (val: TValue) => {
         let curValue = val
@@ -611,7 +626,7 @@ export default class VueSlider extends Vue {
               ref={`dot-${index}`}
               key={`dot-${index}`}
               dotSize={this.dotSize}
-              value={dot.pos}
+              value={dot.value}
               disabled={dot.disabled}
               focus={dot.focus}
               dot-style={[
@@ -619,6 +634,13 @@ export default class VueSlider extends Vue {
                 dot.disabled ? dot.disabledStyle : null,
                 dot.focus ? dot.focusStyle : null,
               ]}
+              tooltip={dot.tooltip || this.tooltip}
+              tooltip-style={[
+                dot.tooltipStyle,
+                dot.disabled ? dot.tooltipDisabledStyle : null,
+                dot.focus ? dot.tooltipFocusStyle : null,
+              ]}
+              tooltip-formatter={this.tooltipFormatter}
               style={[
                 this.dotBaseStyle,
                 {
@@ -629,6 +651,7 @@ export default class VueSlider extends Vue {
               onDragStart={() => this.dragStart(index)}
             >
               {this.renderSlot<Dot>('dot', dot, null)}
+              {this.renderSlot<Dot>('tooltip', dot, null)}
             </vue-slider-dot>
           ))}
         </div>

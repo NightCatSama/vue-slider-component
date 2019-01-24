@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueSlider, { VueSliderMark } from '../lib'
-import '../lib/theme/antd.scss'
+import '../lib/theme/default.scss'
 
 @Component({
   components: {
@@ -79,6 +79,8 @@ export default class App extends Vue {
     max: 180,
     interval: 1,
     speed: .5,
+    tooltip: 'always',
+    tooltipFormatter: '{value}℃',
     // useKeyboard: false,
     // order: false,
     // disabled: true,
@@ -95,7 +97,7 @@ export default class App extends Vue {
     // }], [dots[1], 100, {
     //   backgroundColor: 'red'
     // }]],
-    included: true,
+    // included: true,
     // marks: true,
     // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
     marks: {

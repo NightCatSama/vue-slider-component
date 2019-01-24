@@ -1,5 +1,10 @@
+@import '../styles/triangle.scss';
+
 $themeColor: #3498db;
 $bgColor: #ccc;
+$tooltipGap: 10px;
+$tooltipBgColor: rgba(0, 0, 0, 0.7);
+$tooltipColor: #fff;
 
 // component style
 .vue-slider-disabled {
@@ -57,6 +62,37 @@ $bgColor: #ccc;
     }
     @at-root &-disabled {
       cursor: not-allowed;
+    }
+  }
+
+  @at-root &-tooltip {
+    position: absolute;
+    top: -$tooltipGap;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    display: none;
+    font-size: 12px;
+    white-space: nowrap;
+    padding: 2px 5px;
+    min-width: 20px;
+    text-align: center;
+    color: $tooltipColor;
+    border-radius: 5px;
+    background-color: $tooltipBgColor;
+    box-sizing: content-box;
+    z-index: 9;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      @include triangle(10px, $tooltipBgColor, bottom);
+    }
+
+    @at-root &-show {
+      display: block;
     }
   }
 }
