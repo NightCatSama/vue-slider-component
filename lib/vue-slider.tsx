@@ -1,13 +1,14 @@
 import { Component, Model, Prop, Watch, Vue } from 'vue-property-decorator'
 import {
-  TValue,
+  Value,
   Mark,
   MarksProp,
   Styles,
   DotOption,
   DotStyle,
   Dot,
-  TDirection,
+  Direction,
+  Position,
   ProcessProp,
   TooltipProp,
   TooltipFormatter,
@@ -55,7 +56,7 @@ export default class VueSlider extends Vue {
 
   // slider value
   @Model('change', { default: 0 })
-  value!: TValue | TValue[]
+  value!: Value | Value[]
 
   // display of the component
   @Prop({ type: Boolean, default: true })
@@ -73,7 +74,7 @@ export default class VueSlider extends Vue {
 
   // the direction of the slider
   @Prop({ default: 'ltr', validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1 })
-  direction!: TDirection
+  direction!: Direction
 
   // 最小值
   @Prop({ type: Number, default: 0 })
@@ -95,7 +96,7 @@ export default class VueSlider extends Vue {
   @Prop() disabled?: boolean
 
   // 自定义数据
-  @Prop(Array) data!: TValue[] | null
+  @Prop(Array) data!: Value[] | null
 
   // 是否懒同步值
   @Prop({ type: Boolean, default: false })
@@ -108,6 +109,13 @@ export default class VueSlider extends Vue {
     default: 'focus',
   })
   tooltip!: TooltipProp
+
+  // tooltip 方向
+  @Prop({
+    type: String,
+    validator: val => ['top', 'right', 'bottom', 'left'].includes(val),
+  })
+  tooltipPlacement?: Position
 
   // 格式化 tooltip
   @Prop({ type: [String, Function] })
@@ -290,6 +298,16 @@ export default class VueSlider extends Vue {
     return this.direction === 'rtl' || this.direction === 'btt'
   }
 
+  // 全部 tooltip 的方向
+  get tooltipDirections(): Position[] {
+    const dir = this.tooltipPlacement || (this.isHorizontal ? 'top' : 'left')
+    if (Array.isArray(dir)) {
+      return dir
+    } else {
+      return Array.from(new Array(this.dots.length), () => dir)
+    }
+  }
+
   // 得到所有的滑块
   get dots(): Dot[] {
     return this.control.dotsPos.map((pos, index) => ({
@@ -318,7 +336,7 @@ export default class VueSlider extends Vue {
   @Watch('value')
   onValueChanged() {
     if (!this.states.has(SliderState.Drag) && this.isDiff) {
-      this.control.setValue(this.value)
+      this.control.seValue(this.value)
     }
   }
 
@@ -393,7 +411,7 @@ export default class VueSlider extends Vue {
     let values = this.control.dotsValue
     // 当开启 included 时，返回值为离最近的 mark 的值
     if (this.included && this.control.markList.length > 0) {
-      const getRecentValue = (val: TValue) => {
+      const getRecenValue = (val: Value) => {
         let curValue = val
         let dir = this.max - this.min
         this.control.markList.forEach(mark => {
@@ -407,7 +425,7 @@ export default class VueSlider extends Vue {
         })
         return curValue
       }
-      values = values.map(val => getRecentValue(val))
+      values = values.map(val => getRecenValue(val))
     }
     if (this.isDiff) {
       this.$emit('change', values.length === 1 ? values[0] : values)
@@ -484,6 +502,9 @@ export default class VueSlider extends Vue {
 
   // 拖拽结束
   private dragEnd() {
+    if (!this.states.has(SliderState.Drag)) {
+      return false
+    }
     if (this.canOrder) {
       this.control.sortDotsPos()
     }
@@ -494,7 +515,7 @@ export default class VueSlider extends Vue {
     setTimeout(() => {
       // included = true 的情况下，拖拽完毕需强制更新组件内部值
       if (this.included && this.isDiff) {
-        this.control.setValue(this.value)
+        this.control.seValue(this.value)
       } else {
         // 拖拽完毕后同步滑块的位置
         this.control.syncDotsPos()
@@ -641,6 +662,7 @@ export default class VueSlider extends Vue {
                 dot.focus ? dot.tooltipFocusStyle : null,
               ]}
               tooltip-formatter={this.tooltipFormatter}
+              tooltip-placement={this.tooltipDirections[index]}
               style={[
                 this.dotBaseStyle,
                 {

@@ -10,11 +10,11 @@ export const toPx = (value: number | string): string => {
 
 // 得到当前鼠标在元素中的位置
 export const getPos = (
-  e: MouseEvent | TouchEvent,
+  e: MouseEvent | TouchEvent | any, // NOTE: safari not support TouchEvent
   elem: HTMLDivElement,
   isReverse: boolean,
 ): IPosObject => {
-  const event = e instanceof TouchEvent ? e.targetTouches[0] : e
+  const event = e.targetTouches ? e.targetTouches[0] : e
   const posObj = {
     x: event.pageX - elem.offsetLeft,
     y: event.pageY - elem.offsetTop,

@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <vue-slider
-      v-show="show"
       class="slider"
       v-model="value"
       v-bind="sliderOptions"
       @error="({ type, message }) => log('error', type, message)"
       @dragStart="setSpeed(0)"
       @dragEnd="setSpeed(0.5)"
+      @change="val => log('change', val)"
     >
     </vue-slider>
     <vue-slider
@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueSlider, { VueSliderMark } from '../lib'
-import '../lib/theme/default.scss'
+import '../lib/theme/material.scss'
 
 @Component({
   components: {
@@ -65,9 +65,9 @@ import '../lib/theme/default.scss'
 })
 export default class App extends Vue {
   // value = 0
-  value = [0, 20]
+  value = [120, 100]
   // value = ['01', '03']
-  show = true
+  show = false
 
   sliderOptions = {
     width: 320,
@@ -79,17 +79,18 @@ export default class App extends Vue {
     max: 180,
     interval: 1,
     speed: .5,
-    tooltip: 'always',
-    tooltipFormatter: '{value}℃',
+    // tooltip: 'always',
+    // tooltipFormatter: (val: string) => `${val}℃`,
+    // tooltipPlacement: 'bottom',
     // useKeyboard: false,
-    // order: false,
+    order: false,
     // disabled: true,
     // enableCross: false,
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
-    // minRange: 20,
-    // maxRange: 60,
+    minRange: 5,
+    maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
     // process: (dots: any) => [[0, dots[0], {
@@ -175,7 +176,7 @@ export default class App extends Vue {
   }
 
   log(name: string, ...args: any[]) {
-    console.log(`[${name} Log]:`, args)
+    // console.log(`[${name} Log]:`, JSON.stringify(args))
   }
 
   setSpeed(speed: number) {

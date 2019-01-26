@@ -1,6 +1,6 @@
 import Decimal from './decimal'
 import {
-  TValue,
+  Value,
   Mark,
   MarkOption,
   Marks,
@@ -39,9 +39,9 @@ export const ERROR_MSG: ERROR_MESSAGE = {
  */
 export default class Control {
   dotsPos: number[] = [] // 每个滑块的位置
-  dotsValue: TValue[] = [] // 每个滑块的值
+  dotsValue: Value[] = [] // 每个滑块的值
 
-  private data: TValue[] | null
+  private data: Value[] | null
   private enableCross: boolean
   private fixed: boolean
   private max: number
@@ -55,8 +55,8 @@ export default class Control {
   private onError?: (type: ERROR_TYPE, message: string) => void
 
   constructor(options: {
-    value: TValue | TValue[]
-    data: TValue[] | null
+    value: Value | Value[]
+    data: Value[] | null
     enableCross: boolean
     fixed: boolean
     max: number
@@ -81,16 +81,16 @@ export default class Control {
     this.marks = options.marks
     this.process = options.process
     this.onError = options.onError
-    this.setValue(options.value)
+    this.seValue(options.value)
   }
 
   /**
    * 设置滑块的值
    *
-   * @param {(TValue | TValue[])} value
+   * @param {(Value | Value[])} value
    * @memberof Control
    */
-  setValue(value: TValue | TValue[]) {
+  seValue(value: Value | Value[]) {
     this.dotsValue = Array.isArray(value) ? value : [value]
     this.syncDotsPos()
   }
@@ -137,7 +137,7 @@ export default class Control {
     }
 
     // 通过值获取 Mark
-    const getMarkByValue = (value: TValue, mark?: MarkOption): Mark => {
+    const getMarkByValue = (value: Value, mark?: MarkOption): Mark => {
       const pos = this.parseValue(value)
       return {
         pos,
@@ -149,7 +149,7 @@ export default class Control {
     }
 
     if (this.marks === true) {
-      return this.getValues().map(value => getMarkByValue(value))
+      return this.geValues().map(value => getMarkByValue(value))
     } else if (Object.prototype.toString.call(this.marks) === '[object Object]') {
       return Object.keys(this.marks)
         .sort((a, b) => +a - +b)
@@ -160,7 +160,7 @@ export default class Control {
     } else if (Array.isArray(this.marks)) {
       return this.marks.map(value => getMarkByValue(value))
     } else if (typeof this.marks === 'function') {
-      return this.getValues()
+      return this.geValues()
         .map(value => ({ value, result: (this.marks as MarksFunction)(value) }))
         .filter(({ result }) => !!result)
         .map(({ value, result }) => getMarkByValue(value, result as Mark))
@@ -318,10 +318,10 @@ export default class Control {
    * 根据值计算出滑块的位置
    *
    * @private
-   * @param {TValue} val
+   * @param {Value} val
    * @returns {number}
    */
-  private parseValue(val: TValue): number {
+  private parseValue(val: Value): number {
     if (this.data) {
       val = this.data.indexOf(val)
     } else if (typeof val === 'number' || typeof val === 'string') {
@@ -354,10 +354,10 @@ export default class Control {
    *
    * @private
    * @param {number} pos
-   * @returns {TValue}
+   * @returns {Value}
    * @memberof Control
    */
-  private parsePos(pos: number): TValue {
+  private parsePos(pos: number): Value {
     const index = Math.round(pos / this.gap)
     return this.data
       ? this.data[index]
@@ -383,10 +383,10 @@ export default class Control {
    * 获得每个值
    *
    * @private
-   * @returns {TValue[]}
+   * @returns {Value[]}
    * @memberof Control
    */
-  private getValues(): TValue[] {
+  private geValues(): Value[] {
     if (this.data) {
       return this.data
     } else {
@@ -406,7 +406,7 @@ export default class Control {
    * @returns {number[]}
    * @memberof Control
    */
-  private getValuePos(): number[] {
+  private geValuePos(): number[] {
     const gap = this.gap
     return Array.from(new Array(this.total), (_, index) => {
       return new Decimal(index).multiply(gap).toNumber()

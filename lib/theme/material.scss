@@ -2,6 +2,8 @@ $themeColor: #6200ee;
 $bgColor: #bda1f3;
 $disabledRailColor: #ccc;
 $disabledColor: #666;
+$tooltipSize: 30px;
+$tooltipColor: #fff;
 
 // component style
 .vue-slider-disabled {
@@ -37,13 +39,6 @@ $disabledColor: #666;
 // mark style
 .vue-slider-mark {
   z-index: 4;
-
-  // &:first-child,
-  // &:last-child {
-  //   .vue-slider-mark-step {
-  //     display: none;
-  //   }
-  // }
 
   @at-root &-step {
     width: 100%;
@@ -92,6 +87,49 @@ $disabledColor: #666;
     @at-root &-disabled {
       cursor: not-allowed;
       background-color: $disabledColor;
+    }
+  }
+
+  @at-root &-tooltip {
+    border-radius: 50% 50% 50% 0px;
+    background-color: $themeColor;
+
+    &-top {
+      transform: translate(-50%, -100%) rotateZ(-45deg);
+    }
+    &-bottom {
+      transform: translate(-50%, 100%) rotateZ(135deg);
+    }
+    &-left {
+      transform: translate(-100%, -50%) rotateZ(-135deg);
+    }
+    &-right {
+      transform: translate(100%, -50%) rotateZ(45deg);
+    }
+
+    @at-root &-inner {
+      font-size: 12px;
+      white-space: nowrap;
+      text-align: center;
+      color: $tooltipColor;
+      width: $tooltipSize;
+      height: $tooltipSize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: content-box;
+      &-top {
+        transform: rotateZ(45deg);
+      }
+      &-bottom {
+        transform: rotateZ(-135deg);
+      }
+      &-left {
+        transform: rotateZ(135deg);
+      }
+      &-right {
+        transform: rotateZ(-45deg);
+      }
     }
   }
 }

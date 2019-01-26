@@ -4,13 +4,14 @@ export interface Styles {
   [key: string]: any
 }
 
-export type TDirection = 'ltr' | 'rtl' | 'ttb' | 'btt'
+export type Direction = 'ltr' | 'rtl' | 'ttb' | 'btt'
+export type Position = 'top' | 'right' | 'bottom' | 'left'
 
-export type TValue = number | string
+export type Value = number | string
 
 // Mark
 export interface MarkOption {
-  label: TValue
+  label: Value
   style?: Styles
   activeStyle?: Styles
   labelStyle?: Styles
@@ -24,8 +25,8 @@ export interface Mark extends MarkOption {
 export interface Marks {
   [key: string]: string | MarkOption
 }
-export type MarksFunction = (value: TValue) => boolean | MarkOption
-export type MarksProp = boolean | Marks | TValue[] | MarksFunction
+export type MarksFunction = (value: Value) => boolean | MarkOption
+export type MarksProp = boolean | Marks | Value[] | MarksFunction
 
 // Tooltip
 export interface TooltipStyle {
@@ -34,7 +35,7 @@ export interface TooltipStyle {
   tooltipDisabledStyle?: Styles
 }
 export type TooltipProp = 'none' | 'always' | 'focus'
-export type TooltipFormatterFunc = (val: TValue) => string
+export type TooltipFormatterFunc = (val: Value) => string
 export type TooltipFormatter = string | TooltipFormatterFunc
 // Dot
 export interface DotStyle {
@@ -48,7 +49,7 @@ export interface DotOption extends DotStyle, TooltipStyle {
 }
 export interface Dot extends DotOption {
   pos: number
-  value: TValue
+  value: Value
   focus: boolean
 }
 

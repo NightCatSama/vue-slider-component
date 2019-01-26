@@ -316,7 +316,7 @@
         size: 0,
         fixedValue: 0,
         focusSlider: 0,
-        currentValue: 0,
+        currenValue: 0,
         currentSlider: 0,
         isComponentExists: true,
         isMounted: false
@@ -395,7 +395,7 @@
       },
       val: {
         get () {
-          return this.data ? (this.isRange ? [this.data[this.currentValue[0]], this.data[this.currentValue[1]]] : this.data[this.currentValue]) : this.currentValue
+          return this.data ? (this.isRange ? [this.data[this.currenValue[0]], this.data[this.currenValue[1]]] : this.data[this.currenValue]) : this.currenValue
         },
         set (val) {
           if (this.data) {
@@ -403,24 +403,24 @@
               const index0 = this.data.indexOf(val[0])
               const index1 = this.data.indexOf(val[1])
               if (index0 > -1 && index1 > -1) {
-                this.currentValue = [index0, index1]
+                this.currenValue = [index0, index1]
               }
             } else {
               const index = this.data.indexOf(val)
               if (index > -1) {
-                this.currentValue = index
+                this.currenValue = index
               }
             }
           } else {
-            this.currentValue = val
+            this.currenValue = val
           }
         }
       },
       currentIndex () {
         if (this.isRange) {
-          return this.data ? this.currentValue : [this.getIndexByValue(this.currentValue[0]), this.getIndexByValue(this.currentValue[1])]
+          return this.data ? this.currenValue : [this.getIndexByValue(this.currenValue[0]), this.getIndexByValue(this.currenValue[1])]
         } else {
-          return this.getIndexByValue(this.currentValue)
+          return this.getIndexByValue(this.currenValue)
         }
       },
       indexRange () {
@@ -452,7 +452,7 @@
         return this.size / this.total
       },
       position () {
-        return this.isRange ? [(this.currentValue[0] - this.minimum) / this.spacing * this.gap, (this.currentValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currentValue - this.minimum) / this.spacing * this.gap)
+        return this.isRange ? [(this.currenValue[0] - this.minimum) / this.spacing * this.gap, (this.currenValue[1] - this.minimum) / this.spacing * this.gap] : ((this.currenValue - this.minimum) / this.spacing * this.gap)
       },
       isFixed () {
         return this.fixed || this.minRange
@@ -461,7 +461,7 @@
         return this.isRange ? this.isFixed ? [[0, (this.total - this.fixedValue) * this.gap], [this.fixedValue * this.gap, this.size]] : [[0, this.position[1]], [this.position[0], this.size]] : [0, this.size]
       },
       valueLimit () {
-        return this.isRange ? this.isFixed ? [[this.minimum, this.maximum - (this.fixedValue * (this.spacing * this.multiple)) / this.multiple], [this.minimum + (this.fixedValue * (this.spacing * this.multiple)) / this.multiple, this.maximum]] : [[this.minimum, this.currentValue[1]], [this.currentValue[0], this.maximum]] : [this.minimum, this.maximum]
+        return this.isRange ? this.isFixed ? [[this.minimum, this.maximum - (this.fixedValue * (this.spacing * this.multiple)) / this.multiple], [this.minimum + (this.fixedValue * (this.spacing * this.multiple)) / this.multiple, this.maximum]] : [[this.minimum, this.currenValue[1]], [this.currenValue[0], this.maximum]] : [this.minimum, this.maximum]
       },
       idleSlider () {
         return this.currentSlider === 0 ? 1 : 0
@@ -574,15 +574,15 @@
     },
     watch: {
       value (val) {
-        this.flag || this.setValue(val, true)
+        this.flag || this.seValue(val, true)
       },
       max (val) {
         if (val < this.min) {
           return this.printError('The maximum value can not be less than the minimum value.')
         }
 
-        const resetVal = this.limitValue(this.val)
-        this.setValue(resetVal)
+        const resetVal = this.limiValue(this.val)
+        this.seValue(resetVal)
         this.refresh()
       },
       min (val) {
@@ -590,8 +590,8 @@
           return this.printError('The minimum value can not be greater than the maximum value.')
         }
 
-        const resetVal = this.limitValue(this.val)
-        this.setValue(resetVal)
+        const resetVal = this.limiValue(this.val)
+        this.seValue(resetVal)
         this.refresh()
       },
       show (bool) {
@@ -728,7 +728,7 @@
         if (this.disabledArray[this.currentSlider]) {
           return false
         }
-        this.setValueOnPos(pos)
+        this.seValueOnPos(pos)
 
         if (this.isRange && this.tooltipMerge) {
           const timer = setInterval(() => this.handleOverlapTooltip(), 16.7)
@@ -778,12 +778,12 @@
         if (e.targetTouches && e.targetTouches[0]) e = e.targetTouches[0]
         if (this.processFlag) {
           this.currentSlider = 0
-          this.setValueOnPos(this.processSign.pos[0] + this.getPos(e) - this.processSign.start, true)
+          this.seValueOnPos(this.processSign.pos[0] + this.getPos(e) - this.processSign.start, true)
           this.currentSlider = 1
-          this.setValueOnPos(this.processSign.pos[1] + this.getPos(e) - this.processSign.start, true)
+          this.seValueOnPos(this.processSign.pos[1] + this.getPos(e) - this.processSign.start, true)
         } else {
           this.dragFlag = true
-          this.setValueOnPos(this.getPos(e), true)
+          this.seValueOnPos(this.getPos(e), true)
         }
 
         if (this.isRange && this.tooltipMerge) {
@@ -810,26 +810,26 @@
         }, 0)
         this.setPosition()
       },
-      setValueOnPos (pos, isDrag) {
+      seValueOnPos (pos, isDrag) {
         const range = this.isRange ? this.limit[this.currentSlider] : this.limit
         const valueRange = this.isRange ? this.valueLimit[this.currentSlider] : this.valueLimit
         const index = Math.round(pos / this.gap)
         if (pos >= range[0] && pos <= range[1]) {
-          const v = this.getValueByIndex(index)
+          const v = this.geValueByIndex(index)
           this.setTransform(pos)
-          this.setCurrentValue(v, isDrag)
+          this.setCurrenValue(v, isDrag)
           if (this.isRange && (this.fixed || this.isLessRange(pos, index))) {
             this.setTransform(pos + ((this.fixedValue * this.gap) * (this.currentSlider === 0 ? 1 : -1)), true)
-            this.setCurrentValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
+            this.setCurrenValue((v * this.multiple + (this.fixedValue * this.spacing * this.multiple * (this.currentSlider === 0 ? 1 : -1))) / this.multiple, isDrag, true)
           }
         } else {
           const anotherSlider = pos < range[0] ? 0 : 1
           const currentSlider = anotherSlider === 0 ? 1 : 0
           this.setTransform(range[anotherSlider])
-          this.setCurrentValue(valueRange[anotherSlider])
+          this.setCurrenValue(valueRange[anotherSlider])
           if (this.isRange && (this.fixed || this.isLessRange(pos, index))) {
             this.setTransform(this.limit[this.idleSlider][anotherSlider], true)
-            this.setCurrentValue(this.valueLimit[this.idleSlider][anotherSlider], isDrag, true)
+            this.setCurrenValue(this.valueLimit[this.idleSlider][anotherSlider], isDrag, true)
           } else if (this.isRange && (this.enableCross || this.crossFlag) && !this.isFixed && !this.disabledArray[anotherSlider] && this.currentSlider === currentSlider) {
             this.focusSlider = anotherSlider
             this.currentSlider = anotherSlider
@@ -862,25 +862,25 @@
         }
         return a !== b
       },
-      setCurrentValue (val, isDrag, isIdleSlider) {
+      setCurrenValue (val, isDrag, isIdleSlider) {
         const slider = isIdleSlider ? this.idleSlider : this.currentSlider
         if (val < this.minimum || val > this.maximum) return false
         if (this.isRange) {
-          if (this.isDiff(this.currentValue[slider], val)) {
-            this.currentValue.splice(slider, 1, val)
+          if (this.isDiff(this.currenValue[slider], val)) {
+            this.currenValue.splice(slider, 1, val)
             if (!this.lazy || !this.flag) {
               this.syncValue()
             }
           }
-        } else if (this.isDiff(this.currentValue, val)) {
-          this.currentValue = val
+        } else if (this.isDiff(this.currenValue, val)) {
+          this.currenValue = val
           if (!this.lazy || !this.flag) {
             this.syncValue()
           }
         }
         isDrag || this.setPosition()
       },
-      getValueByIndex (index) {
+      geValueByIndex (index) {
         return ((this.spacing * this.multiple) * index + (this.minimum * this.multiple)) / this.multiple
       },
       getIndexByValue (value) {
@@ -892,20 +892,20 @@
           if (this.data) {
             value = [this.data[val[0]], this.data[val[1]]]
           } else {
-            value = [this.getValueByIndex(val[0]), this.getValueByIndex(val[1])]
+            value = [this.geValueByIndex(val[0]), this.geValueByIndex(val[1])]
           }
-          this.setValue(value)
+          this.seValue(value)
         } else {
-          val = this.getValueByIndex(val)
+          val = this.geValueByIndex(val)
           if (this.isRange) {
-            this.currentSlider = val > ((this.currentValue[1] - this.currentValue[0]) / 2 + this.currentValue[0]) ? 1 : 0
+            this.currentSlider = val > ((this.currenValue[1] - this.currenValue[0]) / 2 + this.currenValue[0]) ? 1 : 0
           }
-          this.setCurrentValue(val)
+          this.setCurrenValue(val)
         }
       },
-      setValue (val, noCb, speed) {
+      seValue (val, noCb, speed) {
         if (this.isDiff(this.val, val)) {
-          const resetVal = this.limitValue(val)
+          const resetVal = this.limiValue(val)
           this.val = this.isRange ? resetVal.concat() : resetVal
           this.computedFixedValue()
           this.syncValue(noCb)
@@ -979,7 +979,7 @@
           this.$refs.process.style.WebkitTransitionDuration = `${time}s`
         }
       },
-      limitValue (val) {
+      limiValue (val) {
         if (this.data) {
           return val
         }
@@ -1007,7 +1007,7 @@
         this.keydownFlag && this.$emit('on-keypress', val)
         noCb || this.$emit('callback', val)
       },
-      getValue () {
+      geValue () {
         return this.val
       },
       getIndex () {
@@ -1082,7 +1082,7 @@
       this.$nextTick(() => {
         if (this.isComponentExists) {
           this.getStaticData()
-          this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
+          this.seValue(this.limiValue(this.value), true, this.startAnimation ? this.speed : 0)
           this.bindEvents()
 
           if (this.isRange && this.tooltipMerge && !this.startAnimation) {

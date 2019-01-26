@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { TValue, Styles, TooltipProp, TooltipFormatter } from './typings'
+import { Value, Styles, Position, TooltipProp, TooltipFormatter } from './typings'
 
 import './styles/dot.scss'
 
@@ -11,7 +11,7 @@ export default class VueSliderDot extends Vue {
 
   // slider value
   @Prop({ default: 0 })
-  value!: TValue
+  value!: Value
 
   // tooltip 样式
   @Prop() tooltip!: TooltipProp
@@ -21,6 +21,14 @@ export default class VueSliderDot extends Vue {
 
   // tooltip 样式
   @Prop() tooltipStyle?: Styles
+
+  // tooltip 方向
+  @Prop({
+    type: String,
+    validator: (val: string) => ['top', 'right', 'bottom', 'left'].includes(val),
+    required: true,
+  })
+  tooltipPlacement!: Position
 
   // 格式化 tooltip
   @Prop({ type: [String, Function] })
@@ -56,10 +64,20 @@ export default class VueSliderDot extends Vue {
   get tooltipClasses() {
     return [
       'vue-slider-dot-tooltip',
+      [`vue-slider-dot-tooltip-${this.tooltipPlacement}`],
       {
-        'vue-slider-dot-tooltip-disabled': this.disabled,
-        'vue-slider-dot-tooltip-focus': this.focus,
         'vue-slider-dot-tooltip-show': this.showTooltip,
+      },
+    ]
+  }
+
+  get tooltipInnerClasses() {
+    return [
+      'vue-slider-dot-tooltip-inner',
+      [`vue-slider-dot-tooltip-inner-${this.tooltipPlacement}`],
+      {
+        'vue-slider-dot-tooltip-inner-disabled': this.disabled,
+        'vue-slider-dot-tooltip-inner-focus': this.focus,
       },
     ]
   }
@@ -77,7 +95,7 @@ export default class VueSliderDot extends Vue {
     }
   }
 
-  get tooltipValue(): TValue {
+  get tooltipValue(): Value {
     if (this.tooltipFormatter) {
       return typeof this.tooltipFormatter === 'string'
         ? this.tooltipFormatter.replace(/\{value\}/, String(this.value))
@@ -106,11 +124,15 @@ export default class VueSliderDot extends Vue {
         data-value={this.value}
       >
         {this.$slots.default || <div class={this.handleClasses} style={this.dotStyle} />}
-        {this.$slots.tooltip || (
-          <div class={this.tooltipClasses} style={this.tooltipStyle}>
-            {this.tooltipValue}
+        {this.tooltip !== 'none' ? (
+          <div class={this.tooltipClasses}>
+            {this.$slots.tooltip || (
+              <div class={this.tooltipInnerClasses} style={this.tooltipStyle}>
+                {this.tooltipValue}
+              </div>
+            )}
           </div>
-        )}
+        ) : null}
       </div>
     )
   }
