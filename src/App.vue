@@ -11,7 +11,7 @@
     >
     </vue-slider>
     <vue-slider
-      v-show="show"
+      v-if="show"
       class="slider"
       v-model="value"
       :direction="'rtl'"
@@ -25,7 +25,7 @@
     />
     <div style="display: flex">
       <vue-slider
-        v-show="show"
+        v-if="show"
         class="slider"
         v-model="value"
         :height="sliderOptions.width"
@@ -38,7 +38,7 @@
       >
       </vue-slider>
       <vue-slider
-        v-show="show"
+        v-if="show"
         class="slider"
         v-model="value"
         :height="sliderOptions.width"
@@ -50,14 +50,14 @@
         @dragEnd="setSpeed(0.5)"
       />
     </div>
-    <h1 @click="show = !show">{{ value }}</h1>
+    <h1 @click="sliderOptions.min += 10">{{ value }}</h1>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueSlider, { VueSliderMark } from '../lib'
-import '../lib/theme/material.scss'
+import '../lib/theme/antd.scss'
 
 @Component({
   components: {
@@ -91,7 +91,7 @@ export default class App extends Vue {
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
-    // minRange: 5,
+    // minRange: 20,
     // maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
@@ -104,23 +104,23 @@ export default class App extends Vue {
     // included: true,
     // marks: true,
     // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
-    marks: {
-      '-30': {
-        label: '-30℃',
-        labelStyle: {
-          color: 'blue'
-        }
-      },
-      '0': '0℃',
-      '26': '26℃',
-      '60': '60℃',
-      '180': {
-        label: '180℃',
-        labelStyle: {
-          color: 'red',
-        },
-      },
-    },
+    // marks: {
+    //   '-30': {
+    //     label: '-30℃',
+    //     labelStyle: {
+    //       color: 'blue'
+    //     }
+    //   },
+    //   '0': '0℃',
+    //   '26': '26℃',
+    //   '60': '60℃',
+    //   '180': {
+    //     label: '180℃',
+    //     labelStyle: {
+    //       color: 'red',
+    //     },
+    //   },
+    // },
     // marks: [0, 20, 40, 60, 80, 100],
     // hideLabel: true,
     // marks: [-20, 300, 1000, 2000],
@@ -179,7 +179,7 @@ export default class App extends Vue {
   }
 
   log(name: string, ...args: any[]) {
-    // console.log(`[${name} Log]:`, JSON.stringify(args))
+    console.log(`[${name} Log]:`, args)
   }
 
   setSpeed(speed: number) {

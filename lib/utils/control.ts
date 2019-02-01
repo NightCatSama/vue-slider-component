@@ -44,18 +44,18 @@ export default class Control {
   dotsPos: number[] = [] // 每个滑块的位置
   dotsValue: Value[] = [] // 每个滑块的值
 
-  private data: Value[] | null
-  private enableCross: boolean
-  private fixed: boolean
-  private max: number
-  private min: number
-  private interval: number
-  private minRange: number
-  private maxRange: number
-  private order: boolean
-  private marks?: MarksProp
-  private process?: ProcessProp
-  private onError?: (type: ERROR_TYPE, message: string) => void
+  data: Value[] | null
+  enableCross: boolean
+  fixed: boolean
+  max: number
+  min: number
+  interval: number
+  minRange: number
+  maxRange: number
+  order: boolean
+  marks?: MarksProp
+  process?: ProcessProp
+  onError?: (type: ERROR_TYPE, message: string) => void
 
   constructor(options: {
     value: Value | Value[]
@@ -92,7 +92,7 @@ export default class Control {
       this.minRange = 0
       this.maxRange = 0
       this.enableCross = true
-      this.fixed = true
+      this.fixed = false
     }
     this.setValue(options.value)
   }
@@ -548,12 +548,14 @@ export default class Control {
 
     dotsPos.forEach((pos, i) => {
       valuePosRange.push([
-        this.minRange ? this.minRangeDir * i : !this.enableCross ? dotsPos[i - 1] || 0 : 0,
-        this.minRange
-          ? 100 - this.minRangeDir * (dotsPos.length - 1 - i)
-          : !this.enableCross
-          ? dotsPos[i + 1] || 100
-          : 100,
+        Math.max(
+          this.minRange ? this.minRangeDir * i : 0,
+          !this.enableCross ? dotsPos[i - 1] || 0 : 0,
+        ),
+        Math.min(
+          this.minRange ? 100 - this.minRangeDir * (dotsPos.length - 1 - i) : 100,
+          !this.enableCross ? dotsPos[i + 1] || 100 : 100,
+        ),
       ])
     })
 

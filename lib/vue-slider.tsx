@@ -125,13 +125,6 @@ export default class VueSlider extends Vue {
   @Prop({ type: Boolean, default: true })
   useKeyboard?: boolean
 
-  // 每次触发键盘控制，值的变化量
-  @Prop({
-    type: Array,
-    default: () => [(index: number) => index - 1, (index: number) => index + 1],
-  })
-  actionsKeyboard!: [(index: number) => number, (index: number) => number]
-
   // 是否允许滑块交叉，仅限 range 模式
   @Prop({ type: Boolean, default: true })
   enableCross!: boolean
@@ -396,8 +389,27 @@ export default class VueSlider extends Vue {
       maxRange: this.maxRange,
       order: this.order,
       marks: this.marks,
-      onError: this.emitError,
       process: this.process,
+      onError: this.emitError,
+    })
+    ;[
+      'value',
+      'data',
+      'enableCross',
+      'fixed',
+      'max',
+      'min',
+      'interval',
+      'minRange',
+      'maxRange',
+      'order',
+      'marks',
+      'process',
+    ].forEach(name => {
+      this.$watch(name, (val: any) => {
+        ;(this.control as any)[name] = val
+        this.control.syncDotsPos()
+      })
     })
   }
 
@@ -567,12 +579,17 @@ export default class VueSlider extends Vue {
     }
 
     setTimeout(() => {
-      // 拖拽完毕后同步滑块的位置
-      this.control.syncDotsPos()
+      // included = true 的情况下，拖拽完毕需强制更新组件内部值
+      if (this.included && this.isNotSync) {
+        this.control.setValue(this.value)
+      } else {
+        // 拖拽完毕后同步滑块的位置
+        this.control.syncDotsPos()
+      }
     })
   }
 
-  // TODO: 处理键盘按键按下
+  // 处理键盘按键按下
   handleKeydown(e: KeyboardEvent) {
     if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
       return false
