@@ -336,7 +336,7 @@ export default class VueSlider extends Vue {
   @Watch('value')
   onValueChanged() {
     if (!this.states.has(SliderState.Drag) && this.isNotSync) {
-      this.control.seValue(this.value)
+      this.control.setValue(this.value)
     }
   }
 
@@ -520,7 +520,7 @@ export default class VueSlider extends Vue {
     setTimeout(() => {
       // included = true 的情况下，拖拽完毕需强制更新组件内部值
       if (this.included && this.isNotSync) {
-        this.control.seValue(this.value)
+        this.control.setValue(this.value)
       } else {
         // 拖拽完毕后同步滑块的位置
         this.control.syncDotsPos()
@@ -577,7 +577,22 @@ export default class VueSlider extends Vue {
     if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
       return false
     }
-    const handleFunc = getKeyboardHandleFunc(e)
+
+    const handleFunc = getKeyboardHandleFunc(e, {
+      direction: this.direction,
+      max: this.control.total,
+      min: 0,
+    })
+
+    if (handleFunc) {
+      e.preventDefault()
+      const index = this.control.getIndexByValue(this.control.dotsValue[this.focusDotIndex])
+      const newIndex = handleFunc(index)
+      this.control.setDotPos(
+        this.control.parseValue(this.control.getValueByIndex(newIndex)),
+        this.focusDotIndex,
+      )
+    }
   }
 
   // 处理键盘按键弹起

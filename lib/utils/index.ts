@@ -1,3 +1,5 @@
+import { Direction } from '../typings'
+
 interface IPosObject {
   x: number
   y: number
@@ -35,26 +37,35 @@ const enum KEY_CODE {
   RIGHT,
   DOWN,
 }
-type HandleFunction = () => null
+type HandleFunction = (i: number) => number
 // TODO: 键盘处理逻辑
-export const getKeyboardHandleFunc = (e: KeyboardEvent): HandleFunction | null => {
+export const getKeyboardHandleFunc = (
+  e: KeyboardEvent,
+  params: {
+    direction: Direction
+    max: number
+    min: number
+  },
+): HandleFunction | null => {
   switch (e.keyCode) {
     case KEY_CODE.UP:
+      return i => (params.direction === 'ttb' ? i - 1 : i + 1)
     case KEY_CODE.RIGHT:
-      return () => null
-
+      return i => (params.direction === 'rtl' ? i - 1 : i + 1)
     case KEY_CODE.DOWN:
+      return i => (params.direction === 'ttb' ? i + 1 : i - 1)
     case KEY_CODE.LEFT:
-      return () => null
+      return i => (params.direction === 'rtl' ? i + 1 : i - 1)
 
     case KEY_CODE.END:
-      return () => null
+      return () => params.max
     case KEY_CODE.HOME:
-      return () => null
+      return () => params.min
+
     case KEY_CODE.PAGE_UP:
-      return () => null
+      return i => i + 10
     case KEY_CODE.PAGE_DOWN:
-      return () => null
+      return i => i - 10
 
     default:
       return null

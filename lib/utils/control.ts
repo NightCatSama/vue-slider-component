@@ -94,7 +94,7 @@ export default class Control {
       this.enableCross = true
       this.fixed = true
     }
-    this.seValue(options.value)
+    this.setValue(options.value)
   }
 
   /**
@@ -103,7 +103,7 @@ export default class Control {
    * @param {(Value | Value[])} value
    * @memberof Control
    */
-  seValue(value: Value | Value[]) {
+  setValue(value: Value | Value[]) {
     this.dotsValue = Array.isArray(value) ? value : [value]
     this.syncDotsPos()
   }
@@ -162,7 +162,7 @@ export default class Control {
     }
 
     if (this.marks === true) {
-      return this.geValues().map(value => getMarkByValue(value))
+      return this.getValues().map(value => getMarkByValue(value))
     } else if (Object.prototype.toString.call(this.marks) === '[object Object]') {
       return Object.keys(this.marks)
         .sort((a, b) => +a - +b)
@@ -173,7 +173,7 @@ export default class Control {
     } else if (Array.isArray(this.marks)) {
       return this.marks.map(value => getMarkByValue(value))
     } else if (typeof this.marks === 'function') {
-      return this.geValues()
+      return this.getValues()
         .map(value => ({ value, result: (this.marks as MarksFunction)(value) }))
         .filter(({ result }) => !!result)
         .map(({ value, result }) => getMarkByValue(value, result as Mark))
@@ -192,6 +192,39 @@ export default class Control {
   getRecentDot(pos: number): number {
     const arr = this.dotsPos.map(dotPos => Math.abs(dotPos - pos))
     return arr.indexOf(Math.min(...arr))
+  }
+
+  /**
+   * 通过值得到索引
+   *
+   * @param {Value} value
+   * @returns {number}
+   * @memberof Control
+   */
+  getIndexByValue(value: Value): number {
+    if (this.data) {
+      return this.data.indexOf(value)
+    }
+    return new Decimal(+value)
+      .minus(this.min)
+      .divide(this.interval)
+      .toNumber()
+  }
+
+  /**
+   * 通过索引得到值
+   *
+   * @param {index} number
+   * @returns {Value}
+   * @memberof Control
+   */
+  getValueByIndex(index: number): Value {
+    return this.data
+      ? this.data[index]
+      : new Decimal(index)
+          .multiply(this.interval)
+          .plus(this.min)
+          .toNumber()
   }
 
   /**
@@ -305,12 +338,11 @@ export default class Control {
   /**
    * 得到最后滑块位置
    *
-   * @private
    * @param {number} newPos 新的滑块位置
    * @param {number} index 滑块索引
    * @returns {{ pos: number, inRange: boolean }}
    */
-  private getValidPos(newPos: number, index: number): { pos: number; inRange: boolean } {
+  getValidPos(newPos: number, index: number): { pos: number; inRange: boolean } {
     const range = this.valuePosRange[index]
     let pos = newPos
     let inRange = true
@@ -330,11 +362,10 @@ export default class Control {
   /**
    * 根据值计算出滑块的位置
    *
-   * @private
    * @param {Value} val
    * @returns {number}
    */
-  private parseValue(val: Value): number {
+  parseValue(val: Value): number {
     if (this.data) {
       val = this.data.indexOf(val)
     } else if (typeof val === 'number' || typeof val === 'string') {
@@ -365,41 +396,33 @@ export default class Control {
   /**
    * 通过位置计算出值
    *
-   * @private
    * @param {number} pos
    * @returns {Value}
    * @memberof Control
    */
-  private parsePos(pos: number): Value {
+  parsePos(pos: number): Value {
     const index = Math.round(pos / this.gap)
-    return this.data
-      ? this.data[index]
-      : new Decimal(index)
-          .multiply(this.interval)
-          .plus(this.min)
-          .toNumber()
+    return this.getValueByIndex(index)
   }
 
   /**
    * 判断该位置是否激活状态
    *
-   * @private
    * @param {number} pos
    * @returns {boolean}
    * @memberof Control
    */
-  private isActiveByPos(pos: number): boolean {
+  isActiveByPos(pos: number): boolean {
     return this.processArray.some(([start, end]) => pos >= start && pos <= end)
   }
 
   /**
    * 获得每个值
    *
-   * @private
    * @returns {Value[]}
    * @memberof Control
    */
-  private geValues(): Value[] {
+  getValues(): Value[] {
     if (this.data) {
       return this.data
     } else {
@@ -463,12 +486,10 @@ export default class Control {
   /**
    * 值的总个数
    *
-   * @readonly
-   * @private
    * @type {number}
    * @memberof Control
    */
-  private get total(): number {
+  get total(): number {
     let total = 0
     if (this.data) {
       total = this.data.length - 1
@@ -488,48 +509,40 @@ export default class Control {
   /**
    * 每个可用值之间的距离
    *
-   * @readonly
-   * @private
    * @type {number}
    * @memberof Control
    */
-  private get gap(): number {
+  get gap(): number {
     return 100 / this.total
   }
 
   /**
    * 两个滑块最小的距离
    *
-   * @readonly
-   * @private
    * @type {number}
    * @memberof Control
    */
-  private get minRangeDir(): number {
+  get minRangeDir(): number {
     return this.minRange ? this.minRange * this.gap : 0
   }
 
   /**
    * 两个滑块最大的距离
    *
-   * @readonly
-   * @private
    * @type {number}
    * @memberof Control
    */
-  private get maxRangeDir(): number {
+  get maxRangeDir(): number {
     return this.maxRange ? this.maxRange * this.gap : 100
   }
 
   /**
    * 每个滑块的滑动范围
    *
-   * @readonly
-   * @private
    * @type {Array<[number, number]>}
    * @memberof Control
    */
-  private get valuePosRange(): Array<[number, number]> {
+  get valuePosRange(): Array<[number, number]> {
     const dotsPos = this.dotsPos
     const valuePosRange: Array<[number, number]> = []
 
