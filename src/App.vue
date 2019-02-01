@@ -65,7 +65,7 @@ import '../lib/theme/material.scss'
 })
 export default class App extends Vue {
   // value = 0
-  value = [120, 100]
+  value = [20, 40]
   // value = ['01', '03']
   show = false
 
@@ -83,9 +83,9 @@ export default class App extends Vue {
     // tooltipFormatter: (val: string) => `${val}℃`,
     // tooltipPlacement: 'bottom',
     // useKeyboard: false,
-    order: false,
+    // order: false,
     // disabled: true,
-    // enableCross: false,
+    enableCross: false,
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
@@ -93,12 +93,13 @@ export default class App extends Vue {
     // maxRange: 60,
     // interval: 2,
     // data: ['01', '02', '03', '04', '05', '06'],
+    // process: false,
     // process: (dots: any) => [[0, dots[0], {
     //   backgroundColor: 'blue'
     // }], [dots[1], 100, {
     //   backgroundColor: 'red'
     // }]],
-    included: true,
+    // included: true,
     // marks: true,
     // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
     marks: {
@@ -163,7 +164,7 @@ export default class App extends Vue {
     //     },
     //   },
     //   {
-    //     disabled: true,
+    //     // disabled: true,
     //     disabledStyle: {
     //       opacity: .6
     //     },
@@ -176,7 +177,7 @@ export default class App extends Vue {
   }
 
   log(name: string, ...args: any[]) {
-    console.log(`[${name} Log]:`, JSON.stringify(args))
+    // console.log(`[${name} Log]:`, JSON.stringify(args))
   }
 
   setSpeed(speed: number) {

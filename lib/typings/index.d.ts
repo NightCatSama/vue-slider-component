@@ -37,6 +37,7 @@ export interface TooltipStyle {
 export type TooltipProp = 'none' | 'always' | 'focus'
 export type TooltipFormatterFunc = (val: Value) => string
 export type TooltipFormatter = string | TooltipFormatterFunc
+
 // Dot
 export interface DotStyle {
   style?: Styles
@@ -55,6 +56,7 @@ export interface Dot extends DotOption {
 
 // Process
 export type ProcessOption = Array<[number, number, Styles?]>
-export type ProcessProp = (dotsPos: number[]) => ProcessOption
+export type ProcessFunc = (dotsPos: number[]) => ProcessOption
+export type ProcessProp = boolean | ProcessFunc
 
 export default VueSlider

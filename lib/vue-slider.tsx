@@ -140,7 +140,7 @@ export default class VueSlider extends Vue {
   @Prop({ type: Boolean, default: false })
   fixed!: boolean
 
-  // 是否排序值，仅限 range 模式，且当设置 minRange, fixed = true 或者 enableCross = false 后失效
+  // 是否排序值，仅限 range 模式，且当设置 minRange, maxRange, fixed = true 或者 enableCross = false 时，order 必须为 true
   // e.g. 当 order = false 时，[50, 30] 不会自动排序成 [30, 50]
   @Prop({ type: Boolean, default: true })
   order!: boolean
@@ -164,7 +164,7 @@ export default class VueSlider extends Vue {
   @Prop() dotOptions?: DotOption | DotOption[]
 
   // 自定义process
-  @Prop(Function) process?: ProcessProp
+  @Prop({ type: [Boolean, Function], default: true }) process?: ProcessProp
 
   // 显示标识
   @Prop([Boolean, Object, Array, Function])
@@ -329,8 +329,8 @@ export default class VueSlider extends Vue {
   }
 
   // 是否可以排序
-  get canOrder(): boolean {
-    return this.order && !this.minRange && !this.fixed && this.enableCross
+  get isOrder(): boolean {
+    return this.order && !this.minRange && !this.maxRange && !this.fixed && this.enableCross
   }
 
   @Watch('value')
@@ -484,7 +484,7 @@ export default class VueSlider extends Vue {
     e.preventDefault()
     const pos = this.getPosByEvent(e)
     // 如果组件是排序的，那当滑块交叉时，切换当前选中的滑块索引
-    if (this.canOrder) {
+    if (this.isOrder) {
       const curIndex = this.focusDotIndex
       let curPos = pos
       if (curPos > this.dragRange[1]) {
@@ -510,7 +510,7 @@ export default class VueSlider extends Vue {
     if (!this.states.has(SliderState.Drag)) {
       return false
     }
-    if (this.canOrder) {
+    if (this.isOrder) {
       this.control.sortDotsPos()
     }
     if (this.lazy) {

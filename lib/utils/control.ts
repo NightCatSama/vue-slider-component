@@ -19,6 +19,7 @@ export const enum ERROR_TYPE {
   INTERVAL, // interval 不合法
   MIN, // 超过最小值
   MAX,
+  ORDER, // 当 order 为 false 时，minRange, maxRange, enableCross, fixed 失效
 }
 
 // 错误消息
@@ -29,6 +30,8 @@ export const ERROR_MSG: ERROR_MESSAGE = {
     'The prop "interval" is invalid, "(max - min)" cannot be divisible by "interval"',
   [ERROR_TYPE.MIN]: 'The "value" cannot be less than the minimum.',
   [ERROR_TYPE.MAX]: 'The "value" cannot be greater than the maximum.',
+  [ERROR_TYPE.ORDER]:
+    'When "order" is false, the parameters "minRange", "maxRange", "fixed", "enabled" are invalid.',
 }
 
 /**
@@ -70,17 +73,27 @@ export default class Control {
     onError?: (type: ERROR_TYPE, message: string) => void
   }) {
     this.data = options.data
-    this.enableCross = options.enableCross
-    this.fixed = options.fixed
     this.max = options.max
     this.min = options.min
     this.interval = options.interval
     this.order = options.order
-    this.minRange = options.minRange || 0
-    this.maxRange = options.maxRange || 0
     this.marks = options.marks
     this.process = options.process
     this.onError = options.onError
+    if (this.order) {
+      this.minRange = options.minRange || 0
+      this.maxRange = options.maxRange || 0
+      this.enableCross = options.enableCross
+      this.fixed = options.fixed
+    } else {
+      if (options.minRange || options.maxRange || !options.enableCross || options.fixed) {
+        this.emitError(ERROR_TYPE.ORDER)
+      }
+      this.minRange = 0
+      this.maxRange = 0
+      this.enableCross = true
+      this.fixed = true
+    }
     this.seValue(options.value)
   }
 
@@ -435,14 +448,16 @@ export default class Control {
    */
   get processArray(): ProcessOption {
     if (this.process) {
-      return this.process(this.dotsPos)
-    } else if (this.dotsPos.length === 1) {
-      return [[0, this.dotsPos[0]]]
-    } else if (this.dotsPos.length > 1) {
-      return [[Math.min(...this.dotsPos), Math.max(...this.dotsPos)]]
-    } else {
-      return []
+      if (typeof this.process === 'function') {
+        return this.process(this.dotsPos)
+      } else if (this.dotsPos.length === 1) {
+        return [[0, this.dotsPos[0]]]
+      } else if (this.dotsPos.length > 1) {
+        return [[Math.min(...this.dotsPos), Math.max(...this.dotsPos)]]
+      }
     }
+
+    return []
   }
 
   /**
