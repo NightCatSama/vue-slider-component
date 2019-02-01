@@ -91,20 +91,38 @@ $tooltipColor: #fff;
   }
 
   @at-root &-tooltip {
+    visibility: visible;
     border-radius: 50% 50% 50% 0px;
     background-color: $themeColor;
 
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
     &-top {
-      transform: translate(-50%, -100%) rotateZ(-45deg);
+      transform: translate(-50%, 0) scale(0.01) rotate(-45deg);
     }
     &-bottom {
-      transform: translate(-50%, 100%) rotateZ(135deg);
+      transform: translate(-50%, 0) scale(0.01) rotateZ(135deg);
     }
     &-left {
-      transform: translate(-100%, -50%) rotateZ(-135deg);
+      transform: translate(0, -50%) scale(0.01) rotateZ(-135deg);
     }
     &-right {
-      transform: translate(100%, -50%) rotateZ(45deg);
+      transform: translate(0, -50%) scale(0.01) rotateZ(45deg);
+    }
+
+    @at-root &-show {
+      &.vue-slider-dot-tooltip-top {
+        transform: translate(-50%, -100%) rotateZ(-45deg);
+      }
+      &.vue-slider-dot-tooltip-bottom {
+        transform: translate(-50%, 100%) rotateZ(135deg);
+      }
+      &.vue-slider-dot-tooltip-left {
+        transform: translate(-100%, -50%) rotateZ(-135deg);
+      }
+      &.vue-slider-dot-tooltip-right {
+        transform: translate(100%, -50%) rotateZ(45deg);
+      }
     }
 
     @at-root &-inner {

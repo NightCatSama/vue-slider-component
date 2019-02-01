@@ -15,7 +15,9 @@
       class="slider"
       v-model="value"
       :direction="'rtl'"
-      :disabled="true"
+      :tooltip-placement="'bottom'"
+      :hide-label="true"
+      :disabled="false"
       v-bind="sliderOptions"
       @error="({ type, message }) => log('error', type, message)"
       @dragStart="setSpeed(0)"
@@ -83,9 +85,9 @@ export default class App extends Vue {
     // tooltipFormatter: (val: string) => `${val}℃`,
     // tooltipPlacement: 'bottom',
     // useKeyboard: false,
-    // order: false,
+    order: false,
     // disabled: true,
-    enableCross: false,
+    // enableCross: false,
     // direction: 'ttb',
     // fixed: true,
     // lazy: true,
