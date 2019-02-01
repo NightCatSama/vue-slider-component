@@ -335,7 +335,7 @@ export default class VueSlider extends Vue {
 
   @Watch('value')
   onValueChanged() {
-    if (!this.states.has(SliderState.Drag) && this.isDiff) {
+    if (!this.states.has(SliderState.Drag) && this.isNotSync) {
       this.control.seValue(this.value)
     }
   }
@@ -411,7 +411,7 @@ export default class VueSlider extends Vue {
     let values = this.control.dotsValue
     // 当开启 included 时，返回值为离最近的 mark 的值
     if (this.included && this.control.markList.length > 0) {
-      const getRecenValue = (val: Value) => {
+      const getRecentValue = (val: Value) => {
         let curValue = val
         let dir = this.max - this.min
         this.control.markList.forEach(mark => {
@@ -425,19 +425,24 @@ export default class VueSlider extends Vue {
         })
         return curValue
       }
-      values = values.map(val => getRecenValue(val))
+      values = values.map(val => getRecentValue(val))
     }
-    if (this.isDiff) {
+    if (this.isDiff(values, Array.isArray(this.value) ? this.value : [this.value])) {
       this.$emit('change', values.length === 1 ? values[0] : values)
     }
   }
 
   // 判断当前值和组件内部值是否不一致
-  private get isDiff() {
+  private get isNotSync() {
     const values = this.control.dotsValue
     return Array.isArray(this.value)
       ? this.value.some((val, index) => val !== values[index])
       : this.value !== values[0]
+  }
+
+  // 判断值是否发生变化
+  private isDiff(value1: Value[], value2: Value[]) {
+    return value1.length !== value2.length || value1.some((val, index) => val !== value2[index])
   }
 
   // 返回错误
@@ -514,7 +519,7 @@ export default class VueSlider extends Vue {
 
     setTimeout(() => {
       // included = true 的情况下，拖拽完毕需强制更新组件内部值
-      if (this.included && this.isDiff) {
+      if (this.included && this.isNotSync) {
         this.control.seValue(this.value)
       } else {
         // 拖拽完毕后同步滑块的位置
