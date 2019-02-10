@@ -907,13 +907,13 @@
         if (this.isRange) {
           if (this.isDiff(this.currentValue[slider], val)) {
             this.currentValue.splice(slider, 1, val)
-            if (!this.lazy || !this.flag) {
+            if (!this.lazy || !this.flag || this.keydownFlag) {
               this.syncValue()
             }
           }
         } else if (this.isDiff(this.currentValue, val)) {
           this.currentValue = val
-          if (!this.lazy || !this.flag) {
+          if (!this.lazy || !this.flag || this.keydownFlag) {
             this.syncValue()
           }
         }
