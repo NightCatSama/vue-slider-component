@@ -79,6 +79,25 @@
       </template>
       <template v-else>
         <div
+          v-if="originalLabel !== ''"
+          ref="static-dot"
+          key="static-dot"
+          class="vue-slider-dot static-dot"
+          :style="[staticPosition, dotStyles]"
+        >
+          <slot name="static-dot" :value="originalVal">
+            <div class="vue-slider-dot-handle--static"></div>
+          </slot>
+
+          <div
+            v-if="val !== originalVal"
+            :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
+            <slot name="static-tooltip" :value="val">
+              <span class="vue-slider-tooltip"  :class="tooltipClass">{{ originalLabel }}</span>
+            </slot>
+          </div>
+        </div>
+        <div
           ref="dot"
           key="dot"
           :class="[
@@ -245,6 +264,10 @@
         type: String,
         default: 'horizontal'
       },
+      originalLabel: {
+        type: String,
+        default: ''
+      },
       reverse: {
         type: Boolean,
         default: false
@@ -352,10 +375,23 @@
         currentValue: 0,
         currentSlider: 0,
         isComponentExists: true,
-        isMounted: false
+        isMounted: false,
+        originalVal: this.value
       }
     },
     computed: {
+      staticPosition() {
+        const position = ((this.originalVal - this.minimum) / this.spacing * this.gap)
+        const value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - this.originalVal) : (position - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
+        const translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`;
+
+        return {
+          transform: translateValue,
+          WebkitTransform: translateValue,
+          msTransform: translateValue
+        };
+      },
+
       dotWidthVal () {
         return typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize
       },
@@ -1232,6 +1268,15 @@
   .vue-slider-component .vue-slider-dot.vue-slider-dot-focus .vue-slider-dot-handle {
     box-shadow: 0 0 2px 1px #3498db;
   }
+
+  .vue-slider-component .vue-slider-dot .vue-slider-dot-handle--static {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+  }
+
   .vue-slider-component .vue-slider-dot.vue-slider-dot-dragging {
     z-index: 5;
   }
@@ -1255,6 +1300,11 @@
     position: absolute;
     z-index: 9;
   }
+
+  .vue-slider-component .static-dot .vue-slider-tooltip-wrap {
+    display: block;
+  }
+
   .vue-slider-component .vue-slider-tooltip {
     display: block;
     font-size: 14px;
