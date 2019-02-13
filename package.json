@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.1-0",
+  "version": "3.0.1-1",
   "description": "Can use the Slider component in vue1.x and vue2.x",
   "keywords": [
     "vue",
@@ -40,8 +40,7 @@
       "git add"
     ]
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "^7.3.1",
     "@types/chai": "^4.1.0",
