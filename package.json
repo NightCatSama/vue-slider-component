@@ -9,7 +9,7 @@
     "vue-component",
     "vue-slider-component"
   ],
-  "main": "./dist/index.js",
+  "main": "./dist/vue-slider-component.umd.min.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
@@ -41,9 +41,6 @@
     ]
   },
   "dependencies": {
-    "vue": "^2.5.17",
-    "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^7.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^7.3.1",
@@ -62,6 +59,9 @@
     "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0",
     "vue-template-compiler": "^2.5.17"
   }
 }
