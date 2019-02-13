@@ -54,6 +54,8 @@ export default class VueSlider extends Vue {
     container: HTMLDivElement
   }
 
+  $el!: HTMLDivElement
+
   // slider value
   @Model('change', { default: 0 })
   value!: Value | Value[]
@@ -628,8 +630,17 @@ export default class VueSlider extends Vue {
   }
 
   // 渲染 slot
-  private renderSlot<T>(name: string, data: T, defaultSlot: any): any {
-    return this.$scopedSlots[name] ? this.$scopedSlots[name](data) : defaultSlot
+  private renderSlot<T>(name: string, data: T, defaultSlot: any, isDefault?: boolean): any {
+    const scopedSlot = this.$scopedSlots[name]
+    return scopedSlot ? (
+      isDefault ? (
+        scopedSlot(data)
+      ) : (
+        <template slot={name}>{scopedSlot(data)}</template>
+      )
+    ) : (
+      defaultSlot
+    )
   }
 
   render() {
@@ -674,6 +685,7 @@ export default class VueSlider extends Vue {
                     {this.renderSlot<Mark>('step', mark, null)}
                     {this.renderSlot<Mark>('label', mark, null)}
                   </vue-slider-mark>,
+                  true,
                 ),
               )}
             </div>

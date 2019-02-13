@@ -55,7 +55,7 @@ export default class VueSlideMark extends Vue {
     const mark = this.mark
     return (
       <div class={this.marksClasses}>
-        {this.$scopedSlots.step || (
+        {this.$slots.step || (
           <div
             class={this.stepClasses}
             style={[
@@ -67,7 +67,7 @@ export default class VueSlideMark extends Vue {
           />
         )}
         {!this.hideLabel
-          ? this.$scopedSlots.label || (
+          ? this.$slots.label || (
               <div
                 class={this.labelClasses}
                 style={[

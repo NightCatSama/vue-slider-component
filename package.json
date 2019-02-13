@@ -59,9 +59,9 @@
     "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
-    "vue": "^2.5.17",
+    "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.6.6"
   }
 }

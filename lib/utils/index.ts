@@ -38,7 +38,6 @@ const enum KEY_CODE {
   DOWN,
 }
 type HandleFunction = (i: number) => number
-// TODO: 键盘处理逻辑
 export const getKeyboardHandleFunc = (
   e: KeyboardEvent,
   params: {
