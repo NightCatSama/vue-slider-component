@@ -79,21 +79,29 @@
       </template>
       <template v-else>
         <div
-          v-if="originalLabel !== ''"
+          v-if="staticValue !== void 0"
           ref="static-dot"
           key="static-dot"
+          :class="[
+            'vue-slider-dot',
+            'vue-slider-dot--static',
+            {
+              'vue-slider-dot-active': isActive(getIndexByValue(staticValue)),
+            }
+          ]"
           class="vue-slider-dot static-dot"
           :style="[staticPosition, dotStyles]"
+          @click.stop="() => setValue(staticValue)"
         >
-          <slot name="static-dot" :value="originalVal">
+          <slot name="static-dot" :value="staticValue">
             <div class="vue-slider-dot-handle--static"></div>
           </slot>
 
           <div
-            v-if="val !== originalVal"
+            v-if="val !== staticValue"
             :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
-            <slot name="static-tooltip" :value="val">
-              <span class="vue-slider-tooltip"  :class="tooltipClass">{{ originalLabel }}</span>
+            <slot name="static-tooltip" :value="staticValue">
+              <span class="vue-slider-tooltip"  :class="tooltipClass">{{ formatter ? formatting(staticValue) : staticValue }}</span>
             </slot>
           </div>
         </div>
@@ -264,9 +272,8 @@
         type: String,
         default: 'horizontal'
       },
-      originalLabel: {
-        type: String,
-        default: ''
+      staticValue: {
+        type: [String, Number]
       },
       reverse: {
         type: Boolean,
@@ -375,23 +382,21 @@
         currentValue: 0,
         currentSlider: 0,
         isComponentExists: true,
-        isMounted: false,
-        originalVal: this.value
+        isMounted: false
       }
     },
     computed: {
-      staticPosition() {
-        const position = ((this.originalVal - this.minimum) / this.spacing * this.gap)
-        const value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - this.originalVal) : (position - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
-        const translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`;
+      staticPosition () {
+        const position = ((this.staticValue - this.minimum) / this.spacing * this.gap)
+        const value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - position) : (position - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
+        const translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
 
         return {
           transform: translateValue,
           WebkitTransform: translateValue,
           msTransform: translateValue
-        };
+        }
       },
-
       dotWidthVal () {
         return typeof this.dotWidth === 'number' ? this.dotWidth : this.dotSize
       },
@@ -959,7 +964,7 @@
         return ((this.spacing * this.multiple) * index + (this.minimum * this.multiple)) / this.multiple
       },
       getIndexByValue (value) {
-        return Math.round((value - this.minimum) * this.multiple) / (this.spacing * this.multiple)
+        return this.data ? this.data.indexOf(value) : Math.round((value - this.minimum) * this.multiple) / (this.spacing * this.multiple)
       },
       setIndex (val) {
         if (Array.isArray(val) && this.isRange) {
@@ -1269,12 +1274,20 @@
     box-shadow: 0 0 2px 1px #3498db;
   }
 
-  .vue-slider-component .vue-slider-dot .vue-slider-dot-handle--static {
+  .vue-slider-component .vue-slider-dot--static .vue-slider-dot-handle--static {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+    background-color: #ccc;
+    transform: scale(.85);
+  }
+
+  .vue-slider-component .vue-slider-dot--static.vue-slider-dot-active .vue-slider-dot-handle--static {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #3498db;
+    transform: scale(.85);
   }
 
   .vue-slider-component .vue-slider-dot.vue-slider-dot-dragging {
@@ -1301,7 +1314,7 @@
     z-index: 9;
   }
 
-  .vue-slider-component .static-dot .vue-slider-tooltip-wrap {
+  .vue-slider-component .vue-slider-dot--static:hover .vue-slider-tooltip-wrap {
     display: block;
   }
 
