@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.1-1",
+  "version": "3.0.1-2",
   "description": "Can use the Slider component in vue1.x and vue2.x",
   "keywords": [
     "vue",
@@ -10,6 +10,7 @@
     "vue-slider-component"
   ],
   "main": "./dist/vue-slider-component.umd.min.js",
+  "typings": "./typings/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
