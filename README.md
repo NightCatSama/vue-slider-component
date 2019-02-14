@@ -139,6 +139,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | static-value*   | Number, String    | undefined     | Whether to display a static dot. (valid only in single mode) |
+| static-label*   | String    | undefined     | Custom tooltip text for the static-value. |
 | enable-cross*   | Boolean    | true     | Whether to allow crossover in range mode |
 | start-animation* | Boolean    | false    | Whether to enable the initial animation |
 | tooltip-merge* | Boolean       | true    | Whether to merge with tooltip overlap |
