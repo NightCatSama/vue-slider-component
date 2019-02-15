@@ -283,8 +283,7 @@
         type: [String, Number]
       },
       staticLabel: {
-        type: String,
-        default: ''
+        type: String
       },
       reverse: {
         type: Boolean,
