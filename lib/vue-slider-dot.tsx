@@ -9,20 +9,15 @@ export default class VueSliderDot extends Vue {
     dot: HTMLDivElement
   }
 
-  // slider value
   @Prop({ default: 0 })
   value!: Value
 
-  // tooltip 样式
   @Prop() tooltip!: TooltipProp
 
-  // dot 样式
   @Prop() dotStyle?: Styles
 
-  // tooltip 样式
   @Prop() tooltipStyle?: Styles
 
-  // tooltip 方向
   @Prop({
     type: String,
     validator: (val: string) => ['top', 'right', 'bottom', 'left'].includes(val),
@@ -30,14 +25,12 @@ export default class VueSliderDot extends Vue {
   })
   tooltipPlacement!: Position
 
-  // 格式化 tooltip
   @Prop({ type: [String, Function] })
   tooltipFormatter?: TooltipFormatter
 
   @Prop({ type: Boolean, default: false })
   focus!: boolean
 
-  // 是否禁用状态
   @Prop({ default: false })
   disabled!: boolean
 
@@ -105,7 +98,6 @@ export default class VueSliderDot extends Vue {
     }
   }
 
-  // 拖拽开始
   dragStart(e: MouseEvent | TouchEvent) {
     if (this.disabled) {
       return false

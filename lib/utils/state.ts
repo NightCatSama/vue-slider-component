@@ -10,17 +10,14 @@ export default class State {
     this.map = map
   }
 
-  // 设置状态
   add(state: number) {
     this.states |= state
   }
 
-  // 移除状态
   delete(state: number) {
     this.states &= ~state
   }
 
-  // 切换状态
   toggle(state: number) {
     if (this.has(state)) {
       this.delete(state)
@@ -29,7 +26,6 @@ export default class State {
     }
   }
 
-  // 判断是否存在该状态
   has(state: number): boolean {
     return !!(this.states & state)
   }

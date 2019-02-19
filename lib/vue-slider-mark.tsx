@@ -5,23 +5,17 @@ import './styles/mark.scss'
 
 @Component
 export default class VueSlideMark extends Vue {
-  // 显示标识
   @Prop({ required: true })
   mark!: Mark
 
-  // 是否显示 label
   @Prop(Boolean) hideLabel?: boolean
 
-  // step style
   @Prop() stepStyle?: Styles
 
-  // step active style
   @Prop() stepActiveStyle?: Styles
 
-  // label style
   @Prop() labelStyle?: Styles
 
-  // label active style
   @Prop() labelActiveStyle?: Styles
 
   get marksClasses() {

@@ -10,19 +10,17 @@ import {
   MarksFunction,
 } from '../typings'
 
-// 每个滑块变化的距离
+// The distance each slider changes
 type DotsPosChangeArray = number[]
 
-// 错误类型
 export const enum ERROR_TYPE {
-  VALUE = 1, // 值的类型不正确
-  INTERVAL, // interval 不合法
-  MIN, // 超过最小值
+  VALUE = 1,
+  INTERVAL,
+  MIN,
   MAX,
-  ORDER, // 当 order 为 false 时，minRange, maxRange, enableCross, fixed 失效
+  ORDER,
 }
 
-// 错误消息
 type ERROR_MESSAGE = { [key in ERROR_TYPE]: string }
 export const ERROR_MSG: ERROR_MESSAGE = {
   [ERROR_TYPE.VALUE]: 'The type of the "value" is illegal',
@@ -35,16 +33,16 @@ export const ERROR_MSG: ERROR_MESSAGE = {
 }
 
 /**
- * 组件的逻辑控制中心
+ * Slider logic control center
  *
  * @export
  * @class Control
  */
 export default class Control {
-  dotsPos: number[] = [] // 每个滑块的位置
-  dotsValue: Value[] = [] // 每个滑块的值
+  dotsPos: number[] = [] // The position of each slider
+  dotsValue: Value[] = [] // The value of each slider
 
-  data: Value[] | null
+  data?: Value[]
   enableCross: boolean
   fixed: boolean
   max: number
@@ -59,7 +57,7 @@ export default class Control {
 
   constructor(options: {
     value: Value | Value[]
-    data: Value[] | null
+    data?: Value[]
     enableCross: boolean
     fixed: boolean
     max: number
@@ -97,48 +95,25 @@ export default class Control {
     this.setValue(options.value)
   }
 
-  /**
-   * 设置滑块的值
-   *
-   * @param {(Value | Value[])} value
-   * @memberof Control
-   */
   setValue(value: Value | Value[]) {
     this.dotsValue = Array.isArray(value) ? value : [value]
     this.syncDotsPos()
   }
 
-  /**
-   * 设置滑块位置
-   * @param {number[]} dotsPos 滑块位置的数组
-   */
+  // Set the slider position
   setDotsPos(dotsPos: number[]) {
-    // 只排序值不排序位置，在拖拽完成后再调用[syncDotsPos]排序位置
     const list = this.order ? [...dotsPos].sort((a, b) => a - b) : dotsPos
     this.dotsPos = list
     this.dotsValue = list.map(dotPos => this.parsePos(dotPos))
   }
 
-  /**
-   * 排序滑块位置
-   *
-   * @memberof Control
-   */
-  sortDotsPos() {
-    this.dotsPos = [...this.dotsPos].sort((a, b) => a - b)
-  }
-
-  /**
-   * 同步滑块位置
-   *
-   * @memberof Control
-   */
+  // Sync slider position
   syncDotsPos() {
     this.dotsPos = this.dotsValue.map(v => this.parseValue(v))
   }
 
   /**
-   * 得到所有标志
+   * Get all the marks
    *
    * @readonly
    * @type {Mark[]}
@@ -149,7 +124,6 @@ export default class Control {
       return []
     }
 
-    // 通过值获取 Mark
     const getMarkByValue = (value: Value, mark?: MarkOption): Mark => {
       const pos = this.parseValue(value)
       return {
@@ -183,7 +157,7 @@ export default class Control {
   }
 
   /**
-   * 通过位置得到最近的一个滑块索引
+   * Get the most recent slider index by position
    *
    * @param {number} pos
    * @returns {number}
@@ -195,7 +169,7 @@ export default class Control {
   }
 
   /**
-   * 通过值得到索引
+   * Get index by value
    *
    * @param {Value} value
    * @returns {number}
@@ -212,7 +186,7 @@ export default class Control {
   }
 
   /**
-   * 通过索引得到值
+   * Get value by index
    *
    * @param {index} number
    * @returns {Value}
@@ -228,17 +202,15 @@ export default class Control {
   }
 
   /**
-   * 设置单个滑块的位置
+   * Set the position of a single slider
    *
-   * @param {number} pos 滑块在组件中的位置
-   * @param {number} index 滑块的索引
+   * @param {number} pos
+   * @param {number} index
    */
   setDotPos(pos: number, index: number) {
-    // 滑块变化的距离
     pos = this.getValidPos(pos, index).pos
     const changePos = pos - this.dotsPos[index]
 
-    // 没有变化则不更新位置
     if (!changePos) {
       return
     }
@@ -256,10 +228,10 @@ export default class Control {
   }
 
   /**
-   * 在 fixed 模式下，得到全部滑块变化的位置
+   * In fixed mode, get the position of all slider changes
    *
-   * @param {number} changePos 单个滑块的变化距离
-   * @param {number} index 滑块的索引
+   * @param {number} changePos Change distance of a single slider
+   * @param {number} index slider index
    * @returns {DotsPosChangeArray}
    * @memberof Control
    */
@@ -277,11 +249,11 @@ export default class Control {
   }
 
   /**
-   * 在 minRange/maxRange 模式下，得到全部滑块变化的位置
+   * In minRange/maxRange mode, get the position of all slider changes
    *
-   * @param {number} pos 单个滑块的位置
-   * @param {number} changePos 单个滑块的变化距离
-   * @param {number} index 滑块的索引
+   * @param {number} pos position of a single slider
+   * @param {number} changePos Change distance of a single slider
+   * @param {number} index slider index
    * @returns {DotsPosChangeArray}
    * @memberof Control
    */
@@ -304,7 +276,8 @@ export default class Control {
       } else {
         next = isForward ? -1 : 1
       }
-      // 是否在限制的范围中
+
+      // Determine if the two positions are within the legal interval
       const inLimitRange = (pos2: number, pos1: number): boolean => {
         const diff = Math.abs(pos2 - pos1)
         return isMinRange ? diff < this.minRangeDir : diff > this.maxRangeDir
@@ -336,20 +309,19 @@ export default class Control {
   }
 
   /**
-   * 得到最后滑块位置
+   * Get a valid position by pos
    *
-   * @param {number} newPos 新的滑块位置
-   * @param {number} index 滑块索引
+   * @param {number} pos
+   * @param {number} index
    * @returns {{ pos: number, inRange: boolean }}
    */
-  getValidPos(newPos: number, index: number): { pos: number; inRange: boolean } {
+  getValidPos(pos: number, index: number): { pos: number; inRange: boolean } {
     const range = this.valuePosRange[index]
-    let pos = newPos
     let inRange = true
-    if (newPos < range[0]) {
+    if (pos < range[0]) {
       pos = range[0]
       inRange = false
-    } else if (newPos > range[1]) {
+    } else if (pos > range[1]) {
       pos = range[1]
       inRange = false
     }
@@ -360,7 +332,7 @@ export default class Control {
   }
 
   /**
-   * 根据值计算出滑块的位置
+   * Calculate the position of the slider by value
    *
    * @param {Value} val
    * @returns {number}
@@ -394,7 +366,7 @@ export default class Control {
   }
 
   /**
-   * 通过位置计算出值
+   * Calculate the value by position
    *
    * @param {number} pos
    * @returns {Value}
@@ -406,7 +378,7 @@ export default class Control {
   }
 
   /**
-   * 判断该位置是否激活状态
+   * Determine if the location is active
    *
    * @param {number} pos
    * @returns {boolean}
@@ -417,7 +389,7 @@ export default class Control {
   }
 
   /**
-   * 获得每个值
+   * Get each value
    *
    * @returns {Value[]}
    * @memberof Control
@@ -435,40 +407,12 @@ export default class Control {
     }
   }
 
-  /**
-   * 获得每个值的位置
-   *
-   * @private
-   * @returns {number[]}
-   * @memberof Control
-   */
-  private geValuePos(): number[] {
-    const gap = this.gap
-    return Array.from(new Array(this.total), (_, index) => {
-      return new Decimal(index).multiply(gap).toNumber()
-    }).concat([100])
-  }
-
-  /**
-   * 返回错误
-   *
-   * @private
-   * @param {ERROR_TYPE} type 错误类型
-   * @memberof Control
-   */
   private emitError(type: ERROR_TYPE) {
     if (this.onError) {
       this.onError(type, ERROR_MSG[type])
     }
   }
 
-  /**
-   * 进度条数组
-   *
-   * @readonly
-   * @type {ProcessOption}
-   * @memberof Control
-   */
   get processArray(): ProcessOption {
     if (this.process) {
       if (typeof this.process === 'function') {
@@ -484,7 +428,7 @@ export default class Control {
   }
 
   /**
-   * 值的总个数
+   * The total number of values
    *
    * @type {number}
    * @memberof Control
@@ -506,38 +450,23 @@ export default class Control {
     return total
   }
 
-  /**
-   * 每个可用值之间的距离
-   *
-   * @type {number}
-   * @memberof Control
-   */
+  // Distance between each value
   get gap(): number {
     return 100 / this.total
   }
 
-  /**
-   * 两个滑块最小的距离
-   *
-   * @type {number}
-   * @memberof Control
-   */
+  // The minimum distance between the two sliders
   get minRangeDir(): number {
     return this.minRange ? this.minRange * this.gap : 0
   }
 
-  /**
-   * 两个滑块最大的距离
-   *
-   * @type {number}
-   * @memberof Control
-   */
+  // Maximum distance between the two sliders
   get maxRangeDir(): number {
     return this.maxRange ? this.maxRange * this.gap : 100
   }
 
   /**
-   * 每个滑块的滑动范围
+   * Sliding range of each slider
    *
    * @type {Array<[number, number]>}
    * @memberof Control

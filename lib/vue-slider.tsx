@@ -44,10 +44,11 @@ const DEFAULT_SLIDER_SIZE = 4
   inheritAttrs: false,
 })
 export default class VueSlider extends Vue {
-  private control!: Control // 滑块逻辑控制
-  private states: State = new State(SliderState) // 组件状态
-  private scale: number = 1 // 比例，1% = ${scale}px
-
+  control!: Control
+  states: State = new State(SliderState)
+  // The width of the component is divided into one hundred, the width of each one.
+  scale: number = 1
+  // Currently dragged slider index
   focusDotIndex: number = 0
 
   $refs!: {
@@ -56,55 +57,40 @@ export default class VueSlider extends Vue {
 
   $el!: HTMLDivElement
 
-  // slider value
   @Model('change', { default: 0 })
   value!: Value | Value[]
 
-  // display of the component
-  @Prop({ type: Boolean, default: true })
-  show!: boolean
-
-  // component width
   @Prop(Number) width?: number
 
-  // component height
   @Prop(Number) height?: number
 
-  // the size of the slider, optional [width, height] | size
+  // The size of the slider, optional [width, height] | size
   @Prop({ default: 14 })
   dotSize!: [number, number] | number
 
-  // the direction of the slider
   @Prop({ default: 'ltr', validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1 })
   direction!: Direction
 
-  // 最小值
   @Prop({ type: Number, default: 0 })
   min!: number
 
-  // 最小值
   @Prop({ type: Number, default: 100 })
   max!: number
 
-  // 间隔
   @Prop({ type: Number, default: 1 })
   interval!: number
 
-  // 运动速度
-  @Prop({ type: Number, default: 0.5 })
-  speed!: number
-
-  // 是否禁用滑块
   @Prop() disabled?: boolean
 
-  // 自定义数据
-  @Prop(Array) data!: Value[] | null
+  // The duration of the slider slide, Unit second
+  @Prop({ type: Number, default: 0.5 })
+  duration!: number
 
-  // 是否懒同步值
+  @Prop(Array) data?: Value[]
+
   @Prop({ type: Boolean, default: false })
   lazy!: boolean
 
-  // 设置 tooltip
   @Prop({
     type: String,
     validator: val => ['none', 'always', 'focus'].includes(val),
@@ -112,83 +98,69 @@ export default class VueSlider extends Vue {
   })
   tooltip!: TooltipProp
 
-  // tooltip 方向
   @Prop({
     type: String,
     validator: val => ['top', 'right', 'bottom', 'left'].includes(val),
   })
   tooltipPlacement?: Position
 
-  // 格式化 tooltip
   @Prop({ type: [String, Function] })
   tooltipFormatter?: TooltipFormatter
 
-  // 是否支持键盘控制
-  @Prop({ type: Boolean, default: true })
+  // Keyboard control
+  @Prop(Boolean)
   useKeyboard?: boolean
 
-  // 是否允许滑块交叉，仅限 range 模式
+  // Whether to allow sliders to cross, only in range mode
   @Prop({ type: Boolean, default: true })
   enableCross!: boolean
 
-  // 是否固定滑块见间隔，仅限 range 模式
+  // Whether to fix the slider interval, only in range mode
   @Prop({ type: Boolean, default: false })
   fixed!: boolean
 
-  // 是否排序值，仅限 range 模式，且当设置 minRange, maxRange, fixed = true 或者 enableCross = false 时，order 必须为 true
-  // e.g. 当 order = false 时，[50, 30] 不会自动排序成 [30, 50]
+  // Whether to sort values, only in range mode
+  // When order is false, the parameters [minRange, maxRange, fixed, enableCross] are invalid
+  // e.g. When order = false, [50, 30] will not be automatically sorted into [30, 50]
   @Prop({ type: Boolean, default: true })
   order!: boolean
 
-  // 滑块之间的最小距离，仅限 range 模式
+  // Minimum distance between sliders, only in range mode
   @Prop(Number) minRange?: number
 
-  // 滑块之间的最大距离，仅限 range 模式
+  // Maximum distance between sliders, only in range mode
   @Prop(Number) maxRange?: number
 
-  // tail style
   @Prop() tailStyle?: Styles
 
-  // process style
   @Prop() processStyle?: Styles
 
-  // 滑块样式
   @Prop() dotStyle?: DotStyle
 
-  // 滑块的配置
   @Prop() dotOptions?: DotOption | DotOption[]
 
-  // 自定义process
   @Prop({ type: [Boolean, Function], default: true }) process?: ProcessProp
 
-  // 显示标识
   @Prop([Boolean, Object, Array, Function])
   marks?: MarksProp
 
-  // 仅限 marks 不为空时有效，控制滑块是否只在 step 上有效
+  // If the value is true , mark will be an independent value
   @Prop(Boolean) included?: boolean
 
-  // 是否隐藏 label
   @Prop(Boolean) hideLabel?: boolean
 
-  // step style
   @Prop() stepStyle?: Styles
 
-  // step active style
   @Prop() stepActiveStyle?: Styles
 
-  // label style
   @Prop() labelStyle?: Styles
 
-  // label active style
   @Prop() labelActiveStyle?: Styles
 
-  // 轨道尺寸
   get tailSize() {
     return (this.isHorizontal ? this.height : this.width) || DEFAULT_SLIDER_SIZE
   }
 
-  // 容器类
   get containerClasses() {
     return [
       'vue-slider',
@@ -199,7 +171,6 @@ export default class VueSlider extends Vue {
     ]
   }
 
-  // 容器样式
   get containerStyles() {
     const [dotWidth, dotHeight] = Array.isArray(this.dotSize)
       ? this.dotSize
@@ -221,7 +192,6 @@ export default class VueSlider extends Vue {
     }
   }
 
-  // 进度条样式数组
   get processBaseStyleArray(): Styles[] {
     return this.control.processArray.map(([start, end, style]) => {
       if (start > end) {
@@ -241,7 +211,6 @@ export default class VueSlider extends Vue {
     })
   }
 
-  // dot style
   get dotBaseStyle() {
     const [dotWidth, dotHeight] = Array.isArray(this.dotSize)
       ? this.dotSize
@@ -269,7 +238,6 @@ export default class VueSlider extends Vue {
     }
   }
 
-  // 滑块滑动的主方向
   get mainDirection(): string {
     switch (this.direction) {
       case 'ltr':
@@ -283,17 +251,14 @@ export default class VueSlider extends Vue {
     }
   }
 
-  // 是否水平方向组件
   get isHorizontal(): boolean {
     return this.direction === 'ltr' || this.direction === 'rtl'
   }
 
-  // 是否反向
   get isReverse(): boolean {
     return this.direction === 'rtl' || this.direction === 'btt'
   }
 
-  // 全部 tooltip 的方向
   get tooltipDirections(): Position[] {
     const dir = this.tooltipPlacement || (this.isHorizontal ? 'top' : 'left')
     if (Array.isArray(dir)) {
@@ -303,7 +268,6 @@ export default class VueSlider extends Vue {
     }
   }
 
-  // 得到所有的滑块
   get dots(): Dot[] {
     return this.control.dotsPos.map((pos, index) => ({
       pos,
@@ -315,16 +279,14 @@ export default class VueSlider extends Vue {
     }))
   }
 
-  // 滑块动画过渡时间
   get animateTime(): number {
     if (this.states.has(SliderState.Drag)) {
       return 0
     }
-    return this.speed
+    return this.duration
   }
 
-  // 是否可以排序
-  get isOrder(): boolean {
+  get canSort(): boolean {
     return this.order && !this.minRange && !this.maxRange && !this.fixed && this.enableCross
   }
 
@@ -350,12 +312,11 @@ export default class VueSlider extends Vue {
   bindEvent() {
     document.addEventListener('touchmove', this.dragMove, { passive: false })
     document.addEventListener('touchend', this.dragEnd, { passive: false })
-    document.addEventListener('mousedown', this.isBlurSlider)
+    document.addEventListener('mousedown', this.blurHandle)
     document.addEventListener('mousemove', this.dragMove)
     document.addEventListener('mouseup', this.dragEnd)
     document.addEventListener('mouseleave', this.dragEnd)
-    document.addEventListener('keydown', this.handleKeydown)
-    document.addEventListener('keyup', this.handleKeyup)
+    document.addEventListener('keydown', this.keydownHandle)
   }
 
   unbindEvent() {
@@ -364,11 +325,9 @@ export default class VueSlider extends Vue {
     document.removeEventListener('mousemove', this.dragMove)
     document.removeEventListener('mouseup', this.dragEnd)
     document.removeEventListener('mouseleave', this.dragEnd)
-    document.removeEventListener('keydown', this.handleKeydown)
-    document.removeEventListener('keyup', this.handleKeyup)
+    document.removeEventListener('keydown', this.keydownHandle)
   }
 
-  // 获取组件比例
   setScale() {
     this.scale = new Decimal(
       Math.floor(this.isHorizontal ? this.$el.offsetWidth : this.$el.offsetHeight),
@@ -377,7 +336,6 @@ export default class VueSlider extends Vue {
       .toNumber()
   }
 
-  // 初始化
   initControl() {
     this.control = new Control({
       value: this.value,
@@ -415,15 +373,13 @@ export default class VueSlider extends Vue {
     })
   }
 
-  // 判断滑块是否禁用状态
   isDisabledByDotIndex(index: number): boolean {
     return this.dots[index].disabled
   }
 
-  // 同步值
   private syncValueByPos() {
     let values = this.control.dotsValue
-    // 当开启 included 时，返回值为离最近的 mark 的值
+    // When included is true, the return value is the value of the nearest mark
     if (this.included && this.control.markList.length > 0) {
       const getRecentValue = (val: Value) => {
         let curValue = val
@@ -446,7 +402,7 @@ export default class VueSlider extends Vue {
     }
   }
 
-  // 判断当前值和组件内部值是否不一致
+  // Slider value and component internal value are inconsistent
   private get isNotSync() {
     const values = this.control.dotsValue
     return Array.isArray(this.value)
@@ -454,12 +410,10 @@ export default class VueSlider extends Vue {
       : this.value !== values[0]
   }
 
-  // 判断值是否发生变化
   private isDiff(value1: Value[], value2: Value[]) {
     return value1.length !== value2.length || value1.some((val, index) => val !== value2[index])
   }
 
-  // 返回错误
   private emitError(type: ERROR_TYPE, message: string) {
     this.$emit('error', {
       type,
@@ -468,11 +422,11 @@ export default class VueSlider extends Vue {
   }
 
   /**
-   * 得到滑块的拖拽范围
+   * Get the drag range of the slider
    *
    * @private
-   * @param {number} index 滑块索引
-   * @returns {[number, number]} 范围 [start, end]
+   * @param {number} index slider index
+   * @returns {[number, number]} range [start, end]
    * @memberof VueSlider
    */
   private get dragRange(): [number, number] {
@@ -481,7 +435,6 @@ export default class VueSlider extends Vue {
     return [prevDot ? prevDot.pos : -Infinity, nextDot ? nextDot.pos : Infinity]
   }
 
-  // 拖拽开始
   private dragStart(index: number) {
     this.focusDotIndex = index
     this.setScale()
@@ -490,15 +443,14 @@ export default class VueSlider extends Vue {
     this.$emit('dragStart')
   }
 
-  // 拖拽中
   private dragMove(e: MouseEvent | TouchEvent) {
     if (!this.states.has(SliderState.Drag)) {
       return false
     }
     e.preventDefault()
     const pos = this.getPosByEvent(e)
-    // 如果组件是排序的，那当滑块交叉时，切换当前选中的滑块索引
-    if (this.isOrder) {
+    // If the component is sorted, then when the slider crosses, toggle the currently selected slider index
+    if (this.canSort) {
       const curIndex = this.focusDotIndex
       let curPos = pos
       if (curPos > this.dragRange[1]) {
@@ -519,29 +471,24 @@ export default class VueSlider extends Vue {
     this.$emit('dragging')
   }
 
-  // 拖拽结束
   private dragEnd() {
     if (!this.states.has(SliderState.Drag)) {
       return false
-    }
-    if (this.isOrder) {
-      this.control.sortDotsPos()
     }
     if (this.lazy) {
       this.syncValueByPos()
     }
 
     setTimeout(() => {
-      // included = true 的情况下，拖拽完毕需强制更新组件内部值
       if (this.included && this.isNotSync) {
         this.control.setValue(this.value)
       } else {
-        // 拖拽完毕后同步滑块的位置
+        // Sync slider position
         this.control.syncDotsPos()
       }
 
       this.states.delete(SliderState.Drag)
-      // 仅当支持键盘操作模式时，拖拽完毕后保留 FOCUS 状态
+      // If useKeyboard is true, keep focus status after dragging
       if (!this.useKeyboard) {
         this.states.delete(SliderState.FOCUS)
       }
@@ -549,8 +496,7 @@ export default class VueSlider extends Vue {
     })
   }
 
-  // 判断组件是否失去焦点
-  private isBlurSlider(e: MouseEvent) {
+  private blurHandle(e: MouseEvent) {
     if (
       !this.states.has(SliderState.FOCUS) ||
       !this.$refs.container ||
@@ -561,7 +507,6 @@ export default class VueSlider extends Vue {
     this.states.delete(SliderState.FOCUS)
   }
 
-  // 处理点击事件
   private clickHandle(e: MouseEvent | TouchEvent) {
     if (this.states.has(SliderState.Drag)) {
       return
@@ -581,18 +526,15 @@ export default class VueSlider extends Vue {
     }
 
     setTimeout(() => {
-      // included = true 的情况下，拖拽完毕需强制更新组件内部值
       if (this.included && this.isNotSync) {
         this.control.setValue(this.value)
       } else {
-        // 拖拽完毕后同步滑块的位置
         this.control.syncDotsPos()
       }
     })
   }
 
-  // 处理键盘按键按下
-  handleKeydown(e: KeyboardEvent) {
+  keydownHandle(e: KeyboardEvent) {
     if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
       return false
     }
@@ -611,25 +553,14 @@ export default class VueSlider extends Vue {
         this.control.parseValue(this.control.getValueByIndex(newIndex)),
         this.focusDotIndex,
       )
+      this.syncValueByPos()
     }
   }
 
-  // 处理键盘按键弹起
-  handleKeyup(e: KeyboardEvent) {
-    if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
-      return false
-    }
-  }
-
-  // 获取鼠标的位置
   private getPosByEvent(e: MouseEvent | TouchEvent): number {
-    return (
-      getPos(e, this.$el as HTMLDivElement, this.isReverse)[this.isHorizontal ? 'x' : 'y'] /
-      this.scale
-    )
+    return getPos(e, this.$el, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
   }
 
-  // 渲染 slot
   private renderSlot<T>(name: string, data: T, defaultSlot: any, isDefault?: boolean): any {
     const scopedSlot = this.$scopedSlots[name]
     return scopedSlot ? (
@@ -646,7 +577,6 @@ export default class VueSlider extends Vue {
   render() {
     return (
       <div
-        v-show={this.show}
         ref="container"
         class={this.containerClasses}
         style={this.containerStyles}
@@ -695,7 +625,6 @@ export default class VueSlider extends Vue {
             <vue-slider-dot
               ref={`dot-${index}`}
               key={`dot-${index}`}
-              dotSize={this.dotSize}
               value={dot.value}
               disabled={dot.disabled}
               focus={dot.focus}

@@ -1,7 +1,7 @@
 type Operator = '+' | '-' | '*' | '/' | '%'
 
 /**
- * 用于任意精准的浮点计算
+ * For any precise floating point calculation
  *
  * @export
  * @class Decimal
