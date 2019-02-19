@@ -26,7 +26,7 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 
 ## 💽 install
 ```bash
-$ yarn add vue-slider-component@bate
+$ yarn add vue-slider-component@beta
 ```
 
 ## 🚀 Usage
