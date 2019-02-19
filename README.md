@@ -7,7 +7,8 @@
 
 > 🎚 a highly customized slider component
 
-English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md)
+English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README-CN.md)
+
 
 ## 🚴 Todo
 
@@ -16,18 +17,21 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 - [ ] Document
 - [ ] Test
 
+
 ## ✨ New Features (v3.x)
-- 🤣 Fix [exceptions](https://github.com/NightCatSama/vue-slider-component#exceptions)
-- 🔧 More customizable
+- 🔧 Fix [exceptions](https://github.com/NightCatSama/vue-slider-component#exceptions)
+- 🍖 More customizable
 - 👗 Multiple style themes
 - 🐳 Support for more sliders
 - 📌 Add marks
 - 🎉 Support SSR
 
-## 💽 install
+
+## 🎯 install
 ```bash
 $ yarn add vue-slider-component@beta
 ```
+
 
 ## 🚀 Usage
 ```vue
@@ -51,3 +55,7 @@ export default {
 }
 </script>
 ```
+
+## License
+
+[MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)

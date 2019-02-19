@@ -6,7 +6,8 @@
 
 > 🎚 一个高度定制化的滑块组件
 
-[English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
+[English](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README.md) | 简体中文
+
 
 ## 🚴 Todo
 
@@ -15,18 +16,21 @@
 - [ ] 文档
 - [ ] 测试
 
+
 ## ✨ 新特性(v3.x)
-- 🤣 修复了[异常](https://github.com/NightCatSama/vue-slider-component#exceptions)
-- 🔧 更加可定制化
+- 🔧 修复了[异常](https://github.com/NightCatSama/vue-slider-component#exceptions)
+- 🍖 更加可定制化
 - 👗 多种样式主题
 - 🐳 支持更多的滑块
 - 📌 增加标志设置
 - 🎉 支持 SSR
 
-## 💽 安装
+
+## 🎯 安装
 ```bash
 $ yarn add vue-slider-component@beta
 ```
+
 
 ## 🚀 使用
 ```vue
