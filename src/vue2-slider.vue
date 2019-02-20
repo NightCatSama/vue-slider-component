@@ -161,7 +161,7 @@
           >
             <span
               v-if="piecewise"
-              class="vue-slider-piecewise-dot"
+              class="vue-slider-piecewise-dot" :class="{ 'active': isActive(piecewiseObj.index)}"
               :style="[ piecewiseStyle, isActive(piecewiseObj.index) ? piecewiseActiveStyle : null ]"
             ></span>
           </slot>
