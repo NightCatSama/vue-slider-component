@@ -501,7 +501,7 @@
         if (this.isRange) {
           return this.data ? this.currentValue : [this.getIndexByValue(this.currentValue[0]), this.getIndexByValue(this.currentValue[1])]
         } else {
-          return this.getIndexByValue(this.currentValue)
+          return this.data ? this.currentValue : this.getIndexByValue(this.currentValue);
         }
       },
       indexRange () {
