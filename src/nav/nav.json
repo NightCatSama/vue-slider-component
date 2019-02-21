@@ -1,0 +1,13 @@
+{
+  "Basics": [{
+    "emoji": "🚀",
+    "name": "QuickStart",
+    "route": "/",
+    "component": "QuickStart.md"
+  }, {
+    "emoji": "🔑",
+    "name": "API Reference",
+    "route": "/api",
+    "component": "API.md"
+  }]
+}

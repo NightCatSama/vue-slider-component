@@ -1,208 +1,50 @@
 <template>
   <div id="app">
-    <vue-slider
-      class="slider"
-      v-model="value"
-      v-bind="sliderOptions"
-      @error="({ type, message }) => log('error', type, message)"
-      @dragStart="setSpeed(0)"
-      @dragEnd="setSpeed(0.5)"
-      @change="val => log('change', val)"
-    >
-    </vue-slider>
-    <vue-slider
-      v-if="show"
-      class="slider"
-      v-model="value"
-      :direction="'rtl'"
-      :tooltip-placement="'bottom'"
-      :hide-label="true"
-      :disabled="false"
-      v-bind="sliderOptions"
-      @error="({ type, message }) => log('error', type, message)"
-      @dragStart="setSpeed(0)"
-      @dragEnd="setSpeed(0.5)"
-    />
-    <div style="display: flex">
-      <vue-slider
-        v-if="show"
-        class="slider"
-        v-model="value"
-        :height="sliderOptions.width"
-        :width="sliderOptions.height"
-        :direction="'ttb'"
-        v-bind="sliderOptions"
-        @error="({ type, message }) => log('error', type, message)"
-        @dragStart="setSpeed(0)"
-        @dragEnd="setSpeed(0.5)"
-      >
-      </vue-slider>
-      <vue-slider
-        v-if="show"
-        class="slider"
-        v-model="value"
-        :height="sliderOptions.width"
-        :width="sliderOptions.height"
-        :direction="'btt'"
-        v-bind="sliderOptions"
-        @error="({ type, message }) => log('error', type, message)"
-        @dragStart="setSpeed(0)"
-        @dragEnd="setSpeed(0.5)"
-      />
-    </div>
-    <h1 @click="sliderOptions.min += 10">{{ value }}</h1>
+    <navbar></navbar>
+    <article class="markdown-body">
+      <router-view></router-view>
+    </article>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VueSlider, { VueSliderMark } from '../lib'
-import '../lib/theme/antd.scss'
+import navbar from './components/navbar.vue'
 
 @Component({
   components: {
-    VueSlider,
-    VueSliderMark
-  },
+    navbar
+  }
 })
 export default class App extends Vue {
-  // value = 0
-  value = [20, 40]
-  // value = ['01', '03']
-  show = false
-
-  sliderOptions = {
-    width: 320,
-    // height: 8,
-    // width: 6,
-    // height: 380,
-    // dotSize: 20,
-    min: -30,
-    max: 180,
-    interval: 1,
-    speed: .5,
-    // tooltip: 'always',
-    // tooltipFormatter: (val: string) => `${val}℃`,
-    // tooltipPlacement: 'bottom',
-    // useKeyboard: false,
-    order: false,
-    // disabled: true,
-    // enableCross: false,
-    // direction: 'ttb',
-    // fixed: true,
-    // lazy: true,
-    // minRange: 20,
-    // maxRange: 60,
-    // interval: 2,
-    // data: ['01', '02', '03', '04', '05', '06'],
-    // process: false,
-    // process: (dots: any) => [[0, dots[0], {
-    //   backgroundColor: 'blue'
-    // }], [dots[1], 100, {
-    //   backgroundColor: 'red'
-    // }]],
-    // included: true,
-    // marks: true,
-    // marks: (value: number) => value % 20 === 0 && ({ label: value, stepStyle: { height: '20px', width: '20px' }}),
-    // marks: {
-    //   '-30': {
-    //     label: '-30℃',
-    //     labelStyle: {
-    //       color: 'blue'
-    //     }
-    //   },
-    //   '0': '0℃',
-    //   '26': '26℃',
-    //   '60': '60℃',
-    //   '180': {
-    //     label: '180℃',
-    //     labelStyle: {
-    //       color: 'red',
-    //     },
-    //   },
-    // },
-    // marks: [0, 20, 40, 60, 80, 100],
-    // hideLabel: true,
-    // marks: [-20, 300, 1000, 2000],
-    // marks: (value: number) =>
-    //   [-20, 300, 1000, 2000].indexOf(value) > -1 ?
-    //     { label: value + '℃', style: { color: 'pink' }} :
-    //     false,
-    // tailStyle: {
-    //   backgroundColor: '#ccc',
-    //   boxShadow: 'inset 1px 1px 0 0 rgba(0, 0, 0, .26)'
-    // },
-    // dotStyle: {
-    //   style: {
-    //     borderColor: 'pink'
-    //   }
-    // },
-    // dotOptions: [
-    //   {
-    //     disabled: false
-    //   },
-    //   {
-    //     disabled: true
-    //   }
-    // ],
-    // enableCross: false
-    // dotOptions: [
-    //   {
-    //     disabledStyle: {
-    //       opacity: .6
-    //     },
-    //     style: {
-    //       backgroundColor: 'pink',
-    //       border: 'none'
-    //     },
-    //   },
-    //   {
-    //     disabledStyle: {
-    //       opacity: .6
-    //     },
-    //     style: {
-    //       backgroundColor: 'blue',
-    //       border: 'none'
-    //     },
-    //   },
-    //   {
-    //     // disabled: true,
-    //     disabledStyle: {
-    //       opacity: .6
-    //     },
-    //     style: {
-    //       backgroundColor: 'green',
-    //       border: 'none'
-    //     },
-    //   },
-    // ],
-  }
-
-  log(name: string, ...args: any[]) {
-    console.log(`[${name} Log]:`, args)
-  }
-
-  setSpeed(speed: number) {
-    this.sliderOptions.speed = speed
-  }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@import './styles/media';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.slider {
-  margin: 40px;
+#app {
+  display: flex;
+  font-family: Avenir,-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif;
+  color: #2c3e50;
+  overflow: hidden;
+
+  .markdown-body {
+    font-family: inherit;
+    flex: 1;
+    padding: 50px 80px;
+    overflow: auto;
+    @include max-screen(992px) {
+      & {
+        padding: 30px 20px 20px;
+      }
+    }
+  }
 }
 </style>

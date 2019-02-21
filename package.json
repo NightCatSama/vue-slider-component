@@ -62,7 +62,9 @@
     "typescript": "^3.0.0",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
+    "vue-markdown-loader": "^2.4.1",
     "vue-property-decorator": "^7.0.0",
+    "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.6.6"
   }
 }

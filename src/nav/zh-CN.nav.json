@@ -1,0 +1,13 @@
+{
+  "": [{
+    "emoji": "🚀",
+    "name": "快速开始",
+    "route": "/zh-CN/",
+    "component": "QuickStart.md"
+    }, {
+      "emoji": "🔑",
+      "name": "API 参考",
+      "route": "/zh-CN/api",
+      "component": "API.md"
+    }]
+}
