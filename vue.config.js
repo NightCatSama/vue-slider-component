@@ -1,8 +1,9 @@
 module.exports = {
+  outputDir: process.env.VUE_APP_BUILD_MODE === 'package' ? 'dist' : 'docs',
   configureWebpack: {
     output: {
-      libraryExport: 'default'
-    }
+      libraryExport: 'default',
+    },
   },
-  css: { extract: false }
+  css: { extract: false },
 }

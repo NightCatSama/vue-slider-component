@@ -25,11 +25,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:library": "npm run package && npm run sass",
-    "package": "vue-cli-service build --target lib --name vue-slider-component lib/index.ts",
+    "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "sass": "sass lib/theme:theme",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "deploy:docs": "sh scripts/deploy.sh"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
