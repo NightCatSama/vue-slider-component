@@ -1,7 +1,11 @@
 <template>
   <div :class="['navbar', { hide }]">
     <div class="hide-btn" @click="hide = true"></div>
-    <div class="switch-btn" @click="hide = !hide"></div>
+    <div class="btn-group">
+      <div class="btn switch-btn" @click="hide = !hide"></div>
+      <div class="btn language-btn" @click="switchLanguage">{{ nextLanguage }}</div>
+      <a class="btn github-btn" :href="homePageUrl" target="_blank"></a>
+    </div>
     <div class="site-info">
       <div class="name">{{ name }}</div>
       <div class="version">v{{ version }}</div>
@@ -13,15 +17,16 @@
         class="nav-group"
       >
         <div class="nav-title">{{ title }}</div>
-        <div
+        <router-link
           v-for="(item, index) in list"
           :key="index"
           class="nav-item"
-          @click="$router.push({ path: item.route })"
+          :to="$route.meta.lang + item.route"
+          exact
         >
           <span class="nav-emoji">{{ item.emoji }}</span>
           <span class="nav-name">{{ item.name }}</span>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -30,16 +35,29 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import packageInfo from '../../package.json'
-import { getNavObj } from '../nav/'
+import { getNavObj, LANG } from '../nav/'
 
 @Component({})
 export default class Navbar extends Vue {
   hide = false
   name = packageInfo.name
   version = packageInfo.version
+  homePageUrl = packageInfo.homepage
+
+  get nextLanguage() {
+    return this.$route.meta.lang === LANG.ENGLISH ? '🇨🇳' : '🇺🇸'
+  }
 
   get navObj() {
     return getNavObj(this.$route.meta.lang)
+  }
+
+  switchLanguage() {
+    this.$router.push({
+      path: (
+        this.$route.meta.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH
+      ) + this.$route.meta.route
+    })
   }
 }
 </script>
@@ -48,7 +66,7 @@ export default class Navbar extends Vue {
   @import '../styles/var';
   @import '../styles/media';
 
-  $width: 250px;
+  $width: 320px;
   $bgColor: #f2f4f6;
   $gap: 30px;
   $navFont: #7e99b6;
@@ -59,6 +77,7 @@ export default class Navbar extends Vue {
     height: 100vh;
     background-color: $bgColor;
     transition: all .5s;
+    z-index: 99;
     &.hide {
       margin-left: -$width;
     }
@@ -73,20 +92,6 @@ export default class Navbar extends Vue {
       background-image: url('../assets/close.png');
       background-size: 100%;
       background-repeat: no-repeat;
-    }
-    .switch-btn {
-      position: absolute;
-      right: 0;
-      top: 10px;
-      width: 28px;
-      height: 28px;
-      transform: translateX(38px);
-      cursor: pointer;
-      background-image: url('../assets/menu.png');
-      background-size: 16px;
-      background-repeat: no-repeat;
-      background-color: $bgColor;
-      background-position: center;
     }
     @include max-screen(992px) {
       & {
@@ -104,14 +109,62 @@ export default class Navbar extends Vue {
       }
     }
 
+    .btn-group {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      transform: translateX(10px);
+
+      .btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        background-color: $bgColor;
+        margin-top: 10px;
+        display: block;
+      }
+
+      .switch-btn {
+        background-image: url('../assets/menu.png');
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .language-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .github-btn {
+        background-image: url('../assets/github.png');
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      @include max-screen(992px) {
+        & {
+          display: flex;
+          align-items: flex-start;
+          transform: translateX(0);
+          .btn {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
     .site-info {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      padding: $gap;
+      padding: ($gap * 2) $gap;
 
       .name {
-        font-size: 18px;
+        font-size: 24px;
         font-weight: bold;
       }
       .version {
@@ -124,7 +177,7 @@ export default class Navbar extends Vue {
       padding: 0 $gap;
 
       .nav-group {
-        margin-bottom: 15px;
+        margin: 0 0 $gap;
 
         .nav-title {
           font-size: 18px;
@@ -133,9 +186,11 @@ export default class Navbar extends Vue {
           margin-bottom: 5px;
         }
         .nav-item {
+          display: block;
           padding: 5px 0;
           color: $navFont;
           cursor: pointer;
+          text-decoration: none;
 
           .nav-name {
             position: relative;
@@ -152,7 +207,8 @@ export default class Navbar extends Vue {
               transform-origin: left;
             }
           }
-          &:hover .nav-name::after {
+          &:hover .nav-name::after,
+          &.router-link-active .nav-name::after {
             transform: scale(1);
           }
         }

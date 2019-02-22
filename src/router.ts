@@ -10,4 +10,9 @@ const router = new Router({
   routes,
 })
 
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title} | Vue Slider Component`
+  next()
+})
+
 export default router

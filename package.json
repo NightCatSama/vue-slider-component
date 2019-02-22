@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/NightCatSama/vue-slider-component/issues"
   },
-  "homepage": "https://github.com/NightCatSama/vue-slider-component#readme",
+  "homepage": "https://github.com/NightCatSama/vue-slider-component",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

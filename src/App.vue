@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <navbar></navbar>
-    <article class="markdown-body">
-      <router-view></router-view>
-    </article>
+    <navbar />
+    <section class="content">
+      <div class="markdown-body">
+        <router-view />
+        <page-footer />
+      </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import navbar from './components/navbar.vue'
+import Navbar from './components/Navbar.vue'
+import PageFooter from './components/PageFooter.vue'
 
 @Component({
   components: {
-    navbar
+    Navbar,
+    PageFooter
   }
 })
 export default class App extends Vue {
@@ -21,6 +26,7 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
+@import './styles/var';
 @import './styles/media';
 
 * {
@@ -31,19 +37,44 @@ export default class App extends Vue {
 
 #app {
   display: flex;
+  font-size: 14px;
   font-family: Avenir,-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif;
   color: #2c3e50;
+  height: 100vh;
   overflow: hidden;
+
+  .content {
+    flex: 1;
+    overflow: auto;
+  }
 
   .markdown-body {
     font-family: inherit;
-    flex: 1;
-    padding: 50px 80px;
-    overflow: auto;
+    max-width: 860px;
+    padding: 120px 60px 40px;
+    margin: 0 auto;
+    color: #34495e;
     @include max-screen(992px) {
       & {
-        padding: 30px 20px 20px;
+        padding: 50px 25px 20px;
+        width: 100%;
       }
+    }
+
+    h2, h3 {
+      margin-top: 90px;
+    }
+
+    ol {
+      margin-top: 30px;
+    }
+
+    code:not([class^="language-"]) {
+      color: $main;
+      padding: 3px 5px;
+      margin: 0 2px;
+      border-radius: 2px;
+      white-space: nowrap;
     }
   }
 }

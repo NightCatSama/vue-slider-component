@@ -21,12 +21,14 @@ import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
 import State, { StateMap } from './utils/state'
 
+export { ERROR_TYPE }
+
 import './styles/slider.scss'
 
 export const SliderState: StateMap = {
   None: 0,
   Drag: 1 << 0,
-  FOCUS: 2 << 0,
+  Focus: 2 << 0,
 }
 
 const DEFAULT_SLIDER_SIZE = 4
@@ -60,6 +62,12 @@ export default class VueSlider extends Vue {
   @Model('change', { default: 0 })
   value!: Value | Value[]
 
+  @Prop({
+    default: 'ltr',
+    validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1,
+  })
+  direction!: Direction
+
   @Prop(Number) width?: number
 
   @Prop(Number) height?: number
@@ -67,9 +75,6 @@ export default class VueSlider extends Vue {
   // The size of the slider, optional [width, height] | size
   @Prop({ default: 14 })
   dotSize!: [number, number] | number
-
-  @Prop({ default: 'ltr', validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1 })
-  direction!: Direction
 
   @Prop({ type: Number, default: 0 })
   min!: number
@@ -80,7 +85,8 @@ export default class VueSlider extends Vue {
   @Prop({ type: Number, default: 1 })
   interval!: number
 
-  @Prop() disabled?: boolean
+  @Prop({ type: Boolean, default: false })
+  disabled!: boolean
 
   // The duration of the slider slide, Unit second
   @Prop({ type: Number, default: 0.5 })
@@ -135,7 +141,7 @@ export default class VueSlider extends Vue {
 
   @Prop() processStyle?: Styles
 
-  @Prop() dotStyle?: DotStyle
+  @Prop() dotStyle?: Styles
 
   @Prop() dotOptions?: DotOption | DotOption[]
 
@@ -272,9 +278,9 @@ export default class VueSlider extends Vue {
     return this.control.dotsPos.map((pos, index) => ({
       pos,
       value: this.control.dotsValue[index],
-      focus: this.states.has(SliderState.FOCUS) && this.focusDotIndex === index,
+      focus: this.states.has(SliderState.Focus) && this.focusDotIndex === index,
       disabled: false,
-      ...this.dotStyle,
+      style: this.dotStyle,
       ...((Array.isArray(this.dotOptions) ? this.dotOptions[index] : this.dotOptions) || {}),
     }))
   }
@@ -353,7 +359,6 @@ export default class VueSlider extends Vue {
       onError: this.emitError,
     })
     ;[
-      'value',
       'data',
       'enableCross',
       'fixed',
@@ -367,8 +372,19 @@ export default class VueSlider extends Vue {
       'process',
     ].forEach(name => {
       this.$watch(name, (val: any) => {
+        if (
+          name === 'data' &&
+          Array.isArray(this.control.data) &&
+          Array.isArray(val) &&
+          this.control.data.length === val.length &&
+          val.every((item, index) => item === (this.control.data as Value[])[index])
+        ) {
+          return false
+        }
         ;(this.control as any)[name] = val
-        this.control.syncDotsPos()
+        if (['data', 'max', 'min', 'interval'].includes(name)) {
+          this.control.syncDotsPos()
+        }
       })
     })
   }
@@ -439,7 +455,7 @@ export default class VueSlider extends Vue {
     this.focusDotIndex = index
     this.setScale()
     this.states.add(SliderState.Drag)
-    this.states.add(SliderState.FOCUS)
+    this.states.add(SliderState.Focus)
     this.$emit('dragStart')
   }
 
@@ -449,7 +465,17 @@ export default class VueSlider extends Vue {
     }
     e.preventDefault()
     const pos = this.getPosByEvent(e)
-    // If the component is sorted, then when the slider crosses, toggle the currently selected slider index
+    this.isCrossDot(pos)
+    this.control.setDotPos(pos, this.focusDotIndex)
+    if (!this.lazy) {
+      this.syncValueByPos()
+    }
+    const value = this.control.dotsValue
+    this.$emit('dragging', value.length === 1 ? value[0] : value)
+  }
+
+  // If the component is sorted, then when the slider crosses, toggle the currently selected slider index
+  private isCrossDot(pos: number) {
     if (this.canSort) {
       const curIndex = this.focusDotIndex
       let curPos = pos
@@ -464,11 +490,6 @@ export default class VueSlider extends Vue {
         this.control.setDotPos(curPos, curIndex)
       }
     }
-    this.control.setDotPos(pos, this.focusDotIndex)
-    if (!this.lazy) {
-      this.syncValueByPos()
-    }
-    this.$emit('dragging')
   }
 
   private dragEnd() {
@@ -490,7 +511,7 @@ export default class VueSlider extends Vue {
       this.states.delete(SliderState.Drag)
       // If useKeyboard is true, keep focus status after dragging
       if (!this.useKeyboard) {
-        this.states.delete(SliderState.FOCUS)
+        this.states.delete(SliderState.Focus)
       }
       this.$emit('dragEnd')
     })
@@ -498,13 +519,13 @@ export default class VueSlider extends Vue {
 
   private blurHandle(e: MouseEvent) {
     if (
-      !this.states.has(SliderState.FOCUS) ||
+      !this.states.has(SliderState.Focus) ||
       !this.$refs.container ||
       this.$refs.container.contains(e.target as Node)
     ) {
       return false
     }
-    this.states.delete(SliderState.FOCUS)
+    this.states.delete(SliderState.Focus)
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
@@ -522,7 +543,7 @@ export default class VueSlider extends Vue {
     this.syncValueByPos()
 
     if (this.useKeyboard) {
-      this.states.add(SliderState.FOCUS)
+      this.states.add(SliderState.Focus)
     }
 
     setTimeout(() => {
@@ -535,7 +556,7 @@ export default class VueSlider extends Vue {
   }
 
   keydownHandle(e: KeyboardEvent) {
-    if (!this.useKeyboard || !this.states.has(SliderState.FOCUS)) {
+    if (!this.useKeyboard || !this.states.has(SliderState.Focus)) {
       return false
     }
 
@@ -549,10 +570,9 @@ export default class VueSlider extends Vue {
       e.preventDefault()
       const index = this.control.getIndexByValue(this.control.dotsValue[this.focusDotIndex])
       const newIndex = handleFunc(index)
-      this.control.setDotPos(
-        this.control.parseValue(this.control.getValueByIndex(newIndex)),
-        this.focusDotIndex,
-      )
+      const pos = this.control.parseValue(this.control.getValueByIndex(newIndex))
+      this.isCrossDot(pos)
+      this.control.setDotPos(pos, this.focusDotIndex)
       this.syncValueByPos()
     }
   }

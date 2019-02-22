@@ -12,6 +12,8 @@ module.exports = {
       .loader('vue-markdown-loader/lib/markdown-compiler')
       .options({
         raw: true,
+        preventExtract: true,
+        wrapper: 'article',
       })
   },
   css: { extract: false },

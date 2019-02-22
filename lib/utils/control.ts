@@ -193,6 +193,11 @@ export default class Control {
    * @memberof Control
    */
   getValueByIndex(index: number): Value {
+    if (index < 0) {
+      index = 0
+    } else if (index > this.total) {
+      index = this.total
+    }
     return this.data
       ? this.data[index]
       : new Decimal(index)

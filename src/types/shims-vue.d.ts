@@ -4,6 +4,7 @@ declare module '*.vue' {
 }
 
 declare module '*nav.json' {
+  import { NavObj } from 'src/nav'
   const obj: NavObj
   export default obj
 }
