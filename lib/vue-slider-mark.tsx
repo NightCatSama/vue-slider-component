@@ -45,6 +45,11 @@ export default class VueSlideMark extends Vue {
     ]
   }
 
+  labelClickHandle(e: MouseEvent | TouchEvent) {
+    e.stopPropagation()
+    this.$emit('pressLabel', this.mark.pos)
+  }
+
   render() {
     const mark = this.mark
     return (
@@ -70,6 +75,7 @@ export default class VueSlideMark extends Vue {
                   mark.active ? this.labelActiveStyle : null,
                   mark.active ? mark.labelActiveStyle : null,
                 ]}
+                onClick={this.labelClickHandle}
               >
                 {mark.label}
               </div>

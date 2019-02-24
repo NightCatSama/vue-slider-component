@@ -114,7 +114,7 @@ export default class VueSlider extends Vue {
   tooltipFormatter?: TooltipFormatter
 
   // Keyboard control
-  @Prop(Boolean)
+  @Prop({ type: Boolean, default: false })
   useKeyboard?: boolean
 
   // Whether to allow sliders to cross, only in range mode
@@ -137,23 +137,24 @@ export default class VueSlider extends Vue {
   // Maximum distance between sliders, only in range mode
   @Prop(Number) maxRange?: number
 
-  @Prop() tailStyle?: Styles
-
-  @Prop() processStyle?: Styles
-
-  @Prop() dotStyle?: Styles
-
-  @Prop() dotOptions?: DotOption | DotOption[]
-
-  @Prop({ type: [Boolean, Function], default: true }) process?: ProcessProp
-
-  @Prop([Boolean, Object, Array, Function])
+  @Prop({ type: [Boolean, Object, Array, Function], default: false })
   marks?: MarksProp
+
+  @Prop({ type: [Boolean, Function], default: true })
+  process?: ProcessProp
 
   // If the value is true , mark will be an independent value
   @Prop(Boolean) included?: boolean
 
   @Prop(Boolean) hideLabel?: boolean
+
+  @Prop() dotOptions?: DotOption | DotOption[]
+
+  @Prop() railStyle?: Styles
+
+  @Prop() processStyle?: Styles
+
+  @Prop() dotStyle?: Styles
 
   @Prop() stepStyle?: Styles
 
@@ -534,6 +535,10 @@ export default class VueSlider extends Vue {
     }
     this.setScale()
     const pos = this.getPosByEvent(e)
+    this.setValueByPos(pos)
+  }
+
+  setValueByPos(pos: number) {
     const index = this.control.getRecentDot(pos)
     if (this.isDisabledByDotIndex(index)) {
       return false
@@ -604,7 +609,7 @@ export default class VueSlider extends Vue {
         onClick={this.clickHandle}
       >
         {/* rail */}
-        <div class="vue-slider-rail" style={this.tailStyle}>
+        <div class="vue-slider-rail" style={this.railStyle}>
           {this.processBaseStyleArray.map((baseStyle, index) => (
             <div
               class="vue-slider-process"
@@ -631,6 +636,7 @@ export default class VueSlider extends Vue {
                     stepActiveStyle={this.stepActiveStyle}
                     labelStyle={this.labelStyle}
                     labelActiveStyle={this.labelActiveStyle}
+                    onPressLabel={(pos: number) => this.setValueByPos(pos)}
                   >
                     {this.renderSlot<Mark>('step', mark, null)}
                     {this.renderSlot<Mark>('label', mark, null)}
