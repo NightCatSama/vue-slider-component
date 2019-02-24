@@ -8,5 +8,31 @@
     "name": "API 参考",
     "route": "api",
     "component": "API.md"
-  }]
+  }],
+  "用例": [
+    {
+      "emoji": "🎈",
+      "name": "一般用法",
+      "route": "basics/simple",
+      "component": "Basics/Simple.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "data",
+      "route": "basics/data",
+      "component": "Basics/Data.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "marks",
+      "route": "basics/marks",
+      "component": "Basics/Marks.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "process",
+      "route": "basics/process",
+      "component": "Basics/Process.md"
+    }
+  ]
 }

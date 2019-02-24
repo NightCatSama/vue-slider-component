@@ -21,6 +21,7 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
+    "no-var-requires": false,
     "member-ordering": [true, {
       "order": [
         "private-constructor",

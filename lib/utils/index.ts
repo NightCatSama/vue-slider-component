@@ -15,9 +15,10 @@ export const getPos = (
   isReverse: boolean,
 ): IPosObject => {
   const event = e instanceof MouseEvent ? e : e.targetTouches[0]
+  const rect = elem.getBoundingClientRect()
   const posObj = {
-    x: event.pageX - elem.offsetLeft,
-    y: event.pageY - elem.offsetTop,
+    x: event.pageX - rect.left,
+    y: event.pageY - rect.top,
   }
   return {
     x: isReverse ? elem.offsetWidth - posObj.x : posObj.x,

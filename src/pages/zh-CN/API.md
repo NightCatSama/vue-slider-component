@@ -14,7 +14,11 @@
   <vue-slider v-model="value" />
   ```
 
-  滑块的值，默认只可使用 `number` 类型，只有当 `data` 存在时，才支持 `string` 类型。
+  滑块的值，默认只可使用 `number` 类型。
+
+  ::: tip
+    只有当 `data` 存在时，才支持 `string` 类型。
+  :::
 
 ### direction
 
@@ -24,9 +28,11 @@
 
 - **用法**：
 
-  `ltr` 的意思是 Left to Right，其他同理
-
   组件的方向，当值为 `ltr` 或者 `rtl`，为水平方向，为 `ttb` 或 `bbt` 时为垂直方向
+
+  ::: tip
+    `ltr` 的意思是 Left to Right，其他同理
+  :::
 
 ### dotSize
 
@@ -46,7 +52,7 @@
 
 - **用法**：
 
-  组件的宽度（单位 `px`），水平方向时默认为 `auto`，垂直方向时默认为 `4`.
+  组件的宽度（单位 `px`），水平方向时默认为 `auto`，垂直方向时默认为 `4`。
 
 ### height
 
@@ -56,7 +62,11 @@
 
 - **用法**：
 
-  组件的高度（单位 `px`），水平方向时默认为 `4`，垂直方向时必填，否则无法正常渲染.
+  组件的高度（单位 `px`），水平方向时默认为 `4`。
+
+::: warning
+  垂直方向时必填，否则无法正常渲染。
+:::
 
 ### data
 
@@ -71,6 +81,8 @@
   ```html
   <vue-slider :data="['A', 'B', 'C', 'D']" v-model="value" />
   ```
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/data'">data</router-link>
 
 ### min
 
@@ -100,7 +112,11 @@
 
 - **用法**：
 
-  两个值的间隔，必须能被最大值和最小值的差整除。
+  两个值的间隔。
+
+  ::: tip
+    取值必须大于 0，并且可被 (max - min) 整除
+  :::
 
 ### disabled
 
@@ -178,8 +194,6 @@
 
 ### tooltipFormatter
 
-> 2.4.0 新增
-
 - **类型**：`string | (val: number | number) => string`
 
 - **默认值**：`undefined`
@@ -199,3 +213,213 @@
       :tooltip-formatter="val => val.toUpperCase()"
     />
   ```
+
+### useKeyboard
+
+- **类型**：`boolean`
+
+- **默认值**：`false`
+
+- **用法**：
+
+  键盘控制
+
+### enableCross
+
+- **类型**：`boolean`
+
+- **默认值**：`true`
+
+- **用法**：
+
+  是否允许滑块交叉，仅在多个滑块时有效
+
+### fixed
+
+- **类型**：`boolean`
+
+- **默认值**：`false`
+
+- **用法**：
+
+  是否固定滑块间隔，仅在多个滑块时有效
+
+### order
+
+- **类型**：`boolean`
+
+- **默认值**：`true`
+
+- **用法**：
+
+  是否排序值，仅在多个滑块时有效
+
+  例如 当值为 `false` 时，`[50, 30]` 将不会自动排序为 `[30, 50]`
+
+  ::: warning
+    当值为 `false` 时，参数 `minRange`，`maxRange`，`fixed`，`enableCross` 无效
+  :::
+
+### minRange
+
+- **类型**：`number`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  滑块之间的最小距离，仅在多个滑块时有效
+
+### maxRange
+
+- **类型**：`number`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  滑块之间的最大距离，仅在多个滑块时有效
+
+### marks
+
+- **类型**：`boolean | Marks | Array<number | string> | MarksFunction`
+
+  ```ts
+  interface Mark {
+    key: string]: string | MarkOption
+  }
+  interface MarkOption {
+    label: Value
+    style?: Styles
+    activeStyle?: Styles
+    labelStyle?: Styles
+    labelActiveStyle?: Styles
+  }
+  type MarksFunction = (value: Value) => boolean | MarkOption
+  ```
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  标志
+
+### dotOptions
+
+- **类型**：`DotOption | DotOption[]`
+
+  ```ts
+  interface DotOption {
+    disabled: boolean
+    tooltip: 'none' | 'always' | 'focus'
+    style: Object
+    focusStyle: Object
+    disabledStyle: Object
+    tooltipStyle: Object
+    tooltipFocusStyle: Object
+    tooltipDisabledStyle: Object
+  }
+  ```
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  滑块设置，多个滑块时可以用数组类型分别设置
+
+### process
+
+- **类型**：`boolean | ProcessFunc`
+
+  ```ts
+
+  type ProcessFunc = (dotsPos: Array<number>) => Array<Array<number, number, Styles?>>
+  ```
+
+- **默认值**：`true`
+
+- **用法**：
+
+  控制轨道的显示，支持多段轨道
+
+  ::: tip
+    当多个滑块时，默认从第一个连接到最后一个
+  :::
+
+### dotStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  滑块样式
+
+  ::: tip
+    如果需要多个滑块区分设置，或者需要设置 `active` 或 `disabled` 样式。请使用 `dotOptions` 参数
+  :::
+
+### railStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  轨道的样式
+
+### processStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  进度条的样式
+
+  ::: tip
+    如果多条轨道样式需要区分设置，请使用 `process` 参数
+  :::
+
+### stepStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  步长的样式
+
+### stepActiveStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  步长激活状态下的样式
+
+### labelStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  标签的样式
+
+### labelActiveStyle
+
+- **类型**：`Object`
+
+- **默认值**：`null`
+
+- **用法**：
+
+  标签激活状态下的样式

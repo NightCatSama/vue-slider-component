@@ -29,6 +29,8 @@ export default class App extends Vue {
 @import './styles/var';
 @import './styles/media';
 
+@import './styles/markdown';
+
 * {
   margin: 0;
   padding: 0;
@@ -48,9 +50,13 @@ export default class App extends Vue {
     overflow: auto;
   }
 
+  .vue-slider:not(:first-child) {
+    margin-top: 45px;
+  }
+
   .markdown-body {
     font-family: inherit;
-    max-width: 860px;
+    max-width: 1040px;
     padding: 120px 60px 40px;
     margin: 0 auto;
     color: #34495e;

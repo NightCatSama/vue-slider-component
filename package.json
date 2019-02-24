@@ -42,7 +42,6 @@
       "git add"
     ]
   },
-  "dependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "^7.3.1",
     "@types/chai": "^4.1.0",
@@ -55,6 +54,7 @@
     "chai": "^4.1.2",
     "commitlint": "^7.3.2",
     "lint-staged": "^8.1.0",
+    "markdown-it-container": "^2.0.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.15.2",
     "sass": "^1.16.0",
@@ -65,6 +65,8 @@
     "vue-markdown-loader": "^2.4.1",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.6.6"
+    "vue-template-compiler": "^2.6.6",
+    "codemirror": "^5.44.0",
+    "vuep": "^0.8.1"
   }
 }

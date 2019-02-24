@@ -1,5 +1,5 @@
 {
-  "Basics": [{
+  "": [{
     "emoji": "🚀",
     "name": "QuickStart",
     "route": "",
@@ -9,5 +9,13 @@
     "name": "API Reference",
     "route": "api",
     "component": "API.md"
-  }]
+  }],
+  "Basics": [
+    {
+      "emoji": "🎈",
+      "name": "data",
+      "route": "basics/data",
+      "component": "Basics/Simple.md"
+    }
+  ]
 }

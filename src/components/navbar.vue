@@ -9,6 +9,14 @@
     <div class="site-info">
       <div class="name">{{ name }}</div>
       <div class="version">v{{ version }}</div>
+      <label for="theme">
+        Theme:
+        <select id="theme" class="theme" v-model="theme" @change="changeTheme">
+          <option value="default">default</option>
+          <option value="antd">antd</option>
+          <option value="material">material</option>
+        </select>
+      </label>
     </div>
     <div class="nav-content">
       <div
@@ -36,6 +44,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import packageInfo from '../../package.json'
 import { getNavObj, LANG } from '../nav/'
+import { getTheme } from '../utils'
 
 @Component({})
 export default class Navbar extends Vue {
@@ -43,6 +52,7 @@ export default class Navbar extends Vue {
   name = packageInfo.name
   version = packageInfo.version
   homePageUrl = packageInfo.homepage
+  theme = getTheme() || 'default'
 
   get nextLanguage() {
     return this.$route.meta.lang === LANG.ENGLISH ? '🇨🇳' : '🇺🇸'
@@ -58,6 +68,12 @@ export default class Navbar extends Vue {
         this.$route.meta.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH
       ) + this.$route.meta.route
     })
+  }
+
+  changeTheme(e: Event) {
+    const theme = (e.target as any).value
+    localStorage.setItem('theme', theme)
+    location.reload()
   }
 }
 </script>
@@ -170,6 +186,10 @@ export default class Navbar extends Vue {
       .version {
         font-size: 14px;
         color: #999;
+      }
+      .theme {
+        margin: 15px 0 0 5px;
+        width: 80px;
       }
     }
 

@@ -67,8 +67,7 @@ $tooltipColor: #fff;
 
   @at-root &-label {
     font-size: 12px;
-    top: auto;
-    bottom: 100%;
+    white-space: nowrap;
   }
 }
 
