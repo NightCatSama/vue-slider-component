@@ -156,6 +156,8 @@ export default class VueSlider extends Vue {
 
   @Prop() dotStyle?: Styles
 
+  @Prop() tooltipStyle?: Styles
+
   @Prop() stepStyle?: Styles
 
   @Prop() stepActiveStyle?: Styles
@@ -661,6 +663,7 @@ export default class VueSlider extends Vue {
               ]}
               tooltip={dot.tooltip || this.tooltip}
               tooltip-style={[
+                this.tooltipStyle,
                 dot.tooltipStyle,
                 dot.disabled ? dot.tooltipDisabledStyle : null,
                 dot.focus ? dot.tooltipFocusStyle : null,
