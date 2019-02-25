@@ -46,8 +46,8 @@ export default class ExampleData extends Vue {
       background-color: #f6f6f6;
       padding: 0 20px;
       .code-btn {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         background-image: url('../assets/code.png');
         background-size: 100%;
         background-repeat: no-repeat;
@@ -68,10 +68,9 @@ export default class ExampleData extends Vue {
       display: flex;
       flex-direction: column;
       height: auto;
-      >div {
-        width: 100%;
-      }
       .vuep-editor {
+        width: 100%;
+        font-size: 14px;
         border-radius: 4px;
         max-height: 0;
         transition: all .5s ease;
@@ -81,6 +80,7 @@ export default class ExampleData extends Vue {
         }
       }
       .vuep-preview {
+        width: 100%;
         overflow: visible;
         margin-top: 20px;
         border-radius: 4px;

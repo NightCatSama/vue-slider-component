@@ -1,20 +1,31 @@
 # Simple
 
-## 单个滑块
+### 单个滑块
 
 <example :value="example1"></example>
 
-## 多个滑块
+### 多个滑块
 
 <example :value="example2"></example>
 
-## 设置滑块范围
+### 设置滑块范围
 
 <example :value="example3"></example>
 
-## 控制滑块方向
+### 控制滑块方向
 
 <example :value="example4"></example>
+
+::: tip
+ - `ltr` 代表着 `left to right`，即自左向右的水平滑块。`rtl/btt/ttb` 同理
+ - 当 `direction` 的值为 `btt` 或 `ttb` 时，需要给定组件一个高度
+:::
+
+### 懒更新
+
+只有当拖拽结束后，值才会更新
+
+<example :value="example5"></example>
 
 <script>
   export default {
@@ -92,16 +103,15 @@
     <vue-slider v-model="value"></vue-slider>
     <vue-slider v-model="value" direction="rtl"></vue-slider>
     <vue-slider
-      style="display: inline-block; margin: 30px;"
       v-model="value"
       direction="btt"
       :height="300"
+      style="display: inline-block; margin: 30px;"
     ></vue-slider>
     <vue-slider
-      style="display: inline-block; margin: 30px 0;"
       v-model="value"
       direction="ttb"
-      :height="300"
+      style="display: inline-block; margin: 30px 0; height: 300px;"
     ></vue-slider>
   </div>
 </template>
@@ -117,7 +127,27 @@
       }
     }
   }
-        `
+        `,
+        example5: `
+<template>
+  <div>
+    <div>value: {{ value }}</div>
+    <vue-slider v-model="value" :lazy="true"></vue-slider>
+  </div>
+</template>
+
+<script>
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value: 0
+      }
+    }
+  }
+      `,
       }
     }
   }

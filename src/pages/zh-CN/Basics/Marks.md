@@ -1,26 +1,26 @@
 # Marks
 
-## 当值为 `true`
+### 当值为 `true`
 
 <example :value="example1"></example>
 
-## 当值的类型为 `Object`
+### 当值的类型为 `Object`
 
 <example :value="example2"></example>
 
-## 当值的类型为 `Array`
+### 当值的类型为 `Array`
 
 <example :value="example3"></example>
 
-## 当值的类型为 `Function`
+### 当值的类型为 `Function`
 
 <example :value="example4"></example>
 
-## 配合 `included` 使用
+### 配合 `included` 使用
 
 <example :value="example5"></example>
 
-## 使用 `hideLabel` 隐藏 label
+### 使用 `hideLabel` 隐藏 label
 
 <example :value="example6"></example>
 

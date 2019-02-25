@@ -67,7 +67,7 @@ export default class App extends Vue {
       }
     }
 
-    h2, h3 {
+    p+h2, p+h3 {
       margin-top: 90px;
     }
 

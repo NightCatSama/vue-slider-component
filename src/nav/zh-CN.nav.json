@@ -33,6 +33,12 @@
       "name": "process",
       "route": "basics/process",
       "component": "Basics/Process.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "tooltip",
+      "route": "basics/tooltip",
+      "component": "Basics/Tooltip.md"
     }
   ]
 }

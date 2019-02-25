@@ -20,20 +20,6 @@
     只有当 `data` 存在时，才支持 `string` 类型。
   :::
 
-### direction
-
-- **类型**：`'ltr' | 'rtl' | 'ttb' | 'bbt'`
-
-- **默认值**：`ltr`
-
-- **用法**：
-
-  组件的方向，当值为 `ltr` 或者 `rtl`，为水平方向，为 `ttb` 或 `bbt` 时为垂直方向
-
-  ::: tip
-    `ltr` 的意思是 Left to Right，其他同理
-  :::
-
 ### dotSize
 
 - **类型**：`number | Array<number, number>`
@@ -64,9 +50,23 @@
 
   组件的高度（单位 `px`），水平方向时默认为 `4`。
 
-::: warning
-  垂直方向时必填，否则无法正常渲染。
-:::
+### direction
+
+- **类型**：`'ltr' | 'rtl' | 'ttb' | 'bbt'`
+
+- **默认值**：`ltr`
+
+- **用法**：
+
+  组件的方向
+
+  `ltr` 的意思是 Left to Right，其他同理
+
+  当值为 `ltr` 或者 `rtl`，为水平方向，为 `ttb` 或 `bbt` 时为垂直方向
+
+  ::: warning
+    垂直方向时，需给定组件一个高度，否则会无法正常渲染。
+  :::
 
 ### data
 
@@ -180,17 +180,11 @@
 
 - **类型**：`'top' | 'right' | 'bottom' | 'left'`
 
-- **默认值**：`'focus'`
+- **默认值**：`'top'` (on horizontal) or `'left'` (on vertical)
 
 - **用法**：
 
   Tooltip 的出现的方位
-
-  当值为 `none` 时，Tooltip 始终不显示；
-
-  当值为 `always` 时，Tooltip 会始终显示；
-
-  当值为 `focus` 时，仅当滑块获得焦点时，Tooltip 才会显示。且当 `useKeyboard` 为 `true` 时，拖拽结束仍会获得焦点。
 
 ### tooltipFormatter
 
