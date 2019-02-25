@@ -25,6 +25,7 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 - 🐳 Support for more sliders
 - 📌 Add marks
 - 🎉 Support SSR
+- 🍒 Support Typescript
 
 
 ## 🎯 install

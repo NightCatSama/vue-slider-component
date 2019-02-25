@@ -8,7 +8,7 @@
 
 <example :value="example2"></example>
 
-### 设置滑块范围
+### 设置值的范围
 
 <example :value="example3"></example>
 
@@ -27,128 +27,14 @@
 
 <example :value="example5"></example>
 
-<script>
-  export default {
-    data () {
-      return {
-        example1: `
-<template>
-  <div>
-    <vue-slider v-model="value"></vue-slider>
-  </div>
-</template>
+### 禁用滑块
 
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value: 0,
-      }
-    }
-  }
-        `,
-        example2: `
-<template>
-  <div>
-    <vue-slider v-model="value_2"></vue-slider>
-    <vue-slider v-model="value_3"></vue-slider>
-    <vue-slider v-model="value_4"></vue-slider>
-  </div>
-</template>
+可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用组件
 
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value_2: [0, 50],
-        value_3: [0, 50, 80],
-        value_4: [0, 50, 80, 100],
-      }
-    }
-  }
-        `,
-        example3: `
-<template>
-  <div>
-    <vue-slider
-      v-model="value"
-      :min="0"
-      :max="1"
-      :interval="0.01"
-    ></vue-slider>
-  </div>
-</template>
+<example :value="example6"></example>
 
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value: 0
-      }
-    }
-  }
-        `,
-        example4: `
-<template>
-  <div class="flex">
-    <vue-slider v-model="value"></vue-slider>
-    <vue-slider v-model="value" direction="rtl"></vue-slider>
-    <vue-slider
-      v-model="value"
-      direction="btt"
-      :height="300"
-      style="display: inline-block; margin: 30px;"
-    ></vue-slider>
-    <vue-slider
-      v-model="value"
-      direction="ttb"
-      style="display: inline-block; margin: 30px 0; height: 300px;"
-    ></vue-slider>
-  </div>
-</template>
+::: warning
+  禁用单个滑块时，请使用 `order = false` 或者 `enableCross = true`。
+:::
 
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value: 0
-      }
-    }
-  }
-        `,
-        example5: `
-<template>
-  <div>
-    <div>value: {{ value }}</div>
-    <vue-slider v-model="value" :lazy="true"></vue-slider>
-  </div>
-</template>
-
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value: 0
-      }
-    }
-  }
-      `,
-      }
-    }
-  }
-</script>
+::: example simple :::

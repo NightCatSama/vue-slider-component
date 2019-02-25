@@ -11,7 +11,20 @@ function createContainer(name, defaultTitle) {
           .trim()
           .slice(name.length)
           .trim()
-        if (token.nesting === 1) {
+        if (name === 'example') {
+          return `
+<script>
+  import examples from '@/examples/${info.split(' ')[0]}.ts'
+  export default {
+    data () {
+      return {
+        ...examples
+      }
+    }
+  }
+</script>\n
+          `.trim()
+        } else if (token.nesting === 1) {
           return `<div class="${name} custom-block"><p class="custom-block-title">${info ||
             defaultTitle}</p>\n`
         } else {
@@ -25,26 +38,29 @@ function createContainer(name, defaultTitle) {
 module.exports = {
   outputDir: process.env.VUE_APP_BUILD_MODE === 'package' ? 'dist' : 'docs',
   chainWebpack: config => {
-    config.resolve.alias.set('vue$', 'vue/dist/vue.common')
-    config.output.libraryExport('default')
-    config.module
-      .rule('md')
-      .test(/\.md/)
-      .use('vue-loader')
-      .loader('vue-loader')
-      .end()
-      .use('vue-markdown-loader')
-      .loader('vue-markdown-loader/lib/markdown-compiler')
-      .options({
-        raw: true,
-        preventExtract: true,
-        wrapper: 'article',
-        use: [
-          createContainer('tip', 'TIP'),
-          createContainer('warning', 'WARNING'),
-          createContainer('danger', 'WARNING'),
-        ],
-      })
+    if (process.env.VUE_APP_BUILD_MODE !== 'package') {
+      config.resolve.alias.set('vue$', 'vue/dist/vue.common')
+      config.output.libraryExport('default')
+      config.module
+        .rule('md')
+        .test(/\.md/)
+        .use('vue-loader')
+        .loader('vue-loader')
+        .end()
+        .use('vue-markdown-loader')
+        .loader('vue-markdown-loader/lib/markdown-compiler')
+        .options({
+          raw: true,
+          preventExtract: true,
+          wrapper: 'article',
+          use: [
+            createContainer('tip', 'TIP'),
+            createContainer('warning', 'WARNING'),
+            createContainer('danger', 'WARNING'),
+            createContainer('example'),
+          ],
+        })
+    }
   },
   css: { extract: false },
 }

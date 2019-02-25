@@ -5,11 +5,15 @@
     "route": "",
     "component": "QuickStart.md"
   }, {
+    "name": "样式主题",
+    "route": "style",
+    "component": "Style.md"
+  }, {
     "name": "API 参考",
     "route": "api",
     "component": "API.md"
   }],
-  "用例": [
+  "基础用例": [
     {
       "emoji": "🎈",
       "name": "一般用法",
@@ -18,27 +22,33 @@
     },
     {
       "emoji": "🎈",
-      "name": "data",
+      "name": "自定义数据",
       "route": "basics/data",
       "component": "Basics/Data.md"
     },
     {
       "emoji": "🎈",
-      "name": "marks",
+      "name": "刻度标记",
       "route": "basics/marks",
       "component": "Basics/Marks.md"
     },
     {
       "emoji": "🎈",
-      "name": "process",
+      "name": "进度条",
       "route": "basics/process",
       "component": "Basics/Process.md"
     },
     {
       "emoji": "🎈",
-      "name": "tooltip",
+      "name": "工具提示",
       "route": "basics/tooltip",
       "component": "Basics/Tooltip.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "范围模式",
+      "route": "basics/range",
+      "component": "Basics/Range.md"
     }
   ]
 }
