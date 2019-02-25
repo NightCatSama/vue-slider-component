@@ -8,6 +8,7 @@ $tooltipColor: #fff;
 // component style
 .vue-slider-disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 // rail style
@@ -38,11 +39,16 @@ $tooltipColor: #fff;
     height: 100%;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.16);
+
+    &-active {
+    }
   }
 
   @at-root &-label {
     font-size: 14px;
     white-space: nowrap;
+    &-active {
+    }
   }
 }
 
@@ -62,20 +68,23 @@ $tooltipColor: #fff;
     }
     @at-root &-disabled {
       cursor: not-allowed;
+      background-color: #ccc;
     }
   }
 
   @at-root &-tooltip {
-    font-size: 14px;
-    white-space: nowrap;
-    padding: 2px 5px;
-    min-width: 20px;
-    text-align: center;
-    color: $tooltipColor;
-    border-radius: 5px;
-    background-color: $themeColor;
-    box-sizing: content-box;
-    @include arrow(10px, $themeColor);
+    @at-root &-inner {
+      font-size: 14px;
+      white-space: nowrap;
+      padding: 2px 5px;
+      min-width: 20px;
+      text-align: center;
+      color: $tooltipColor;
+      border-radius: 5px;
+      background-color: $themeColor;
+      box-sizing: content-box;
+      @include arrow(10px, inherit);
+    }
   }
 
   @at-root &-tooltip-wrapper {

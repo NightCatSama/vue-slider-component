@@ -68,6 +68,9 @@ $tooltipColor: #fff;
   @at-root &-label {
     font-size: 12px;
     white-space: nowrap;
+
+    &-active {
+    }
   }
 }
 
@@ -119,7 +122,7 @@ $tooltipColor: #fff;
       border-radius: 5px;
       background-color: $tooltipBgColor;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      @include arrow(10px, $tooltipBgColor);
+      @include arrow(10px, inherit);
 
       transform: scale(0.9);
       transition: transform 0.3s;
