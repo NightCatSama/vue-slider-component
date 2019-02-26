@@ -81,6 +81,7 @@ $tooltipColor: #fff;
       text-align: center;
       color: $tooltipColor;
       border-radius: 5px;
+      border-color: $themeColor;
       background-color: $themeColor;
       box-sizing: content-box;
       @include arrow(10px, inherit);
