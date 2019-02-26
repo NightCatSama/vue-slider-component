@@ -15,6 +15,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import Navbar from './components/Navbar.vue'
 import PageFooter from './components/PageFooter.vue'
 
+import { getTheme } from './utils'
+
 @Component({
   components: {
     Navbar,
@@ -22,6 +24,12 @@ import PageFooter from './components/PageFooter.vue'
   }
 })
 export default class App extends Vue {
+  created() {
+    const theme = getTheme()
+    if (document && document.documentElement) {
+      document.documentElement.classList.add(`theme-${theme}`)
+    }
+  }
 }
 </script>
 

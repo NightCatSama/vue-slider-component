@@ -8,11 +8,27 @@
     "name": "样式主题",
     "route": "style",
     "component": "Style.md"
-  }, {
-    "name": "API 参考",
-    "route": "api",
-    "component": "API.md"
   }],
+  "API 参考": [
+    {
+      "emoji": "🎈",
+      "name": "参数",
+      "route": "api/props",
+      "component": "Api/Props.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "事件",
+      "route": "api/events",
+      "component": "Api/Events.md"
+    },
+    {
+      "emoji": "🎈",
+      "name": "插槽",
+      "route": "api/slots",
+      "component": "Api/Slots.md"
+    }
+  ],
   "基础用例": [
     {
       "emoji": "🎈",
@@ -49,6 +65,14 @@
       "name": "范围模式",
       "route": "basics/range",
       "component": "Basics/Range.md"
+    }
+  ],
+  "进阶例子": [
+    {
+      "emoji": "🍎",
+      "name": "无序滑块",
+      "route": "advanced/order",
+      "component": "Advanced/Order.md"
     }
   ]
 }

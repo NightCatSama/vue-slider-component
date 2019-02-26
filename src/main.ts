@@ -10,7 +10,8 @@ import VueSlider, { VueSliderMark, VueSliderDot } from '../lib'
 
 import { getTheme } from './utils'
 
-switch (getTheme()) {
+const theme = getTheme()
+switch (theme) {
   case 'antd':
     require('../lib/theme/antd.scss')
     break

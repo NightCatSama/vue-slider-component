@@ -23,7 +23,7 @@ export default {
       }
     }
   }
-          `,
+  `,
   example2: `
 <template>
   <div>
@@ -42,7 +42,7 @@ export default {
       }
     }
   }
-          `,
+  `,
   example3: `
 <template>
   <div>
@@ -67,9 +67,17 @@ export default {
         value1: 0,
         formatter1: '{value}%',
         value2: 0,
-        formatter2: (v) => \`$\${('' + v).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')}\`,
+        formatter2: ${
+          localStorage.getItem('theme') === 'material'
+            ? `v =>
+            v === 1000000 ?
+              '1M' :
+              ~~(v / 1000) + (v / 1000 >= 1 ? 'K' : '')
+          `
+            : `v => \`$\${('' + v).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')}\``
+        },
       }
     }
   }
-          `,
+  `,
 }
