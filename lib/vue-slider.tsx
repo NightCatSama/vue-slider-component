@@ -88,6 +88,9 @@ export default class VueSlider extends Vue {
   @Prop({ type: Boolean, default: false })
   disabled!: boolean
 
+  @Prop({ type: Boolean, default: true })
+  clickable!: boolean
+
   // The duration of the slider slide, Unit second
   @Prop({ type: Number, default: 0.5 })
   duration!: number
@@ -280,6 +283,7 @@ export default class VueSlider extends Vue {
   get dots(): Dot[] {
     return this.control.dotsPos.map((pos, index) => ({
       pos,
+      index,
       value: this.control.dotsValue[index],
       focus: this.states.has(SliderState.Focus) && this.focusDotIndex === index,
       disabled: false,
@@ -434,10 +438,7 @@ export default class VueSlider extends Vue {
   }
 
   private emitError(type: ERROR_TYPE, message: string) {
-    this.$emit('error', {
-      type,
-      message,
-    })
+    this.$emit('error', type, message)
   }
 
   /**
@@ -532,6 +533,9 @@ export default class VueSlider extends Vue {
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
+    if (!this.clickable) {
+      return false
+    }
     if (this.states.has(SliderState.Drag)) {
       return
     }
