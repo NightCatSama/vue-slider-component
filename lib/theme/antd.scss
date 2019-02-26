@@ -120,6 +120,7 @@ $tooltipColor: #fff;
       text-align: left;
       color: $tooltipColor;
       border-radius: 5px;
+      border-color: $tooltipBgColor;
       background-color: $tooltipBgColor;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       @include arrow(10px, inherit);
