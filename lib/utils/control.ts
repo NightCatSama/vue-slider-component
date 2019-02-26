@@ -355,15 +355,14 @@ export default class Control {
         this.emitError(ERROR_TYPE.MAX)
         return 0
       }
+      if (typeof val !== 'number' || val !== val) {
+        this.emitError(ERROR_TYPE.VALUE)
+        return 0
+      }
       val = new Decimal(val)
         .minus(this.min)
         .divide(this.interval)
         .toNumber()
-    }
-
-    if (typeof val !== 'number') {
-      this.emitError(ERROR_TYPE.VALUE)
-      return 0
     }
 
     const pos = new Decimal(val).multiply(this.gap).toNumber()

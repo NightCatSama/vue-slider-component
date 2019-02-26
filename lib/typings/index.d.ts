@@ -50,6 +50,7 @@ export interface DotOption extends DotStyle, TooltipStyle {
 }
 export interface Dot extends DotOption {
   pos: number
+  index: number
   value: Value
   focus: boolean
 }
