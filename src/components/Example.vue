@@ -35,6 +35,8 @@ export default class ExampleData extends Vue {
 </script>
 
 <style lang="scss">
+  @import '../styles/var';
+  @import '../styles/media';
   .demo-wrap {
     border-radius: 4px;
     overflow: hidden;
@@ -60,6 +62,12 @@ export default class ExampleData extends Vue {
       padding: 20px;
       display: flex;
       flex-direction: column;
+
+      @include max-screen(992px) {
+        & {
+          padding: 10px;
+        }
+      }
       .demo-code {
         padding-bottom: 10px;
       }
@@ -73,18 +81,28 @@ export default class ExampleData extends Vue {
         font-size: 14px;
         border-radius: 4px;
         max-height: 0;
+        margin: 0;
         transition: all .5s ease;
 
         &.show {
           max-height: 500px;
+          margin-bottom: 10px;
         }
       }
       .vuep-preview {
         width: 100%;
+        height: auto;
         overflow: visible;
-        margin-top: 20px;
+        margin: 0;
         border-radius: 4px;
         background-color: #fff;
+        z-index: 9;
+
+        @include max-screen(992px) {
+          & {
+            padding: 10px;
+          }
+        }
       }
     }
   }

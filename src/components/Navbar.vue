@@ -1,40 +1,45 @@
 <template>
   <div :class="['navbar', { hide }]">
-    <div class="hide-btn" @click="hide = true"></div>
-    <div class="btn-group">
-      <div class="btn switch-btn" @click="hide = !hide"></div>
-      <div class="btn language-btn" @click="switchLanguage">{{ nextLanguage }}</div>
-      <a class="btn github-btn" :href="homePageUrl" target="_blank"></a>
-    </div>
-    <div class="site-info">
-      <div class="name">{{ name }}</div>
-      <div class="version">v{{ version }}</div>
-      <label for="theme">
-        Theme:
-        <select id="theme" class="theme" v-model="theme" @change="changeTheme">
-          <option value="default">default</option>
-          <option value="antd">antd</option>
-          <option value="material">material</option>
-        </select>
-      </label>
-    </div>
-    <div class="nav-content">
-      <div
-        v-for="(list, title) in navObj"
-        :key="title"
-        class="nav-group"
-      >
-        <div class="nav-title">{{ title }}</div>
-        <router-link
-          v-for="(item, index) in list"
-          :key="index"
-          class="nav-item"
-          :to="$route.meta.lang + item.route"
-          exact
+    <aside class="btn-wrap">
+      <div class="hide-btn" @click="hide = true"></div>
+      <div class="btn-group">
+        <div class="btn switch-btn" @click="hide = !hide"></div>
+        <div class="btn language-btn" @click="switchLanguage">{{ nextLanguage }}</div>
+        <a class="btn github-btn" :href="homePageUrl" target="_blank"></a>
+      </div>
+    </aside>
+    <div class="content">
+      <div class="site-info">
+        <div class="name">{{ name }}</div>
+        <div class="version">v{{ version }}</div>
+        <label for="theme">
+          Theme:
+          <select id="theme" class="theme" v-model="theme" @change="changeTheme">
+            <option value="default">default</option>
+            <option value="antd">antd</option>
+            <option value="material">material</option>
+          </select>
+        </label>
+      </div>
+      <div class="nav-content">
+        <div
+          v-for="(list, title) in navObj"
+          :key="title"
+          class="nav-group"
         >
-          <span class="nav-emoji">{{ item.emoji }}</span>
-          <span class="nav-name">{{ item.name }}</span>
-        </router-link>
+          <div class="nav-title">{{ title }}</div>
+          <router-link
+            v-for="(item, index) in list"
+            :key="index"
+            class="nav-item"
+            :to="$route.meta.lang + item.route"
+            exact
+            @click.native="routeClickHandle"
+          >
+            <span class="nav-emoji">{{ item.emoji }}</span>
+            <span class="nav-name">{{ item.name }}</span>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +79,12 @@ export default class Navbar extends Vue {
     const theme = (e.target as any).value
     localStorage.setItem('theme', theme)
     location.reload()
+  }
+
+  routeClickHandle() {
+    if (document.body.clientWidth < 992) {
+      this.hide = true
+    }
   }
 }
 </script>
@@ -171,6 +182,11 @@ export default class Navbar extends Vue {
           }
         }
       }
+    }
+
+    .content {
+      height: 100%;
+      overflow-y: auto;
     }
 
     .site-info {

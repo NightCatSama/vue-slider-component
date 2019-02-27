@@ -17,7 +17,7 @@
 <example :value="example2"></example>
 
 ::: tip
-  `v-slot:`（字符 `#`）仅在 `vue` 版本 2.6.0 以上才能使用
+  `v-slot:`（字符 `#`）仅在 `vue` 版本 2.6.0 以上才能使用，否则请使用 `slot` 和 `slot-scope`。
 
   详情可参阅 [官方文档](https://vuejs.org/v2/guide/components-slots.html#Named-Slots-Shorthand)
 :::

@@ -90,6 +90,11 @@ export default class App extends Vue {
       border-radius: 2px;
       white-space: nowrap;
     }
+
+    .CodeMirror pre {
+      line-height: 1.45;
+      font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    }
   }
 }
 </style>
