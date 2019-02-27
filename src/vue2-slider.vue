@@ -179,6 +179,7 @@
             :first="index === 0"
             :last="index === piecewiseDotWrap.length - 1"
             :active="isActive(piecewiseObj.index)"
+            :max-index="piecewiseDotWrap.length - 1"
           >
             <span
               v-if="piecewiseLabel"
