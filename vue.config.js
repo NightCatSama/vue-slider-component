@@ -40,7 +40,6 @@ module.exports = {
   chainWebpack: config => {
     if (process.env.VUE_APP_BUILD_MODE !== 'package') {
       config.resolve.alias.set('vue$', 'vue/dist/vue.common')
-      config.output.libraryExport('default')
       config.module
         .rule('md')
         .test(/\.md/)
@@ -60,6 +59,8 @@ module.exports = {
             createContainer('example'),
           ],
         })
+    } else {
+      config.output.libraryExport('default')
     }
   },
   css: { extract: false },

@@ -13,8 +13,7 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 ## 🚴 Todo
 
 - [x] Basis
-- [ ] Update guide
-- [ ] Document
+- [x] Document
 - [ ] Test
 
 
