@@ -460,7 +460,7 @@ export default class VueSlider extends Vue {
     this.setScale()
     this.states.add(SliderState.Drag)
     this.states.add(SliderState.Focus)
-    this.$emit('dragStart')
+    this.$emit('drag-start')
   }
 
   private dragMove(e: MouseEvent | TouchEvent) {
@@ -517,7 +517,7 @@ export default class VueSlider extends Vue {
       if (!this.useKeyboard) {
         this.states.delete(SliderState.Focus)
       }
-      this.$emit('dragEnd')
+      this.$emit('drag-end')
     })
   }
 
@@ -681,7 +681,7 @@ export default class VueSlider extends Vue {
                   transition: `${this.mainDirection} ${this.animateTime}s`,
                 },
               ]}
-              onDragStart={() => this.dragStart(index)}
+              onDrag-start={() => this.dragStart(index)}
             >
               {this.renderSlot<Dot>('dot', dot, null)}
               {this.renderSlot<Dot>('tooltip', dot, null)}

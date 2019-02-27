@@ -103,7 +103,7 @@ export default class VueSliderDot extends Vue {
       return false
     }
 
-    this.$emit('dragStart')
+    this.$emit('drag-start')
   }
 
   render() {
