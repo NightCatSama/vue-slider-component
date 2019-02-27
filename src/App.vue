@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar />
-    <section class="content">
+    <section ref="content" class="content">
       <div class="markdown-body">
         <router-view />
         <page-footer />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import Navbar from './components/Navbar.vue'
 import PageFooter from './components/PageFooter.vue'
 
@@ -24,6 +24,12 @@ import { getTheme } from './utils'
   }
 })
 export default class App extends Vue {
+
+  @Watch('$route')
+  onRouteChanged() {
+    (this.$refs.content as HTMLDivElement).scrollTop = 0
+  }
+
   created() {
     const theme = getTheme()
     if (document && document.documentElement) {

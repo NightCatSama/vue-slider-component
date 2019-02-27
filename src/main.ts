@@ -6,7 +6,7 @@ import 'vuep/dist/vuep.css'
 
 import Example from './components/Example.vue'
 
-import VueSlider, { VueSliderMark, VueSliderDot } from '../lib'
+import VueSlider from '../lib'
 
 import { getTheme } from './utils'
 
@@ -27,8 +27,6 @@ Vue.use(Vuep)
 Vue.component('Example', Example)
 
 Vue.component('VueSlider', VueSlider)
-Vue.component('VueSliderMark', VueSliderMark)
-Vue.component('VueSliderDot', VueSliderDot)
 
 Vue.config.productionTip = false
 

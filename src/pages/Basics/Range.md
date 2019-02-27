@@ -1,17 +1,17 @@
-# 范围模式
+# Range mode
 
-以下参数只在范围模式下有效
+Parameters that are only valid in range mode
 
   - `enableCross`
   - `minRange`
   - `maxRange`
   - `fixed`
 
-### 禁止滑块交叉穿越
+### Prohibit slider crossing
 
 <example :value="example1"></example>
 
-### 限制滑块之间的距离
+### Limit the distance between the sliders
 
 <example :value="example2"></example>
 

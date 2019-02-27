@@ -4,7 +4,6 @@ import nav from './nav.json'
 import navZhCN from './zh-CN.nav.json'
 
 export interface Nav {
-  emoji?: string
   name: string
   route: string
   component: string

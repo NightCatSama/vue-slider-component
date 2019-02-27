@@ -15,7 +15,7 @@
   滑块的值，默认只可使用 `number` 类型。
 
   ::: tip
-    只有当 `data` 存在时，才支持 `string` 类型。
+    只有当设置了 `data` 时，才支持 `string` 类型。
   :::
 
 ### dotSize
@@ -56,11 +56,11 @@
 
 - **用法**：
 
-  组件的方向
+  组件的方向。
 
   `ltr` 的意思是 Left to Right，其他同理。
 
-  当值为 `ltr` 或者 `rtl`，为水平方向，为 `ttb` 或 `bbt` 时为垂直方向。
+  当值为 `ltr` 或者 `rtl` 时为水平方向，为 `ttb` 或 `bbt` 时为垂直方向。
 
   ::: warning
     垂直方向时，需给定组件一个高度，否则会无法正常渲染。
@@ -80,7 +80,7 @@
   <vue-slider :data="['A', 'B', 'C', 'D']" v-model="value" />
   ```
 
-- **参考**：<router-link :to="$route.meta.lang + 'basics/data'">data</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'basics/data'">自定义数据</router-link>
 
 ### min
 
@@ -236,6 +236,8 @@
 
   是否允许滑块交叉，仅在多个滑块时有效。
 
+- **参考**：<router-link :to="$route.meta.lang + 'basics/range'">范围模式</router-link>
+
 ### fixed
 
 - **类型**：`boolean`
@@ -245,6 +247,32 @@
 - **用法**：
 
   是否固定滑块间隔，仅在多个滑块时有效。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/range'">范围模式</router-link>
+
+### minRange
+
+- **类型**：`number`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  滑块之间的最小距离，仅在多个滑块时有效。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/range'">范围模式</router-link>
+
+### maxRange
+
+- **类型**：`number`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  滑块之间的最大距离，仅在多个滑块时有效。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/range'">范围模式</router-link>
 
 ### order
 
@@ -258,29 +286,13 @@
 
   例如 当值为 `false` 时，`[50, 30]` 将不会自动排序为 `[30, 50]`。
 
+  在区分多个滑块时，这很有效
+
   ::: warning
     当值为 `false` 时，参数 `minRange`，`maxRange`，`fixed`，`enableCross` 无效。
   :::
 
-### minRange
-
-- **类型**：`number`
-
-- **默认值**：`undefined`
-
-- **用法**：
-
-  滑块之间的最小距离，仅在多个滑块时有效。
-
-### maxRange
-
-- **类型**：`number`
-
-- **默认值**：`undefined`
-
-- **用法**：
-
-  滑块之间的最大距离，仅在多个滑块时有效。
+- **参考**：<router-link :to="$route.meta.lang + 'advanced/order'">无序滑块</router-link>
 
 ### marks
 
@@ -305,6 +317,8 @@
 - **用法**：
 
   用于控制标志的显示。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/marks'">刻度标记</router-link>
 
 ### dotOptions
 
@@ -358,7 +372,9 @@
   滑块样式。
 
   ::: tip
-    如果需要多个滑块区分设置，或者需要设置 `active` 或 `disabled` 样式。请使用 `dotOptions` 参数。
+    如果需要设置 `active` 或 `disabled` 样式。请使用 `dotOptions` 参数。
+
+    并且 `dotOptions` 可以分别设置多个滑块
   :::
 
 ### railStyle
@@ -382,7 +398,7 @@
   进度条的样式。
 
   ::: tip
-    如果多条轨道样式需要区分设置，请使用 `process` 参数。
+    如果多条进度条样式需要区分设置，请使用 `process` 参数。
   :::
 
 ### tooltipStyle

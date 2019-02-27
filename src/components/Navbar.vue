@@ -36,7 +36,6 @@
             exact
             @click.native="routeClickHandle"
           >
-            <span class="nav-emoji">{{ item.emoji }}</span>
             <span class="nav-name">{{ item.name }}</span>
           </router-link>
         </div>

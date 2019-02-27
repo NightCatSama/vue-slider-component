@@ -1,21 +1,78 @@
 {
-  "": [{
-    "emoji": "🚀",
+  "": [
+  {
     "name": "QuickStart",
     "route": "",
     "component": "QuickStart.md"
   }, {
-    "emoji": "🔑",
-    "name": "API Reference",
-    "route": "api",
-    "component": "API.md"
+    "name": "Style theme",
+    "route": "style",
+    "component": "Style.md"
   }],
-  "Basics": [
+  "API Reference": [
     {
-      "emoji": "🎈",
-      "name": "data",
-      "route": "basics/data",
+      "name": "Props",
+      "route": "api/props",
+      "component": "Api/Props.md"
+    },
+    {
+      "name": "Events",
+      "route": "api/events",
+      "component": "Api/Events.md"
+    },
+    {
+      "name": "Slots",
+      "route": "api/slots",
+      "component": "Api/Slots.md"
+    }
+  ],
+  "Simple Example": [
+    {
+      "name": "Common usage",
+      "route": "basics/simple",
       "component": "Basics/Simple.md"
+    },
+    {
+      "name": "Custom data",
+      "route": "basics/data",
+      "component": "Basics/Data.md"
+    },
+    {
+      "name": "Mark",
+      "route": "basics/marks",
+      "component": "Basics/Marks.md"
+    },
+    {
+      "name": "Process",
+      "route": "basics/process",
+      "component": "Basics/Process.md"
+    },
+    {
+      "name": "Tooltip",
+      "route": "basics/tooltip",
+      "component": "Basics/Tooltip.md"
+    },
+    {
+      "name": "Range mode",
+      "route": "basics/range",
+      "component": "Basics/Range.md"
+    }
+  ],
+  "Advanced Example": [
+    {
+      "name": "Disorderly slider",
+      "route": "advanced/order",
+      "component": "Advanced/Order.md"
+    },
+    {
+      "name": "The <input> linkage",
+      "route": "advanced/input",
+      "component": "Advanced/Input.md"
+    },
+    {
+      "name": "Sync of multi-component",
+      "route": "advanced/sync-slider",
+      "component": "Advanced/syncSlider.md"
     }
   ]
 }

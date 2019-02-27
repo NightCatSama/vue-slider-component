@@ -1,26 +1,26 @@
-# 刻度标记
+# Mark
 
-### 当 `mark` 为 `true`
+### When `mark` is `true`
 
 <example :value="example1"></example>
 
-### 当 `mark` 的类型为 `Object`
+### When the type of `mark` is `Object`
 
 <example :value="example2"></example>
 
-### 当 `mark` 的类型为 `Array`
+### When the type of `mark` is `Array`
 
 <example :value="example3"></example>
 
-### 当 `mark` 的类型为 `Function`
+### When the type of `mark` is `Function`
 
 <example :value="example4"></example>
 
-### 配合 `included` 使用
+### Use with `included`
 
 <example :value="example5"></example>
 
-### 使用 `hideLabel` 隐藏 label
+### Use `hideLabel` to hide the label
 
 <example :value="example6"></example>
 

@@ -1,4 +1,4 @@
-# Simple
+# 一般用法
 
 ### 单个滑块
 
@@ -12,7 +12,7 @@
 
 <example :value="example3"></example>
 
-### 控制滑块方向
+### 设置滑块方向
 
 <example :value="example4"></example>
 
@@ -29,7 +29,7 @@
 
 ### 禁用滑块
 
-可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用组件
+可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用滑块
 
 <example :value="example6"></example>
 

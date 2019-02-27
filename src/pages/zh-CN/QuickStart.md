@@ -49,6 +49,7 @@ export default {
 ```
 
 ## 使用
+
 ```html
 <vue-slider v-model="value"></vue-slider>
 ```

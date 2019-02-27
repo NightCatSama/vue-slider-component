@@ -11,19 +11,16 @@
   }],
   "API 参考": [
     {
-      "emoji": "🎈",
       "name": "参数",
       "route": "api/props",
       "component": "Api/Props.md"
     },
     {
-      "emoji": "🎈",
       "name": "事件",
       "route": "api/events",
       "component": "Api/Events.md"
     },
     {
-      "emoji": "🎈",
       "name": "插槽",
       "route": "api/slots",
       "component": "Api/Slots.md"
@@ -31,37 +28,31 @@
   ],
   "基础用例": [
     {
-      "emoji": "🎈",
       "name": "一般用法",
       "route": "basics/simple",
       "component": "Basics/Simple.md"
     },
     {
-      "emoji": "🎈",
       "name": "自定义数据",
       "route": "basics/data",
       "component": "Basics/Data.md"
     },
     {
-      "emoji": "🎈",
       "name": "刻度标记",
       "route": "basics/marks",
       "component": "Basics/Marks.md"
     },
     {
-      "emoji": "🎈",
       "name": "进度条",
       "route": "basics/process",
       "component": "Basics/Process.md"
     },
     {
-      "emoji": "🎈",
       "name": "工具提示",
       "route": "basics/tooltip",
       "component": "Basics/Tooltip.md"
     },
     {
-      "emoji": "🎈",
       "name": "范围模式",
       "route": "basics/range",
       "component": "Basics/Range.md"
@@ -69,10 +60,19 @@
   ],
   "进阶例子": [
     {
-      "emoji": "🍎",
       "name": "无序滑块",
       "route": "advanced/order",
       "component": "Advanced/Order.md"
+    },
+    {
+      "name": "可输入的滑块值",
+      "route": "advanced/input",
+      "component": "Advanced/Input.md"
+    },
+    {
+      "name": "同步多个组件",
+      "route": "advanced/sync-slider",
+      "component": "Advanced/syncSlider.md"
     }
   ]
 }
