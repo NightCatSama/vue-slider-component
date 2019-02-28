@@ -24,6 +24,11 @@
       "name": "插槽",
       "route": "api/slots",
       "component": "Api/Slots.md"
+    },
+    {
+      "name": "方法",
+      "route": "api/methods",
+      "component": "Api/Methods.md"
     }
   ],
   "基础用例": [
@@ -78,6 +83,11 @@
       "name": "使用插槽",
       "route": "advanced/components-slots",
       "component": "Advanced/ComponentsSlots.md"
+    },
+    {
+      "name": "颜色选择器",
+      "route": "advanced/color",
+      "component": "Advanced/Colors.md"
     }
   ]
 }

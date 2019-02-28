@@ -40,7 +40,8 @@ module.exports = {
   outputDir: process.env.VUE_APP_BUILD_MODE === 'package' ? 'dist' : 'docs',
   chainWebpack: config => {
     if (process.env.VUE_APP_BUILD_MODE !== 'package') {
-      config.resolve.alias.set('vue$', 'vue/dist/vue.common')
+      config.resolve.alias.set('vue$', 'vue/dist/vue.common').set('~', __dirname)
+
       config.module
         .rule('md')
         .test(/\.md/)

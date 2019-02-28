@@ -24,6 +24,11 @@
       "name": "Slots",
       "route": "api/slots",
       "component": "Api/Slots.md"
+    },
+    {
+      "name": "Methods",
+      "route": "api/methods",
+      "component": "Api/Methods.md"
     }
   ],
   "Simple Example": [

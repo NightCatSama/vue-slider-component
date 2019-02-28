@@ -2,7 +2,12 @@ export default {
   example1: `
 <template>
   <div>
-    <vue-slider v-model="value" :process-style="{ backgroundColor: 'pink' }">
+    <vue-slider
+      v-model="value"
+      :tooltip="'none'"
+      :process-style="{ backgroundColor: 'pink' }"
+      :tooltip-style="{ backgroundColor: 'pink', borderColor: 'pink' }"
+    >
       <template v-slot:dot="{ value, focus }">
         <div :class="['custom-dot', { focus }]"></div>
       </template>
@@ -38,5 +43,29 @@ export default {
     }
   }
 </script>
-        `,
+  `,
+  example2: `
+<template>
+  <div>
+    <vue-slider v-model="value" :tooltip="'always'">
+    </vue-slider>
+  </div>
+</template>
+
+<style>
+</style>
+
+<script>
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+  `,
 }

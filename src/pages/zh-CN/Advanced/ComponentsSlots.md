@@ -8,5 +8,9 @@
 
 <example :value="example1"></example>
 
+### 工具提示插槽
+
+<example :value="example2"></example>
+
 ::: example components-slots :::
 
