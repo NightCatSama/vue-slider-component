@@ -10,13 +10,6 @@
 English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README-CN.md)
 
 
-## 🚴 Todo
-
-- [x] Basis
-- [x] Document
-- [ ] Test
-
-
 ## ✨ New Features (v3.x)
 - 🔧 Fix [exceptions](https://github.com/NightCatSama/vue-slider-component#exceptions)
 - 🍖 More customizable
@@ -29,7 +22,7 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 
 ## 🎯 install
 ```bash
-$ yarn add vue-slider-component@beta
+$ yarn add vue-slider-component
 ```
 
 
@@ -55,6 +48,10 @@ export default {
 }
 </script>
 ```
+
+## Changelog
+
+Detailed changes for each release are documented in the [release notes](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md).
 
 ## License
 

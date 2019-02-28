@@ -9,14 +9,6 @@
 [English](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README.md) | 简体中文
 
 
-## 🚴 Todo
-
-- [x] 基本功能
-- [ ] 升级指南
-- [ ] 文档
-- [ ] 测试
-
-
 ## ✨ 新特性(v3.x)
 - 🔧 修复了[异常](https://github.com/NightCatSama/vue-slider-component#exceptions)
 - 🍖 更加可定制化
@@ -24,6 +16,7 @@
 - 🐳 支持更多的滑块
 - 📌 增加标志设置
 - 🎉 支持 SSR
+- 🍒 支持 Typescript
 
 
 ## 🎯 安装
@@ -54,3 +47,11 @@ export default {
 }
 </script>
 ```
+
+## 更新日志
+
+每个版本的[更新日志](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md).
+
+## License
+
+[MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)
