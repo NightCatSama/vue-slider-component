@@ -115,11 +115,17 @@ export default class VueSliderDot extends Vue {
         onTouchstart={this.dragStart}
         data-value={this.value}
       >
-        {this.$slots.dot || <div class={this.handleClasses} style={this.dotStyle} />}
+        {this.$slots.dot || (
+          <div class={this.handleClasses} style={this.dotStyle} data-value={this.value} />
+        )}
         {this.tooltip !== 'none' ? (
-          <div class={this.tooltipClasses}>
+          <div class={this.tooltipClasses} data-value={this.value}>
             {this.$slots.tooltip || (
-              <div class={this.tooltipInnerClasses} style={this.tooltipStyle}>
+              <div
+                class={this.tooltipInnerClasses}
+                style={this.tooltipStyle}
+                data-value={this.value}
+              >
                 {this.tooltipValue}
               </div>
             )}

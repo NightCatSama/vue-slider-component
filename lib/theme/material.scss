@@ -96,60 +96,65 @@ $tooltipColor: #fff;
 
   @at-root &-tooltip {
     visibility: visible;
-    border-radius: 50% 50% 50% 0px;
-    background-color: $themeColor;
-
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-
-    &-top {
-      transform: translate(-50%, 0) scale(0.01) rotate(-45deg);
-    }
-    &-bottom {
-      transform: translate(-50%, 0) scale(0.01) rotateZ(135deg);
-    }
-    &-left {
-      transform: translate(0, -50%) scale(0.01) rotateZ(-135deg);
-    }
-    &-right {
-      transform: translate(0, -50%) scale(0.01) rotateZ(45deg);
-    }
 
     @at-root &-show {
-      &.vue-slider-dot-tooltip-top {
-        transform: translate(-50%, -100%) rotateZ(-45deg);
+      .vue-slider-dot-tooltip-inner-top {
+        transform: rotateZ(-45deg);
       }
-      &.vue-slider-dot-tooltip-bottom {
-        transform: translate(-50%, 100%) rotateZ(135deg);
+      .vue-slider-dot-tooltip-inner-bottom {
+        transform: rotateZ(135deg);
       }
-      &.vue-slider-dot-tooltip-left {
-        transform: translate(-100%, -50%) rotateZ(-135deg);
+      .vue-slider-dot-tooltip-inner-left {
+        transform: rotateZ(-135deg);
       }
-      &.vue-slider-dot-tooltip-right {
-        transform: translate(100%, -50%) rotateZ(45deg);
+      .vue-slider-dot-tooltip-inner-right {
+        transform: rotateZ(45deg);
       }
     }
 
     @at-root &-inner {
-      font-size: 12px;
-      white-space: nowrap;
-      text-align: center;
-      color: $tooltipColor;
-      width: $tooltipSize;
-      height: $tooltipSize;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: content-box;
+      font-size: 0;
+      border-radius: 50% 50% 50% 0px;
+      background-color: $themeColor;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
       &-top {
-        transform: rotateZ(45deg);
+        transform: translate(0, 50%) scale(0.01) rotate(-45deg);
       }
       &-bottom {
-        transform: rotateZ(-135deg);
+        transform: translate(0, -50%) scale(0.01) rotateZ(135deg);
       }
       &-left {
-        transform: rotateZ(135deg);
+        transform: translate(50%, 0) scale(0.01) rotateZ(-135deg);
       }
       &-right {
+        transform: translate(-50%, 0) scale(0.01) rotateZ(45deg);
+      }
+
+      &::after {
+        content: attr(data-value);
+        font-size: 12px;
+        white-space: nowrap;
+        text-align: center;
+        color: $tooltipColor;
+        width: $tooltipSize;
+        height: $tooltipSize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+      }
+
+      &-top::after {
+        transform: rotateZ(45deg);
+      }
+      &-bottom::after {
+        transform: rotateZ(-135deg);
+      }
+      &-left::after {
+        transform: rotateZ(135deg);
+      }
+      &-right::after {
         transform: rotateZ(-45deg);
       }
     }
