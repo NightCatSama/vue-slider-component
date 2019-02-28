@@ -21,6 +21,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example2: `
 <template>
@@ -69,5 +70,6 @@ export default {
       }
     }
   }
+</script>
   `,
 }

@@ -72,7 +72,7 @@
     {
       "name": "Sync of multi-component",
       "route": "advanced/sync-slider",
-      "component": "Advanced/syncSlider.md"
+      "component": "Advanced/SyncSlider.md"
     }
   ]
 }

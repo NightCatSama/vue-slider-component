@@ -101,6 +101,12 @@ export default class App extends Vue {
       line-height: 1.45;
       font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
     }
+
+    // https://github.com/codemirror/CodeMirror/issues/5269
+    .cm-tag.cm-error {
+      color: #ff5370;
+      background-color: transparent;
+    }
   }
 }
 </style>

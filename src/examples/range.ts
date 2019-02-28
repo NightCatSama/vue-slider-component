@@ -7,17 +7,18 @@ export default {
 </template>
 
 <script>
-module.exports = {
-  components: {
-    VueSlider
-  },
-  data: function () {
-    return {
-      value: [0, 30],
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value: [0, 30],
+      }
     }
   }
-}
-      `,
+</script>
+  `,
   example2: `
 <template>
   <div>
@@ -31,16 +32,17 @@ module.exports = {
 </template>
 
 <script>
-module.exports = {
-  components: {
-    VueSlider
-  },
-  data: function () {
-    return {
-      value1: [0, 30],
-      value2: [0, 30],
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value1: [0, 30],
+        value2: [0, 30],
+      }
     }
   }
-}
-      `,
+</script>
+  `,
 }

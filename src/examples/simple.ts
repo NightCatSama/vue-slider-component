@@ -17,6 +17,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example2: `
 <template>
@@ -40,6 +41,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example3: `
 <template>
@@ -64,6 +66,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example4: `
 <template>
@@ -95,6 +98,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example5: `
 <template>
@@ -115,6 +119,7 @@ export default {
       }
     }
   }
+</script>
   `,
   example6: `
 <template>
@@ -145,5 +150,6 @@ export default {
       }
     }
   }
+</script>
   `,
 }

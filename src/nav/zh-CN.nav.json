@@ -72,7 +72,12 @@
     {
       "name": "同步多个组件",
       "route": "advanced/sync-slider",
-      "component": "Advanced/syncSlider.md"
+      "component": "Advanced/SyncSlider.md"
+    },
+    {
+      "name": "使用插槽",
+      "route": "advanced/components-slots",
+      "component": "Advanced/ComponentsSlots.md"
     }
   ]
 }

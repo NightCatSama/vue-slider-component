@@ -36,6 +36,7 @@ function createContainer(name, defaultTitle) {
 }
 
 module.exports = {
+  parallel: false,
   outputDir: process.env.VUE_APP_BUILD_MODE === 'package' ? 'dist' : 'docs',
   chainWebpack: config => {
     if (process.env.VUE_APP_BUILD_MODE !== 'package') {
