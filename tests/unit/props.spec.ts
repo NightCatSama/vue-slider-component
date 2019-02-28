@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
 import VueSlider from '~/lib'
 
-describe('Props', () => {
+describe('Props: value', () => {
   it('value', () => {
     const wrapper = shallowMount(VueSlider, {
       propsData: { value: 50 },
