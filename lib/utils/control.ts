@@ -304,8 +304,8 @@ export default class Control {
     })
 
     return this.dotsPos.map((_, i) => {
-      const changeDot = changeDots.find(dot => dot.index === i)
-      return changeDot ? changeDot.changePos : 0
+      const changeDot = changeDots.filter(dot => dot.index === i)
+      return changeDot.length ? changeDot[0].changePos : 0
     })
   }
 

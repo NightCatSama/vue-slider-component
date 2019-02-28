@@ -5,7 +5,7 @@
 [![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
 [![license](https://img.shields.io/npm/l/express.svg)]()
 
-> 🎚 a highly customized slider component
+> 🎚 A highly customized slider component
 
 English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README-CN.md)
 
