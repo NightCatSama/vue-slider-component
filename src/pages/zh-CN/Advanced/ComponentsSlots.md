@@ -12,5 +12,13 @@
 
 <example :value="example2"></example>
 
+### 标签插槽
+
+<example :value="example3"></example>
+
+### 标记插槽
+
+<example :value="example4"></example>
+
 ::: example components-slots :::
 

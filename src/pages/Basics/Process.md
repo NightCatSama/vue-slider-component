@@ -2,7 +2,7 @@
 
 ## process
 
-### 当值为 `true`
+### 当值的类型为 `Boolean`
 
 <example :value="example1"></example>
 

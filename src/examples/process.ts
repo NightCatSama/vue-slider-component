@@ -2,8 +2,9 @@ export default {
   example1: `
 <template>
   <div>
-    <vue-slider v-model="value" :process="true"></vue-slider>
+    <vue-slider v-model="value1" :process="false"></vue-slider>
     <vue-slider v-model="value2" :process="true"></vue-slider>
+    <vue-slider v-model="value3" :process="true"></vue-slider>
   </div>
 </template>
 
@@ -14,8 +15,9 @@ export default {
     },
     data: function () {
       return {
-        value: 0,
-        value2: [0, 50],
+        value1: 0,
+        value2: 0,
+        value3: [0, 50],
       }
     }
   }
@@ -26,7 +28,6 @@ export default {
   <div>
     <vue-slider v-model="value1" :process="process1"></vue-slider>
     <vue-slider v-model="value2" :process="process2"></vue-slider>
-    <vue-slider v-model="value3" :process="process3"></vue-slider>
   </div>
 </template>
 
@@ -44,8 +45,6 @@ export default {
           [dotsPos[0], dotsPos[1], { backgroundColor: 'pink' }],
           [dotsPos[1], dotsPos[2], { backgroundColor: 'blue' }]
         ],
-        value3: 50,
-        process3: _ => []
       }
     }
   }

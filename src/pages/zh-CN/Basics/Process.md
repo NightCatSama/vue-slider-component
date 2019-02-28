@@ -1,6 +1,6 @@
 # Process
 
-### When `process` is `true`
+### When the type of `process` is `Boolean`
 
 <example :value="example1"></example>
 
