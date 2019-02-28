@@ -78,6 +78,11 @@
       "name": "Sync of multi-component",
       "route": "advanced/sync-slider",
       "component": "Advanced/SyncSlider.md"
+    },
+    {
+      "name": "Using slots",
+      "route": "advanced/components-slots",
+      "component": "Advanced/ComponentsSlots.md"
     }
   ]
 }
