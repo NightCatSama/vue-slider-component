@@ -24,7 +24,7 @@ If you don't need new features, you can also use a more stable version [v2.x](ht
 
 Document: <https://nightcatsama.github.io/vue-slider-component>
 
-Live Demo：<https://jsfiddle.net/NightCatSama/2xy72dod/10244/>
+Live Demo：<https://jsfiddle.net/NightCatSama/2xy72dod/10253/>
 
 
 ## 🎯 install
