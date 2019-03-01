@@ -6,7 +6,7 @@
 
 > 🎚 一个高度定制化的滑块组件
 
-[English](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README.md) | 简体中文
+[English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
 
 如果你不需要新的特性，也可以使用更稳定的版本 [v2.x](https://github.com/NightCatSama/vue-slider-component/tree/v2)
 
