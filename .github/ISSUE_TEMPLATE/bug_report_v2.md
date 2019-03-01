@@ -1,10 +1,10 @@
-  ---
-name: Bug report
+---
+name: Bug report [v2.x]
 about: Create a report to help us improve
 title: '[v2]'
 labels: bug
 assignees: ''
-  ---
+---
 
 #### Describe the bug
 
