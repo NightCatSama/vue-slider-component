@@ -551,6 +551,16 @@ export default class VueSlider extends Vue {
     this.states.delete(SliderState.Focus)
   }
 
+  getValue() {
+    const values = this.control.dotsValue
+    return values.length === 1 ? values[0] : values
+  }
+
+  getIndex() {
+    const indexes = this.control.dotsIndex
+    return indexes.length === 1 ? indexes[0] : indexes
+  }
+
   setValueByPos(pos: number) {
     const index = this.control.getRecentDot(pos)
     if (this.isDisabledByDotIndex(index)) {

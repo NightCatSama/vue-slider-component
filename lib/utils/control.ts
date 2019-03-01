@@ -494,4 +494,8 @@ export default class Control {
 
     return valuePosRange
   }
+
+  get dotsIndex(): number[] {
+    return this.dotsValue.map(val => this.getIndexByValue(val))
+  }
 }
