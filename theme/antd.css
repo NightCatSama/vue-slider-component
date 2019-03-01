@@ -42,10 +42,8 @@
 
 .vue-slider-mark-label {
   font-size: 12px;
-  top: auto;
-  bottom: 100%;
+  white-space: nowrap;
 }
-
 .vue-slider-dot-handle {
   cursor: pointer;
   width: 100%;
@@ -92,6 +90,7 @@
   text-align: left;
   color: #fff;
   border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.75);
   background-color: rgba(0, 0, 0, 0.75);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transform: scale(0.9);
@@ -110,7 +109,7 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-top-color: rgba(0, 0, 0, 0.75);
+  border-top-color: inherit;
 }
 .vue-slider-dot-tooltip-inner-bottom::after {
   bottom: 100%;
@@ -121,7 +120,7 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-bottom-color: rgba(0, 0, 0, 0.75);
+  border-bottom-color: inherit;
 }
 .vue-slider-dot-tooltip-inner-left::after {
   left: 100%;
@@ -132,7 +131,7 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-left-color: rgba(0, 0, 0, 0.75);
+  border-left-color: inherit;
 }
 .vue-slider-dot-tooltip-inner-right::after {
   right: 100%;
@@ -143,7 +142,7 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-right-color: rgba(0, 0, 0, 0.75);
+  border-right-color: inherit;
 }
 .vue-slider-dot-tooltip-inner-top {
   transform-origin: 50% 100%;

@@ -1,5 +1,6 @@
 .vue-slider-disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .vue-slider-rail {
@@ -24,11 +25,10 @@
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.16);
 }
-
 .vue-slider-mark-label {
   font-size: 14px;
+  white-space: nowrap;
 }
-
 .vue-slider-dot-handle {
   cursor: pointer;
   width: 100%;
@@ -44,9 +44,10 @@
 
 .vue-slider-dot-handle-disabled {
   cursor: not-allowed;
+  background-color: #ccc;
 }
 
-.vue-slider-dot-tooltip {
+.vue-slider-dot-tooltip-inner {
   font-size: 14px;
   white-space: nowrap;
   padding: 2px 5px;
@@ -54,14 +55,15 @@
   text-align: center;
   color: #fff;
   border-radius: 5px;
+  border-color: #3498db;
   background-color: #3498db;
   box-sizing: content-box;
 }
-.vue-slider-dot-tooltip::after {
+.vue-slider-dot-tooltip-inner::after {
   content: "";
   position: absolute;
 }
-.vue-slider-dot-tooltip-top::after {
+.vue-slider-dot-tooltip-inner-top::after {
   top: 100%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -70,9 +72,9 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-top-color: #3498db;
+  border-top-color: inherit;
 }
-.vue-slider-dot-tooltip-bottom::after {
+.vue-slider-dot-tooltip-inner-bottom::after {
   bottom: 100%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -81,9 +83,9 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-bottom-color: #3498db;
+  border-bottom-color: inherit;
 }
-.vue-slider-dot-tooltip-left::after {
+.vue-slider-dot-tooltip-inner-left::after {
   left: 100%;
   top: 50%;
   transform: translate(0, -50%);
@@ -92,9 +94,9 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-left-color: #3498db;
+  border-left-color: inherit;
 }
-.vue-slider-dot-tooltip-right::after {
+.vue-slider-dot-tooltip-inner-right::after {
   right: 100%;
   top: 50%;
   transform: translate(0, -50%);
@@ -103,7 +105,7 @@
   border-color: transparent;
   border-style: solid;
   border-width: 5px;
-  border-right-color: #3498db;
+  border-right-color: inherit;
 }
 
 .vue-slider-dot-tooltip-wrapper {

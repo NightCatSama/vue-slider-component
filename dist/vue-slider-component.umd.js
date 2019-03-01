@@ -3457,9 +3457,6 @@ and limitations under the License.
                         mousedown: this.dragStart,
                         touchstart: this.dragStart,
                       },
-                      attrs: {
-                        'data-value': this.value,
-                      },
                     },
                     [
                       this.$slots.dot ||
@@ -3481,7 +3478,15 @@ and limitations under the License.
                                     class: this.tooltipInnerClasses,
                                     style: this.tooltipStyle,
                                   },
-                                  [this.tooltipValue],
+                                  [
+                                    h(
+                                      'span',
+                                      {
+                                        class: 'vue-slider-dot-tooltip-text',
+                                      },
+                                      [this.tooltipValue],
+                                    ),
+                                  ],
                                 ),
                             ],
                           )
@@ -3959,9 +3964,6 @@ and limitations under the License.
 
             return Decimal
           })()
-
-        // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
-        var es6_array_iterator = __webpack_require__('cadf')
 
         // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.keys.js
         var es6_object_keys = __webpack_require__('456d')
@@ -4988,6 +4990,20 @@ and limitations under the License.
                   this.setScale()
                   var pos = this.getPosByEvent(e)
                   this.setValueByPos(pos)
+                },
+              },
+              {
+                key: 'focus',
+                value: function focus() {
+                  var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+                  this.states.add(SliderState.Focus)
+                  this.focusDotIndex = index
+                },
+              },
+              {
+                key: 'blur',
+                value: function blur() {
+                  this.states.delete(SliderState.Focus)
                 },
               },
               {

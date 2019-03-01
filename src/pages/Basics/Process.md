@@ -2,11 +2,11 @@
 
 ## process
 
-### 当值的类型为 `Boolean`
+### When the type of `process` is `Boolean`
 
 <example :value="example1"></example>
 
-### 当值的类型为 `Function`
+### When the type of `process` is `Function`
 
 <example :value="example2"></example>
 

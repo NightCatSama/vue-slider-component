@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.1-5",
+  "version": "3.0.2",
   "description": "A highly customized slider component",
   "keywords": [
     "vue",
@@ -12,6 +12,7 @@
   "main": "./dist/vue-slider-component.umd.min.js",
   "typings": "./typings/index.d.ts",
   "files": [
+    "dist",
     "lib",
     "src",
     "typings",
