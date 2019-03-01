@@ -21,8 +21,6 @@ import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
 import State, { StateMap } from './utils/state'
 
-export { ERROR_TYPE }
-
 import './styles/slider.scss'
 
 export const SliderState: StateMap = {
