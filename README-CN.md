@@ -8,6 +8,7 @@
 
 [English](https://github.com/NightCatSama/vue-slider-component/blob/refactor/README.md) | 简体中文
 
+如果你不需要新的特性，可以使用更稳定的版本 [v2.x](https://github.com/NightCatSama/vue-slider-component/tree/v2)
 
 ## ✨ 新特性(v3.x)
 - 🔧 修复了[异常](https://github.com/NightCatSama/vue-slider-component#exceptions)
@@ -28,6 +29,7 @@
 ## 🎯 安装
 ```bash
 $ yarn add vue-slider-component
+# npm install vue-slider-component --save
 ```
 
 
