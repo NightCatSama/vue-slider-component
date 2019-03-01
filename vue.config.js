@@ -37,6 +37,10 @@ function createContainer(name, defaultTitle) {
 
 module.exports = {
   parallel: false,
+  publicPath:
+    process.env.NODE_ENV === 'production' && process.env.VUE_APP_BUILD_MODE !== 'package'
+      ? '/vue-slider-component/'
+      : '/',
   outputDir: process.env.VUE_APP_BUILD_MODE === 'package' ? 'dist' : 'docs',
   chainWebpack: config => {
     if (process.env.VUE_APP_BUILD_MODE !== 'package') {
