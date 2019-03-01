@@ -18,6 +18,10 @@
 - 🎉 支持 SSR
 - 🍒 支持 Typescript
 
+## 📚 文档
+
+<https://nightcatsama.github.io/vue-slider-component>
+
 
 ## 🎯 安装
 ```bash

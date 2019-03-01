@@ -19,6 +19,10 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 - 🎉 Support SSR
 - 🍒 Support Typescript
 
+## 📚 Documentation
+
+<https://nightcatsama.github.io/vue-slider-component>
+
 
 ## 🎯 install
 ```bash
