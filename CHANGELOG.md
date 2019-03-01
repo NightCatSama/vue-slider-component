@@ -2,9 +2,16 @@
 
 ## v3.0.2
 
+> `2019-03-01`
+
+### 🐞 Bug Fixes
+  - Typescript type error
+
+## v3.0.2
+
 > `2019-02-28`
 
-### 🎉feature
+### 🎉 feature
   - More customizable (`style`/`slot`)
   - Multiple style themes
   - Support for more sliders (Countless)
@@ -12,5 +19,5 @@
   - Support SSR
   - Support Typescript
 
-### 🐞Bug Fixes
+### 🐞 Bug Fixes
   - Fix v2.x exception. (No longer need to call refresh)
