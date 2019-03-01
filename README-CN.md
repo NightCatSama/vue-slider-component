@@ -22,7 +22,7 @@
 
 在线文档：<https://nightcatsama.github.io/vue-slider-component/#/zh-CN/>
 
-在线例子：<https://jsfiddle.net/NightCatSama/2xy72dod/10241/>
+在线例子：<https://jsfiddle.net/NightCatSama/2xy72dod/10244/>
 
 
 ## 🎯 安装

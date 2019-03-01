@@ -22,7 +22,7 @@ English | [简体中文](https://github.com/NightCatSama/vue-slider-component/bl
 ## 📚 Documentation
 
 Document: <https://nightcatsama.github.io/vue-slider-component>
-Live Demo：<https://jsfiddle.net/NightCatSama/2xy72dod/10241/>
+Live Demo：<https://jsfiddle.net/NightCatSama/2xy72dod/10244/>
 
 
 ## 🎯 install
