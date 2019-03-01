@@ -21,7 +21,7 @@
 
 ## 🎯 安装
 ```bash
-$ yarn add vue-slider-component@beta
+$ yarn add vue-slider-component
 ```
 
 

@@ -3,8 +3,8 @@
 ## 安装
 
 ```bash
-# npm install vue-slider-component@beta --save
-yarn add vue-slider-component@beta
+# npm install vue-slider-component --save
+yarn add vue-slider-component
 ```
 
 ## 引入
