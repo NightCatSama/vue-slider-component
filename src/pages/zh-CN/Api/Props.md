@@ -320,6 +320,20 @@
 
 - **参考**：<router-link :to="$route.meta.lang + 'basics/marks'">刻度标记</router-link>
 
+### included
+
+- **类型**: `boolean`
+
+- **默认值**: `false`
+
+- **用法**:
+
+  仅在 `marks` 不为空时有效。
+
+  如果值为 `true`，`value` 会自动选择最近的 mark。
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/marks'">刻度标记</router-link>
+
 ### dotOptions
 
 - **类型**：`DotOption | DotOption[]`

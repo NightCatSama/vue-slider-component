@@ -6,7 +6,7 @@
 
 - **Default**: `0`
 
-- **Usage**: 
+- **Usage**:
 
   ```html
   <vue-slider v-model="value" />
@@ -24,7 +24,7 @@
 
 - **Default**: `14`
 
-- **Usage**: 
+- **Usage**:
 
   The slider size, when the value is an array, represents `[width, height]`.
 
@@ -34,7 +34,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   The width of the component (unit `px`) defaults to `auto` in the horizontal direction and `4` in the vertical direction.
 
@@ -44,7 +44,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   The height of the component (unit `px`), which defaults to `4` in the horizontal direction.
 
@@ -54,7 +54,7 @@
 
 - **Default**: `ltr`
 
-- **Usage**: 
+- **Usage**:
 
   The direction of the component
 
@@ -72,7 +72,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Custom data.
 
@@ -88,7 +88,7 @@
 
 - **Default**: `0`
 
-- **Usage**: 
+- **Usage**:
 
   Minimum value.
 
@@ -98,7 +98,7 @@
 
 - **Default**: `100`
 
-- **Usage**: 
+- **Usage**:
 
   Maximum value
 
@@ -108,7 +108,7 @@
 
 - **Default**: `1`
 
-- **Usage**: 
+- **Usage**:
 
   The interval between two values.
 
@@ -122,7 +122,7 @@
 
 - **Default**: `false`
 
-- **Usage**: 
+- **Usage**:
 
   Whether to disable the component.
 
@@ -132,7 +132,7 @@
 
 - **Default**: `true`
 
-- **Usage**: 
+- **Usage**:
 
   Whether to allow changes to values by clicking.
 
@@ -142,7 +142,7 @@
 
 - **Default**: `0.5`
 
-- **Usage**: 
+- **Usage**:
 
   The transition time of the slide, in units of `s`.
 
@@ -152,7 +152,7 @@
 
 - **Default**: `false`
 
-- **Usage**: 
+- **Usage**:
 
   Is it lazy to update the value.
 
@@ -174,7 +174,7 @@
 
 - **Default**: `'focus'`
 
-- **Usage**: 
+- **Usage**:
 
   Control Tooltip display.
 
@@ -190,7 +190,7 @@
 
 - **Default**: `'top'` (on horizontal) or `'left'` (on vertical)
 
-- **Usage**: 
+- **Usage**:
 
   The placement of the Tooltip.
 
@@ -200,7 +200,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Format the value of the Tooltip. When the type is `string`, `{value}` will be replaced with the value of Tooltip.
 
@@ -222,7 +222,7 @@
 
 - **Default**: `false`
 
-- **Usage**: 
+- **Usage**:
 
   Keyboard control, when the value is `true`, the drag end slider still gets the focus.
 
@@ -232,7 +232,7 @@
 
 - **Default**: `true`
 
-- **Usage**: 
+- **Usage**:
 
   Whether to allow sliders to cross, only valid for multiple sliders.
 
@@ -244,7 +244,7 @@
 
 - **Default**: `false`
 
-- **Usage**: 
+- **Usage**:
 
   Whether to fix the slider spacing, only valid for multiple sliders.
 
@@ -256,7 +256,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Minimum distance between sliders, only valid for multiple sliders.
 
@@ -266,7 +266,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Maximum distance between sliders, only valid for multiple sliders.
 
@@ -278,7 +278,7 @@
 
 - **Default**: `true`
 
-- **Usage**: 
+- **Usage**:
 
   Whether to sort values, only valid for multiple sliders.
 
@@ -312,9 +312,21 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Used to control the Mark of the display.
+
+### included
+
+- **Type**: `boolean`
+
+- **Default**: `false`
+
+- **Usage**:
+
+  Only valid if `marks` is not empty.
+
+  If the value is `true`, `value` will automatically set to the nearest mark.
 
 - **See also**: <router-link :to="$route.meta.lang + 'basics/marks'">Mark</router-link>
 
@@ -337,7 +349,7 @@
 
 - **Default**: `undefined`
 
-- **Usage**: 
+- **Usage**:
 
   Slider settings, multiple sliders can be distinguished by array type.
 
@@ -351,7 +363,7 @@
 
 - **Default**: `true`
 
-- **Usage**: 
+- **Usage**:
 
   Control the display of the process and support multiple processs.
 
@@ -367,7 +379,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   Slider style.
 
@@ -383,7 +395,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   Background style.
 
@@ -393,7 +405,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the progress bar.
 
@@ -407,7 +419,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the tooltip.
 
@@ -417,7 +429,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the step.
 
@@ -427,7 +439,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the step activation state.
 
@@ -437,7 +449,7 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the label.
 
@@ -447,6 +459,6 @@
 
 - **Default**: `null`
 
-- **Usage**: 
+- **Usage**:
 
   The style of the label activation state.
