@@ -1,10 +1,17 @@
 # CHANGELOG
 
+## v3.0.7
+
+> `2019-03-07`
+
+### 🐞 Bug Fixes
+  - Component not updated when array length changes
+
 ## v3.0.5
 
 > `2019-03-02`
 
-### 🐞 Feature
+### 🎉 Feature
   - Add Methods (`getValue` and `getIndex`)
 
 ## v3.0.3

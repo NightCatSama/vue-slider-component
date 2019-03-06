@@ -96,7 +96,7 @@ export default class Control {
   }
 
   setValue(value: Value | Value[]) {
-    this.dotsValue = Array.isArray(value) ? value : [value]
+    this.dotsValue = Array.isArray(value) ? [...value] : [value]
     this.syncDotsPos()
   }
 

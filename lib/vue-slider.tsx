@@ -427,7 +427,8 @@ export default class VueSlider extends Vue {
   private get isNotSync() {
     const values = this.control.dotsValue
     return Array.isArray(this.value)
-      ? this.value.some((val, index) => val !== values[index])
+      ? this.value.length !== values.length ||
+          this.value.some((val, index) => val !== values[index])
       : this.value !== values[0]
   }
 
