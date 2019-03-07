@@ -26,10 +26,8 @@ require('vue-slider-component/theme/default.css')
 
 ### Using `cdn`
 
-> TODO
-
 ```ts
-<link ref="stylesheel" href="/">
+<link ref="stylesheel" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
 ```
 
 ## Self-built theme
