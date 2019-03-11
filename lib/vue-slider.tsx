@@ -419,7 +419,7 @@ export default class VueSlider extends Vue {
       values = values.map(val => getRecentValue(val))
     }
     if (this.isDiff(values, Array.isArray(this.value) ? this.value : [this.value])) {
-      this.$emit('change', values.length === 1 ? values[0] : values)
+      this.$emit('change', values.length === 1 ? values[0] : [...values])
     }
   }
 
@@ -474,7 +474,7 @@ export default class VueSlider extends Vue {
       this.syncValueByPos()
     }
     const value = this.control.dotsValue
-    this.$emit('dragging', value.length === 1 ? value[0] : value)
+    this.$emit('dragging', value.length === 1 ? value[0] : [...value])
   }
 
   // If the component is sorted, then when the slider crosses, toggle the currently selected slider index

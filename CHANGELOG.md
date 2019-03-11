@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## v3.0.7
+## v3.0.8
 
-> `2019-03-07`
+> `2019-03-11`
 
 ### 🐞 Bug Fixes
   - Component not updated when array length changes
