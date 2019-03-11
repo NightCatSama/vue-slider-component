@@ -3,7 +3,7 @@ export default {
 <template>
   <div>
     <div class="box">
-      <input v-model="value" @input="clearErrorMsg" />
+      <input v-model="value" @input="clearErrorMsg" type="number" />
       <span style="color: red; margin-left: 20px;">{{ errorMsg }}</span>
     </div>
     <vue-slider
