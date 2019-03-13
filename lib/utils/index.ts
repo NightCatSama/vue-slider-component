@@ -5,7 +5,7 @@ interface IPosObject {
   y: number
 }
 
-export const toPx = (value: number | string): string => {
+export const getSize = (value: number | string): string => {
   return typeof value === 'number' ? `${value}px` : value
 }
 

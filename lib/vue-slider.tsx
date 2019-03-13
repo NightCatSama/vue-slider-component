@@ -16,7 +16,7 @@ import {
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
 
-import { toPx, getPos, getKeyboardHandleFunc } from './utils'
+import { getSize, getPos, getKeyboardHandleFunc } from './utils'
 import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
 import State, { StateMap } from './utils/state'
@@ -66,9 +66,9 @@ export default class VueSlider extends Vue {
   })
   direction!: Direction
 
-  @Prop(Number) width?: number
+  @Prop({ type: [Number, String] }) width?: number | string
 
-  @Prop(Number) height?: number
+  @Prop({ type: [Number, String] }) height?: number | string
 
   // The size of the slider, optional [width, height] | size
   @Prop({ default: 14 })
@@ -168,7 +168,7 @@ export default class VueSlider extends Vue {
   @Prop() labelActiveStyle?: Styles
 
   get tailSize() {
-    return (this.isHorizontal ? this.height : this.width) || DEFAULT_SLIDER_SIZE
+    return getSize((this.isHorizontal ? this.height : this.width) || DEFAULT_SLIDER_SIZE)
   }
 
   get containerClasses() {
@@ -186,17 +186,17 @@ export default class VueSlider extends Vue {
       ? this.dotSize
       : [this.dotSize, this.dotSize]
     const containerWidth = this.width
-      ? toPx(this.width)
+      ? getSize(this.width)
       : this.isHorizontal
       ? 'auto'
-      : toPx(DEFAULT_SLIDER_SIZE)
+      : getSize(DEFAULT_SLIDER_SIZE)
     const containerHeight = this.height
-      ? toPx(this.height)
+      ? getSize(this.height)
       : this.isHorizontal
-      ? toPx(DEFAULT_SLIDER_SIZE)
+      ? getSize(DEFAULT_SLIDER_SIZE)
       : 'auto'
     return {
-      padding: `${dotHeight / 2}px ${dotWidth / 2}px`,
+      padding: this.isHorizontal ? `${dotHeight / 2}px 0` : `0 ${dotWidth / 2}px`,
       width: containerWidth,
       height: containerHeight,
     }
@@ -228,16 +228,16 @@ export default class VueSlider extends Vue {
     let dotPos: { [key: string]: string }
     if (this.isHorizontal) {
       dotPos = {
-        marginTop: `-${(dotHeight - this.tailSize) / 2}px`,
-        [this.direction === 'ltr' ? 'marginLeft' : 'marginRight']: `-${dotWidth / 2}px`,
-        top: '0',
+        transform: `translate(${this.isReverse ? '50%' : '-50%'}, -50%)`,
+        WebkitTransform: `translate(${this.isReverse ? '50%' : '-50%'}, -50%)`,
+        top: '50%',
         [this.direction === 'ltr' ? 'left' : 'right']: '0',
       }
     } else {
       dotPos = {
-        marginLeft: `-${(dotWidth - this.tailSize) / 2}px`,
-        [this.direction === 'btt' ? 'marginBottom' : 'marginTop']: `-${dotHeight / 2}px`,
-        left: '0',
+        transform: `translate(-50%, ${this.isReverse ? '50%' : '-50%'})`,
+        WebkitTransform: `translate(-50%, ${this.isReverse ? '50%' : '-50%'})`,
+        left: '50%',
         [this.direction === 'btt' ? 'bottom' : 'top']: '0',
       }
     }
@@ -653,7 +653,7 @@ export default class VueSlider extends Vue {
                     hideLabel={this.hideLabel}
                     style={{
                       [this.isHorizontal ? 'height' : 'width']: '100%',
-                      [this.isHorizontal ? 'width' : 'height']: `${this.tailSize}px`,
+                      [this.isHorizontal ? 'width' : 'height']: this.tailSize,
                       [this.mainDirection]: `${mark.pos}%`,
                     }}
                     stepStyle={this.stepStyle}
