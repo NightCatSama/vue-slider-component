@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## v3.0.12
+
+> `2019-03-14`
+
+### 🎉 Feature
+  - `width` and `height` support `String` type
+
+## v3.0.11
+
+> `2019-03-13`
+
+### 🔧 Chore
+  - Optimize package size
+  - Upgrade vue-property-decorator, fix [#320](https://github.com/NightCatSama/vue-slider-component/issues/320)
+
 ## v3.0.8
 
 > `2019-03-11`
