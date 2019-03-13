@@ -30,7 +30,7 @@
 
 ### width
 
-- **Type**: `number`
+- **Type**: `number | string`
 
 - **Default**: `undefined`
 
@@ -40,7 +40,7 @@
 
 ### height
 
-- **Type**: `number`
+- **Type**: `number | string`
 
 - **Default**: `undefined`
 

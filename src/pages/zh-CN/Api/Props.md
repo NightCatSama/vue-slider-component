@@ -30,7 +30,7 @@
 
 ### width
 
-- **类型**：`number`
+- **类型**：`number | string`
 
 - **默认值**：`undefined`
 
@@ -40,7 +40,7 @@
 
 ### height
 
-- **类型**：`number`
+- **类型**：`number | string`
 
 - **默认值**：`undefined`
 
