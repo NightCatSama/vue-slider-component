@@ -3,7 +3,7 @@ interface IPosObject {
   x: number
   y: number
 }
-export declare const toPx: (value: string | number) => string
+export declare const getSize: (value: string | number) => string
 export declare const getPos: (
   e: MouseEvent | TouchEvent,
   elem: HTMLDivElement,

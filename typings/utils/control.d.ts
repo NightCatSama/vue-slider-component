@@ -169,5 +169,6 @@ export default class Control {
    * @memberof Control
    */
   readonly valuePosRange: Array<[number, number]>
+  readonly dotsIndex: number[]
 }
 export {}

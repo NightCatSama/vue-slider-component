@@ -26,8 +26,8 @@ export default class VueSlider extends Vue {
   $el: HTMLDivElement
   value: Value | Value[]
   direction: Direction
-  width?: number
-  height?: number
+  width?: number | string
+  height?: number | string
   dotSize: [number, number] | number
   min: number
   max: number
@@ -59,7 +59,7 @@ export default class VueSlider extends Vue {
   stepActiveStyle?: Styles
   labelStyle?: Styles
   labelActiveStyle?: Styles
-  readonly tailSize: number
+  readonly tailSize: string
   readonly containerClasses: (
     | string
     | string[]
@@ -113,6 +113,8 @@ export default class VueSlider extends Vue {
   private clickHandle
   focus(index?: number): void
   blur(): void
+  getValue(): string | number | (string | number)[]
+  getIndex(): number | number[]
   setValueByPos(pos: number): false | undefined
   keydownHandle(e: KeyboardEvent): false | undefined
   private getPosByEvent
