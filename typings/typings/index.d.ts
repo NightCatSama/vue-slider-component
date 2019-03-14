@@ -1,3 +1,5 @@
+/// <reference path="./global.d.ts" />
+
 import VueSlider from '../vue-slider'
 
 export interface Styles {

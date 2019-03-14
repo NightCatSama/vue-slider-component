@@ -23,9 +23,7 @@
   },
   "include": [
     "lib/**/*.ts",
-    "lib/**/*.tsx",
-    "src/types/shims-tsx.d.ts",
-    "src/types/shims-vue.d.ts",
+    "lib/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
