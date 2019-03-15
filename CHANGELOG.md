@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v3.0.14
+
+> `2019-03-15`
+
+### 🐞 Bug Fixes
+  - Calculation error when using BigNumber
+
+## v3.0.13
+
+> `2019-03-14`
+
+### 🐞 Bug Fixes
+  - Typescript Compile Error, fix [#321](https://github.com/NightCatSama/vue-slider-component/issues/321)
+
 ## v3.0.12
 
 > `2019-03-14`
