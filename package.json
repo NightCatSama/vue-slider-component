@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.14",
+  "version": "3.0.15",
   "description": "A highly customized slider component",
   "keywords": [
     "vue",
@@ -51,7 +51,6 @@
     ]
   },
   "dependencies": {
-    "vue": "^2.6.6",
     "vue-property-decorator": "^8.0.0"
   },
   "devDependencies": {
@@ -73,6 +72,7 @@
     "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
+    "vue": "^2.6.6",
     "vue-markdown-loader": "^2.4.1",
     "vue-property-decorator": "^8.0.0",
     "vue-router": "^3.0.2",
