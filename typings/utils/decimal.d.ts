@@ -8,12 +8,15 @@ declare type Operator = '+' | '-' | '*' | '/' | '%'
 export default class Decimal {
   num: number
   constructor(num: number)
-  decimal(num2: number, operator: Operator, isChain?: boolean): this
+  decimal(num2: number, operator: Operator): this
   plus(num2: number): this
   minus(num2: number): this
   multiply(num2: number): this
   divide(num2: number): this
   remainder(num2: number): this
   toNumber(): number
+  private getDecimalLen
+  private getExponent
+  private safeRoundUp
 }
 export {}

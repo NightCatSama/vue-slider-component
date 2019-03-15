@@ -13,37 +13,36 @@ export default class Decimal {
     this.num = num
   }
 
-  decimal(num2: number, operator: Operator, isChain?: boolean): this {
+  decimal(num2: number, operator: Operator): this {
     const num1 = this.num
-    const decimals1 = `${num1}`.split('.')[1] || ''
-    const decimals2 = `${num2}`.split('.')[1] || ''
-    const decimals = decimals1.length > decimals2.length ? decimals1 : decimals2
-    let multiple = decimals ? Math.pow(10, decimals.length) : 1
-    const n1 = Math.round(num1 * multiple)
-    const n2 = Math.round(num2 * multiple)
-    let n = 0
+    const len1 = this.getDecimalLen(num1)
+    const len2 = this.getDecimalLen(num2)
+    let base = 0
     switch (operator) {
       case '+':
-        n = n1 + n2
+        base = this.getExponent(len1, len2)
+        this.num = (this.safeRoundUp(num1, base) + this.safeRoundUp(num2, base)) / base
         break
       case '-':
-        n = n1 - n2
+        base = this.getExponent(len1, len2)
+        this.num = (this.safeRoundUp(num1, base) - this.safeRoundUp(num2, base)) / base
         break
       case '*':
-        n = n1 * n2
-        multiple *= multiple
+        this.num =
+          this.safeRoundUp(
+            this.safeRoundUp(num1, this.getExponent(len1)),
+            this.safeRoundUp(num2, this.getExponent(len2)),
+          ) / this.getExponent(len1 + len2)
         break
       case '/':
-        n = n1 / n2
-        multiple = 1
+        base = this.getExponent(len1, len2)
+        this.num = this.safeRoundUp(num1, base) / this.safeRoundUp(num2, base)
         break
       case '%':
-        n = n1 % n2
-        multiple = 1
+        base = this.getExponent(len1, len2)
+        this.num = (this.safeRoundUp(num1, base) % this.safeRoundUp(num2, base)) / base
         break
     }
-
-    this.num = n / multiple
     return this
   }
 
@@ -69,5 +68,18 @@ export default class Decimal {
 
   toNumber(): number {
     return this.num
+  }
+
+  private getDecimalLen(num: number): number {
+    return (`${num}`.split('.')[1] || '').length
+  }
+
+  private getExponent(num1: number, num2?: number): number {
+    return Math.pow(10, num2 !== void 0 ? Math.max(num1, num2) : num1)
+  }
+
+  // fix: 9999999.99995 * 100000 = 999999999994.9999
+  private safeRoundUp(num: number, exponent: number): number {
+    return Math.round(num * exponent)
   }
 }
