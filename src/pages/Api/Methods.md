@@ -40,6 +40,38 @@
   this.$refs.slider.getIndex()
   ```
 
+### setValue(value)
+
+- **Arguments**:
+
+  - `{number | string | number[] | string[]} value` Slider value
+
+- **Usage**：
+
+  Set the value of the component.
+
+  ```html
+  <vue-slider ref="slider"/>
+
+  this.$refs.slider.setValue(100)
+  ```
+
+### setIndex(index)
+
+- **Arguments**:
+
+  - `{number | number[]} index` Slider index
+
+- **Usage**：
+
+  Set the index of the component.
+
+  ```html
+  <vue-slider ref="slider"/>
+
+  this.$refs.slider.setIndex(10)
+  ```
+
 ### focus([index])
 
 - **Arguments**:
@@ -48,7 +80,7 @@
 
 - **Usage**：
 
-  get focus
+  get focus.
 
   ```html
   <vue-slider
@@ -64,7 +96,7 @@
 
 - **Usage**：
 
-  remove focus
+  remove focus.
 
   ```html
   <vue-slider

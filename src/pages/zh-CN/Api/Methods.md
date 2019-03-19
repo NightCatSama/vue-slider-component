@@ -40,6 +40,38 @@
   this.$refs.slider.getIndex()
   ```
 
+### setValue(value)
+
+- **参数**:
+
+  - `{number | string | number[] | string[]} value` 滑块的值
+
+- **用法**：
+
+  设置滑块的值。
+
+  ```html
+  <vue-slider ref="slider"/>
+
+  this.$refs.slider.setValue(100)
+  ```
+
+### setIndex(index)
+
+- **参数**:
+
+  - `{number | number[]} index` 滑块的索引
+
+- **用法**：
+
+  设置滑块索引。
+
+  ```html
+  <vue-slider ref="slider"/>
+
+  this.$refs.slider.setIndex(10)
+  ```
+
 ### focus([index])
 
 - **参数**：
@@ -48,7 +80,7 @@
 
 - **用法**：
 
-  滑块获取焦点
+  滑块获取焦点。
 
   ```html
   <vue-slider
@@ -64,7 +96,7 @@
 
 - **用法**：
 
-  失去焦点
+  失去焦点。
 
   ```html
   <vue-slider
