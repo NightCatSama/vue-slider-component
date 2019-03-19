@@ -60,6 +60,9 @@ export default class VueSlider extends Vue {
   @Model('change', { default: 0 })
   value!: Value | Value[]
 
+  @Prop({ type: Boolean, default: false })
+  silent!: boolean
+
   @Prop({
     default: 'ltr',
     validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1,
@@ -437,6 +440,9 @@ export default class VueSlider extends Vue {
   }
 
   private emitError(type: ERROR_TYPE, message: string) {
+    if (!this.silent) {
+      console.error(`[VueSlider error]: ${message}`)
+    }
     this.$emit('error', type, message)
   }
 
@@ -560,6 +566,18 @@ export default class VueSlider extends Vue {
   getIndex() {
     const indexes = this.control.dotsIndex
     return indexes.length === 1 ? indexes[0] : indexes
+  }
+
+  setValue(value: Value | Value[]) {
+    this.control.setValue(Array.isArray(value) ? [...value] : [value])
+    this.syncValueByPos()
+  }
+
+  setIndex(index: number | number[]) {
+    const value = Array.isArray(index)
+      ? index.map(n => this.control.getValueByIndex(n))
+      : this.control.getValueByIndex(index)
+    this.setValue(value)
   }
 
   setValueByPos(pos: number) {

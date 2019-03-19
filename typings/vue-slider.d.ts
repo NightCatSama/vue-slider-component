@@ -25,6 +25,7 @@ export default class VueSlider extends Vue {
   }
   $el: HTMLDivElement
   value: Value | Value[]
+  silent: boolean
   direction: Direction
   width?: number | string
   height?: number | string
@@ -115,6 +116,8 @@ export default class VueSlider extends Vue {
   blur(): void
   getValue(): string | number | (string | number)[]
   getIndex(): number | number[]
+  setValue(value: Value | Value[]): void
+  setIndex(index: number | number[]): void
   setValueByPos(pos: number): false | undefined
   keydownHandle(e: KeyboardEvent): false | undefined
   private getPosByEvent

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.0.16
+
+> `2019-03-19`
+
+### 🎉 Feature
+  - Add Methods (`setValue` and `setIndex`)
+  - Add Prop `silent` to suppress all warnings.
+
 ## v3.0.15
 
 > `2019-03-15`
