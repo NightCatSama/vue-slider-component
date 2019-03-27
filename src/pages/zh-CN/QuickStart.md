@@ -53,3 +53,18 @@ export default {
 ```html
 <vue-slider v-model="value"></vue-slider>
 ```
+
+## 服务端渲染 (SSR)
+
+因为默认引入的文件内联了样式，所以会出现错误 (`document is not defined`)。
+
+因此使用提取了 css 的文件：
+
+```js
+// import component
+import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
+import 'vue-slider-component/dist-css/vue-slider-component.css'
+
+// import theme
+import 'vue-slider-component/theme/default.css'
+```

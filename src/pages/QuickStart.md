@@ -53,3 +53,18 @@ export default {
 ```html
 <vue-slider v-model="value"></vue-slider>
 ```
+
+## Server-Side Rendering (SSR)
+
+Because the default imported file has inline styles, direct use will cause an error (`document is not defined`).
+
+So use the file that extracted css:
+
+```js
+// import component
+import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
+import 'vue-slider-component/dist-css/vue-slider-component.css'
+
+// import theme
+import 'vue-slider-component/theme/default.css'
+```
