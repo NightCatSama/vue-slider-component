@@ -130,3 +130,27 @@
     }
   </style>
   ```
+
+## process
+
+- **Scoped**:
+
+  - `{number} start` Start position of the progress
+
+  - `{number} end` End position of the progress
+
+  - `{object} style` Progress style, Contains the calculated style of the component (size, position, etc)
+
+- **Usage**:
+
+  The slot of the process.
+
+  ```html
+  <vue-slider v-model="value">
+    <template v-slot:process="{ start, end, style }">
+      <div class="vue-slider-process custom-class" :style="[style, customStyle]">
+        <!-- Can add custom elements here -->
+      </div>
+    </template>
+  </vue-slider>
+  ```

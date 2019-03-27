@@ -130,3 +130,27 @@
     }
   </style>
   ```
+
+## process
+
+- **作用域**:
+
+  - `{number} start` 进度条开始的位置
+
+  - `{number} end` 进度条结束的位置
+
+  - `{object} style` 进度条样式，包括组件内部已经计算好的样式（宽高、位置等等）
+
+- **用法**:
+
+  进度条插槽。
+
+  ```html
+  <vue-slider v-model="value">
+    <template v-slot:process="{ start, end, style }">
+      <div class="vue-slider-process custom-class" :style="[style, customStyle]">
+        <!-- Can add custom elements here -->
+      </div>
+    </template>
+  </vue-slider>
+  ```

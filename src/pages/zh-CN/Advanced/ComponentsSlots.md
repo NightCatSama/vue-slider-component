@@ -20,5 +20,9 @@
 
 <example :value="example4"></example>
 
+### 进度条插槽
+
+<example :value="example5"></example>
+
 ::: example components-slots :::
 

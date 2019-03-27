@@ -149,4 +149,58 @@ export default {
   }
 </script>
   `,
+  example5: `
+  <template>
+    <div>
+      <vue-slider v-model="value" tooltip="none">
+        <template v-slot:process="{ start, end, style }">
+          <div class="vue-slider-process" :style="style">
+            ${
+              localStorage.getItem('theme') === 'material'
+                ? '<div class="merge-tooltip">'
+                : `<div :class="[
+              'merge-tooltip',
+              'vue-slider-dot-tooltip-inner',
+              'vue-slider-dot-tooltip-inner-top',
+            ]">`
+            }
+              {{ value[0] }} - {{ value[1] }}
+            </div>
+          </div>
+        </template>
+      </vue-slider>
+    </div>
+  </template>
+
+  <style>
+    .merge-tooltip {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translate(-50%, -15px);
+    ${
+      localStorage.getItem('theme') === 'material'
+        ? `  white-space: nowrap;
+      color: #fff;
+      background-color: inherit;
+      padding: 3px 10px;
+      border-radius: 15px;
+    }`
+        : '}'
+    }
+  </style>
+
+  <script>
+    module.exports = {
+      components: {
+        VueSlider
+      },
+      data: function () {
+        return {
+          value: [0, 50]
+        }
+      }
+    }
+  </script>
+  `,
 }

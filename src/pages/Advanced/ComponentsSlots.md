@@ -20,5 +20,9 @@
 
 <example :value="example4"></example>
 
+### Process slot
+
+<example :value="example5"></example>
+
 ::: example components-slots :::
 
