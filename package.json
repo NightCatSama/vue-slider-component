@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.16",
+  "version": "3.0.17",
   "description": "A highly customized slider component",
   "keywords": [
     "vue",
@@ -33,7 +33,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:library": "npm run package && npm run typings && npm run sass",
-    "typings": "tsc -p tsconfig.package.json",
+    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings/typings",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "sass": "sass lib/theme:theme",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",

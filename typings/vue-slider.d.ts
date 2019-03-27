@@ -8,6 +8,7 @@ import {
   Direction,
   Position,
   ProcessProp,
+  Process,
   TooltipProp,
   TooltipFormatter,
 } from './typings'
@@ -72,7 +73,7 @@ export default class VueSlider extends Vue {
     width: string
     height: string
   }
-  readonly processBaseStyleArray: Styles[]
+  readonly processArray: Process[]
   readonly dotBaseStyle: {
     width: string
     height: string
