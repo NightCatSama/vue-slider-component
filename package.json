@@ -35,7 +35,7 @@
     "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
-    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings/typings",
+    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings",
     "sass": "sass lib/theme:theme",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
     "lint": "vue-cli-service lint",
