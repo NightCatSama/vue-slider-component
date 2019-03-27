@@ -69,5 +69,5 @@ module.exports = {
       config.output.libraryExport('default')
     }
   },
-  css: { extract: false },
+  css: { extract: !!process.env.NO_EXTRACT_CSS },
 }

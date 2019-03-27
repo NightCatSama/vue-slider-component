@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.0.17",
+  "version": "3.0.18",
   "description": "A highly customized slider component",
   "keywords": [
     "vue",
@@ -13,7 +13,7 @@
   "typings": "./typings/index.d.ts",
   "files": [
     "dist",
-    "es",
+    "dist-css",
     "lib",
     "src",
     "typings",
@@ -32,9 +32,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:library": "npm run package && npm run typings && npm run sass",
-    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings/typings",
+    "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
+    "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
+    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings/typings",
     "sass": "sass lib/theme:theme",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
     "lint": "vue-cli-service lint",

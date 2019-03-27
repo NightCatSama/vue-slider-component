@@ -2,6 +2,7 @@
 node_modules
 docs/
 dist/
+dist-css/
 es/
 
 # local env files
