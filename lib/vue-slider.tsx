@@ -10,6 +10,7 @@ import {
   Direction,
   Position,
   ProcessProp,
+  Process,
   TooltipProp,
   TooltipFormatter,
 } from './typings'
@@ -205,7 +206,7 @@ export default class VueSlider extends Vue {
     }
   }
 
-  get processBaseStyleArray(): Styles[] {
+  get processArray(): Process[] {
     return this.control.processArray.map(([start, end, style]) => {
       if (start > end) {
         /* tslint:disable:semicolon */
@@ -213,13 +214,18 @@ export default class VueSlider extends Vue {
       }
       const sizeStyleKey = this.isHorizontal ? 'width' : 'height'
       return {
-        [this.isHorizontal ? 'height' : 'width']: '100%',
-        [this.isHorizontal ? 'top' : 'left']: 0,
-        [this.mainDirection]: `${start}%`,
-        [sizeStyleKey]: `${end - start}%`,
-        transitionProperty: `${sizeStyleKey},${this.mainDirection}`,
-        transitionDuration: `${this.animateTime}s`,
-        ...style,
+        start,
+        end,
+        style: {
+          [this.isHorizontal ? 'height' : 'width']: '100%',
+          [this.isHorizontal ? 'top' : 'left']: 0,
+          [this.mainDirection]: `${start}%`,
+          [sizeStyleKey]: `${end - start}%`,
+          transitionProperty: `${sizeStyleKey},${this.mainDirection}`,
+          transitionDuration: `${this.animateTime}s`,
+          ...this.processStyle,
+          ...style,
+        },
       }
     })
   }
@@ -652,21 +658,23 @@ export default class VueSlider extends Vue {
       >
         {/* rail */}
         <div class="vue-slider-rail" style={this.railStyle}>
-          {this.processBaseStyleArray.map((baseStyle, index) => (
-            <div
-              class="vue-slider-process"
-              key={`process-${index}`}
-              style={[baseStyle, this.processStyle]}
-            />
-          ))}
+          {this.processArray.map((item, index) =>
+            this.renderSlot<Process>(
+              'process',
+              item,
+              <div class="vue-slider-process" key={`process-${index}`} style={item.style} />,
+              true,
+            ),
+          )}
           {/* mark */}
           {this.marks ? (
             <div class="vue-slider-marks">
-              {this.control.markList.map(mark =>
+              {this.control.markList.map((mark, index) =>
                 this.renderSlot<Mark>(
                   'mark',
                   mark,
                   <vue-slider-mark
+                    key={`mark-${index}`}
                     mark={mark}
                     hideLabel={this.hideLabel}
                     style={{
