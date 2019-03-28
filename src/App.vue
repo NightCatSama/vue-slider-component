@@ -15,7 +15,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import Navbar from './components/Navbar.vue'
 import PageFooter from './components/PageFooter.vue'
 
-import { getTheme } from './utils'
+import { setQuery, getQuery, getTheme } from './utils'
 
 @Component({
   components: {
@@ -34,6 +34,18 @@ export default class App extends Vue {
     const theme = getTheme()
     if (document && document.documentElement) {
       document.documentElement.classList.add(`theme-${theme}`)
+    }
+  }
+
+  mounted() {
+    document.body.onclick = e => {
+      if (e.target && e.target instanceof HTMLAnchorElement && e.target.classList.contains('header-anchor')) {
+        e.preventDefault()
+        const hash = decodeURIComponent(e.target.href.split('#')[1])
+        const query = getQuery()
+        query.hash = hash
+        setQuery(query)
+      }
     }
   }
 }
@@ -64,6 +76,15 @@ export default class App extends Vue {
     overflow: auto;
   }
 
+  .header-anchor {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    color: pink;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+
   .vue-slider:not(:first-child) {
     margin-top: 45px;
   }
@@ -82,7 +103,11 @@ export default class App extends Vue {
     }
 
     h2, h3 {
+      position: relative;
       margin-top: 90px;
+      &:hover .header-anchor {
+        opacity: 1;
+      }
     }
 
     ol {

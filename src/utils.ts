@@ -1,13 +1,29 @@
-export const getTheme = (): string => {
-  let theme = ''
+interface Query {
+  [key: string]: string
+}
+
+export const getQuery = (): Query => {
+  const query: Query = {}
   ;(location.href.split('?')[1] || '')
     .split('&')
     .filter(Boolean)
     .forEach(item => {
-      if (item.split('=')[0] === 'theme') {
-        theme = item.split('=')[1]
-      }
+      const [key, value] = item.split('=')
+      query[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : ''
     })
 
-  return theme || localStorage.getItem('theme') || 'default'
+  return query
+}
+
+export const setQuery = (query: Query) => {
+  location.href =
+    location.href.split('?')[0] +
+    '?' +
+    Object.entries(query)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&')
+}
+
+export const getTheme = (): string => {
+  return getQuery().theme || localStorage.getItem('theme') || 'default'
 }
