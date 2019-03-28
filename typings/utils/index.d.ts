@@ -4,6 +4,7 @@ interface IPosObject {
   y: number
 }
 export declare const getSize: (value: string | number) => string
+export declare const getOffset: (elem: HTMLDivElement) => IPosObject
 export declare const getPos: (
   e: MouseEvent | TouchEvent,
   elem: HTMLDivElement,

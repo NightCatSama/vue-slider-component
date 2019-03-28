@@ -9,16 +9,28 @@ export const getSize = (value: number | string): string => {
   return typeof value === 'number' ? `${value}px` : value
 }
 
+export const getOffset = (elem: HTMLDivElement): IPosObject => {
+  const doc = document.documentElement as HTMLElement
+  const body = document.body as HTMLElement
+  const rect = elem.getBoundingClientRect()
+  const offset: IPosObject = {
+    y: rect.top + (window.pageYOffset || doc.scrollTop) - (doc.clientTop || body.clientTop || 0),
+    x:
+      rect.left + (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || body.clientLeft || 0),
+  }
+  return offset
+}
+
 export const getPos = (
   e: MouseEvent | TouchEvent,
   elem: HTMLDivElement,
   isReverse: boolean,
 ): IPosObject => {
   const event = e instanceof MouseEvent ? e : e.targetTouches[0]
-  const rect = elem.getBoundingClientRect()
+  const offset = getOffset(elem)
   const posObj = {
-    x: event.pageX - rect.left,
-    y: event.pageY - rect.top,
+    x: event.pageX - offset.x,
+    y: event.pageY - offset.y,
   }
   return {
     x: isReverse ? elem.offsetWidth - posObj.x : posObj.x,
