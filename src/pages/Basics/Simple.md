@@ -37,4 +37,10 @@ You can disable the entire component with `disabled` or disable the slider separ
   When disabling a single slider, use `order = false` or `enableCross = true`.
 :::
 
+### Adsorb
+
+When `adsorb` is set to `true`, the slider automatically adsorb to the nearest value.
+
+<example :value="example7"></example>
+
 ::: example simple :::

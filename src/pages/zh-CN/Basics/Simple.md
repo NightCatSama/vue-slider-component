@@ -37,4 +37,10 @@
   禁用单个滑块时，请使用 `order = false` 或者 `enableCross = true`。
 :::
 
+### 吸附效果
+
+设置 `adsorb` 为 `true` 时，滑块自动吸附到最近的值。
+
+<example :value="example7"></example>
+
 ::: example simple :::

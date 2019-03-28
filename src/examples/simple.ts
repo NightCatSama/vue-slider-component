@@ -152,4 +152,45 @@ export default {
   }
 </script>
   `,
+  example7: `
+  <template>
+    <div>
+      <vue-slider
+        v-model="value1"
+        :adsorb="true"
+        :interval="10"
+        :marks="true"
+      ></vue-slider>
+      <vue-slider
+        v-model="value2"
+        :adsorb="true"
+        :data="data"
+        :marks="true"
+      ></vue-slider>
+      <vue-slider
+        v-model="value3"
+        :adsorb="true"
+        :marks="marks"
+        :included="true"
+      ></vue-slider>
+    </div>
+  </template>
+
+  <script>
+    module.exports = {
+      components: {
+        VueSlider
+      },
+      data: function () {
+        return {
+          value1: 0,
+          value2: 'a',
+          value3: 0,
+          data: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+          marks: [0, 10, 30, 60, 100]
+        }
+      }
+    }
+  </script>
+    `,
 }
