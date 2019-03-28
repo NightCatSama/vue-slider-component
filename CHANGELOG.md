@@ -1,11 +1,18 @@
 # CHANGELOG
 
+## v3.0.19
+
+> `2019-03-28`
+
+### 🎉 Feature
+  - Add Prop `adsorb` to control the slider to automatically adsorb to the nearest value
+
 ## v3.0.18
 
 > `2019-03-28`
 
 ### 🎉 Feature
-  - Add extraction css
+  - Add extraction css, support server-side rendering
 
 ## v3.0.17
 

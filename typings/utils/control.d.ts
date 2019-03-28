@@ -27,7 +27,9 @@ export default class Control {
   maxRange: number
   order: boolean
   marks?: MarksProp
+  included?: boolean
   process?: ProcessProp
+  adsorb?: boolean
   onError?: (type: ERROR_TYPE, message: string) => void
   constructor(options: {
     value: Value | Value[]
@@ -41,10 +43,13 @@ export default class Control {
     minRange?: number
     maxRange?: number
     marks?: MarksProp
+    included?: boolean
     process?: ProcessProp
+    adsorb?: boolean
     onError?: (type: ERROR_TYPE, message: string) => void
   })
   setValue(value: Value | Value[]): void
+  setDotsValue(value: Value[], syncPos?: boolean): void
   setDotsPos(dotsPos: number[]): void
   syncDotsPos(): void
   /**

@@ -51,6 +51,7 @@ export default class VueSlider extends Vue {
   marks?: MarksProp
   process?: ProcessProp
   included?: boolean
+  adsorb?: boolean
   hideLabel?: boolean
   dotOptions?: DotOption | DotOption[]
   railStyle?: Styles
