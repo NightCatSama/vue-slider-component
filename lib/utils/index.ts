@@ -9,30 +9,17 @@ export const getSize = (value: number | string): string => {
   return typeof value === 'number' ? `${value}px` : value
 }
 
-type GetOffsetFunc = (elem: HTMLDivElement) => IPosObject
-
-export const getOffset = ((): GetOffsetFunc => {
-  let cacheElem: HTMLDivElement | null = null
-  let cacheOffset: IPosObject | null = null
-  return (elem: HTMLDivElement): IPosObject => {
-    if (cacheElem && cacheElem === elem && cacheOffset) {
-      return cacheOffset
-    }
-    cacheElem = elem
-    const doc = document.documentElement as HTMLElement
-    const body = document.body as HTMLElement
-    const rect = elem.getBoundingClientRect()
-    const offset: IPosObject = {
-      y: rect.top + (window.pageYOffset || doc.scrollTop) - (doc.clientTop || body.clientTop || 0),
-      x:
-        rect.left +
-        (window.pageXOffset || doc.scrollLeft) -
-        (doc.clientLeft || body.clientLeft || 0),
-    }
-    cacheOffset = offset
-    return offset
+export const getOffset = (elem: HTMLDivElement): IPosObject => {
+  const doc = document.documentElement as HTMLElement
+  const body = document.body as HTMLElement
+  const rect = elem.getBoundingClientRect()
+  const offset: IPosObject = {
+    y: rect.top + (window.pageYOffset || doc.scrollTop) - (doc.clientTop || body.clientTop || 0),
+    x:
+      rect.left + (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || body.clientLeft || 0),
   }
-})()
+  return offset
+}
 
 export const getPos = (
   e: MouseEvent | TouchEvent,
