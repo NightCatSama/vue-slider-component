@@ -52,7 +52,9 @@ export default class Control {
   maxRange: number
   order: boolean
   marks?: MarksProp
+  included?: boolean
   process?: ProcessProp
+  adsorb?: boolean
   onError?: (type: ERROR_TYPE, message: string) => void
 
   constructor(options: {
@@ -67,7 +69,9 @@ export default class Control {
     minRange?: number
     maxRange?: number
     marks?: MarksProp
+    included?: boolean
     process?: ProcessProp
+    adsorb?: boolean
     onError?: (type: ERROR_TYPE, message: string) => void
   }) {
     this.data = options.data
@@ -76,7 +80,9 @@ export default class Control {
     this.interval = options.interval
     this.order = options.order
     this.marks = options.marks
+    this.included = options.included
     this.process = options.process
+    this.adsorb = options.adsorb
     this.onError = options.onError
     if (this.order) {
       this.minRange = options.minRange || 0
@@ -96,15 +102,39 @@ export default class Control {
   }
 
   setValue(value: Value | Value[]) {
-    this.dotsValue = Array.isArray(value) ? [...value] : [value]
-    this.syncDotsPos()
+    this.setDotsValue(Array.isArray(value) ? [...value] : [value], true)
+  }
+
+  setDotsValue(value: Value[], syncPos?: boolean) {
+    // When included is true, the return value is the value of the nearest mark
+    if (this.included && this.markList.length > 0) {
+      const getRecentValue = (val: Value) => {
+        let curValue = val
+        let dir = this.max - this.min
+        this.markList.forEach(mark => {
+          if (typeof mark.value === 'number' && typeof val === 'number') {
+            const curDir = Math.abs(mark.value - val)
+            if (curDir < dir) {
+              dir = curDir
+              curValue = mark.value
+            }
+          }
+        })
+        return curValue
+      }
+      value = value.map(val => getRecentValue(val))
+    }
+    this.dotsValue = value
+    if (syncPos) {
+      this.syncDotsPos()
+    }
   }
 
   // Set the slider position
   setDotsPos(dotsPos: number[]) {
     const list = this.order ? [...dotsPos].sort((a, b) => a - b) : dotsPos
     this.dotsPos = list
-    this.dotsValue = list.map(dotPos => this.parsePos(dotPos))
+    this.setDotsValue(list.map(dotPos => this.parsePos(dotPos)), this.adsorb)
   }
 
   // Sync slider position

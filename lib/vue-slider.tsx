@@ -151,6 +151,9 @@ export default class VueSlider extends Vue {
   // If the value is true , mark will be an independent value
   @Prop(Boolean) included?: boolean
 
+  // If the value is true , dot will automatically adsorb to the nearest value
+  @Prop(Boolean) adsorb?: boolean
+
   @Prop(Boolean) hideLabel?: boolean
 
   @Prop() dotOptions?: DotOption | DotOption[]
@@ -369,7 +372,9 @@ export default class VueSlider extends Vue {
       maxRange: this.maxRange,
       order: this.order,
       marks: this.marks,
+      included: this.included,
       process: this.process,
+      adsorb: this.adsorb,
       onError: this.emitError,
     })
     ;[
@@ -384,6 +389,8 @@ export default class VueSlider extends Vue {
       'order',
       'marks',
       'process',
+      'adsorb',
+      'included',
     ].forEach(name => {
       this.$watch(name, (val: any) => {
         if (
@@ -408,25 +415,7 @@ export default class VueSlider extends Vue {
   }
 
   private syncValueByPos() {
-    let values = this.control.dotsValue
-    // When included is true, the return value is the value of the nearest mark
-    if (this.included && this.control.markList.length > 0) {
-      const getRecentValue = (val: Value) => {
-        let curValue = val
-        let dir = this.max - this.min
-        this.control.markList.forEach(mark => {
-          if (typeof mark.value === 'number' && typeof val === 'number') {
-            const curDir = Math.abs(mark.value - val)
-            if (curDir < dir) {
-              dir = curDir
-              curValue = mark.value
-            }
-          }
-        })
-        return curValue
-      }
-      values = values.map(val => getRecentValue(val))
-    }
+    const values = this.control.dotsValue
     if (this.isDiff(values, Array.isArray(this.value) ? this.value : [this.value])) {
       this.$emit('change', values.length === 1 ? values[0] : [...values])
     }
