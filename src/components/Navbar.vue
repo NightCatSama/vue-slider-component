@@ -66,6 +66,10 @@ export default class Navbar extends Vue {
     return getNavObj(this.$route.meta.lang)
   }
 
+  mounted() {
+    this.hide = document.body.clientWidth < 992 ? true : false
+  }
+
   switchLanguage() {
     this.$router.push({
       path: (

@@ -97,7 +97,7 @@ export default class App extends Vue {
     color: #34495e;
     @include max-screen(992px) {
       & {
-        padding: 50px 25px 20px;
+        padding: 30px 20px 20px;
         width: 100%;
       }
     }
@@ -107,6 +107,12 @@ export default class App extends Vue {
       margin-top: 90px;
       &:hover .header-anchor {
         opacity: 1;
+      }
+
+      @include max-screen(992px) {
+        & {
+          margin-top: 50px;
+        }
       }
     }
 

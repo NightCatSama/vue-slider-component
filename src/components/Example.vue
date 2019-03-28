@@ -100,7 +100,7 @@ export default class ExampleData extends Vue {
 
         @include max-screen(992px) {
           & {
-            padding: 10px;
+            padding: 30px 15px;
           }
         }
       }
