@@ -4,6 +4,7 @@ docs/
 dist/
 dist-css/
 es/
+typings/
 
 # local env files
 .env.local
