@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.21
+
+> `2019-03-28`
+
+### 🐞 Bug Fixes
+  - AMouse position calculation error
+
 ## v3.0.19
 
 > `2019-03-28`
