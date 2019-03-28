@@ -5,7 +5,7 @@
 > `2019-03-28`
 
 ### 🐞 Bug Fixes
-  - AMouse position calculation error
+  - Mouse/Touch position calculation error
 
 ## v3.0.19
 
