@@ -45,7 +45,7 @@ export const getRoutes = (obj: NavObj, prefix: LANG): RouteConfig[] =>
           } as RouteConfig),
       ),
     )
-    .flat()
+    .flatMap(s => s)
     .map((route, index, arr) => ({
       ...route,
       meta: {

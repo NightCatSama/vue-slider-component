@@ -1,3 +1,7 @@
+import 'core-js/modules/es7.array.flat-map'
+import 'core-js/modules/es7.object.entries'
+import 'core-js/modules/es7.object.values'
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
