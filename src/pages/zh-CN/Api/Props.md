@@ -146,6 +146,18 @@
 
   滑动的过渡时间，单位 `s`。
 
+### adsorb
+
+- **类型**：`boolean`
+
+- **默认值**：`false`
+
+- **用法**：
+
+  滑块是否自动吸附到最近的值。
+
+- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=吸附效果'">一般用法 > 吸附效果</router-link>
+
 ### lazy
 
 - **类型**：`boolean`
@@ -167,6 +179,8 @@
     @dragging="val => // do something"
   />
   ```
+
+- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=懒更新'">一般用法 > 懒更新</router-link>
 
 ### tooltip
 
@@ -332,7 +346,7 @@
 
   如果值为 `true`，`value` 会自动选择最近的 mark。
 
-- **See also**: <router-link :to="$route.meta.lang + 'basics/marks'">刻度标记</router-link>
+- **参考**: <router-link :to="$route.meta.lang + 'basics/marks?hash=配合-included-使用'">刻度标记 > 配合`included`使用</router-link>
 
 ### dotOptions
 

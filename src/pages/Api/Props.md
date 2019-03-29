@@ -146,6 +146,19 @@
 
   The transition time of the slide, in units of `s`.
 
+### adsorb
+
+- **Type**：`boolean`
+
+- **Default**：`false`
+
+- **Usage**：
+
+  Whether the slider automatically adsorb to the nearest value.
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/simple?hash=adsorb'">Common usage > Adsorb</router-link>
+
+
 ### lazy
 
 - **Type**: `boolean`
@@ -167,6 +180,8 @@
     @dragging="val => // do something"
   />
   ```
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/simple?hash=lazy'">Common usage > Lazy</router-link>
 
 ### tooltip
 
@@ -260,6 +275,8 @@
 
   Minimum distance between sliders, only valid for multiple sliders.
 
+- **See also**: <router-link :to="$route.meta.lang + 'basics/range'">Range mode</router-link>
+
 ### maxRange
 
 - **Type**: `number`
@@ -328,7 +345,7 @@
 
   If the value is `true`, `value` will automatically set to the nearest mark.
 
-- **See also**: <router-link :to="$route.meta.lang + 'basics/marks'">Mark</router-link>
+- **See also**: <router-link :to="$route.meta.lang + 'basics/marks?hash=use-with-included'">Mark > Use with `included`</router-link>
 
 ### dotOptions
 
