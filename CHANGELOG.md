@@ -2,7 +2,7 @@
 
 ## v3.0.22
 
-> `2019-03-28`
+> `2019-04-01`
 
 ### 🐞 Bug Fixes
   - Use `indexOf` instead of `includes`, fix [#334](https://github.com/NightCatSama/vue-slider-component/issues/334)
