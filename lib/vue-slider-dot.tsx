@@ -20,7 +20,7 @@ export default class VueSliderDot extends Vue {
 
   @Prop({
     type: String,
-    validator: (val: string) => ['top', 'right', 'bottom', 'left'].includes(val),
+    validator: (val: string) => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
     required: true,
   })
   tooltipPlacement!: Position

@@ -104,14 +104,14 @@ export default class VueSlider extends Vue {
 
   @Prop({
     type: String,
-    validator: val => ['none', 'always', 'focus'].includes(val),
+    validator: val => ['none', 'always', 'focus'].indexOf(val) > -1,
     default: 'focus',
   })
   tooltip!: TooltipProp
 
   @Prop({
     type: String,
-    validator: val => ['top', 'right', 'bottom', 'left'].includes(val),
+    validator: val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
   })
   tooltipPlacement?: Position
 
@@ -403,7 +403,7 @@ export default class VueSlider extends Vue {
           return false
         }
         ;(this.control as any)[name] = val
-        if (['data', 'max', 'min', 'interval'].includes(name)) {
+        if (['data', 'max', 'min', 'interval'].indexOf(name) > -1) {
           this.control.syncDotsPos()
         }
       })
