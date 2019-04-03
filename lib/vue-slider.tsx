@@ -78,6 +78,10 @@ export default class VueSlider extends Vue {
   @Prop({ default: 14 })
   dotSize!: [number, number] | number
 
+  // whether or not the slider should be fully contained within its containing element
+  @Prop({ default: false })
+  contained!: boolean
+
   @Prop({ type: Number, default: 0 })
   min!: number
 
@@ -203,7 +207,11 @@ export default class VueSlider extends Vue {
       ? getSize(DEFAULT_SLIDER_SIZE)
       : 'auto'
     return {
-      padding: this.isHorizontal ? `${dotHeight / 2}px 0` : `0 ${dotWidth / 2}px`,
+      padding: this.contained
+        ? `${dotHeight / 2}px ${dotWidth / 2}px`
+        : this.isHorizontal
+        ? `${dotHeight / 2}px 0`
+        : `0 ${dotWidth / 2}px`,
       width: containerWidth,
       height: containerHeight,
     }
