@@ -43,4 +43,12 @@ When `adsorb` is set to `true`, the slider automatically adsorb to the nearest v
 
 <example :value="example7"></example>
 
+### Contained
+
+By default, the center of the `dot` is used to align the edge.
+
+When `contained` is set to `true`, the edge of the `dot` is used to align.
+
+<example :value="example8"></example>
+
 ::: example simple :::

@@ -48,6 +48,18 @@
 
   The height of the component (unit `px`), which defaults to `4` in the horizontal direction.
 
+### contained
+
+- **Type**: `boolean`
+
+- **Default**: `false`
+
+- **Usage**:
+
+  Whether or not the slider should be fully contained within its containing element.
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/simple?hash=contained'">Common usage > Contained</router-link>
+
 ### direction
 
 - **Type**: `'ltr' | 'rtl' | 'ttb' | 'bbt'`

@@ -192,5 +192,37 @@ export default {
       }
     }
   </script>
-    `,
+  `,
+  example8: `
+  <template>
+    <div>
+      <div class="wrap">
+        <vue-slider></vue-slider>
+        <div>contained: false</div>
+        <vue-slider :contained="true"></vue-slider>
+        <div>contained: true</div>
+      </div>
+    </div>
+  </template>
+
+  <style>
+    .wrap {
+      border-left: 1px dashed #ddd;
+      border-right: 1px dashed #ddd;
+      padding: 10px 0;
+    }
+  </style>
+
+  <script>
+    module.exports = {
+      components: {
+        VueSlider
+      },
+      data: function () {
+        return {
+        }
+      }
+    }
+  </script>
+  `,
 }

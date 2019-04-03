@@ -23,13 +23,13 @@
 
 ### 懒更新
 
-只有当拖拽结束后，值才会更新
+只有当拖拽结束后，值才会更新。
 
 <example :value="example5"></example>
 
 ### 禁用滑块
 
-可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用滑块
+可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用滑块。
 
 <example :value="example6"></example>
 
@@ -42,5 +42,13 @@
 设置 `adsorb` 为 `true` 时，滑块自动吸附到最近的值。
 
 <example :value="example7"></example>
+
+### 边缘对齐
+
+默认情况下使用 `dot` 的中心来对齐边界。
+
+当 `contained` 设置为 `true`，则使用 `dot` 的边缘对齐。
+
+<example :value="example8"></example>
 
 ::: example simple :::

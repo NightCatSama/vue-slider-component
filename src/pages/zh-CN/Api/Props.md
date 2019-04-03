@@ -48,6 +48,18 @@
 
   组件的高度（单位 `px`），水平方向时默认为 `4`。
 
+### contained
+
+- **类型**: `boolean`
+
+- **默认值**: `false`
+
+- **用法**:
+
+  滑块是否完全包含在组件中。
+
+- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=边缘对齐'">一般用法 > 边缘对齐</router-link>
+
 ### direction
 
 - **类型**：`'ltr' | 'rtl' | 'ttb' | 'bbt'`
