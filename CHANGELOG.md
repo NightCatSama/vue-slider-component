@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.23
+
+> `2019-04-03`
+
+### 🎉 Feature
+  - Add prop `contained` to support for two alignment modes. [#337](https://github.com/NightCatSama/vue-slider-component/issues/337)
+
 ## v3.0.22
 
 > `2019-04-01`
