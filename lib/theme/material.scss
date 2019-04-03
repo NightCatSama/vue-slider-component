@@ -1,9 +1,16 @@
-$themeColor: #6200ee;
-$bgColor: #bda1f3;
-$disabledRailColor: #ccc;
-$disabledColor: #666;
-$tooltipSize: 30px;
-$tooltipColor: #fff;
+$themeColor: #6200ee !default;
+$bgColor: #bda1f3 !default;
+$railBorderRadius: 15px !default;
+$disabledRailColor: #ccc !default;
+$disabledColor: #666 !default;
+
+$dotBorderRadius: 50% !default;
+$dotShadowColor: rgba($themeColor, 0.38) !default;
+
+$tooltipSize: 30px !default;
+$tooltipColor: #fff !default;
+
+$stepBorderRadius: 50%;
 
 // component style
 .vue-slider-disabled {
@@ -27,13 +34,13 @@ $tooltipColor: #fff;
 // rail style
 .vue-slider-rail {
   background-color: $bgColor;
-  border-radius: 15px;
+  border-radius: $railBorderRadius;
 }
 
 // process style
 .vue-slider-process {
   background-color: $themeColor;
-  border-radius: 15px;
+  border-radius: $railBorderRadius;
 }
 
 // mark style
@@ -43,7 +50,7 @@ $tooltipColor: #fff;
   @at-root &-step {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $stepBorderRadius;
     background-color: $themeColor;
 
     &-active {
@@ -67,7 +74,7 @@ $tooltipColor: #fff;
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $dotBorderRadius;
     background-color: $themeColor;
     box-sizing: border-box;
 
@@ -78,8 +85,8 @@ $tooltipColor: #fff;
       top: 50%;
       width: 200%;
       height: 200%;
-      background-color: rgba($themeColor, 0.38);
-      border-radius: 50%;
+      background-color: $dotShadowColor;
+      border-radius: $dotBorderRadius;
       transform: translate(-50%, -50%) scale(0);
       z-index: -1;
       transition: transform 0.2s;
@@ -90,7 +97,7 @@ $tooltipColor: #fff;
     }
     @at-root &-disabled {
       cursor: not-allowed;
-      background-color: $disabledColor;
+      background-color: $disabledColor !important;
     }
   }
 

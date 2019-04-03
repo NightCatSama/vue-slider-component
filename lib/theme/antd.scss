@@ -1,17 +1,29 @@
 @import '../styles/triangle.scss';
 
-$themeColor: #69c0ff;
-$themeColor-silent: #91d5ff;
-$hoverColor: #1890ff;
-$focusColor: #46a6ff;
-$focusShadowColor: #8cc8ff;
-$stepColor: #e8e8e8;
-$bgColor-silent: #f5f5f5;
-$bgColor: #e1e1e1;
-$disabledColor: #a7a7a7;
-$tooltipGap: 10px;
-$tooltipBgColor: rgba(0, 0, 0, 0.75);
-$tooltipColor: #fff;
+$disabledColor: #a7a7a7 !default;
+$themeColor: #69c0ff !default;
+$themeColorSilent: lighten($themeColor, 10%) !default;
+$themeColorActive: darken($themeColor, 10%) !default;
+
+$dotColorHover: $themeColorActive !default;
+$dotColorFocus: $themeColorActive !default;
+$dotColorDisabled: #ddd !default;
+$dotShadowFocus: 0 0 0 5px $themeColorSilent !default;
+
+$stepColor: #e8e8e8 !default;
+$stepBgColor: #fff !default;
+
+$bgColor: #e1e1e1 !default;
+$bgColorSilent: #f5f5f5 !default;
+$railBorderRadius: 15px !default;
+
+$tooltipGap: 10px !default;
+$tooltipBgColor: rgba(0, 0, 0, 0.75) !default;
+$tooltipColor: #fff !default;
+$tooltipShadow: 0 2px 8px rgba(0, 0, 0, 0.15) !default;
+$tooltipBorderRadius: 5px !default;
+$tooltipPadding: 6px 8px !default;
+$tooltipArrow: 10px !default;
 
 // component style
 .vue-slider-disabled {
@@ -30,8 +42,8 @@ $tooltipColor: #fff;
 
 // rail style
 .vue-slider-rail {
-  background-color: $bgColor-silent;
-  border-radius: 15px;
+  background-color: $bgColorSilent;
+  border-radius: $railBorderRadius;
   transition: background-color 0.3s;
   @at-root .vue-slider:hover & {
     background-color: $bgColor;
@@ -40,8 +52,8 @@ $tooltipColor: #fff;
 
 // process style
 .vue-slider-process {
-  background-color: $themeColor-silent;
-  border-radius: 15px;
+  background-color: $themeColorSilent;
+  border-radius: $railBorderRadius;
   transition: background-color 0.3s;
   @at-root .vue-slider:hover & {
     background-color: $themeColor;
@@ -55,10 +67,10 @@ $tooltipColor: #fff;
     height: 100%;
     border-radius: 50%;
     box-shadow: 0 0 0 2px $stepColor;
-    background-color: #fff;
+    background-color: $stepBgColor;
 
     &-active {
-      box-shadow: 0 0 0 2px $themeColor-silent;
+      box-shadow: 0 0 0 2px $themeColorSilent;
       @at-root .vue-slider:hover & {
         box-shadow: 0 0 0 2px $themeColor;
       }
@@ -82,7 +94,7 @@ $tooltipColor: #fff;
     height: 100%;
     border-radius: 50%;
     background-color: #fff;
-    border: 2px solid $themeColor-silent;
+    border: 2px solid $themeColorSilent;
     box-sizing: border-box;
     transition: box-shadow 0.3s, border-color 0.3s;
 
@@ -90,21 +102,21 @@ $tooltipColor: #fff;
       border-color: $themeColor;
     }
     @at-root &-focus {
-      border-color: $focusColor;
-      box-shadow: 0 0 0 5px $focusShadowColor;
+      border-color: $dotColorFocus;
+      box-shadow: $dotShadowFocus;
       @at-root .vue-slider:hover & {
-        border-color: $focusColor;
+        border-color: $dotColorFocus;
       }
     }
     @at-root &:hover {
-      border-color: $hoverColor;
+      border-color: $dotColorHover;
       @at-root .vue-slider:hover & {
-        border-color: $hoverColor;
+        border-color: $dotColorHover;
       }
     }
     @at-root &-disabled {
       cursor: not-allowed;
-      border: 2px solid #ddd;
+      border-color: $dotColorDisabled !important;
     }
   }
 
@@ -116,14 +128,14 @@ $tooltipColor: #fff;
     @at-root &-inner {
       font-size: 14px;
       white-space: nowrap;
-      padding: 6px 8px;
+      padding: $tooltipPadding;
       text-align: left;
       color: $tooltipColor;
-      border-radius: 5px;
+      border-radius: $tooltipBorderRadius;
       border-color: $tooltipBgColor;
       background-color: $tooltipBgColor;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      @include arrow(10px, inherit);
+      box-shadow: $tooltipShadow;
+      @include arrow($tooltipArrow, inherit);
 
       transform: scale(0.9);
       transition: transform 0.3s;
