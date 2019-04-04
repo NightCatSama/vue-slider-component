@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.24
+
+> `2019-04-04`
+
+### 🎉 Feature
+  - Support scss variable to override default style
+
 ## v3.0.23
 
 > `2019-04-03`
