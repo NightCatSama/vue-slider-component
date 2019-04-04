@@ -1,21 +1,24 @@
 $themeColor: #6200ee !default;
 $bgColor: #bda1f3 !default;
-$railBorderRadius: 15px !default;
-$disabledRailColor: #ccc !default;
 $disabledColor: #666 !default;
+$railBorderRadius: 15px !default;
+$railColorDisabled: #ccc !default;
 
 $dotBorderRadius: 50% !default;
 $dotShadowColor: rgba($themeColor, 0.38) !default;
 
+$tooltipFontSize: 12px !default;
 $tooltipSize: 30px !default;
 $tooltipColor: #fff !default;
 
-$stepBorderRadius: 50%;
+$stepBorderRadius: 50% !default;
+
+$labelFontSize: 14px !default;
 
 // component style
 .vue-slider-disabled {
   .vue-slider-rail {
-    background-color: $disabledRailColor;
+    background-color: $railColorDisabled;
   }
   .vue-slider-dot-handle {
     background-color: $disabledColor;
@@ -26,7 +29,7 @@ $stepBorderRadius: 50%;
   .vue-slider-mark-step {
     background-color: $disabledColor;
     &-active {
-      background-color: $disabledRailColor;
+      background-color: $railColorDisabled;
     }
   }
 }
@@ -59,7 +62,7 @@ $stepBorderRadius: 50%;
   }
 
   @at-root &-label {
-    font-size: 14px;
+    font-size: $labelFontSize;
     white-space: nowrap;
 
     &-active {
@@ -143,7 +146,7 @@ $stepBorderRadius: 50%;
       }
 
       @at-root .vue-slider-dot-tooltip-text {
-        font-size: 12px;
+        font-size: $tooltipFontSize;
         white-space: nowrap;
         text-align: center;
         color: $tooltipColor;

@@ -1,12 +1,10 @@
 @import '../styles/triangle.scss';
 
 $themeColor: #3498db !default;
-$bgColor: #ccc !default;
-
 $disabledOpacity: 0.5 !default;
-$railBorderRadius: 15px !default;
 
-$stepBgColor: rgba(0, 0, 0, 0.16) !default;
+$bgColor: #ccc !default;
+$railBorderRadius: 15px !default;
 
 $dotShadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32) !default;
 $dotShadowFocus: 0px 0px 1px 2px rgba($themeColor, 0.36) !default;
@@ -20,6 +18,12 @@ $tooltipBorderRadius: 5px !default;
 $tooltipPadding: 2px 5px !default;
 $tooltipMinWidth: 20px !default;
 $tooltipArrow: 10px !default;
+$tooltipFontSize: 14px !default;
+
+$stepBorderRadius: 50% !default;
+$stepBgColor: rgba(0, 0, 0, 0.16) !default;
+
+$labelFontSize: 14px !default;
 
 // component style
 .vue-slider-disabled {
@@ -53,7 +57,7 @@ $tooltipArrow: 10px !default;
   @at-root &-step {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $stepBorderRadius;
     background-color: $stepBgColor;
 
     &-active {
@@ -61,8 +65,9 @@ $tooltipArrow: 10px !default;
   }
 
   @at-root &-label {
-    font-size: 14px;
+    font-size: $labelFontSize;
     white-space: nowrap;
+
     &-active {
     }
   }
@@ -90,7 +95,7 @@ $tooltipArrow: 10px !default;
 
   @at-root &-tooltip {
     @at-root &-inner {
-      font-size: 14px;
+      font-size: $tooltipFontSize;
       white-space: nowrap;
       padding: $tooltipPadding;
       min-width: $tooltipMinWidth;

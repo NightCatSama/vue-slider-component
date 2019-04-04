@@ -5,25 +5,27 @@ $themeColor: #69c0ff !default;
 $themeColorSilent: lighten($themeColor, 10%) !default;
 $themeColorActive: darken($themeColor, 10%) !default;
 
-$dotColorHover: $themeColorActive !default;
-$dotColorFocus: $themeColorActive !default;
-$dotColorDisabled: #ddd !default;
-$dotShadowFocus: 0 0 0 5px $themeColorSilent !default;
-
-$stepColor: #e8e8e8 !default;
-$stepBgColor: #fff !default;
-
 $bgColor: #e1e1e1 !default;
-$bgColorSilent: #f5f5f5 !default;
+$bgColorSilent: lighten($bgColor, 8%) !default;
 $railBorderRadius: 15px !default;
 
-$tooltipGap: 10px !default;
+$dotColorFocus: $themeColorActive !default;
+$dotColorHover: $dotColorFocus !default;
+$dotColorDisabled: #ddd !default;
+$dotShadowFocus: 0 0 0 5px rgba($themeColorActive, 0.2) !default;
+
 $tooltipBgColor: rgba(0, 0, 0, 0.75) !default;
 $tooltipColor: #fff !default;
 $tooltipShadow: 0 2px 8px rgba(0, 0, 0, 0.15) !default;
 $tooltipBorderRadius: 5px !default;
 $tooltipPadding: 6px 8px !default;
 $tooltipArrow: 10px !default;
+$tooltipFontSize: 14px !default;
+
+$stepColor: #e8e8e8 !default;
+$stepBgColor: #fff !default;
+
+$labelFontSize: 12px !default;
 
 // component style
 .vue-slider-disabled {
@@ -78,7 +80,7 @@ $tooltipArrow: 10px !default;
   }
 
   @at-root &-label {
-    font-size: 12px;
+    font-size: $labelFontSize;
     white-space: nowrap;
 
     &-active {
@@ -126,10 +128,9 @@ $tooltipArrow: 10px !default;
     transition: all 0.3s;
 
     @at-root &-inner {
-      font-size: 14px;
+      font-size: $tooltipFontSize;
       white-space: nowrap;
       padding: $tooltipPadding;
-      text-align: left;
       color: $tooltipColor;
       border-radius: $tooltipBorderRadius;
       border-color: $tooltipBgColor;
