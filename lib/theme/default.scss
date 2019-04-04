@@ -25,25 +25,25 @@ $stepBgColor: rgba(0, 0, 0, 0.16) !default;
 
 $labelFontSize: 14px !default;
 
-// component style
+/* component style */
 .vue-slider-disabled {
   opacity: $disabledOpacity;
   cursor: not-allowed;
 }
 
-// rail style
+/* rail style */
 .vue-slider-rail {
   background-color: $bgColor;
   border-radius: $railBorderRadius;
 }
 
-// process style
+/* process style */
 .vue-slider-process {
   background-color: $themeColor;
   border-radius: $railBorderRadius;
 }
 
-// mark style
+/* mark style */
 .vue-slider-mark {
   z-index: 4;
 
@@ -73,7 +73,7 @@ $labelFontSize: 14px !default;
   }
 }
 
-// dot style
+/* dot style */
 .vue-slider-dot {
   @at-root &-handle {
     cursor: pointer;

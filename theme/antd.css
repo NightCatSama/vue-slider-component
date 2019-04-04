@@ -1,3 +1,4 @@
+/* component style */
 .vue-slider-disabled .vue-slider-process {
   background-color: #a7a7a7;
 }
@@ -8,8 +9,9 @@
   box-shadow: 0 0 0 2px #a7a7a7;
 }
 
+/* rail style */
 .vue-slider-rail {
-  background-color: #f5f5f5;
+  background-color: whitesmoke;
   border-radius: 15px;
   transition: background-color 0.3s;
 }
@@ -17,8 +19,9 @@
   background-color: #e1e1e1;
 }
 
+/* process style */
 .vue-slider-process {
-  background-color: #91d5ff;
+  background-color: #9cd5ff;
   border-radius: 15px;
   transition: background-color 0.3s;
 }
@@ -26,6 +29,7 @@
   background-color: #69c0ff;
 }
 
+/* mark style */
 .vue-slider-mark-step {
   width: 100%;
   height: 100%;
@@ -34,7 +38,7 @@
   background-color: #fff;
 }
 .vue-slider-mark-step-active {
-  box-shadow: 0 0 0 2px #91d5ff;
+  box-shadow: 0 0 0 2px #9cd5ff;
 }
 .vue-slider:hover .vue-slider-mark-step-active {
   box-shadow: 0 0 0 2px #69c0ff;
@@ -44,13 +48,14 @@
   font-size: 12px;
   white-space: nowrap;
 }
+/* dot style */
 .vue-slider-dot-handle {
   cursor: pointer;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   background-color: #fff;
-  border: 2px solid #91d5ff;
+  border: 2px solid #9cd5ff;
   box-sizing: border-box;
   transition: box-shadow 0.3s, border-color 0.3s;
 }
@@ -59,23 +64,23 @@
 }
 
 .vue-slider-dot-handle-focus {
-  border-color: #46a6ff;
-  box-shadow: 0 0 0 5px #8cc8ff;
+  border-color: #36abff;
+  box-shadow: 0 0 0 5px rgba(54, 171, 255, 0.2);
 }
 .vue-slider:hover .vue-slider-dot-handle-focus {
-  border-color: #46a6ff;
+  border-color: #36abff;
 }
 
 .vue-slider-dot-handle:hover {
-  border-color: #1890ff;
+  border-color: #36abff;
 }
 .vue-slider:hover .vue-slider-dot-handle:hover {
-  border-color: #1890ff;
+  border-color: #36abff;
 }
 
 .vue-slider-dot-handle-disabled {
   cursor: not-allowed;
-  border: 2px solid #ddd;
+  border-color: #ddd !important;
 }
 
 .vue-slider-dot-tooltip {
@@ -87,7 +92,6 @@
   font-size: 14px;
   white-space: nowrap;
   padding: 6px 8px;
-  text-align: left;
   color: #fff;
   border-radius: 5px;
   border-color: rgba(0, 0, 0, 0.75);

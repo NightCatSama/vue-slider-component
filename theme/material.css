@@ -1,3 +1,4 @@
+/* component style */
 .vue-slider-disabled .vue-slider-rail {
   background-color: #ccc;
 }
@@ -14,16 +15,19 @@
   background-color: #ccc;
 }
 
+/* rail style */
 .vue-slider-rail {
   background-color: #bda1f3;
   border-radius: 15px;
 }
 
+/* process style */
 .vue-slider-process {
   background-color: #6200ee;
   border-radius: 15px;
 }
 
+/* mark style */
 .vue-slider-mark {
   z-index: 4;
 }
@@ -41,6 +45,7 @@
   font-size: 14px;
   white-space: nowrap;
 }
+/* dot style */
 .vue-slider-dot-handle {
   cursor: pointer;
   position: relative;
@@ -69,7 +74,7 @@
 
 .vue-slider-dot-handle-disabled {
   cursor: not-allowed;
-  background-color: #666;
+  background-color: #666 !important;
 }
 
 .vue-slider-dot-tooltip {

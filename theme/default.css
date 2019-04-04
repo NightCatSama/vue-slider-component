@@ -1,18 +1,22 @@
+/* component style */
 .vue-slider-disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* rail style */
 .vue-slider-rail {
   background-color: #ccc;
   border-radius: 15px;
 }
 
+/* process style */
 .vue-slider-process {
   background-color: #3498db;
   border-radius: 15px;
 }
 
+/* mark style */
 .vue-slider-mark {
   z-index: 4;
 }
@@ -29,6 +33,7 @@
   font-size: 14px;
   white-space: nowrap;
 }
+/* dot style */
 .vue-slider-dot-handle {
   cursor: pointer;
   width: 100%;
