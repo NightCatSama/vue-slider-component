@@ -212,7 +212,11 @@
 
 ### tooltipPlacement
 
-- **类型**：`'top' | 'right' | 'bottom' | 'left'`
+- **类型**: `Position | Array<Position>`
+
+  ```ts
+  type Position = 'top' | 'right' | 'bottom' | 'left'
+  ```
 
 - **默认值**：`'top'` (on horizontal) or `'left'` (on vertical)
 

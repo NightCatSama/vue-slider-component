@@ -213,7 +213,11 @@
 
 ### tooltipPlacement
 
-- **Type**: `'top' | 'right' | 'bottom' | 'left'`
+- **Type**: `Position | Array<Position>`
+
+  ```ts
+  type Position = 'top' | 'right' | 'bottom' | 'left'
+  ```
 
 - **Default**: `'top'` (on horizontal) or `'left'` (on vertical)
 

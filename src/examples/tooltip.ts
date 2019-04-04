@@ -28,7 +28,8 @@ export default {
   example2: `
 <template>
   <div>
-    <vue-slider v-model="value" :tooltip-placement="'bottom'"></vue-slider>
+    <vue-slider v-model="value1" :tooltip="'always'" :tooltip-placement="'top'"></vue-slider>
+    <vue-slider v-model="value2" :tooltip="'always'" :tooltip-placement="['top', 'bottom']"></vue-slider>
   </div>
 </template>
 
@@ -39,7 +40,8 @@ export default {
     },
     data: function () {
       return {
-        value: 0,
+        value1: 0,
+        value2: [0, 50],
       }
     }
   }
