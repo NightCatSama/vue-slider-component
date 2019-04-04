@@ -30,6 +30,18 @@ require('vue-slider-component/theme/default.css')
 <link ref="stylesheel" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
 ```
 
+### 使用 `@import` 导入 `scss` 文件
+
+通过使用 scss 变量轻松实现自定义样式，更多可用变量可以参考[主题文件](https://github.com/NightCatSama/vue-slider-component/blob/master/lib/theme/default.scss).
+
+```scss
+/* 设置组件的主题颜色 */
+$themeColor: #3498db;
+
+/* 导入主题样式 */
+@import '~vue-slider-component/lib/default.scss';
+```
+
 ## 自建主题
 
 你可以新建一个样式文件，或者从 github 上下载内置主题再自己修改。

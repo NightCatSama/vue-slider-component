@@ -26,8 +26,20 @@ require('vue-slider-component/theme/default.css')
 
 ### Using `cdn`
 
-```ts
+```html
 <link ref="stylesheel" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+```
+
+### Use `@import` in `scss`
+
+You can easily implement custom styles by configuring scss variables, more available variables can refer to the [theme files](https://github.com/NightCatSama/vue-slider-component/blob/master/lib/theme/default.scss).
+
+```scss
+/* Set the theme color of the component */
+$themeColor: #3498db;
+
+/* import theme style */
+@import '~vue-slider-component/lib/default.scss';
 ```
 
 ## Self-built theme

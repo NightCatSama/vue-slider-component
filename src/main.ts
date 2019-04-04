@@ -5,13 +5,12 @@ import 'core-js/modules/es7.object.values'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+
 import Vuep from 'vuep'
 import 'vuep/dist/vuep.css'
 
 import Example from './components/Example.vue'
-
 import VueSlider from '../lib'
-
 import { getTheme } from './utils'
 
 const theme = getTheme()
@@ -27,9 +26,7 @@ switch (theme) {
 }
 
 Vue.use(Vuep)
-
 Vue.component('Example', Example)
-
 Vue.component('VueSlider', VueSlider)
 
 Vue.config.productionTip = false
