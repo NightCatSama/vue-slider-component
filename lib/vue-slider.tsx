@@ -114,10 +114,13 @@ export default class VueSlider extends Vue {
   tooltip!: TooltipProp
 
   @Prop({
-    type: String,
-    validator: val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
+    type: [String, Array],
+    validator: data =>
+      (Array.isArray(data) ? data : [data]).every(
+        val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
+      ),
   })
-  tooltipPlacement?: Position
+  tooltipPlacement?: Position | Position[]
 
   @Prop({ type: [String, Function] })
   tooltipFormatter?: TooltipFormatter
