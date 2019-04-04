@@ -6,6 +6,7 @@ export default {
     <vue-slider v-model="value2" :tooltip="'always'"></vue-slider>
     <vue-slider v-model="value3" :tooltip="'focus'"></vue-slider>
     <vue-slider v-model="value4" :tooltip="'focus'" :use-keyboard="true"></vue-slider>
+    <vue-slider v-model="value5" :dot-options="dotOptions"></vue-slider>
   </div>
 </template>
 
@@ -20,6 +21,14 @@ export default {
         value2: 0,
         value3: 0,
         value4: 0,
+        value5: [0, 50, 100],
+        dotOptions: [{
+          tooltip: 'always'
+        }, {
+          tooltip: 'none'
+        }, {
+          tooltip: 'always'
+        }]
       }
     }
   }

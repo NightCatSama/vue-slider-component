@@ -50,15 +50,15 @@
 
 ### contained
 
-- **类型**: `boolean`
+- **类型**：`boolean`
 
-- **默认值**: `false`
+- **默认值**：`false`
 
-- **用法**:
+- **用法**：
 
   滑块是否完全包含在组件中。
 
-- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=边缘对齐'">一般用法 > 边缘对齐</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'basics/simple?hash=边缘对齐'">一般用法 > 边缘对齐</router-link>
 
 ### direction
 
@@ -168,7 +168,7 @@
 
   滑块是否自动吸附到最近的值。
 
-- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=吸附效果'">一般用法 > 吸附效果</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'basics/simple?hash=吸附效果'">一般用法 > 吸附效果</router-link>
 
 ### lazy
 
@@ -192,7 +192,7 @@
   />
   ```
 
-- **参考**: <router-link :to="$route.meta.lang + 'basics/simple?hash=懒更新'">一般用法 > 懒更新</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'basics/simple?hash=懒更新'">一般用法 > 懒更新</router-link>
 
 ### tooltip
 
@@ -210,9 +210,11 @@
 
   当值为 `focus` 时，仅当滑块获得焦点时，Tooltip 才会显示。且当 `useKeyboard` 为 `true` 时，拖拽结束仍会获得焦点。
 
+- **参考**：<router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltip'">工具提示 > tooltip</router-link>
+
 ### tooltipPlacement
 
-- **类型**: `Position | Array<Position>`
+- **类型**：`Position | Array<Position>`
 
   ```ts
   type Position = 'top' | 'right' | 'bottom' | 'left'
@@ -223,6 +225,8 @@
 - **用法**：
 
   Tooltip 的出现的方位。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltipplacement'">工具提示 > tooltipPlacement</router-link>
 
 ### tooltipFormatter
 
@@ -245,6 +249,8 @@
       :tooltip-formatter="val => val.toUpperCase()"
     />
   ```
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltipformatter'">工具提示 > tooltipFormatter</router-link>
 
 ### useKeyboard
 
@@ -352,17 +358,17 @@
 
 ### included
 
-- **类型**: `boolean`
+- **类型**：`boolean`
 
-- **默认值**: `false`
+- **默认值**：`false`
 
-- **用法**:
+- **用法**：
 
   仅在 `marks` 不为空时有效。
 
   如果值为 `true`，`value` 会自动选择最近的 mark。
 
-- **参考**: <router-link :to="$route.meta.lang + 'basics/marks?hash=配合-included-使用'">刻度标记 > 配合`included`使用</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'basics/marks?hash=配合-included-使用'">刻度标记 > 配合`included`使用</router-link>
 
 ### dotOptions
 

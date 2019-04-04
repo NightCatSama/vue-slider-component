@@ -211,6 +211,8 @@
 
   When the value is `focus`, the Tooltip will only be displayed when the slider has focus. And when `useKeyboard` is `true`, the end of the drag will still get the focus.
 
+- **See also**: <router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltip'">Tooltip > tooltip</router-link>
+
 ### tooltipPlacement
 
 - **Type**: `Position | Array<Position>`
@@ -224,6 +226,8 @@
 - **Usage**:
 
   The placement of the Tooltip.
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltipplacement'">Tooltip > tooltipPlacement</router-link>
 
 ### tooltipFormatter
 
@@ -246,6 +250,8 @@
       :tooltip-formatter="val => val.toUpperCase()"
     />
   ```
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltipformatter'">Tooltip > tooltipFormatter</router-link>
 
 ### useKeyboard
 
