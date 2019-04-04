@@ -39,7 +39,7 @@ require('vue-slider-component/theme/default.css')
 $themeColor: #3498db;
 
 /* 导入主题样式 */
-@import '~vue-slider-component/lib/default.scss';
+@import '~vue-slider-component/lib/theme/default.scss';
 ```
 
 ## 自建主题

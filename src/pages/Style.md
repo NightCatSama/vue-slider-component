@@ -39,7 +39,7 @@ You can easily implement custom styles by configuring scss variables, more avail
 $themeColor: #3498db;
 
 /* import theme style */
-@import '~vue-slider-component/lib/default.scss';
+@import '~vue-slider-component/lib/theme/default.scss';
 ```
 
 ## Self-built theme
