@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.25
+
+> `2019-04-04`
+
+### 🐞 Bug Fixes
+  - `tooltipPlacement` not support array string. [#338](https://github.com/NightCatSama/vue-slider-component/issues/338)
+
 ## v3.0.24
 
 > `2019-04-04`
