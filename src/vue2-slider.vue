@@ -101,7 +101,14 @@
             v-if="val !== staticValue"
             :class="['vue-slider-tooltip-' + tooltipDirection, 'vue-slider-tooltip-wrap']">
             <slot name="static-tooltip" :value="staticValue">
-              <span class="vue-slider-tooltip"  :class="tooltipClass">{{ formatter ? formatting(staticValue) : staticValue }}</span>
+              <span class="vue-slider-tooltip" :class="tooltipClass">
+                <template v-if="staticLabel">
+                  {{ staticLabel }}
+                </template>
+                <template v-else>
+                  {{ formatter ? formatting(staticValue) : staticValue }}
+                </template>
+              </span>
             </slot>
           </div>
         </div>
@@ -151,10 +158,16 @@
             :first="index === 0"
             :last="index === piecewiseDotWrap.length - 1"
             :active="isActive(piecewiseObj.index)"
+            :total="piecewiseDotWrap.length"
           >
             <span
               v-if="piecewise"
-              class="vue-slider-piecewise-dot"
+              :class="[
+                'vue-slider-piecewise-dot',
+                {
+                  'vue-slider-piecewise-dot-active': isActive(piecewiseObj.index)
+                }
+              ]"
               :style="[ piecewiseStyle, isActive(piecewiseObj.index) ? piecewiseActiveStyle : null ]"
             ></span>
           </slot>
@@ -167,6 +180,7 @@
             :first="index === 0"
             :last="index === piecewiseDotWrap.length - 1"
             :active="isActive(piecewiseObj.index)"
+            :total="piecewiseDotWrap.length"
           >
             <span
               v-if="piecewiseLabel"
@@ -274,6 +288,9 @@
       },
       staticValue: {
         type: [String, Number]
+      },
+      staticLabel: {
+        type: String
       },
       reverse: {
         type: Boolean,
@@ -491,7 +508,7 @@
         if (this.isRange) {
           return this.data ? this.currentValue : [this.getIndexByValue(this.currentValue[0]), this.getIndexByValue(this.currentValue[1])]
         } else {
-          return this.getIndexByValue(this.currentValue)
+          return this.data ? this.currentValue : this.getIndexByValue(this.currentValue)
         }
       },
       indexRange () {

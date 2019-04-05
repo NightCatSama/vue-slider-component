@@ -6,11 +6,9 @@
 
 Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can be normal use)
 
-[Demo](https://nightcatsama.github.io/vue-slider-component/example/)
+[Live Demo](https://jsfiddle.net/NightCatSama/2xy72dod/10233/)
 
-[Live Demo](https://jsfiddle.net/2xy72dod/8746/)
-
-## [Changelog](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md)
+## [Changelog](https://github.com/NightCatSama/vue-slider-component/blob/v2/CHANGELOG.md)
 
 ## Todo
 
@@ -25,7 +23,7 @@ Can use the slider in vue1.x and vue2.x. (No longer update vue1.x, but still can
 
 ## Install
 ``` bash
-npm install vue-slider-component --save
+npm install vue-slider-component@stable --save
 ```
 
 ## Exceptions
@@ -130,7 +128,7 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | disabled    | Boolean[, Array<Boolean>(in range model)]  | false    | Whether to disable the component |
 | debug       | Boolean       | true | If you do not need to print errors in the production environment, can be set to `process.env.NODE_ENV !== 'production'` |
 | piecewise   | Boolean       | false    | Whether to display sub-values as as piecewise nodes |
-| piecewise-label*   | Boolean  | false  | Whether to display the label. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo2) |
+| piecewise-label*   | Boolean  | false  | Whether to display the label. |
 | piecewise-filter*   | Function  | null  | Used to filter piecewise, it works well when the data is large |
 | tooltip     | String, Boolean | always    | Control the tooltip, optional value: ['hover', 'always', false] |
 | tooltip-dir | String[,Array(in range model) | top(in horizontal)or left(in vertical) | Set the direction of the tooltip, optional value: ['top', 'bottom', 'left', 'right'] |
@@ -139,19 +137,20 @@ import vueSlider from 'vue-slider-component/src/vue2-slider.vue'
 | data        | Array         | null     | The custom data. |
 | clickable   | Boolean       | true     | Whether or not the slider is clickable as well as drag-able |
 | static-value*   | Number, String    | undefined     | Whether to display a static dot. (valid only in single mode) |
+| static-label*   | String    | undefined     | Custom tooltip text for the static-value. |
 | enable-cross*   | Boolean    | true     | Whether to allow crossover in range mode |
 | start-animation* | Boolean    | false    | Whether to enable the initial animation |
 | tooltip-merge* | Boolean       | true    | Whether to merge with tooltip overlap |
 | merge-formatter* | String, Function  | null    | Formatting of the merged value, for example: `merge-formatter="¥{value1} ~ ¥{value2}"` or `` merge-formatter: (v1, v2) => `¥${v1} ~ ¥${v2}` ``. |
 | stop-propagation*  | Boolean       | false    | All events call `stopPropagation` |
 | real-time*  | Boolean       | false    | Whether the real-time computing the layout of the components |
-| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo1) |
+| lazy*       | Boolean       | false    | At the end of the drag and drop, to synchronization value (if each update to high consumption of operation (such as Ajax), it is more useful) |
 | fixed*  | Boolean       | false    | Fixed distance between two values (valid only in range mode). [Example]
 | min-range*  | Number       | null    | Minimum range in range mode
 | max-range*  | Number       | null    | Maximum range in range mode
-| process-dragable*  | Boolean       | false    | Whether the process bar is draggable (valid only in range mode). [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo9) |
-| formatter*        | String,Function | null   | Formatting of a tooltip's values, for example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
-| use-keyboard*        | Boolean | false   | Whether to open the keyboard control (Only support the arrow keys). [Example](https://nightcatsama.github.io/vue-slider-component/example/#demo3) |
+| process-dragable*  | Boolean       | false    | Whether the process bar is draggable (valid only in range mode). |
+| formatter*        | String,Function | null   | Formatting of a tooltip's values, for example: `formatter='¥{value}'` or `` formatter: (v) => `¥${v}` ``. |
+| use-keyboard*        | Boolean | false   | Whether to open the keyboard control (Only support the arrow keys). |
 | actions-keyboard*        | Array | `[(i) => i - 1, (i) => i + 1]`  | In the keyboard control mode, reduce(←, ↓) and increase(→, ↑) the calling method.(`i` is the index value) |
 | bg-style*         | Object | null  | The style of the background. |
 | slider-style*     | Object[, Array(in range model), Function<Value, Index>] | null  | The style of the slider. |
@@ -195,8 +194,8 @@ prop*: [only supported in vue2]
 | --------------|--------------|
 | dot           | Customize the dot slot. optional value: [`value`,  `disabled`, `index`(only range model)] |
 | tooltip       | Customize the tooltip slot. optional value: [`value`, `disabled`(only range model), `index`(only range model), `merge`(only tooltipMerge is `true`)] |
-| piecewise     | Customize the piecewise slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`] |
-| label         | Customize the label slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`] |
+| piecewise     | Customize the piecewise slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`, `total`] |
+| label         | Customize the label slot. optional value: [`value`, `label`, `index`, `active`, `first`, `last`, `total`] |
 
 [#](https://vuejs.org/v2/guide/components.html#Scoped-Slots) When using the template element as a slot, can add special properties `scope` or `slot-scope` to get the value.
 
