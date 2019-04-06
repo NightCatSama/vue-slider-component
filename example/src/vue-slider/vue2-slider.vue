@@ -91,7 +91,7 @@
           ]"
           class="vue-slider-dot static-dot"
           :style="[staticPosition, dotStyles]"
-          @click.stop="() => setValue(staticValue)"
+          @click.stop="() => clickable && setValue(staticValue)"
         >
           <slot name="static-dot" :value="staticValue">
             <div class="vue-slider-dot-handle--static"></div>
