@@ -2,7 +2,11 @@
 
 ### value
 
-- **Type**: `number | Array<number> | string | Array<string>`
+- **Type**: `Value | Array<Value>`
+
+  ```ts
+  type Value = number | string
+  ```
 
 - **Default**: `0`
 
@@ -377,6 +381,8 @@
   interface DotOption {
     disabled: boolean
     tooltip: 'none' | 'always' | 'focus'
+    min: Value
+    max: Value
     style: Object
     focusStyle: Object
     disabledStyle: Object

@@ -2,7 +2,11 @@
 
 ### value
 
-- **类型**：`number | Array<number> | string | Array<string>`
+- **类型**: `Value | Array<Value>`
+
+  ```ts
+  type Value = number | string
+  ```
 
 - **默认值**：`0`
 
@@ -378,6 +382,8 @@
   interface DotOption {
     disabled: boolean
     tooltip: 'none' | 'always' | 'focus'
+    min: Value
+    max: Value
     style: Object
     focusStyle: Object
     disabledStyle: Object

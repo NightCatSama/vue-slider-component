@@ -12,7 +12,7 @@
 
   The event that is triggered when the value changes.
 
-### dragStart
+### drag-start
 
 - **Type**: `() => void`
 
@@ -34,7 +34,7 @@
 
   `value` is the value inside the component, and the internal value can be obtained when `lazy = true`.
 
-### dragEnd
+### drag-end
 
 - **Type**: `() => void`
 

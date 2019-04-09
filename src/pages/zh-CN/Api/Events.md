@@ -12,7 +12,7 @@
 
   当值改变时触发的事件。
 
-### dragStart
+### drag-start
 
 - **类型**：`() => void`
 
@@ -34,7 +34,7 @@
 
   `value` 是滑块内部的值，在 `lazy = true` 的时候可以取得内部值。
 
-### dragEnd
+### drag-end
 
 - **类型**：`() => void`
 
