@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.26
+
+> `2019-04-09`
+
+### 🎉 Feature
+  - `dotOptions` support sliding range limit (`min` and `max`).
+
 ## v3.0.25
 
 > `2019-04-04`
