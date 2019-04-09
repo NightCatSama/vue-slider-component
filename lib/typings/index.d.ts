@@ -49,6 +49,8 @@ export interface DotStyle {
 export interface DotOption extends DotStyle, TooltipStyle {
   disabled: boolean
   tooltip?: TooltipProp
+  min?: Value
+  max?: Value
 }
 export interface Dot extends DotOption {
   pos: number

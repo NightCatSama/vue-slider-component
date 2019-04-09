@@ -386,6 +386,7 @@ export default class VueSlider extends Vue {
       included: this.included,
       process: this.process,
       adsorb: this.adsorb,
+      dotOptions: this.dotOptions,
       onError: this.emitError,
     })
     ;[
@@ -402,6 +403,7 @@ export default class VueSlider extends Vue {
       'process',
       'adsorb',
       'included',
+      'dotOptions',
     ].forEach(name => {
       this.$watch(name, (val: any) => {
         if (

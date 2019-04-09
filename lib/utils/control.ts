@@ -8,6 +8,7 @@ import {
   ProcessProp,
   ProcessOption,
   MarksFunction,
+  DotOption,
 } from '../typings'
 
 // The distance each slider changes
@@ -55,6 +56,7 @@ export default class Control {
   included?: boolean
   process?: ProcessProp
   adsorb?: boolean
+  dotOptions?: DotOption | DotOption[]
   onError?: (type: ERROR_TYPE, message: string) => void
 
   constructor(options: {
@@ -72,6 +74,7 @@ export default class Control {
     included?: boolean
     process?: ProcessProp
     adsorb?: boolean
+    dotOptions?: DotOption | DotOption[]
     onError?: (type: ERROR_TYPE, message: string) => void
   }) {
     this.data = options.data
@@ -83,6 +86,7 @@ export default class Control {
     this.included = options.included
     this.process = options.process
     this.adsorb = options.adsorb
+    this.dotOptions = options.dotOptions
     this.onError = options.onError
     if (this.order) {
       this.minRange = options.minRange || 0
@@ -499,6 +503,15 @@ export default class Control {
     return this.maxRange ? this.maxRange * this.gap : 100
   }
 
+  private getDotRange(index: number, key: 'min' | 'max', defaultValue: number): number {
+    if (!this.dotOptions) {
+      return defaultValue
+    }
+
+    const option = Array.isArray(this.dotOptions) ? this.dotOptions[index] : this.dotOptions
+    return option && option[key] !== void 0 ? this.parseValue(option[key] as Value) : defaultValue
+  }
+
   /**
    * Sliding range of each slider
    *
@@ -514,10 +527,12 @@ export default class Control {
         Math.max(
           this.minRange ? this.minRangeDir * i : 0,
           !this.enableCross ? dotsPos[i - 1] || 0 : 0,
+          this.getDotRange(i, 'min', 0),
         ),
         Math.min(
           this.minRange ? 100 - this.minRangeDir * (dotsPos.length - 1 - i) : 100,
           !this.enableCross ? dotsPos[i + 1] || 100 : 100,
+          this.getDotRange(i, 'max', 100),
         ),
       ])
     })
