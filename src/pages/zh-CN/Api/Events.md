@@ -66,5 +66,5 @@
 
   当组件发生错误时触发的事件
 
-- **参考**：<router-link :to="$route.meta.lang + ' advanced/input'">可输入的滑块值</router-link>
+- **参考**：<router-link :to="$route.meta.lang + 'advanced/input'">可输入的滑块值</router-link>
 

@@ -66,5 +66,5 @@
 
   Event triggered when an error occurs in a component
 
-- **See also**: <router-link :to="$route.meta.lang + ' advanced/input'">The \<input> linkage</router-link>
+- **See also**: <router-link :to="$route.meta.lang + 'advanced/input'">The \<input> linkage</router-link>
 
