@@ -26,7 +26,7 @@ export const getPos = (
   elem: HTMLDivElement,
   isReverse: boolean,
 ): IPosObject => {
-  const event = e instanceof MouseEvent ? e : e.targetTouches[0]
+  const event = 'targetTouches' in e ? e.targetTouches[0] : e
   const offset = getOffset(elem)
   const posObj = {
     x: event.pageX - offset.x,
