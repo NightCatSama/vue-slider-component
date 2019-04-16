@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.27
+
+> `2019-04-16`
+
+### 🐞 Bug Fixes
+  - Fix `MouseEvent` is not available in `cypress`. [#345](https://github.com/NightCatSama/vue-slider-component/issues/345)
+
 ## v3.0.26
 
 > `2019-04-09`
