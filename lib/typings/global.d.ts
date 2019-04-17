@@ -7,7 +7,12 @@ declare global {
     // tslint:disable no-empty-interface
     interface ElementClass extends Vue {}
     interface IntrinsicElements {
-      [elem: string]: any
+      'vue-slider-dot': any
+      'vue-slider-mark': any
+      div: any
+      span: any
+      input: any
+      template: any
     }
   }
 }
