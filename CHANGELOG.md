@@ -5,7 +5,7 @@
 > `2019-04-17`
 
 ### 🐞 Bug Fixes
-  - Fix typescript declaration file conflic. [#346](https://github.com/NightCatSama/vue-slider-component/issues/346)
+  - Fix typescript declaration file conflict. [#346](https://github.com/NightCatSama/vue-slider-component/issues/346)
 
 ## v3.0.27
 
