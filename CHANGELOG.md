@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.28
+
+> `2019-04-17`
+
+### 🐞 Bug Fixes
+  - Fix typescript declaration file conflic. [#346](https://github.com/NightCatSama/vue-slider-component/issues/346)
+
 ## v3.0.27
 
 > `2019-04-16`
