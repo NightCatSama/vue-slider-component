@@ -22,7 +22,7 @@ export interface MarkOption {
 export interface Mark extends MarkOption {
   active?: boolean
   pos?: number
-  value: number
+  value: Value
 }
 export interface Marks {
   [key: string]: string | MarkOption

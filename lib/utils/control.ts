@@ -162,7 +162,7 @@ export default class Control {
       const pos = this.parseValue(value)
       return {
         pos,
-        value: typeof value === 'string' ? parseFloat(value) : value,
+        value,
         label: value,
         active: this.isActiveByPos(pos),
         ...mark,
