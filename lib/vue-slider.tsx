@@ -356,6 +356,7 @@ export default class VueSlider extends Vue {
   unbindEvent() {
     document.removeEventListener('touchmove', this.dragMove)
     document.removeEventListener('touchend', this.dragEnd)
+    document.removeEventListener('mousedown', this.blurHandle)
     document.removeEventListener('mousemove', this.dragMove)
     document.removeEventListener('mouseup', this.dragEnd)
     document.removeEventListener('mouseleave', this.dragEnd)
