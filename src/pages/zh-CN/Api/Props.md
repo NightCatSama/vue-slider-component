@@ -234,7 +234,11 @@
 
 ### tooltipFormatter
 
-- **类型**：`string | (val: number | number) => string`
+- **类型**：`TooltipFormatter | Array<TooltipFormatter>`
+
+  ```ts
+  type TooltipFormatter = string | (val: Value) => string
+  ```
 
 - **默认值**：`undefined`
 

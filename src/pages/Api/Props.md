@@ -235,7 +235,11 @@
 
 ### tooltipFormatter
 
-- **Type**: `string | (val: number | number) => string`
+- **type**：`TooltipFormatter | Array<TooltipFormatter>`
+
+  ```ts
+  type TooltipFormatter = string | (val: Value) => string
+  ```
 
 - **Default**: `undefined`
 
