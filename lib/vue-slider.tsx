@@ -122,8 +122,8 @@ export default class VueSlider extends Vue {
   })
   tooltipPlacement?: Position | Position[]
 
-  @Prop({ type: [String, Function] })
-  tooltipFormatter?: TooltipFormatter
+  @Prop({ type: [String, Array, Function] })
+  tooltipFormatter?: TooltipFormatter | TooltipFormatter[]
 
   // Keyboard control
   @Prop({ type: Boolean, default: false })
@@ -719,7 +719,11 @@ export default class VueSlider extends Vue {
                 dot.disabled ? dot.tooltipDisabledStyle : null,
                 dot.focus ? dot.tooltipFocusStyle : null,
               ]}
-              tooltip-formatter={this.tooltipFormatter}
+              tooltip-formatter={
+                Array.isArray(this.tooltipFormatter)
+                  ? this.tooltipFormatter[index]
+                  : this.tooltipFormatter
+              }
               tooltip-placement={this.tooltipDirections[index]}
               style={[
                 this.dotBaseStyle,
