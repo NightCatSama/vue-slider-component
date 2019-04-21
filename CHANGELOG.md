@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.29
+
+> `2019-04-21`
+
+### 🎉 Feature
+  - `tooltipFormatter` support array type. [#349](https://github.com/NightCatSama/vue-slider-component/issues/349)
+
 ## v3.0.28
 
 > `2019-04-17`
@@ -26,7 +33,7 @@
 > `2019-04-04`
 
 ### 🐞 Bug Fixes
-  - `tooltipPlacement` not support array string. [#338](https://github.com/NightCatSama/vue-slider-component/issues/338)
+  - `tooltipPlacement` not support array type. [#338](https://github.com/NightCatSama/vue-slider-component/issues/338)
 
 ## v3.0.24
 
