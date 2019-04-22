@@ -21,7 +21,7 @@ export interface MarkOption {
 }
 export interface Mark extends MarkOption {
   active?: boolean
-  pos?: number
+  pos: number
   value: Value
 }
 export interface Marks {

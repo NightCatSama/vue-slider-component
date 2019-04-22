@@ -110,24 +110,6 @@ export default class Control {
   }
 
   setDotsValue(value: Value[], syncPos?: boolean) {
-    // When included is true, the return value is the value of the nearest mark
-    if (this.included && this.markList.length > 0) {
-      const getRecentValue = (val: Value) => {
-        let curValue = val
-        let dir = this.max - this.min
-        this.markList.forEach(mark => {
-          if (typeof mark.value === 'number' && typeof val === 'number') {
-            const curDir = Math.abs(mark.value - val)
-            if (curDir < dir) {
-              dir = curDir
-              curValue = mark.value
-            }
-          }
-        })
-        return curValue
-      }
-      value = value.map(val => getRecentValue(val))
-    }
     this.dotsValue = value
     if (syncPos) {
       this.syncDotsPos()
@@ -138,7 +120,24 @@ export default class Control {
   setDotsPos(dotsPos: number[]) {
     const list = this.order ? [...dotsPos].sort((a, b) => a - b) : dotsPos
     this.dotsPos = list
-    this.setDotsValue(list.map(dotPos => this.parsePos(dotPos)), this.adsorb)
+    this.setDotsValue(list.map(dotPos => this.getValueByPos(dotPos)), this.adsorb)
+  }
+
+  // Get value by position
+  getValueByPos(pos: number): Value {
+    let value = this.parsePos(pos)
+    // When included is true, the return value is the value of the nearest mark
+    if (this.included) {
+      let dir = 100
+      this.markList.forEach(mark => {
+        const curDir = Math.abs(mark.pos - pos)
+        if (curDir < dir) {
+          dir = curDir
+          value = mark.value
+        }
+      })
+    }
+    return value
   }
 
   // Sync slider position
