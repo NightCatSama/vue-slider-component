@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.30
+
+> `2019-04-22`
+
+### 🐞 Bug Fixes
+  - Fix when the `mark` is an object, `include` does not work.
+
 ## v3.0.29
 
 > `2019-04-21`
