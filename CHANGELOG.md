@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.31
+
+> `2019-04-30`
+
+### 🐞 Bug Fixes
+  - Fix IE does not support `Array.from`. [#353](https://github.com/NightCatSama/vue-slider-component/issues/353)
+
 ## v3.0.30
 
 > `2019-04-22`
