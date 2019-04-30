@@ -297,7 +297,7 @@ export default class VueSlider extends Vue {
     if (Array.isArray(dir)) {
       return dir
     } else {
-      return Array.from(new Array(this.dots.length), () => dir)
+      return this.dots.map(() => dir)
     }
   }
 

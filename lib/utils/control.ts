@@ -435,12 +435,16 @@ export default class Control {
     if (this.data) {
       return this.data
     } else {
-      return Array.from(new Array(this.total), (_, index) => {
-        return new Decimal(index)
-          .multiply(this.interval)
-          .plus(this.min)
-          .toNumber()
-      }).concat([this.max])
+      const values: Value[] = [this.max]
+      for (let i = 0; i < this.total; i++) {
+        values.unshift(
+          new Decimal(i)
+            .multiply(this.interval)
+            .plus(this.min)
+            .toNumber(),
+        )
+      }
+      return values
     }
   }
 
