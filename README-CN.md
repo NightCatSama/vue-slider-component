@@ -58,7 +58,15 @@ export default {
 
 ## 更新日志
 
-每个版本的[更新日志](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md).
+每个版本的[更新日志](https://github.com/NightCatSama/vue-slider-component/blob/master/CHANGELOG.md)。
+
+## 支持
+
+issues 可由任何人资助，资金将分配给贡献者和维护者。
+
+[![issuehunt](https://cdn.jsdelivr.net/gh/BoostIO/issuehunt-materials/v1/issuehunt-button-v1.svg)](https://issuehunt.io/r/NightCatSama/vue-slider-component)
+
+如果你喜欢这个组件，你也可以请我喝[咖啡](https://imgchr.com/i/ErWs1J) ☕️ 。
 
 ## License
 
