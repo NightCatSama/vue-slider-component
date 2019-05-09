@@ -27,7 +27,7 @@ require('vue-slider-component/theme/default.css')
 ### 使用 `cdn` 导入样式
 
 ```ts
-<link ref="stylesheel" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
 ```
 
 ### 使用 `@import` 导入 `scss` 文件

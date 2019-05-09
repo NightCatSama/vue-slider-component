@@ -27,7 +27,7 @@ require('vue-slider-component/theme/default.css')
 ### Using `cdn`
 
 ```html
-<link ref="stylesheel" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
 ```
 
 ### Use `@import` in `scss`
