@@ -25,8 +25,7 @@
     "member-ordering": [true, {
       "order": [
         "private-constructor",
-        "public-constructor",
-        "private-public"
+        "public-constructor"
       ]
     }],
     "whitespace": [
