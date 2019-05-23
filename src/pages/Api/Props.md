@@ -52,6 +52,16 @@
 
   The height of the component (unit `px`), which defaults to `4` in the horizontal direction.
 
+### silent
+
+- **Type**: `boolean`
+
+- **Default**: `false`
+
+- **Usage**:
+
+  Set to `true` to turn off console errors.
+
 ### contained
 
 - **Type**: `boolean`
