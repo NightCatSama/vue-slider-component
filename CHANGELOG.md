@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.32
+
+> `2019-06-04`
+
+### 🐞 Bug Fixes
+  - Fix `mark` rendering order is not correct. [#370](https://github.com/NightCatSama/vue-slider-component/issues/370)
+
 ## v3.0.31
 
 > `2019-04-30`
