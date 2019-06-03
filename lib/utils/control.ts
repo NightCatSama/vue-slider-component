@@ -435,9 +435,9 @@ export default class Control {
     if (this.data) {
       return this.data
     } else {
-      const values: Value[] = [this.max]
-      for (let i = 0; i < this.total; i++) {
-        values.unshift(
+      const values: Value[] = []
+      for (let i = 0; i <= this.total; i++) {
+        values.push(
           new Decimal(i)
             .multiply(this.interval)
             .plus(this.min)
