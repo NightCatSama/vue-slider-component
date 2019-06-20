@@ -26,8 +26,8 @@ import './styles/slider.scss'
 
 export const SliderState: StateMap = {
   None: 0,
-  Drag: 1 << 0,
-  Focus: 2 << 0,
+  Drag: 1 << 1,
+  Focus: 1 << 2,
 }
 
 const DEFAULT_SLIDER_SIZE = 4
