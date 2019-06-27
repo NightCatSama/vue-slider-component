@@ -281,6 +281,26 @@
 
   Keyboard control, when the value is `true`, the drag end slider still gets the focus.
 
+### keydownHook
+
+- **Type**: `(e: KeyboardEvent) => HandleFunction | boolean`
+
+  ```ts
+  // @Param {index} Index of the active slider
+  // @Return New index
+  type HandleFunction = (index: number) => number
+  ```
+
+- **Default**: `undefined`
+
+- **Usage**:
+
+  Keyboard controlled hook function.
+
+  When the function returns `false`, the value does not change.
+
+  If `true` is returned, the [default action](https://github.com/NightCatSama/vue-slider-component/blob/master/lib/utils/index.ts) is used.
+
 ### enableCross
 
 - **Type**: `boolean`

@@ -280,6 +280,26 @@
 
   键盘控制，当值为 `true` 时，拖拽结束滑块仍然获取焦点。
 
+### keydownHook
+
+- **类型**: `(e: KeyboardEvent) => HandleFunction | boolean`
+
+  ```ts
+  // @参数 {index} 当前激活的滑块索引
+  // @返回 新的索引
+  type HandleFunction = (index: number) => number
+  ```
+
+- **默认值**: `undefined`
+
+- **用法**:
+
+  键盘控制的钩子函数。
+
+  如果返回 `false`，则不进行任何操作。
+
+  如果返回 `true`，则进行内置的[默认操作](https://github.com/NightCatSama/vue-slider-component/blob/master/lib/utils/index.ts)。
+
 ### enableCross
 
 - **类型**：`boolean`
