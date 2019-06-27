@@ -9,6 +9,7 @@ export const getSize = (value: number | string): string => {
   return typeof value === 'number' ? `${value}px` : value
 }
 
+/** Get the distance of the element from the top/left of the page */
 export const getOffset = (elem: HTMLDivElement): IPosObject => {
   const doc = document.documentElement as HTMLElement
   const body = document.body as HTMLElement
@@ -21,6 +22,12 @@ export const getOffset = (elem: HTMLDivElement): IPosObject => {
   return offset
 }
 
+/**
+ * Get the position of the mouse/finger in the element
+ * @param e Trigger event
+ * @param elem Container element
+ * @param isReverse From the right/bottom
+ */
 export const getPos = (
   e: MouseEvent | TouchEvent,
   elem: HTMLDivElement,
@@ -48,15 +55,21 @@ const enum KEY_CODE {
   RIGHT,
   DOWN,
 }
-type HandleFunction = (i: number) => number
+export type HandleFunction = (index: number) => number
 export const getKeyboardHandleFunc = (
   e: KeyboardEvent,
   params: {
     direction: Direction
     max: number
     min: number
+    hook: (e: KeyboardEvent) => HandleFunction | boolean
   },
 ): HandleFunction | null => {
+  if (params.hook) {
+    const result = params.hook(e)
+    if (typeof result === 'function') return result
+    if (!result) return null
+  }
   switch (e.keyCode) {
     case KEY_CODE.UP:
       return i => (params.direction === 'ttb' ? i - 1 : i + 1)

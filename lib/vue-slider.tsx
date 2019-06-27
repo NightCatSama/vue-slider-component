@@ -17,7 +17,7 @@ import {
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
 
-import { getSize, getPos, getKeyboardHandleFunc } from './utils'
+import { getSize, getPos, getKeyboardHandleFunc, HandleFunction } from './utils'
 import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
 import State, { StateMap } from './utils/state'
@@ -128,6 +128,10 @@ export default class VueSlider extends Vue {
   // Keyboard control
   @Prop({ type: Boolean, default: false })
   useKeyboard?: boolean
+
+  // Keyboard controlled hook function
+  @Prop({ type: Function, default: () => false })
+  keydownHook!: (e: KeyboardEvent) => HandleFunction | boolean
 
   // Whether to allow sliders to cross, only in range mode
   @Prop({ type: Boolean, default: true })
@@ -620,6 +624,7 @@ export default class VueSlider extends Vue {
       direction: this.direction,
       max: this.control.total,
       min: 0,
+      hook: this.keydownHook,
     })
 
     if (handleFunc) {
