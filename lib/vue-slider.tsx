@@ -518,9 +518,6 @@ export default class VueSlider extends Vue {
     if (!this.states.has(SliderState.Drag)) {
       return false
     }
-    if (this.lazy) {
-      this.syncValueByPos()
-    }
 
     setTimeout(() => {
       if (this.included && this.isNotSync) {
@@ -529,7 +526,9 @@ export default class VueSlider extends Vue {
         // Sync slider position
         this.control.syncDotsPos()
       }
-
+      if (this.lazy) {
+        this.syncValueByPos()
+      }
       this.states.delete(SliderState.Drag)
       // If useKeyboard is true, keep focus status after dragging
       if (!this.useKeyboard) {
