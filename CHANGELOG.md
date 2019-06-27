@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v3.0.33
+
+> `2019-06-27`
+
+### 🎉 Feature
+  - Add prop `keydownHook`. [#377](https://github.com/NightCatSama/vue-slider-component/issues/377)
+
+### 🐞 Bug Fixes
+  - Tooltip is not displayed correctly in lazy mode. [#375](https://github.com/NightCatSama/vue-slider-component/issues/375)
+
 ## v3.0.32
 
 > `2019-06-04`
