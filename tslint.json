@@ -41,6 +41,7 @@
       "arguments",
       "elements",
       "members"
-    ]
+    ],
+    "curly": [true, "ignore-same-line"]
   }
 }
