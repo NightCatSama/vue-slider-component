@@ -76,7 +76,7 @@
 
 ### direction
 
-- **Type**: `'ltr' | 'rtl' | 'ttb' | 'bbt'`
+- **Type**: `'ltr' | 'rtl' | 'ttb' | 'btt'`
 
 - **Default**: `ltr`
 
@@ -86,7 +86,7 @@
 
   `ltr` means `Left to Right`, Other similarity.
 
-  When the value is `ltr` or `rtl`, it is horizontal, and when it is `ttb` or `bbt`, it is vertical.
+  When the value is `ltr` or `rtl`, it is horizontal, and when it is `ttb` or `btt`, it is vertical.
 
   ::: warning
     In the vertical direction, you need to set the component height, otherwise it will not render properly.

@@ -76,7 +76,7 @@
 
 ### direction
 
-- **类型**：`'ltr' | 'rtl' | 'ttb' | 'bbt'`
+- **类型**：`'ltr' | 'rtl' | 'ttb' | 'btt'`
 
 - **默认值**：`ltr`
 
@@ -86,7 +86,7 @@
 
   `ltr` 的意思是 Left to Right，其他同理。
 
-  当值为 `ltr` 或者 `rtl` 时为水平方向，为 `ttb` 或 `bbt` 时为垂直方向。
+  当值为 `ltr` 或者 `rtl` 时为水平方向，为 `ttb` 或 `btt` 时为垂直方向。
 
   ::: warning
     垂直方向时，需给定组件一个高度，否则会无法正常渲染。
