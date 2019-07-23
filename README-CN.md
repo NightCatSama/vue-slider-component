@@ -8,10 +8,7 @@
 
 [English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
 
-如果你不需要新的特性，也可以使用更稳定的版本 [v2.x](https://github.com/NightCatSama/vue-slider-component/tree/v2)
-
-## ✨ 新特性(v3.x)
-- 🔧 修复了[异常](https://github.com/NightCatSama/vue-slider-component/tree/v2#exceptions)
+## ✨ 新特性
 - 🍖 更加可定制化
 - 👗 多种样式主题
 - 🐳 支持更多的滑块
