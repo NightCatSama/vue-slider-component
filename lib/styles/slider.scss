@@ -3,12 +3,9 @@
   box-sizing: content-box;
   user-select: none;
   display: block;
+  touch-action: none;
   -ms-touch-action: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  @at-root &-disabled {
-    pointer-events: none;
-  }
 }
 
 .vue-slider-rail {

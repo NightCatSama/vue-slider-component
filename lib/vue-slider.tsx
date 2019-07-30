@@ -311,7 +311,7 @@ export default class VueSlider extends Vue {
       index,
       value: this.control.dotsValue[index],
       focus: this.states.has(SliderState.Focus) && this.focusDotIndex === index,
-      disabled: false,
+      disabled: this.disabled,
       style: this.dotStyle,
       ...((Array.isArray(this.dotOptions) ? this.dotOptions[index] : this.dotOptions) || {}),
     }))
@@ -426,10 +426,6 @@ export default class VueSlider extends Vue {
         }
       })
     })
-  }
-
-  isDisabledByDotIndex(index: number): boolean {
-    return this.dots[index].disabled
   }
 
   private syncValueByPos() {
@@ -550,7 +546,7 @@ export default class VueSlider extends Vue {
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
-    if (!this.clickable) {
+    if (!this.clickable || this.disabled) {
       return false
     }
     if (this.states.has(SliderState.Drag)) {
@@ -594,7 +590,7 @@ export default class VueSlider extends Vue {
 
   setValueByPos(pos: number) {
     const index = this.control.getRecentDot(pos)
-    if (this.isDisabledByDotIndex(index)) {
+    if (this.disabled || this.dots[index].disabled) {
       return false
     }
     this.focusDotIndex = index
