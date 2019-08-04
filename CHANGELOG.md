@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.0.34
+
+> `2019-08-04`
+
+### 🐞 Bug Fixes
+  - Compatible screen reader.
+  - The cursor does not display the disabled flag when `disabled: true`
+
 ## v3.0.33
 
 > `2019-06-27`
