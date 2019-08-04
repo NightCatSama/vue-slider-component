@@ -42,7 +42,6 @@ const DEFAULT_SLIDER_SIZE = 4
     VueSliderDot,
     VueSliderMark,
   },
-  inheritAttrs: false,
 })
 export default class VueSlider extends Vue {
   control!: Control
@@ -656,8 +655,8 @@ export default class VueSlider extends Vue {
         ref="container"
         class={this.containerClasses}
         style={this.containerStyles}
-        aria-hidden={true}
         onClick={this.clickHandle}
+        {...this.$attrs}
       >
         {/* rail */}
         <div class="vue-slider-rail" style={this.railStyle}>
