@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.35
+
+> `2019-08-12`
+
+### 🐞 Bug Fixes
+  - Remove `.vue-slider-sr-only`. [#68](https://github.com/NightCatSama/vue-slider-component/issues/68)
+
 ## v3.0.34
 
 > `2019-08-04`
