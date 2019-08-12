@@ -738,16 +738,6 @@ export default class VueSlider extends Vue {
             </vue-slider-dot>
           ))}
         </div>
-        {/* Support screen readers */}
-        {this.dots.length === 1 && !this.data ? (
-          <input
-            class="vue-slider-sr-only"
-            type="range"
-            value={this.value}
-            min={this.min}
-            max={this.max}
-          />
-        ) : null}
       </div>
     )
   }
