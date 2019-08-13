@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.0.36
+
+> `2019-08-13`
+
+### 🎉 Feature
+  - Export mark component and dot component
+  - Support default slot
+
 ## v3.0.35
 
 > `2019-08-12`
