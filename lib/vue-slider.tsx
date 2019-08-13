@@ -129,7 +129,7 @@ export default class VueSlider extends Vue {
   useKeyboard?: boolean
 
   // Keyboard controlled hook function
-  @Prop({ type: Function, default: () => false })
+  @Prop(Function)
   keydownHook!: (e: KeyboardEvent) => HandleFunction | boolean
 
   // Whether to allow sliders to cross, only in range mode
