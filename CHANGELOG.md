@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.38
+
+> `2019-08-13`
+
+### 🐞 Bug Fixes
+  - `useKeyboard` does not work. [#389](https://github.com/NightCatSama/vue-slider-component/issues/389)
+
 ## v3.0.37
 
 > `2019-08-13`
