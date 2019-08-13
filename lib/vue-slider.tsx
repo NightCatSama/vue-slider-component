@@ -737,6 +737,7 @@ export default class VueSlider extends Vue {
               {this.renderSlot<Dot>('tooltip', dot, null)}
             </vue-slider-dot>
           ))}
+          {this.renderSlot<any>('default', null, null, true)}
         </div>
       </div>
     )
