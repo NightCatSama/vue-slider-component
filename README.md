@@ -60,10 +60,6 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ## Support
 
-Issues can be funded by anyone and the money will be distributed to contributors and maintainers.
-
-[![issuehunt](https://cdn.jsdelivr.net/gh/BoostIO/issuehunt-materials/v1/issuehunt-button-v1.svg)](https://issuehunt.io/r/NightCatSama/vue-slider-component)
-
 If you like this component, you can ask me to drink [coffee](https://www.paypal.me/nightcatsama) ☕️.
 
 ## License
