@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.39
+
+> `2019-08-28`
+
+### 🐞 Bug Fixes
+  - Keyboard control is abnormal with `included = true`. [#395](https://github.com/NightCatSama/vue-slider-component/issues/395)
+
 ## v3.0.38
 
 > `2019-08-13`
