@@ -1,3 +1,4 @@
+/* tslint:disable:import-spacing */
 import VueSlider from './vue-slider'
 import VueSliderMark from './vue-slider-mark'
 import VueSliderDot from './vue-slider-dot'

@@ -614,18 +614,38 @@ export default class VueSlider extends Vue {
       return false
     }
 
+    const isInclude = this.included && this.marks
     const handleFunc = getKeyboardHandleFunc(e, {
       direction: this.direction,
-      max: this.control.total,
+      max: isInclude ? this.control.markList.length - 1 : this.control.total,
       min: 0,
       hook: this.keydownHook,
     })
 
     if (handleFunc) {
       e.preventDefault()
-      const index = this.control.getIndexByValue(this.control.dotsValue[this.focusDotIndex])
-      const newIndex = handleFunc(index)
-      const pos = this.control.parseValue(this.control.getValueByIndex(newIndex))
+      let newIndex = -1
+      let pos = 0
+      if (isInclude) {
+        this.control.markList.some((mark, index) => {
+          if (mark.value === this.control.dotsValue[this.focusDotIndex]) {
+            newIndex = handleFunc(index)
+            return true
+          }
+          return false
+        })
+        if (newIndex < 0) {
+          newIndex = 0
+        } else if (newIndex > this.control.markList.length - 1) {
+          newIndex = this.control.markList.length - 1
+        }
+        pos = this.control.markList[newIndex].pos
+      } else {
+        newIndex = handleFunc(
+          this.control.getIndexByValue(this.control.dotsValue[this.focusDotIndex]),
+        )
+        pos = this.control.parseValue(this.control.getValueByIndex(newIndex))
+      }
       this.isCrossDot(pos)
       this.control.setDotPos(pos, this.focusDotIndex)
       this.syncValueByPos()
