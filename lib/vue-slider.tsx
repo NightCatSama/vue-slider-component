@@ -224,7 +224,7 @@ export default class VueSlider extends Vue {
   }
 
   get processArray(): Process[] {
-    return this.control.processArray.map(([start, end, style]) => {
+    return this.control.processArray.map(([start, end, style], index) => {
       if (start > end) {
         /* tslint:disable:semicolon */
         ;[start, end] = [end, start]
@@ -233,6 +233,7 @@ export default class VueSlider extends Vue {
       return {
         start,
         end,
+        index,
         style: {
           [this.isHorizontal ? 'height' : 'width']: '100%',
           [this.isHorizontal ? 'top' : 'left']: 0,
