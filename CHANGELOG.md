@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.40
+
+> `2019-09-01`
+
+### 🎉 Feature
+  - Slot process add parameter `index`.
+
 ## v3.0.39
 
 > `2019-08-28`
