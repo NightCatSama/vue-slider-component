@@ -149,7 +149,7 @@
 
   ```html
   <vue-slider v-model="value">
-    <template v-slot:process="{ start, end, style }">
+    <template v-slot:process="{ start, end, style, index }">
       <div class="vue-slider-process custom-class" :style="[style, customStyle]">
         <!-- Can add custom elements here -->
       </div>
