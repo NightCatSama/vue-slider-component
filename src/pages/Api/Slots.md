@@ -139,6 +139,8 @@
 
   - `{number} end` End position of the progress
 
+  - `{number} index` Index of the progress (can be used in multi-progress)
+
   - `{object} style` Progress style, Contains the calculated style of the component (size, position, etc)
 
 - **Usage**:

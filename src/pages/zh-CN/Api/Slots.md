@@ -139,6 +139,8 @@
 
   - `{number} end` 进度条结束的位置
 
+  - `{number} index` 进度条的索引（可在多段进度条时使用）
+
   - `{object} style` 进度条样式，包括组件内部已经计算好的样式（宽高、位置等等）
 
 - **用法**:
@@ -147,7 +149,7 @@
 
   ```html
   <vue-slider v-model="value">
-    <template v-slot:process="{ start, end, style }">
+    <template v-slot:process="{ start, end, style, index }">
       <div class="vue-slider-process custom-class" :style="[style, customStyle]">
         <!-- Can add custom elements here -->
       </div>

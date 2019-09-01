@@ -152,8 +152,8 @@ export default {
   example5: `
   <template>
     <div>
-      <vue-slider v-model="value" tooltip="none">
-        <template v-slot:process="{ start, end, style }">
+      <vue-slider v-model="value" tooltip="none" :process="process" :min-range="10">
+        <template v-slot:process="{ start, end, style, index }">
           <div class="vue-slider-process" :style="style">
             ${
               localStorage.getItem('theme') === 'material'
@@ -164,7 +164,7 @@ export default {
               'vue-slider-dot-tooltip-inner-top',
             ]">`
             }
-              {{ value[0] }} - {{ value[1] }}
+              {{ value[index] }} - {{ value[index + 1] }}
             </div>
           </div>
         </template>
@@ -197,7 +197,11 @@ export default {
       },
       data: function () {
         return {
-          value: [0, 50]
+          value: [0, 50, 100],
+          process: val => [
+						[val[0], val[1]],
+						[val[1], val[2]],
+					]
         }
       }
     }
