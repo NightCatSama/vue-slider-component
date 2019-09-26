@@ -97,7 +97,7 @@ export default class VueSlider extends Vue {
   @Prop({ type: Boolean, default: true })
   clickable!: boolean
 
-  @Prop({ type: Boolean, default: true })
+  @Prop({ type: Boolean, default: false })
   dragOnClick!: boolean
 
   // The duration of the slider slide, Unit second
