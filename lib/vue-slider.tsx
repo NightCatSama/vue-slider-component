@@ -52,7 +52,8 @@ export default class VueSlider extends Vue {
   focusDotIndex: number = 0
 
   $refs!: {
-    container: HTMLDivElement
+    [key: string]: Vue
+    container: HTMLDivElement & Vue
   }
 
   $el!: HTMLDivElement
@@ -95,6 +96,9 @@ export default class VueSlider extends Vue {
 
   @Prop({ type: Boolean, default: true })
   clickable!: boolean
+
+  @Prop({ type: Boolean, default: true })
+  dragOnClick!: boolean
 
   // The duration of the slider slide, Unit second
   @Prop({ type: Number, default: 0.5 })
@@ -535,7 +539,10 @@ export default class VueSlider extends Vue {
   }
 
   private blurHandle(e: MouseEvent) {
-    if (
+    if (this.dragOnClick) {
+      this.clickHandle(e)
+      return
+    } else if (
       !this.states.has(SliderState.Focus) ||
       !this.$refs.container ||
       this.$refs.container.contains(e.target as Node)
@@ -546,7 +553,12 @@ export default class VueSlider extends Vue {
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
-    if (!this.clickable || this.disabled) {
+    if (
+      !this.clickable ||
+      this.disabled ||
+      !this.$refs.container.contains(e.target as Node) ||
+      this.$refs[`dot-${this.focusDotIndex}`].$el === e.target
+    ) {
       return false
     }
     if (this.states.has(SliderState.Drag)) {
@@ -555,6 +567,10 @@ export default class VueSlider extends Vue {
     this.setScale()
     const pos = this.getPosByEvent(e)
     this.setValueByPos(pos)
+
+    if (this.dragOnClick) {
+      this.dragStart(this.focusDotIndex)
+    }
   }
 
   focus(index: number = 0) {
