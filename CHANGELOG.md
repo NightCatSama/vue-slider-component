@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.41
+
+> `2019-09-27`
+
+### 🎉 Feature
+  - Add Prop `DragOnClick` to allow the user to drag the slider directly when pressing the process. [PR#404](https://github.com/NightCatSama/vue-slider-component/pull/404)
+
 ## v3.0.40
 
 > `2019-09-01`
