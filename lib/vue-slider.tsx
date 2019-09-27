@@ -52,8 +52,7 @@ export default class VueSlider extends Vue {
   focusDotIndex: number = 0
 
   $refs!: {
-    [key: string]: Vue
-    container: HTMLDivElement & Vue
+    container: HTMLDivElement
   }
 
   $el!: HTMLDivElement
@@ -473,6 +472,22 @@ export default class VueSlider extends Vue {
     return [prevDot ? prevDot.pos : -Infinity, nextDot ? nextDot.pos : Infinity]
   }
 
+  private dragStartOnProcess(e: MouseEvent | TouchEvent) {
+    if (this.dragOnClick) {
+      this.setScale()
+      const pos = this.getPosByEvent(e)
+      const index = this.control.getRecentDot(pos)
+      if (this.dots[index].disabled) {
+        return
+      }
+      this.dragStart(index)
+      this.control.setDotPos(pos, this.focusDotIndex)
+      if (!this.lazy) {
+        this.syncValueByPos()
+      }
+    }
+  }
+
   private dragStart(index: number) {
     this.focusDotIndex = index
     this.setScale()
@@ -539,10 +554,7 @@ export default class VueSlider extends Vue {
   }
 
   private blurHandle(e: MouseEvent) {
-    if (this.dragOnClick) {
-      this.clickHandle(e)
-      return
-    } else if (
+    if (
       !this.states.has(SliderState.Focus) ||
       !this.$refs.container ||
       this.$refs.container.contains(e.target as Node)
@@ -553,12 +565,7 @@ export default class VueSlider extends Vue {
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
-    if (
-      !this.clickable ||
-      this.disabled ||
-      !this.$refs.container.contains(e.target as Node) ||
-      this.$refs[`dot-${this.focusDotIndex}`].$el === e.target
-    ) {
+    if (!this.clickable || this.disabled) {
       return false
     }
     if (this.states.has(SliderState.Drag)) {
@@ -567,10 +574,6 @@ export default class VueSlider extends Vue {
     this.setScale()
     const pos = this.getPosByEvent(e)
     this.setValueByPos(pos)
-
-    if (this.dragOnClick) {
-      this.dragStart(this.focusDotIndex)
-    }
   }
 
   focus(index: number = 0) {
@@ -693,6 +696,8 @@ export default class VueSlider extends Vue {
         class={this.containerClasses}
         style={this.containerStyles}
         onClick={this.clickHandle}
+        onTouchstart={this.dragStartOnProcess}
+        onMousedown={this.dragStartOnProcess}
         {...this.$attrs}
       >
         {/* rail */}
