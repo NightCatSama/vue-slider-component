@@ -51,4 +51,10 @@
 
 <example :value="example8"></example>
 
+### 点击时拖拽
+
+设置 `drag-on-click` 为 `true` 时，可以在点击进度条时直接拖拽滑块。
+
+<example :value="example9"></example>
+
 ::: example simple :::

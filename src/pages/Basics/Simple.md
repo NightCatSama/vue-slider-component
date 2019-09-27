@@ -51,4 +51,10 @@ When `contained` is set to `true`, the edge of the `dot` is used to align.
 
 <example :value="example8"></example>
 
+### DragOnClick
+
+When `drag-on-click` is set to `true`, can drag the slider directly when pressing the process.
+
+<example :value="example9"></example>
+
 ::: example simple :::

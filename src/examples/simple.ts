@@ -225,4 +225,24 @@ export default {
     }
   </script>
   `,
+  example9: `
+<template>
+  <div>
+    <vue-slider v-model="value" :drag-on-click="true"></vue-slider>
+  </div>
+</template>
+
+<script>
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value: 0,
+      }
+    }
+  }
+</script>
+  `,
 }
