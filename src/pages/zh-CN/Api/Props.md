@@ -162,6 +162,22 @@
 
   是否允许点击更改值。
 
+### dragOnClick
+
+::: version
+  2.0.41+ 新增
+:::
+
+- **类型**: `boolean`
+
+- **默认值**: `false`
+
+- **用法**:
+
+  是否允许在点击进度条时可直接拖拽滑块。
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/simple?hash=点击时拖拽'">一般用法 > 点击时拖拽</router-link>
+
 ### duration
 
 - **类型**：`number`
@@ -281,6 +297,10 @@
   键盘控制，当值为 `true` 时，拖拽结束滑块仍然获取焦点。
 
 ### keydownHook
+
+::: version
+  2.0.33+ 新增
+:::
 
 - **类型**: `(e: KeyboardEvent) => HandleFunction | boolean`
 

@@ -162,6 +162,22 @@
 
   Whether to allow changes to values by clicking.
 
+### dragOnClick
+
+::: version
+  New in 2.0.41+
+:::
+
+- **Type**: `boolean`
+
+- **Default**: `false`
+
+- **Usage**:
+
+  Whether to allow dragging the slider when pressing the process.
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/simple?hash=dragonclick'">Common usage > DragOnClick</router-link>
+
 ### duration
 
 - **Type**: `number`
@@ -282,6 +298,10 @@
   Keyboard control, when the value is `true`, the drag end slider still gets the focus.
 
 ### keydownHook
+
+::: version
+  New in 2.0.33+
+:::
 
 - **Type**: `(e: KeyboardEvent) => HandleFunction | boolean`
 

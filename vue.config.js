@@ -2,7 +2,7 @@ const container = require('markdown-it-container')
 const anchor = require('markdown-it-anchor')
 const uslug = require('uslug')
 
-const createContainer = (name, defaultTitle) => {
+const createContainer = (name, defaultTitle = '') => {
   return [
     container,
     name,
@@ -64,6 +64,7 @@ module.exports = {
             createContainer('tip', 'TIP'),
             createContainer('warning', 'WARNING'),
             createContainer('danger', 'WARNING'),
+            createContainer('version'),
             createContainer('example'),
             [
               anchor,
