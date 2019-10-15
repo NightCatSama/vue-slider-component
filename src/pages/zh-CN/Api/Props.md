@@ -165,7 +165,7 @@
 ### dragOnClick
 
 ::: version
-  2.0.41+ 新增
+  3.0.41+ 新增
 :::
 
 - **类型**: `boolean`
@@ -299,7 +299,7 @@
 ### keydownHook
 
 ::: version
-  2.0.33+ 新增
+  3.0.33+ 新增
 :::
 
 - **类型**: `(e: KeyboardEvent) => HandleFunction | boolean`

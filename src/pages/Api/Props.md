@@ -165,7 +165,7 @@
 ### dragOnClick
 
 ::: version
-  New in 2.0.41+
+  New in 3.0.41+
 :::
 
 - **Type**: `boolean`
@@ -300,7 +300,7 @@
 ### keydownHook
 
 ::: version
-  New in 2.0.33+
+  New in 3.0.33+
 :::
 
 - **Type**: `(e: KeyboardEvent) => HandleFunction | boolean`
