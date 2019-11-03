@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.42
+
+> `2019-10-03`
+
+### 🐞 Bug Fixes
+  - Can't scroll on mobile devices. [#413](https://github.com/NightCatSama/vue-slider-component/issues/413)
+
 ## v3.0.41
 
 > `2019-09-27`
