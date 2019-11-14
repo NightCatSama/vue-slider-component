@@ -448,6 +448,23 @@ export default class Control {
     }
   }
 
+  /**
+   * Calculate the distance of the range
+   * @param range number
+   */
+  getRangeDir(range: number): number {
+    return range
+      ? new Decimal(range)
+          .divide(
+            new Decimal(this.data ? this.data.length - 1 : this.max)
+              .minus(this.data ? 0 : this.min)
+              .toNumber(),
+          )
+          .multiply(100)
+          .toNumber()
+      : 100
+  }
+
   private emitError(type: ERROR_TYPE) {
     if (this.onError) {
       this.onError(type, ERROR_MSG[type])
@@ -496,14 +513,20 @@ export default class Control {
     return 100 / this.total
   }
 
+  private cacheRangeDir: { [key: string]: number } = {}
+
   // The minimum distance between the two sliders
   get minRangeDir(): number {
-    return this.minRange ? this.minRange * this.gap : 0
+    if (this.cacheRangeDir[this.minRange]) {
+      return this.cacheRangeDir[this.minRange]
+    }
+    return (this.cacheRangeDir[this.minRange] = this.getRangeDir(this.minRange))
   }
 
   // Maximum distance between the two sliders
   get maxRangeDir(): number {
-    return this.maxRange ? this.maxRange * this.gap : 100
+    if (this.cacheRangeDir[this.maxRange]) return this.cacheRangeDir[this.maxRange]
+    return (this.cacheRangeDir[this.maxRange] = this.getRangeDir(this.maxRange))
   }
 
   private getDotRange(index: number, key: 'min' | 'max', defaultValue: number): number {
