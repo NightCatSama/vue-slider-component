@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.43
+
+> `2019-11-14`
+
+### 🐞 Bug Fixes
+  - Fix `minRange`, `maxRange` cannot be calculated correctly. [#414](https://github.com/NightCatSama/vue-slider-component/issues/414)
+
 ## v3.0.42
 
 > `2019-10-03`
