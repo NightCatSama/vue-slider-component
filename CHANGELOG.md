@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.44
+
+> `2019-11-29`
+
+### 🐞 Bug Fixes
+  - Fixing `will-change` will blur tooltips. [#418](https://github.com/NightCatSama/vue-slider-component/issues/418)
+
 ## v3.0.43
 
 > `2019-11-14`
