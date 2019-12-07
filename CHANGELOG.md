@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.45
+
+> `2019-12-07`
+
+### 🐞 Bug Fixes
+  - Fix label still clickable when `clickable=true`. [#422](https://github.com/NightCatSama/vue-slider-component/issues/422)
+
 ## v3.0.44
 
 > `2019-11-29`
