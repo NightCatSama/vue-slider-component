@@ -730,7 +730,7 @@ export default class VueSlider extends Vue {
                     stepActiveStyle={this.stepActiveStyle}
                     labelStyle={this.labelStyle}
                     labelActiveStyle={this.labelActiveStyle}
-                    onPressLabel={(pos: number) => this.setValueByPos(pos)}
+                    onPressLabel={(pos: number) => this.clickable && this.setValueByPos(pos)}
                   >
                     {this.renderSlot<Mark>('step', mark, null)}
                     {this.renderSlot<Mark>('label', mark, null)}
