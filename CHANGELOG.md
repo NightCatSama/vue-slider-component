@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.0.46
+
+> `2019-12-08`
+
+### 🐞 Bug Fixes
+  - Cannot drag when included and lazy are both equal to true. [#421](https://github.com/NightCatSama/vue-slider-component/issues/421)
+
 ## v3.0.45
 
 > `2019-12-07`
