@@ -226,9 +226,9 @@
 
 ### tooltip
 
-- **类型**：`'none' | 'always' | 'focus'`
+- **类型**：`'none' | 'always' | 'hover' | 'focus' | 'active'`
 
-- **默认值**：`'focus'`
+- **默认值**：`'active'`
 
 - **用法**：
 
@@ -238,7 +238,11 @@
 
   当值为 `always` 时，Tooltip 会始终显示；
 
+  当值为 `hover` 时，Tooltip 会在鼠标悬停在滑块上时显示；
+
   当值为 `focus` 时，仅当滑块获得焦点时，Tooltip 才会显示。且当 `useKeyboard` 为 `true` 时，拖拽结束仍会获得焦点。
+
+  当值为 `active` 时，同时具有 `hover` 和 `focus` 功能；
 
 - **参考**：<router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltip'">工具提示 > tooltip</router-link>
 

@@ -4,8 +4,8 @@ export default {
   <div>
     <vue-slider v-model="value1" :tooltip="'none'"></vue-slider>
     <vue-slider v-model="value2" :tooltip="'always'"></vue-slider>
-    <vue-slider v-model="value3" :tooltip="'focus'"></vue-slider>
-    <vue-slider v-model="value4" :tooltip="'focus'" :use-keyboard="true"></vue-slider>
+    <vue-slider v-model="value3" :tooltip="'active'"></vue-slider>
+    <vue-slider v-model="value4" :tooltip="'active'" :use-keyboard="true"></vue-slider>
     <vue-slider v-model="value5" :dot-options="dotOptions"></vue-slider>
   </div>
 </template>

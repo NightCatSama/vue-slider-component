@@ -227,9 +227,9 @@
 
 ### tooltip
 
-- **Type**: `'none' | 'always' | 'focus'`
+- **Type**: `'none' | 'always' | 'hover' | 'focus' | 'active'`
 
-- **Default**: `'focus'`
+- **Default**: `'active'`
 
 - **Usage**:
 
@@ -239,7 +239,11 @@
 
   When the value is `always`, the Tooltip is always displayed;
 
+  When the value is `hover`, the Tooltip will be displayed when the slider get hover;
+
   When the value is `focus`, the Tooltip will only be displayed when the slider has focus. And when `useKeyboard` is `true`, the end of the drag will still get the focus.
+
+  When the value is `active`, the Tooltip have both `hover` and `focus`;
 
 - **See also**: <router-link :to="$route.meta.lang + 'basics/tooltip?hash=tooltip'">Tooltip > tooltip</router-link>
 
