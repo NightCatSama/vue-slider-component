@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.1.0
+
+> `2019-12-09`
+
+### 🎉 Feature
+  - `tooltip` supports `hover` and `active` parameter. [#423](https://github.com/NightCatSama/vue-slider-component/issues/423)
+  - `tooltip` default parameters changed from `focus` to `active`. [document](https://nightcatsama.github.io/vue-slider-component/#/api/props?hash=tooltip)
+
 ## v3.0.46
 
 > `2019-12-08`
