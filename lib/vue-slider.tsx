@@ -110,8 +110,8 @@ export default class VueSlider extends Vue {
 
   @Prop({
     type: String,
-    validator: val => ['none', 'always', 'focus'].indexOf(val) > -1,
-    default: 'focus',
+    validator: val => ['none', 'always', 'focus', 'hover', 'active'].indexOf(val) > -1,
+    default: 'active',
   })
   tooltip!: TooltipProp
 

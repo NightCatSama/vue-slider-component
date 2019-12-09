@@ -36,7 +36,7 @@ export interface TooltipStyle {
   tooltipFocusStyle?: Styles
   tooltipDisabledStyle?: Styles
 }
-export type TooltipProp = 'none' | 'always' | 'focus'
+export type TooltipProp = 'none' | 'always' | 'focus' | 'hover' | 'active'
 export type TooltipFormatterFunc = (val: Value) => string
 export type TooltipFormatter = string | TooltipFormatterFunc
 

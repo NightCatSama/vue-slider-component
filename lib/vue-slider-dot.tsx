@@ -38,6 +38,7 @@ export default class VueSliderDot extends Vue {
     return [
       'vue-slider-dot',
       {
+        'vue-slider-dot-hover': this.tooltip === 'hover' || this.tooltip === 'active',
         'vue-slider-dot-disabled': this.disabled,
         'vue-slider-dot-focus': this.focus,
       },
@@ -82,6 +83,7 @@ export default class VueSliderDot extends Vue {
       case 'none':
         return false
       case 'focus':
+      case 'active':
         return !!this.focus
       default:
         return false

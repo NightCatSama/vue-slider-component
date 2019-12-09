@@ -17,6 +17,10 @@ $tooltipGap: 10px;
   position: absolute;
   visibility: hidden;
 
+  @at-root .vue-slider-dot-hover:hover & {
+    visibility: visible;
+  }
+
   &-show {
     visibility: visible;
   }
