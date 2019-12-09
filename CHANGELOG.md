@@ -48,14 +48,14 @@
 > `2019-09-27`
 
 ### 🎉 Feature
-  - Add Prop `DragOnClick` to allow the user to drag the slider directly when pressing the process. [PR#404](https://github.com/NightCatSama/vue-slider-component/pull/404)
+  - Add Prop `dragOnClick` to allow the user to drag the slider directly when pressing the process. [PR#404](https://github.com/NightCatSama/vue-slider-component/pull/404)
 
 ## v3.0.40
 
 > `2019-09-01`
 
 ### 🎉 Feature
-  - Slot process add parameter `index`.
+  - Slot `process` add parameter `index`.
 
 ## v3.0.39
 
@@ -76,8 +76,8 @@
 > `2019-08-13`
 
 ### 🎉 Feature
-  - Export mark component and dot component
-  - Support default slot
+  - Export mark component and dot component.
+  - Support `default` slot.
 
 ## v3.0.35
 
