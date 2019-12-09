@@ -439,7 +439,7 @@
   ```ts
   interface DotOption {
     disabled: boolean
-    tooltip: 'none' | 'always' | 'focus'
+    tooltip: 'none' | 'always' | 'hover' | 'focus' | 'active'
     min: Value
     max: Value
     style: Object
