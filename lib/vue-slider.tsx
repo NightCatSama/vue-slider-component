@@ -333,7 +333,7 @@ export default class VueSlider extends Vue {
 
   @Watch('value')
   onValueChanged() {
-    if (!this.states.has(SliderState.Drag) && this.isNotSync) {
+    if (this.control && !this.states.has(SliderState.Drag) && this.isNotSync) {
       this.control.setValue(this.value)
     }
   }
