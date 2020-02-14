@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.1.1
+
+> `2019-02-14`
+
+### 🐞 Bug Fixes
+  - `onValueChanged` may be called before control is created. [#436](https://github.com/NightCatSama/vue-slider-component/pull/436)
+
 ## v3.1.0
 
 > `2019-12-09`
