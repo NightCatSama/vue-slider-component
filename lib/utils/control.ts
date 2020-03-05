@@ -26,9 +26,9 @@ type ERROR_MESSAGE = { [key in ERROR_TYPE]: string }
 export const ERROR_MSG: ERROR_MESSAGE = {
   [ERROR_TYPE.VALUE]: 'The type of the "value" is illegal',
   [ERROR_TYPE.INTERVAL]:
-    'The prop "interval" is invalid, "(max - min)" cannot be divisible by "interval"',
-  [ERROR_TYPE.MIN]: 'The "value" cannot be less than the minimum.',
-  [ERROR_TYPE.MAX]: 'The "value" cannot be greater than the maximum.',
+    'The prop "interval" is invalid, "(max - min)" must be divisible by "interval"',
+  [ERROR_TYPE.MIN]: 'The "value" must be greater than or equal to the "min".',
+  [ERROR_TYPE.MAX]: 'The "value" must be less than or equal to the "max".',
   [ERROR_TYPE.ORDER]:
     'When "order" is false, the parameters "minRange", "maxRange", "fixed", "enabled" are invalid.',
 }
