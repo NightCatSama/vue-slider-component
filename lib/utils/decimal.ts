@@ -71,7 +71,8 @@ export default class Decimal {
   }
 
   private getDecimalLen(num: number): number {
-    return (`${num}`.split('.')[1] || '').length
+    const strArr = `${num}`.split('e')
+    return (`${strArr[0]}`.split('.')[1] || '').length - (strArr[1] ? +strArr[1] : 0)
   }
 
   private getExponent(num1: number, num2?: number): number {
