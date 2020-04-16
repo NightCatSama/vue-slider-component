@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.1.2
+
+> `2019-04-16`
+
+### 🐞 Bug Fixes
+  - Optimize the error message. [#438](https://github.com/NightCatSama/vue-slider-component/issues/438)
+  - The slider position is incorrect when the range is too large. [#449](https://github.com/NightCatSama/vue-slider-component/issues/449)
+
 ## v3.1.1
 
 > `2019-02-14`
