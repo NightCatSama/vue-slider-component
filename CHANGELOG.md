@@ -2,7 +2,7 @@
 
 ## v3.1.2
 
-> `2019-04-16`
+> `2020-04-16`
 
 ### 🐞 Bug Fixes
   - Optimize the error message. [#438](https://github.com/NightCatSama/vue-slider-component/issues/438)
@@ -10,7 +10,7 @@
 
 ## v3.1.1
 
-> `2019-02-14`
+> `2020-02-14`
 
 ### 🐞 Bug Fixes
   - `onValueChanged` may be called before control is created. [#436](https://github.com/NightCatSama/vue-slider-component/pull/436)
