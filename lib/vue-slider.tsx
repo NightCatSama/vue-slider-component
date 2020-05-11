@@ -434,7 +434,7 @@ export default class VueSlider extends Vue {
   private syncValueByPos() {
     const values = this.control.dotsValue
     if (this.isDiff(values, Array.isArray(this.value) ? this.value : [this.value])) {
-      this.$emit('change', values.length === 1 ? values[0] : [...values])
+      this.$emit('change', values.length === 1 ? values[0] : [...values], this.focusDotIndex)
     }
   }
 
@@ -493,7 +493,7 @@ export default class VueSlider extends Vue {
     this.setScale()
     this.states.add(SliderState.Drag)
     this.states.add(SliderState.Focus)
-    this.$emit('drag-start')
+    this.$emit('drag-start', this.focusDotIndex)
   }
 
   private dragMove(e: MouseEvent | TouchEvent) {
@@ -508,7 +508,7 @@ export default class VueSlider extends Vue {
       this.syncValueByPos()
     }
     const value = this.control.dotsValue
-    this.$emit('dragging', value.length === 1 ? value[0] : [...value])
+    this.$emit('dragging', value.length === 1 ? value[0] : [...value], this.focusDotIndex)
   }
 
   // If the component is sorted, then when the slider crosses, toggle the currently selected slider index
@@ -549,7 +549,7 @@ export default class VueSlider extends Vue {
       if (!this.useKeyboard) {
         this.states.delete(SliderState.Focus)
       }
-      this.$emit('drag-end')
+      this.$emit('drag-end', this.focusDotIndex)
     })
   }
 
