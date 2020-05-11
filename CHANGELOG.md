@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.1.3
+
+> `2020-05-10`
+
+### 🎉 Feature
+  - Added `index` parameter for drag events and `@change`. [#456](https://github.com/NightCatSama/vue-slider-component/issues/456) [document](https://nightcatsama.github.io/vue-slider-component/#/api/events)
+
 ## v3.1.2
 
 > `2020-04-16`
