@@ -2,11 +2,12 @@
 
 ### change
 
-- **类型**：`(value) => void`
+- **类型**：`(value, index) => void`
 
 - **参数**
 
   - `{number | string | number[] | string[]} value`
+  - `{number} index` 滑块索引
 
 - **用法**：
 
@@ -14,7 +15,11 @@
 
 ### drag-start
 
-- **类型**：`() => void`
+- **类型**：`(index) => void`
+
+- **参数**
+
+  - `{number} index` 滑块索引
 
 - **用法**：
 
@@ -22,11 +27,12 @@
 
 ### dragging
 
-- **类型**：`(value) => void`
+- **类型**：`(value, index) => void`
 
 - **参数**
 
   - `{number | string | number[] | string[]} value`
+  - `{number} index` 滑块索引
 
 - **用法**：
 
@@ -36,7 +42,11 @@
 
 ### drag-end
 
-- **类型**：`() => void`
+- **类型**：`(index) => void`
+
+- **参数**
+
+  - `{number} index` 滑块索引
 
 - **用法**：
 

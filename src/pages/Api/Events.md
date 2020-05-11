@@ -2,11 +2,12 @@
 
 ### change
 
-- **Type**: `(value) => void`
+- **Type**: `(value, index) => void`
 
 - **Arguments**:
 
   - `{number | string | number[] | string[]} value`
+  - `{number} index` Slider index
 
 - **Usage**:
 
@@ -14,7 +15,11 @@
 
 ### drag-start
 
-- **Type**: `() => void`
+- **Type**: `(index) => void`
+
+- **Arguments**:
+
+  - `{number} index` Slider index
 
 - **Usage**:
 
@@ -22,11 +27,12 @@
 
 ### dragging
 
-- **Type**: `(value) => void`
+- **Type**: `(value, index) => void`
 
 - **Arguments**
 
   - `{number | string | number[] | string[]} value`
+  - `{number} index` Slider index
 
 - **Usage**:
 
@@ -36,7 +42,11 @@
 
 ### drag-end
 
-- **Type**: `() => void`
+- **Type**: `(index) => void`
+
+- **Arguments**:
+
+  - `{number} index` Slider index
 
 - **Usage**:
 
