@@ -27,6 +27,8 @@ The value will only be updated when the drag is over
 
 <example :value="example5"></example>
 
+<example :value="example_lazy_but_with_current_values"></example>
+
 ### Disabled slider
 
 You can disable the entire component with `disabled` or disable the slider separately with `dot-options`
