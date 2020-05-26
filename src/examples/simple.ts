@@ -121,31 +121,6 @@ export default {
   }
 </script>
   `,
-  example_lazy_but_with_current_values: `
-<template>
-  <div>
-    <div>value: {{ value }}</div>
-    <vue-slider v-model="value" :lazy="true">
-      <div slot-scope="{ value }" style="padding-top: 16px">
-        Current value: {{ value }}
-      </div>
-    </vue-slider>
-  </div>
-</template>
-
-<script>
-  module.exports = {
-    components: {
-      VueSlider
-    },
-    data: function () {
-      return {
-        value: 0
-      }
-    }
-  }
-</script>
-  `,
   example6: `
 <template>
   <div>

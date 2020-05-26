@@ -27,7 +27,9 @@ The value will only be updated when the drag is over
 
 <example :value="example5"></example>
 
-<example :value="example_lazy_but_with_current_values"></example>
+::: tip
+  If you need to use the internal value of the component when dragging, you can listen to the `dragging` event or use the `default slot`.
+:::
 
 ### Disabled slider
 

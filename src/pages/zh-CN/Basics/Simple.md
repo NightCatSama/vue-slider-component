@@ -27,6 +27,10 @@
 
 <example :value="example5"></example>
 
+::: tip
+  如果你需要使用拖拽时组件的内部值，你可以监听 `dragging` 事件或者使用 `default slot`.
+:::
+
 ### 禁用滑块
 
 可以使用 `disabled` 禁用整个组件，也可以使用 `dot-options` 单独禁用滑块。

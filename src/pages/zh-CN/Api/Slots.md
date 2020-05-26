@@ -156,3 +156,22 @@
     </template>
   </vue-slider>
   ```
+
+
+## default
+
+- **作用域**:
+
+  - `{number | string | number[] | string[]} value`
+
+- **用法**:
+
+  当 `lazy = true`, `value` 是内部值.
+
+  ```html
+  <vue-slider v-model="value">
+    <template v-slot="{ value: innerValue }">
+      内部值: {{ innerValue }}
+    </template>
+  </vue-slider>
+  ```
