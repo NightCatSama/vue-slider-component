@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.1.4
+
+> `2020-05-27`
+
+### 🎉 Feature
+  - Added `value` parameter for default scope slot. [#459](https://github.com/NightCatSama/vue-slider-component/pull/459)
+
 ## v3.1.3
 
 > `2020-05-10`
