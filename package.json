@@ -2,15 +2,21 @@
   "name": "vue-slider-component",
   "version": "3.1.4",
   "description": "A highly customized slider component",
-  "keywords": [
-    "vue",
-    "slider",
-    "vue-slider",
-    "vue-component",
-    "vue-slider-component"
-  ],
+  "author": "NightCatSama <642163903@qq.com>",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
+    "deploy:docs": "sh scripts/deploy.sh",
+    "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
+    "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
+    "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
+    "sass": "sass lib/theme:theme",
+    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings"
+  },
   "main": "./dist/vue-slider-component.umd.min.js",
-  "typings": "./typings/index.d.ts",
   "files": [
     "dist",
     "dist-css",
@@ -19,50 +25,18 @@
     "typings",
     "theme"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
-  },
-  "author": "NightCatSama <642163903@qq.com>",
-  "licenses": "MIT",
-  "bugs": {
-    "url": "https://github.com/NightCatSama/vue-slider-component/issues"
-  },
-  "homepage": "https://github.com/NightCatSama/vue-slider-component",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
-    "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
-    "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
-    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings",
-    "sass": "sass lib/theme:theme",
-    "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "deploy:docs": "sh scripts/deploy.sh"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -e $GIT_PARAMS"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,scss}": [
-      "npm run prettier",
-      "git add"
-    ]
-  },
   "dependencies": {
+    "core-js": "^3.6.5",
     "vue-property-decorator": "^8.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^7.3.1",
     "@types/chai": "^4.1.0",
     "@types/mocha": "^5.2.4",
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-typescript": "^3.4.0",
-    "@vue/cli-plugin-unit-mocha": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-plugin-babel": "~4.4.1",
+    "@vue/cli-plugin-typescript": "~4.4.1",
+    "@vue/cli-plugin-unit-mocha": "~4.4.1",
+    "@vue/cli-service": "~4.4.1",
     "@vue/test-utils": "^1.0.0-beta.20",
     "chai": "^4.1.2",
     "codemirror": "^5.44.0",
@@ -70,11 +44,11 @@
     "lint-staged": "^8.1.0",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-container": "^2.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.14.1",
     "prettier": "^1.15.2",
-    "sass": "^1.16.0",
-    "sass-loader": "^7.0.1",
-    "typescript": "^3.0.0",
+    "sass": "^1.26.7",
+    "sass-loader": "^8.0.2",
+    "typescript": "~3.9.3",
     "uslug": "^1.0.4",
     "vue": "^2.6.6",
     "vue-markdown-loader": "^2.4.1",
@@ -82,5 +56,32 @@
     "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.6.6",
     "vuep": "^0.8.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/NightCatSama/vue-slider-component/issues"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -e $GIT_PARAMS"
+  },
+  "homepage": "https://github.com/NightCatSama/vue-slider-component",
+  "keywords": [
+    "vue",
+    "slider",
+    "vue-slider",
+    "vue-component",
+    "vue-slider-component"
+  ],
+  "licenses": "MIT",
+  "lint-staged": {
+    "*.{js,ts,tsx,scss}": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
+  },
+  "typings": "./typings/index.d.ts"
 }
