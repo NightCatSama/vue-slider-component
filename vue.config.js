@@ -80,6 +80,14 @@ module.exports = {
         })
     } else {
       config.output.libraryExport('default')
+      config.externals({
+        vue: {
+          commonjs: 'vue',
+          commonjs2: 'vue',
+          root: 'Vue',
+          amd: 'vue',
+        },
+      })
     }
   },
   css: { extract: !!process.env.NO_EXTRACT_CSS },
