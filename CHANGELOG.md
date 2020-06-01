@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.1.5
+
+> `2020-06-01`
+
+### 🐞 Bug Fixes
+  - Import component error in AMD-Environment. [#410](https://github.com/NightCatSama/vue-slider-component/issues/410) [#379](https://github.com/NightCatSama/vue-slider-component/issues/379)
+
 ## v3.1.4
 
 > `2020-05-27`
