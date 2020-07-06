@@ -2,6 +2,7 @@ import { Component, Model, Prop, Watch, Vue } from 'vue-property-decorator'
 import {
   Value,
   Mark,
+  Marks,
   MarksProp,
   Styles,
   DotOption,
@@ -103,7 +104,11 @@ export default class VueSlider extends Vue {
   @Prop({ type: Number, default: 0.5 })
   duration!: number
 
-  @Prop(Array) data?: Value[]
+  @Prop(Array) data?: Value[] | object[]
+
+  @Prop({ type: String, default: 'value' }) dataValue!: string
+
+  @Prop({ type: String, default: 'label' }) dataLabel!: string
 
   @Prop({ type: Boolean, default: false })
   lazy!: boolean
@@ -331,6 +336,54 @@ export default class VueSlider extends Vue {
     return this.order && !this.minRange && !this.maxRange && !this.fixed && this.enableCross
   }
 
+  isObjectArray(data?: Value[] | object[]): data is object[] {
+    return !!data && Array.isArray(data) && data.length > 0 && typeof data[0] === 'object'
+  }
+
+  get sliderData(): undefined | Value[] {
+    if (this.isObjectArray(this.data)) {
+      return (this.data as any[]).map(obj => obj[this.dataValue])
+    } else {
+      return this.data as Value[]
+    }
+  }
+
+  get sliderMarks(): undefined | MarksProp {
+    if (this.marks) {
+      return this.marks
+    } else if (this.isObjectArray(this.data)) {
+      return val => {
+        const mark = { label: val }
+        ;(this.data as any[]).some(obj => {
+          if (obj[this.dataValue] === val) {
+            mark.label = obj[this.dataLabel]
+            return true
+          }
+          return false
+        })
+        return mark
+      }
+    }
+  }
+
+  get sliderTooltipFormatter(): undefined | TooltipFormatter | TooltipFormatter[] {
+    if (this.tooltipFormatter) {
+      return this.tooltipFormatter
+    } else if (this.isObjectArray(this.data)) {
+      return val => {
+        let tooltipText = '' + val
+        ;(this.data as any[]).some(obj => {
+          if (obj[this.dataValue] === val) {
+            tooltipText = obj[this.dataLabel]
+            return true
+          }
+          return false
+        })
+        return tooltipText
+      }
+    }
+  }
+
   @Watch('value')
   onValueChanged() {
     if (this.control && !this.states.has(SliderState.Drag) && this.isNotSync) {
@@ -381,7 +434,7 @@ export default class VueSlider extends Vue {
   initControl() {
     this.control = new Control({
       value: this.value,
-      data: this.data,
+      data: this.sliderData,
       enableCross: this.enableCross,
       fixed: this.fixed,
       max: this.max,
@@ -390,7 +443,7 @@ export default class VueSlider extends Vue {
       minRange: this.minRange,
       maxRange: this.maxRange,
       order: this.order,
-      marks: this.marks,
+      marks: this.sliderMarks,
       included: this.included,
       process: this.process,
       adsorb: this.adsorb,
@@ -711,7 +764,7 @@ export default class VueSlider extends Vue {
             ),
           )}
           {/* mark */}
-          {this.marks ? (
+          {this.sliderMarks ? (
             <div class="vue-slider-marks">
               {this.control.markList.map((mark, index) =>
                 this.renderSlot<Mark>(
@@ -761,9 +814,9 @@ export default class VueSlider extends Vue {
                 dot.focus ? dot.tooltipFocusStyle : null,
               ]}
               tooltip-formatter={
-                Array.isArray(this.tooltipFormatter)
-                  ? this.tooltipFormatter[index]
-                  : this.tooltipFormatter
+                Array.isArray(this.sliderTooltipFormatter)
+                  ? this.sliderTooltipFormatter[index]
+                  : this.sliderTooltipFormatter
               }
               tooltip-placement={this.tooltipDirections[index]}
               style={[
