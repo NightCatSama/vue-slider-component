@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.0
+
+> `2020-07-06`
+
+### 🎉 Feature
+  - `data` supports `Array<object>` type. [#471](https://github.com/NightCatSama/vue-slider-component/issues/471) [example](https://nightcatsama.github.io/vue-slider-component/#/basics/marks)
+
 ## v3.1.5
 
 > `2020-06-01`
