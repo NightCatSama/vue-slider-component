@@ -49,6 +49,18 @@ module.exports = {
       config.resolve.alias.set('vue$', 'vue/dist/vue.common').set('~', __dirname)
 
       config.module
+        .rule('vue')
+        .test(/\.vue/)
+        .use('vue-loader')
+        .loader('vue-loader')
+        .options({
+          compilerOptions: {
+            whitespace: 'preserve',
+          },
+        })
+        .end()
+
+      config.module
         .rule('md')
         .test(/\.md/)
         .use('vue-loader')
