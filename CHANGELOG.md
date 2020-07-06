@@ -5,7 +5,7 @@
 > `2020-07-06`
 
 ### 🎉 Feature
-  - `data` supports `Array<object>` type. [#471](https://github.com/NightCatSama/vue-slider-component/issues/471) [example](https://nightcatsama.github.io/vue-slider-component/#/basics/marks)
+  - `data` supports `Array<object>` type, and adds `data-value` and `data-label` parameters. [#471](https://github.com/NightCatSama/vue-slider-component/issues/471) [document](https://nightcatsama.github.io/vue-slider-component/#/api/props?hash=data) [example](https://nightcatsama.github.io/vue-slider-component/#/basics/data)
 
 ## v3.1.5
 
