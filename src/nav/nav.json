@@ -43,7 +43,7 @@
       "component": "Basics/Data.md"
     },
     {
-      "name": "Mark",
+      "name": "Marks",
       "route": "basics/marks",
       "component": "Basics/Marks.md"
     },

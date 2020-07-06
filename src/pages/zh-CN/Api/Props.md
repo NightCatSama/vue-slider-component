@@ -94,7 +94,7 @@
 
 ### data
 
-- **类型**：`Array<number> | Array<string>`
+- **类型**：`Array<number> | Array<string> | Array<object>`
 
 - **默认值**：`undefined`
 
@@ -105,6 +105,68 @@
   ```html
   <vue-slider :data="['A', 'B', 'C', 'D']" v-model="value" />
   ```
+
+  对象类型仅在 3.2.0 版本之后支持，对象类型实际上为 `data & marks & tooltipFormatter` 的简化写法.
+
+  ```html
+  <vue-slider
+    :data="[{
+      label: 'A',
+      value: 1,
+    }, {
+      label: 'B',
+      value: 2,
+    }, {
+      label: 'C',
+      value: 3,
+    }, {
+      label: 'D',
+      value: 4,
+    }]"
+    v-model="value"
+  />
+  ```
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/data'">自定义数据</router-link>
+
+### data-value
+
+::: version
+  3.2.0+ 新增
+:::
+
+- **类型**: `string`
+
+- **默认值**: `value`
+
+- **用法**:
+
+  仅在 `data` 类型为 `Array<object>` 有效.
+
+  将对象中的该字段绑定到 `value`.
+
+- **参考**：<router-link :to="$route.meta.lang + 'basics/data'">自定义数据</router-link>
+
+### data-label
+
+::: version
+  3.2.0+ 新增
+:::
+
+- **类型**: `string`
+
+- **默认值**: `label`
+
+- **用法**:
+
+  仅在 `data` 类型为 `Array<object>` 有效.
+
+  将对象中的该字段绑定到 `label`.
+
+  ::: tip
+    实际上在组件内部自动转换为 `marks` 和 `tooltipFormatter`。
+    所以设置 `marks` 或 `tooltipFormatter` 会覆盖原有效果。
+  :::
 
 - **参考**：<router-link :to="$route.meta.lang + 'basics/data'">自定义数据</router-link>
 

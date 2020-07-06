@@ -1,18 +1,18 @@
 # 刻度标记
 
-### 当 `mark` 为 `true`
+### 当 `marks` 为 `true`
 
 <example :value="example1"></example>
 
-### 当 `mark` 的类型为 `Object`
+### 当 `marks` 的类型为 `Object`
 
 <example :value="example2"></example>
 
-### 当 `mark` 的类型为 `Array`
+### 当 `marks` 的类型为 `Array`
 
 <example :value="example3"></example>
 
-### 当 `mark` 的类型为 `Function`
+### 当 `marks` 的类型为 `Function`
 
 <example :value="example4"></example>
 

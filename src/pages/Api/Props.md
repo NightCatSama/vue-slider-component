@@ -94,7 +94,7 @@
 
 ### data
 
-- **Type**: `Array<number> | Array<string>`
+- **Type**: `Array<number> | Array<string> | Array<object>`
 
 - **Default**: `undefined`
 
@@ -105,6 +105,70 @@
   ```html
   <vue-slider :data="['A', 'B', 'C', 'D']" v-model="value" />
   ```
+
+  The object type is supported after version 3.2.0+.
+
+  Which is actually a simplified writing of `data & marks & tooltipFormatter`.
+
+  ```html
+  <vue-slider
+    :data="[{
+      label: 'A',
+      value: 1,
+    }, {
+      label: 'B',
+      value: 2,
+    }, {
+      label: 'C',
+      value: 3,
+    }, {
+      label: 'D',
+      value: 4,
+    }]"
+    v-model="value"
+  />
+  ```
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
+
+### data-value
+
+::: version
+  New in 3.2.0+
+:::
+
+- **Type**: `string`
+
+- **Default**: `value`
+
+- **Usage**:
+
+  Only valid when `data` is `Array<object>`.
+
+  Read the field in the object and bind it to `value`.
+
+- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
+
+### data-label
+
+::: version
+  New in 3.2.0+
+:::
+
+- **Type**: `string`
+
+- **Default**: `label`
+
+- **Usage**:
+
+  Only valid when `data` is `Array<object>`.
+
+  Read the field in the object and bind it to `label`.
+
+  ::: tip
+    Actually automatically converted to `marks` and `tooltipFormatter` inside the component.
+    So setting `marks` or `tooltipFormatter` will overwrite the effect.
+  :::
 
 - **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
 

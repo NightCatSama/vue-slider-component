@@ -1,18 +1,18 @@
-# Mark
+# Marks
 
-### When `mark` is `true`
+### When `marks` is `true`
 
 <example :value="example1"></example>
 
-### When the type of `mark` is `Object`
+### When the type of `marks` is `Object`
 
 <example :value="example2"></example>
 
-### When the type of `mark` is `Array`
+### When the type of `marks` is `Array`
 
 <example :value="example3"></example>
 
-### When the type of `mark` is `Function`
+### When the type of `marks` is `Function`
 
 <example :value="example4"></example>
 
