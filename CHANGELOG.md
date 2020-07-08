@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v3.2.1
+
+> `2020-07-08`
+
+### 🎉 Feature
+  - Allow keyboard tab to access slider. [#470](https://github.com/NightCatSama/vue-slider-component/issues/470) [#402](https://github.com/NightCatSama/vue-slider-component/issues/402)
+  - `useKeyboard` default parameters changed from `false` to `true`.
+
 ## v3.2.0
 
 > `2020-07-06`
