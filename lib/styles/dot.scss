@@ -5,6 +5,10 @@ $tooltipGap: 10px;
   transition: all 0s;
   z-index: 5;
 
+  &:focus {
+    outline: none;
+  }
+
   @at-root &-handle {
     @at-root &-focus {
     }

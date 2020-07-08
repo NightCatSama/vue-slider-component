@@ -133,7 +133,7 @@ export default class VueSlider extends Vue {
   tooltipFormatter?: TooltipFormatter | TooltipFormatter[]
 
   // Keyboard control
-  @Prop({ type: Boolean, default: false })
+  @Prop({ type: Boolean, default: true })
   useKeyboard?: boolean
 
   // Keyboard controlled hook function
@@ -577,12 +577,16 @@ export default class VueSlider extends Vue {
         this.focusDotIndex--
       }
       if (curIndex !== this.focusDotIndex) {
+        const dotVm = (this.$refs as any)[`dot-${this.focusDotIndex}`]
+        if (dotVm && dotVm.$el) {
+          dotVm.$el.focus()
+        }
         this.control.setDotPos(curPos, curIndex)
       }
     }
   }
 
-  private dragEnd() {
+  private dragEnd(e: MouseEvent | TouchEvent) {
     if (!this.states.has(SliderState.Drag)) {
       return false
     }
@@ -599,7 +603,7 @@ export default class VueSlider extends Vue {
       }
       this.states.delete(SliderState.Drag)
       // If useKeyboard is true, keep focus status after dragging
-      if (!this.useKeyboard) {
+      if (!this.useKeyboard || 'targetTouches' in e) {
         this.states.delete(SliderState.Focus)
       }
       this.$emit('drag-end', this.focusDotIndex)
@@ -629,7 +633,8 @@ export default class VueSlider extends Vue {
     this.setValueByPos(pos)
   }
 
-  focus(index: number = 0) {
+  focus(dot: Dot, index: number = 0) {
+    if (dot.disabled) return
     this.states.add(SliderState.Focus)
     this.focusDotIndex = index
   }
@@ -827,6 +832,14 @@ export default class VueSlider extends Vue {
                 },
               ]}
               onDrag-start={() => this.dragStart(index)}
+              role="slider"
+              aria-valuenow={dot.value}
+              aria-valuemin={this.min}
+              aria-valuemax={this.max}
+              aria-orientation={this.isHorizontal ? 'horizontal' : 'vertical'}
+              tabindex="0"
+              nativeOnFocus={() => this.focus(dot, index)}
+              nativeOnBlur={() => this.blur()}
             >
               {this.renderSlot<Dot>('dot', dot, null)}
               {this.renderSlot<Dot>('tooltip', dot, null)}
