@@ -359,11 +359,11 @@
 
 - **Type**: `boolean`
 
-- **Default**: `false`
+- **Default**: `true`
 
 - **Usage**:
 
-  Keyboard control, when the value is `true`, the drag end slider still gets the focus.
+  Keyboard control, when the value is `false`, the slider cannot be controlled by the keyboard.
 
 ### keydownHook
 
