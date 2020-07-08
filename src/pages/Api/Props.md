@@ -16,10 +16,12 @@
   <vue-slider v-model="value" />
   ```
 
-  The value of the slider, by default only the `number` type can be used.
+  The value of the slider.
+
+  When the `value` is an array type, it corresponds to multiple sliders.
 
   ::: tip
-    The `string` type is only supported when `data` is set.
+    By default, only the `number` type is supported. The `string` type is only supported when `data` is set.
   :::
 
 ### dotSize

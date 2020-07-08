@@ -16,10 +16,10 @@
   <vue-slider v-model="value" />
   ```
 
-  滑块的值，默认只可使用 `number` 类型。
+  滑块的值，当类型为数组时对应多个滑块。
 
   ::: tip
-    只有当设置了 `data` 时，才支持 `string` 类型。
+    默认情况下只支持 `number` 类型，只有当设置了 `data` 时，才支持 `string` 类型。
   :::
 
 ### dotSize
