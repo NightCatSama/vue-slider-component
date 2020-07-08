@@ -94,7 +94,7 @@
 
 ### data
 
-- **Type**: `Array<number> | Array<string> | Array<object>`
+- **Type**: `Array<number> | Array<string> | Array<object> | object`
 
 - **Default**: `undefined`
 
@@ -110,26 +110,9 @@
 
   Which is actually a simplified writing of `data & marks & tooltipFormatter`.
 
-  ```html
-  <vue-slider
-    :data="[{
-      label: 'A',
-      value: 1,
-    }, {
-      label: 'B',
-      value: 2,
-    }, {
-      label: 'C',
-      value: 3,
-    }, {
-      label: 'D',
-      value: 4,
-    }]"
-    v-model="value"
-  />
-  ```
+  Specific usage can refer to the example.
 
-- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
+- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Custom Data</router-link>
 
 ### data-value
 
@@ -147,7 +130,7 @@
 
   Read the field in the object and bind it to `value`.
 
-- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
+- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Custom Data</router-link>
 
 ### data-label
 
@@ -170,7 +153,7 @@
     So setting `marks` or `tooltipFormatter` will overwrite the effect.
   :::
 
-- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Data</router-link>
+- **See also**: <router-link :to="$route.meta.lang + 'basics/data'">Custom Data</router-link>
 
 ### min
 

@@ -94,7 +94,7 @@
 
 ### data
 
-- **类型**：`Array<number> | Array<string> | Array<object>`
+- **类型**：`Array<number> | Array<string> | Array<object> | object`
 
 - **默认值**：`undefined`
 
@@ -106,26 +106,9 @@
   <vue-slider :data="['A', 'B', 'C', 'D']" v-model="value" />
   ```
 
-  对象类型仅在 3.2.0 版本之后支持，对象类型实际上为 `data & marks & tooltipFormatter` 的简化写法.
+  对象类型仅在 3.2.0 版本之后支持，对象类型实际上为 `data & marks & tooltipFormatter` 的简化写法。
 
-  ```html
-  <vue-slider
-    :data="[{
-      label: 'A',
-      value: 1,
-    }, {
-      label: 'B',
-      value: 2,
-    }, {
-      label: 'C',
-      value: 3,
-    }, {
-      label: 'D',
-      value: 4,
-    }]"
-    v-model="value"
-  />
-  ```
+  具体用法可以参考示例。
 
 - **参考**：<router-link :to="$route.meta.lang + 'basics/data'">自定义数据</router-link>
 

@@ -14,4 +14,20 @@ Modify the `data-label` and `data-value` to change the field of the bound value 
   In theory, `value` supports the object type, but you must ensure that the object references are consistent, otherwise the component cannot judge whether the two objects are equal.
 :::
 
+### When `data` is `object` type
+
+<example :value="example3"></example>
+
+::: warning
+  Because the key of the object is a string type, `v-model` can only pass the string type.
+
+  But using `@change` can easily convert to a numeric type:
+  ```html
+  <vue-slider
+    :value="''+ value"
+    @change="val => value = +val"
+  />
+  ```
+:::
+
 ::: example data :::

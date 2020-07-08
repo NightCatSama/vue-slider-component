@@ -14,4 +14,20 @@
   理论上 value 支持对象类型，但是得确保对象的引用是一致的，否则组件无法判断两个对象是否相等。
 :::
 
+### 当 data 为对象类型
+
+<example :value="example3"></example>
+
+::: warning
+  因为对象的 key 是字符串，所以 `v-model` 只能传递字符串类型。
+
+  不过使用 `@change` 就能轻松转为数字类型：
+  ```html
+  <vue-slider
+    :value="''+ value"
+    @change="val => value = +val"
+  />
+  ```
+:::
+
 ::: example data :::

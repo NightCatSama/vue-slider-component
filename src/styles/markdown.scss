@@ -52,6 +52,10 @@
   color: #2c3e50;
 }
 
+.custom-block.warning pre {
+  background-color: rgba(#e7c000, 0.1);
+}
+
 .custom-block.danger {
   background-color: #ffe6e6;
   border-color: #c00;

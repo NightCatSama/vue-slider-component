@@ -64,4 +64,34 @@ export default {
   }
 </script>
         `,
+  example3: `
+<template>
+  <div>
+    <div>value: {{ value }}</div>
+    <vue-slider v-model="value" :data="data" />
+  </div>
+</template>
+
+<script>
+  module.exports = {
+    components: {
+      VueSlider
+    },
+    data: function () {
+      return {
+        value: '1', // Must be string
+        data: {
+          '1': 'A',
+          '2': 'B',
+          '3': 'C',
+          '4': 'D',
+          '5': 'E',
+          '6': 'F',
+          '7': 'G',
+        }
+      }
+    }
+  }
+</script>
+        `,
 }
