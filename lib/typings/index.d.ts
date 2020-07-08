@@ -11,6 +11,11 @@ export type Position = 'top' | 'right' | 'bottom' | 'left'
 
 export type Value = number | string
 
+// data
+export interface DataObject {
+  [value: string]: string
+}
+
 // Mark
 export interface MarkOption {
   label: Value

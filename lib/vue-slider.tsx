@@ -1,6 +1,7 @@
 import { Component, Model, Prop, Watch, Vue } from 'vue-property-decorator'
 import {
   Value,
+  DataObject,
   Mark,
   Marks,
   MarksProp,
@@ -104,7 +105,7 @@ export default class VueSlider extends Vue {
   @Prop({ type: Number, default: 0.5 })
   duration!: number
 
-  @Prop(Array) data?: Value[] | object[]
+  @Prop({ type: [Object, Array] }) data?: Value[] | object[] | DataObject
 
   @Prop({ type: String, default: 'value' }) dataValue!: string
 
@@ -336,13 +337,19 @@ export default class VueSlider extends Vue {
     return this.order && !this.minRange && !this.maxRange && !this.fixed && this.enableCross
   }
 
-  isObjectArray(data?: Value[] | object[]): data is object[] {
+  isObjectData(data?: Value[] | object[] | DataObject): data is DataObject {
+    return !!data && Object.prototype.toString.call(data) === '[object Object]'
+  }
+
+  isObjectArrayData(data?: Value[] | object[] | DataObject): data is object[] {
     return !!data && Array.isArray(data) && data.length > 0 && typeof data[0] === 'object'
   }
 
   get sliderData(): undefined | Value[] {
-    if (this.isObjectArray(this.data)) {
+    if (this.isObjectArrayData(this.data)) {
       return (this.data as any[]).map(obj => obj[this.dataValue])
+    } else if (this.isObjectData(this.data)) {
+      return Object.keys(this.data)
     } else {
       return this.data as Value[]
     }
@@ -351,7 +358,7 @@ export default class VueSlider extends Vue {
   get sliderMarks(): undefined | MarksProp {
     if (this.marks) {
       return this.marks
-    } else if (this.isObjectArray(this.data)) {
+    } else if (this.isObjectArrayData(this.data)) {
       return val => {
         const mark = { label: val }
         ;(this.data as any[]).some(obj => {
@@ -363,13 +370,15 @@ export default class VueSlider extends Vue {
         })
         return mark
       }
+    } else if (this.isObjectData(this.data)) {
+      return this.data
     }
   }
 
   get sliderTooltipFormatter(): undefined | TooltipFormatter | TooltipFormatter[] {
     if (this.tooltipFormatter) {
       return this.tooltipFormatter
-    } else if (this.isObjectArray(this.data)) {
+    } else if (this.isObjectArrayData(this.data)) {
       return val => {
         let tooltipText = '' + val
         ;(this.data as any[]).some(obj => {
@@ -381,6 +390,9 @@ export default class VueSlider extends Vue {
         })
         return tooltipText
       }
+    } else if (this.isObjectData(this.data)) {
+      const data = this.data
+      return val => data[val]
     }
   }
 
