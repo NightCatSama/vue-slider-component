@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.2
+
+> `2020-07-08`
+
+### 🎉 Feature
+  - `data` supports `object` type. [example](https://nightcatsama.github.io/vue-slider-component/#/basics/data?hash=when-data-is-object-type)
+
 ## v3.2.1
 
 > `2020-07-08`
@@ -13,7 +20,7 @@
 > `2020-07-06`
 
 ### 🎉 Feature
-  - `data` supports `Array<object>` type, and adds `data-value` and `data-label` parameters. [#471](https://github.com/NightCatSama/vue-slider-component/issues/471) [document](https://nightcatsama.github.io/vue-slider-component/#/api/props?hash=data) [example](https://nightcatsama.github.io/vue-slider-component/#/basics/data)
+  - `data` supports `Array<object>` type, and adds `data-value` and `data-label` parameters. [#471](https://github.com/NightCatSama/vue-slider-component/issues/471) [document](https://nightcatsama.github.io/vue-slider-component/#/api/props?hash=data) [example](https://nightcatsama.github.io/vue-slider-component/#/basics/data?hash=when-data-is-arrayobject-type)
 
 ## v3.1.5
 
