@@ -16,17 +16,14 @@ type DotsPosChangeArray = number[]
 
 export const enum ERROR_TYPE {
   VALUE = 1,
-  INTERVAL,
-  MIN,
-  MAX,
-  ORDER,
+  MIN = 3,
+  MAX = 4,
+  ORDER = 5,
 }
 
 type ERROR_MESSAGE = { [key in ERROR_TYPE]: string }
 export const ERROR_MSG: ERROR_MESSAGE = {
   [ERROR_TYPE.VALUE]: 'The type of the "value" is illegal',
-  [ERROR_TYPE.INTERVAL]:
-    'The prop "interval" is invalid, "(max - min)" must be divisible by "interval"',
   [ERROR_TYPE.MIN]: 'The "value" must be greater than or equal to the "min".',
   [ERROR_TYPE.MAX]: 'The "value" must be less than or equal to the "max".',
   [ERROR_TYPE.ORDER]:
@@ -226,17 +223,22 @@ export default class Control {
    * @memberof Control
    */
   getValueByIndex(index: number): Value {
+    const total = this.total
     if (index < 0) {
       index = 0
-    } else if (index > this.total) {
-      index = this.total
+    } else if (index > total) {
+      index = total
     }
-    return this.data
-      ? this.data[index]
-      : new Decimal(index)
-          .multiply(this.interval)
-          .plus(this.min)
-          .toNumber()
+    if (this.data) {
+      return this.data[index]
+    } else if (index === total) {
+      return this.max
+    } else {
+      return new Decimal(index)
+        .multiply(this.interval)
+        .plus(this.min)
+        .toNumber()
+    }
   }
 
   /**
@@ -436,13 +438,17 @@ export default class Control {
       return this.data
     } else {
       const values: Value[] = []
-      for (let i = 0; i <= this.total; i++) {
+      const total = Math.floor(this.total)
+      for (let i = 0; i < total; i++) {
         values.push(
           new Decimal(i)
             .multiply(this.interval)
             .plus(this.min)
             .toNumber(),
         )
+      }
+      if (!this.hasMatchingInterval) {
+        values.splice(total, 1, this.max)
       }
       return values
     }
@@ -496,16 +502,21 @@ export default class Control {
     if (this.data) {
       total = this.data.length - 1
     } else {
-      total = new Decimal(this.max)
-        .minus(this.min)
-        .divide(this.interval)
-        .toNumber()
-    }
-    if (total - Math.floor(total) !== 0) {
-      this.emitError(ERROR_TYPE.INTERVAL)
-      return 0
+      if (this.hasMatchingInterval) {
+        total = this.elementCountExact.toNumber()
+      } else {
+        total = Math.floor(this.elementCountExact.toNumber()) + 1
+      }
     }
     return total
+  }
+
+  private get hasMatchingInterval(): boolean {
+    return this.elementCountExact.remainder(this.interval).toNumber() === 0
+  }
+
+  private get elementCountExact(): Decimal {
+    return new Decimal(this.max).minus(this.min).divide(this.interval)
   }
 
   // Distance between each value

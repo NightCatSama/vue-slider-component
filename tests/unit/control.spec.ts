@@ -57,6 +57,25 @@ describe('Control', () => {
     expect(control.isActiveByPos(40)).to.equal(true)
     expect(control.isActiveByPos(80)).to.equal(false)
   })
+  it('Method: getValues & max % interval != 0', () => {
+    const control = getControl()
+    control.min = 1
+    control.max = 7
+    control.interval = 5
+    control.setValue(5)
+    expect(control.isActiveByPos(7)).to.equal(true)
+    expect(control.getValues().length).to.equal(3)
+  })
+  it('Method: getValueByIndex when max % interval != 0', () => {
+    const control = getControl()
+    control.min = 1
+    control.max = 7
+    control.interval = 5
+    control.setValue(5)
+    expect(control.getValueByIndex(0)).to.equal(1)
+    expect(control.getValueByIndex(1)).to.equal(6)
+    expect(control.getValueByIndex(2)).to.equal(7)
+  })
   it('Param: minRange', () => {
     const control = getControl()
     control.setValue([0, 100])

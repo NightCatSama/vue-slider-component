@@ -188,7 +188,7 @@
   The interval between two values.
 
   ::: tip
-    The value must be greater than 0 and can be divisible by (max - min).
+    The value must be greater than 0. If `(max - min) % interval` does not return zero, the max value will be added.
   :::
 
 ### disabled
