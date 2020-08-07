@@ -488,7 +488,18 @@ export default class VueSlider extends Vue {
         ) {
           return false
         }
-        ;(this.control as any)[name] = val
+        switch (name) {
+          case 'data':
+          case 'dataLabel':
+          case 'dataValue':
+            this.control.data = this.sliderData
+            break
+          case 'mark':
+            this.control.marks = this.sliderMarks
+            break
+          default:
+            ;(this.control as any)[name] = val
+        }
         if (['data', 'max', 'min', 'interval'].indexOf(name) > -1) {
           this.control.syncDotsPos()
         }
