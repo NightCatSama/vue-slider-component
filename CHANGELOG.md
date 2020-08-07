@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.3
+
+> `2020-08-07`
+
+### 🐞 Bug Fixes
+  - When `data` is `Array<Object>` type, an exception occurs when change the `data`. [#479](https://github.com/NightCatSama/vue-slider-component/issues/479)
+
 ## v3.2.2
 
 > `2020-07-08`
