@@ -502,6 +502,24 @@
 
   滑块设置，多个滑块时可以用数组类型分别设置。
 
+### dotAttrs
+
+::: version
+  3.2.4+ 新增
+:::
+
+- **类型**：`object`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  在滑块上设定自定义属性。
+
+  ```
+    <vue-slider :dot-attrs="{ 'aria-label': 'Select your age' }" />
+  ```
+
 ### process
 
 - **类型**：`boolean | ProcessFunc`

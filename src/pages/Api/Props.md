@@ -505,6 +505,24 @@
 
   Slider settings, multiple sliders can be distinguished by array type.
 
+### dotAttrs
+
+::: version
+  New in 3.2.4+
+:::
+
+- **Type**：`object`
+
+- **Default**：`undefined`
+
+- **Usage**：
+
+  Set custom attributes on the slider.
+
+  ```
+    <vue-slider :dot-attrs="{ 'aria-label': 'Select your age' }" />
+  ```
+
 ### process
 
 - **Type**: `boolean | ProcessFunc`
@@ -517,7 +535,7 @@
 
 - **Usage**:
 
-  Control the display of the process and support multiple processs.
+  Control the display of the process and support multiple process.
 
   ::: tip
     When multiple sliders, the default is from the first to the last.
