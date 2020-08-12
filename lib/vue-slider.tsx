@@ -177,6 +177,8 @@ export default class VueSlider extends Vue {
 
   @Prop() dotOptions?: DotOption | DotOption[]
 
+  @Prop() dotAttrs?: object
+
   @Prop() railStyle?: Styles
 
   @Prop() processStyle?: Styles
@@ -863,6 +865,7 @@ export default class VueSlider extends Vue {
               tabindex="0"
               nativeOnFocus={() => this.focus(dot, index)}
               nativeOnBlur={() => this.blur()}
+              {...{ attrs: this.dotAttrs }}
             >
               {this.renderSlot<Dot>('dot', dot, null)}
               {this.renderSlot<Dot>('tooltip', dot, null)}
