@@ -519,7 +519,7 @@
 
   Set custom attributes on the slider.
 
-  ```
+  ```html
     <vue-slider :dot-attrs="{ 'aria-label': 'Select your age' }" />
   ```
 

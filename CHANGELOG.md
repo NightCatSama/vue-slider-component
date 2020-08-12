@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.4
+
+> `2020-08-12`
+
+### 🎉 Feature
+  - Added `dotAttrs` prop to support setting custom attributes on the slider. [document](https://nightcatsama.github.io/vue-slider-component/#/api/props?hash=dotattrs) [#481](https://github.com/NightCatSama/vue-slider-component/issues/481)
+
 ## v3.2.3
 
 > `2020-08-07`

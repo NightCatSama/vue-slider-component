@@ -516,7 +516,7 @@
 
   在滑块上设定自定义属性。
 
-  ```
+  ```html
     <vue-slider :dot-attrs="{ 'aria-label': 'Select your age' }" />
   ```
 
