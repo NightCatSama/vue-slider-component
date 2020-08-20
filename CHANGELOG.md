@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.5
+
+> `2020-08-20`
+
+### 🐞 Bug Fixes
+  - An error occurred in ie11. [#482](https://github.com/NightCatSama/vue-slider-component/issues/482)
+
 ## v3.2.4
 
 > `2020-08-12`
