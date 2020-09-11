@@ -59,7 +59,7 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ## Support
 
-If you like this component, you can ask me to drink [coffee](https://www.paypal.me/nightcatsama) ☕️.
+If my code has helped you, please consider [buy me a coffee](https://www.buymeacoffee.com/nightcat) ☕️.
 
 ## License
 
