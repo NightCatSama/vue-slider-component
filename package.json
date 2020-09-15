@@ -72,7 +72,7 @@
     "vue-component",
     "vue-slider-component"
   ],
-  "licenses": "MIT",
+  "license": "MIT",
   "lint-staged": {
     "*.{js,ts,tsx,scss}": [
       "npm run prettier",
