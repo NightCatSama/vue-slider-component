@@ -1,0 +1,55 @@
+$tooltipGap: 10px;
+
+.vue-slider-dot {
+  position: absolute;
+  transition: all 0s;
+  z-index: 5;
+
+  &:focus {
+    outline: none;
+  }
+
+  @at-root &-handle {
+    @at-root &-focus {
+    }
+    @at-root &-disabled {
+    }
+  }
+}
+
+.vue-slider-dot-tooltip {
+  position: absolute;
+  visibility: hidden;
+
+  @at-root .vue-slider-dot-hover:hover & {
+    visibility: visible;
+  }
+
+  &-show {
+    visibility: visible;
+  }
+
+  &-top {
+    top: -$tooltipGap;
+    left: 50%;
+    transform: translate(-50%, -100%);
+  }
+
+  &-bottom {
+    bottom: -$tooltipGap;
+    left: 50%;
+    transform: translate(-50%, 100%);
+  }
+
+  &-left {
+    left: -$tooltipGap;
+    top: 50%;
+    transform: translate(-100%, -50%);
+  }
+
+  &-right {
+    right: -$tooltipGap;
+    top: 50%;
+    transform: translate(100%, -50%);
+  }
+}

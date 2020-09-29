@@ -1,0 +1,71 @@
+.custom-block .custom-block-title {
+  font-weight: 600;
+  margin: 16px 0 8px;
+  &:empty {
+    display: none;
+  }
+}
+
+.custom-block.version {
+  position: relative;
+  margin-left: 1.1rem;
+  padding-left: 1rem;
+  font-weight: 500;
+  font-size: 14px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: #42b983;
+  }
+}
+
+.custom-block.danger,
+.custom-block.tip,
+.custom-block.warning {
+  padding: 0.1rem 1.5rem;
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  margin: 1rem 0;
+}
+
+.custom-block.tip {
+  background-color: #f3f5f7;
+  border-color: #42b983;
+}
+
+.custom-block.warning {
+  background-color: rgba(255, 229, 100, 0.3);
+  border-color: #e7c000;
+  color: #6b5900;
+}
+
+.custom-block.warning .custom-block-title {
+  color: #b29400;
+}
+
+.custom-block.warning a {
+  color: #2c3e50;
+}
+
+.custom-block.warning pre {
+  background-color: rgba(#e7c000, 0.1);
+}
+
+.custom-block.danger {
+  background-color: #ffe6e6;
+  border-color: #c00;
+  color: #4d0000;
+}
+
+.custom-block.danger .custom-block-title {
+  color: #900;
+}
+
+.custom-block.danger a {
+  color: #2c3e50;
+}

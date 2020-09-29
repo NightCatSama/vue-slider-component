@@ -1,0 +1,88 @@
+{
+  "": [
+  {
+    "name": "快速开始",
+    "route": "",
+    "component": "QuickStart.md"
+  }, {
+    "name": "样式主题",
+    "route": "style",
+    "component": "Style.md"
+  }],
+  "API 参考": [
+    {
+      "name": "参数",
+      "route": "api/props",
+      "component": "Api/Props.md"
+    },
+    {
+      "name": "事件",
+      "route": "api/events",
+      "component": "Api/Events.md"
+    },
+    {
+      "name": "插槽",
+      "route": "api/slots",
+      "component": "Api/Slots.md"
+    },
+    {
+      "name": "方法",
+      "route": "api/methods",
+      "component": "Api/Methods.md"
+    }
+  ],
+  "基础用例": [
+    {
+      "name": "一般用法",
+      "route": "basics/simple",
+      "component": "Basics/Simple.md"
+    },
+    {
+      "name": "自定义数据",
+      "route": "basics/data",
+      "component": "Basics/Data.md"
+    },
+    {
+      "name": "刻度标记",
+      "route": "basics/marks",
+      "component": "Basics/Marks.md"
+    },
+    {
+      "name": "进度条",
+      "route": "basics/process",
+      "component": "Basics/Process.md"
+    },
+    {
+      "name": "工具提示",
+      "route": "basics/tooltip",
+      "component": "Basics/Tooltip.md"
+    },
+    {
+      "name": "范围模式",
+      "route": "basics/range",
+      "component": "Basics/Range.md"
+    }
+  ],
+  "进阶例子": [
+    {
+      "name": "无序滑块",
+      "route": "advanced/order",
+      "component": "Advanced/Order.md"
+    },
+    {
+      "name": "可输入的滑块值",
+      "route": "advanced/input",
+      "component": "Advanced/Input.md"
+    },
+    {
+      "name": "同步多个组件",
+      "route": "advanced/sync-slider",
+      "component": "Advanced/SyncSlider.md"
+    },
+    {
+      "name": "使用插槽",
+      "route": "advanced/components-slots",
+      "component": "Advanced/ComponentsSlots.md"
+    }
+  ]
+}
