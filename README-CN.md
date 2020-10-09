@@ -6,6 +6,8 @@
 
 > 🎚 一个高度定制化的滑块组件
 
+** 支持 vue3.x 的滑块组件，目前仍处于测试阶段。 **
+
 [English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
 
 ## ✨ 新特性

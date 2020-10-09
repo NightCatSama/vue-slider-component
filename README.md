@@ -6,6 +6,8 @@
 
 > 🎚 A highly customized slider component
 
+** The slider component for vue3 support is still in beta. **
+
 English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md)
 
 ## ✨ Features
