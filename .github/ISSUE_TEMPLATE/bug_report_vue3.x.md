@@ -1,7 +1,7 @@
 ---
-name: Bug report [v2.x]
+name: Bug report [vue3.x]
 about: Create a report to help us improve
-title: '[v2]'
+title: '[vue3.x]'
 labels: bug
 assignees: ''
 ---
@@ -19,5 +19,5 @@ Add any other context or screenshots about the feature request here.
 #### Environment (If you feel unrelated, please delete the block)
 
  - OS & Version: [e.g. macOS, Windows, Linux]
- - Vue version: [e.g. v2.0, v2.5, v2.6]
- - Component Version: [e.g. v3.0.2]
+ - Vue version: [e.g. v3.0.0]
+ - Component Version: [e.g. v4.0.0-beta.1]
