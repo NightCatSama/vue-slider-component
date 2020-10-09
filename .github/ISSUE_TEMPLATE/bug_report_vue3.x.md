@@ -1,7 +1,7 @@
 ---
 name: Bug report [vue3.x]
 about: Create a report to help us improve
-title: '[vue3.x]'
+title: '[vue3.x] <Please enter the title here>'
 labels: bug
 assignees: ''
 ---
