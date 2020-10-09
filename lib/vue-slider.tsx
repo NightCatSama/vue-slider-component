@@ -1,4 +1,5 @@
-import { Component, Model, Prop, Watch, Vue } from 'vue-property-decorator'
+import { Model, Prop, Watch } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import {
   Value,
   DataObject,
@@ -34,7 +35,9 @@ export const SliderState: StateMap = {
 
 const DEFAULT_SLIDER_SIZE = 4
 
-@Component({
+@Options({
+  name: 'VueSlider',
+  emits: ['change', 'drag-start', 'dragging', 'drag-end', 'error', 'update:modelValue'],
   data() {
     return {
       control: null,
@@ -59,15 +62,15 @@ export default class VueSlider extends Vue {
 
   $el!: HTMLDivElement
 
-  @Model('change', { default: 0 })
-  value!: Value | Value[]
+  @Prop({ default: 0 })
+  modelValue!: Value | Value[]
 
   @Prop({ type: Boolean, default: false })
   silent!: boolean
 
   @Prop({
     default: 'ltr',
-    validator: dir => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1,
+    validator: (dir: string) => ['ltr', 'rtl', 'ttb', 'btt'].indexOf(dir) > -1,
   })
   direction!: Direction
 
@@ -105,7 +108,7 @@ export default class VueSlider extends Vue {
   @Prop({ type: Number, default: 0.5 })
   duration!: number
 
-  @Prop({ type: [Object, Array] }) data?: Value[] | object[] | DataObject
+  @Prop({ type: [Array, Object], default: 'value' }) vData?: Value[] | object[] | DataObject
 
   @Prop({ type: String, default: 'value' }) dataValue!: string
 
@@ -116,14 +119,14 @@ export default class VueSlider extends Vue {
 
   @Prop({
     type: String,
-    validator: val => ['none', 'always', 'focus', 'hover', 'active'].indexOf(val) > -1,
+    validator: (val: string) => ['none', 'always', 'focus', 'hover', 'active'].indexOf(val) > -1,
     default: 'active',
   })
   tooltip!: TooltipProp
 
   @Prop({
     type: [String, Array],
-    validator: data =>
+    validator: (data: string | string[]) =>
       (Array.isArray(data) ? data : [data]).every(
         val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
       ),
@@ -348,22 +351,22 @@ export default class VueSlider extends Vue {
   }
 
   get sliderData(): undefined | Value[] {
-    if (this.isObjectArrayData(this.data)) {
-      return (this.data as any[]).map(obj => obj[this.dataValue])
-    } else if (this.isObjectData(this.data)) {
-      return Object.keys(this.data)
+    if (this.isObjectArrayData(this.vData)) {
+      return (this.vData as any[]).map(obj => obj[this.dataValue])
+    } else if (this.isObjectData(this.vData)) {
+      return Object.keys(this.vData)
     } else {
-      return this.data as Value[]
+      return this.vData as Value[]
     }
   }
 
   get sliderMarks(): undefined | MarksProp {
     if (this.marks) {
       return this.marks
-    } else if (this.isObjectArrayData(this.data)) {
+    } else if (this.isObjectArrayData(this.vData)) {
       return val => {
         const mark = { label: val }
-        ;(this.data as any[]).some(obj => {
+        ;(this.vData as any[]).some(obj => {
           if (obj[this.dataValue] === val) {
             mark.label = obj[this.dataLabel]
             return true
@@ -372,18 +375,18 @@ export default class VueSlider extends Vue {
         })
         return mark
       }
-    } else if (this.isObjectData(this.data)) {
-      return this.data
+    } else if (this.isObjectData(this.vData)) {
+      return this.vData
     }
   }
 
   get sliderTooltipFormatter(): undefined | TooltipFormatter | TooltipFormatter[] {
     if (this.tooltipFormatter) {
       return this.tooltipFormatter
-    } else if (this.isObjectArrayData(this.data)) {
+    } else if (this.isObjectArrayData(this.vData)) {
       return val => {
         let tooltipText = '' + val
-        ;(this.data as any[]).some(obj => {
+        ;(this.vData as any[]).some(obj => {
           if (obj[this.dataValue] === val) {
             tooltipText = obj[this.dataLabel]
             return true
@@ -392,16 +395,16 @@ export default class VueSlider extends Vue {
         })
         return tooltipText
       }
-    } else if (this.isObjectData(this.data)) {
-      const data = this.data
+    } else if (this.isObjectData(this.vData)) {
+      const data = this.vData
       return val => data[val]
     }
   }
 
-  @Watch('value')
+  @Watch('modelValue')
   onValueChanged() {
     if (this.control && !this.states.has(SliderState.Drag) && this.isNotSync) {
-      this.control.setValue(this.value)
+      this.control.setValue(this.modelValue)
     }
   }
 
@@ -447,7 +450,7 @@ export default class VueSlider extends Vue {
 
   initControl() {
     this.control = new Control({
-      value: this.value,
+      value: this.modelValue,
       data: this.sliderData,
       enableCross: this.enableCross,
       fixed: this.fixed,
@@ -511,18 +514,20 @@ export default class VueSlider extends Vue {
 
   private syncValueByPos() {
     const values = this.control.dotsValue
-    if (this.isDiff(values, Array.isArray(this.value) ? this.value : [this.value])) {
-      this.$emit('change', values.length === 1 ? values[0] : [...values], this.focusDotIndex)
+    if (this.isDiff(values, Array.isArray(this.modelValue) ? this.modelValue : [this.modelValue])) {
+      const newValue = values.length === 1 ? values[0] : [...values]
+      this.$emit('change', newValue, this.focusDotIndex)
+      this.$emit('update:modelValue', newValue)
     }
   }
 
   // Slider value and component internal value are inconsistent
   private get isNotSync() {
     const values = this.control.dotsValue
-    return Array.isArray(this.value)
-      ? this.value.length !== values.length ||
-          this.value.some((val, index) => val !== values[index])
-      : this.value !== values[0]
+    return Array.isArray(this.modelValue)
+      ? this.modelValue.length !== values.length ||
+          this.modelValue.some((val, index) => val !== values[index])
+      : this.modelValue !== values[0]
   }
 
   private isDiff(value1: Value[], value2: Value[]) {
@@ -621,7 +626,7 @@ export default class VueSlider extends Vue {
         this.syncValueByPos()
       }
       if (this.included && this.isNotSync) {
-        this.control.setValue(this.value)
+        this.control.setValue(this.modelValue)
       } else {
         // Sync slider position
         this.control.syncDotsPos()
@@ -705,7 +710,7 @@ export default class VueSlider extends Vue {
 
     setTimeout(() => {
       if (this.included && this.isNotSync) {
-        this.control.setValue(this.value)
+        this.control.setValue(this.modelValue)
       } else {
         this.control.syncDotsPos()
       }
@@ -759,17 +764,9 @@ export default class VueSlider extends Vue {
     return getPos(e, this.$el, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
   }
 
-  private renderSlot<T>(name: string, data: T, defaultSlot: any, isDefault?: boolean): any {
-    const scopedSlot = this.$scopedSlots[name]
-    return scopedSlot ? (
-      isDefault ? (
-        scopedSlot(data)
-      ) : (
-        <template slot={name}>{scopedSlot(data)}</template>
-      )
-    ) : (
-      defaultSlot
-    )
+  private renderSlot<T>(name: string, data: T, defaultSlot: any): any {
+    const scopedSlot = this.$slots[name]
+    return scopedSlot ? scopedSlot(data) : defaultSlot
   }
 
   render() {
@@ -790,14 +787,15 @@ export default class VueSlider extends Vue {
               'process',
               item,
               <div class="vue-slider-process" key={`process-${index}`} style={item.style} />,
-              true,
             ),
           )}
           {/* mark */}
           {this.sliderMarks ? (
             <div class="vue-slider-marks">
-              {this.control.markList.map((mark, index) =>
-                this.renderSlot<Mark>(
+              {this.control.markList.map((mark, index) => {
+                const stepSlot = this.renderSlot<Mark>('step', mark, null)
+                const labelSlot = this.renderSlot<Mark>('label', mark, null)
+                return this.renderSlot<Mark>(
                   'mark',
                   mark,
                   <vue-slider-mark
@@ -814,64 +812,65 @@ export default class VueSlider extends Vue {
                     labelStyle={this.labelStyle}
                     labelActiveStyle={this.labelActiveStyle}
                     onPressLabel={(pos: number) => this.clickable && this.setValueByPos(pos)}
-                  >
-                    {this.renderSlot<Mark>('step', mark, null)}
-                    {this.renderSlot<Mark>('label', mark, null)}
-                  </vue-slider-mark>,
-                  true,
-                ),
-              )}
+                    stepSlot={stepSlot}
+                    labelSlot={labelSlot}
+                  />,
+                )
+              })}
             </div>
           ) : null}
           {/* dot */}
-          {this.dots.map((dot, index) => (
-            <vue-slider-dot
-              ref={`dot-${index}`}
-              key={`dot-${index}`}
-              value={dot.value}
-              disabled={dot.disabled}
-              focus={dot.focus}
-              dot-style={[
-                dot.style,
-                dot.disabled ? dot.disabledStyle : null,
-                dot.focus ? dot.focusStyle : null,
-              ]}
-              tooltip={dot.tooltip || this.tooltip}
-              tooltip-style={[
-                this.tooltipStyle,
-                dot.tooltipStyle,
-                dot.disabled ? dot.tooltipDisabledStyle : null,
-                dot.focus ? dot.tooltipFocusStyle : null,
-              ]}
-              tooltip-formatter={
-                Array.isArray(this.sliderTooltipFormatter)
-                  ? this.sliderTooltipFormatter[index]
-                  : this.sliderTooltipFormatter
-              }
-              tooltip-placement={this.tooltipDirections[index]}
-              style={[
-                this.dotBaseStyle,
-                {
-                  [this.mainDirection]: `${dot.pos}%`,
-                  transition: `${this.mainDirection} ${this.animateTime}s`,
-                },
-              ]}
-              onDrag-start={() => this.dragStart(index)}
-              role="slider"
-              aria-valuenow={dot.value}
-              aria-valuemin={this.min}
-              aria-valuemax={this.max}
-              aria-orientation={this.isHorizontal ? 'horizontal' : 'vertical'}
-              tabindex="0"
-              nativeOnFocus={() => this.focus(dot, index)}
-              nativeOnBlur={() => this.blur()}
-              {...{ attrs: this.dotAttrs }}
-            >
-              {this.renderSlot<Dot>('dot', dot, null)}
-              {this.renderSlot<Dot>('tooltip', dot, null)}
-            </vue-slider-dot>
-          ))}
-          {this.renderSlot<any>('default', { value: this.getValue() }, null, true)}
+          {this.dots.map((dot, index) => {
+            const dotSlot = this.renderSlot<Dot>('dot', dot, null)
+            const tooltipSlot = this.renderSlot<Dot>('tooltip', dot, null)
+            return (
+              <vue-slider-dot
+                ref={`dot-${index}`}
+                key={`dot-${index}`}
+                value={dot.value}
+                disabled={dot.disabled}
+                focus={dot.focus}
+                dot-style={[
+                  dot.style,
+                  dot.disabled ? dot.disabledStyle : null,
+                  dot.focus ? dot.focusStyle : null,
+                ]}
+                tooltip={dot.tooltip || this.tooltip}
+                tooltip-style={[
+                  this.tooltipStyle,
+                  dot.tooltipStyle,
+                  dot.disabled ? dot.tooltipDisabledStyle : null,
+                  dot.focus ? dot.tooltipFocusStyle : null,
+                ]}
+                tooltip-formatter={
+                  Array.isArray(this.sliderTooltipFormatter)
+                    ? this.sliderTooltipFormatter[index]
+                    : this.sliderTooltipFormatter
+                }
+                tooltip-placement={this.tooltipDirections[index]}
+                style={[
+                  this.dotBaseStyle,
+                  {
+                    [this.mainDirection]: `${dot.pos}%`,
+                    transition: `${this.mainDirection} ${this.animateTime}s`,
+                  },
+                ]}
+                onDrag-start={() => this.dragStart(index)}
+                role="slider"
+                aria-valuenow={dot.value}
+                aria-valuemin={this.min}
+                aria-valuemax={this.max}
+                aria-orientation={this.isHorizontal ? 'horizontal' : 'vertical'}
+                tabindex="0"
+                nativeOnFocus={() => this.focus(dot, index)}
+                nativeOnBlur={() => this.blur()}
+                {...{ attrs: this.dotAttrs }}
+                dotSlot={dotSlot}
+                tooltipSlot={tooltipSlot}
+              />
+            )
+          })}
+          {this.renderSlot<any>('default', { value: this.getValue() }, null)}
         </div>
       </div>
     )

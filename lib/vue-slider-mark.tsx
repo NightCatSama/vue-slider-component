@@ -1,9 +1,14 @@
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { Mark, Styles } from './typings'
 
 import './styles/mark.scss'
+import { Options, Vue } from 'vue-class-component'
+import { Slot } from 'vue'
 
-@Component
+@Options({
+  name: 'VueSliderMark',
+  emits: ['press-label'],
+})
 export default class VueSlideMark extends Vue {
   @Prop({ required: true })
   mark!: Mark
@@ -17,6 +22,12 @@ export default class VueSlideMark extends Vue {
   @Prop() labelStyle?: Styles
 
   @Prop() labelActiveStyle?: Styles
+
+  @Prop(Object)
+  stepSlot!: Slot
+
+  @Prop(Object)
+  labelSlot!: Slot
 
   get marksClasses() {
     return [
@@ -47,14 +58,14 @@ export default class VueSlideMark extends Vue {
 
   labelClickHandle(e: MouseEvent | TouchEvent) {
     e.stopPropagation()
-    this.$emit('pressLabel', this.mark.pos)
+    this.$emit('press-label', this.mark.pos)
   }
 
   render() {
     const mark = this.mark
     return (
       <div class={this.marksClasses}>
-        {this.$slots.step || (
+        {this.stepSlot || (
           <div
             class={this.stepClasses}
             style={[
@@ -66,7 +77,7 @@ export default class VueSlideMark extends Vue {
           />
         )}
         {!this.hideLabel
-          ? this.$slots.label || (
+          ? this.labelSlot || (
               <div
                 class={this.labelClasses}
                 style={[

@@ -1,9 +1,14 @@
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { Value, Styles, Position, TooltipProp, TooltipFormatter } from './typings'
 
 import './styles/dot.scss'
+import { Options, Vue } from 'vue-class-component'
+import { Slot } from 'vue'
 
-@Component
+@Options({
+  name: 'VueSliderDot',
+  emits: ['drag-start'],
+})
 export default class VueSliderDot extends Vue {
   $refs!: {
     dot: HTMLDivElement
@@ -33,6 +38,12 @@ export default class VueSliderDot extends Vue {
 
   @Prop({ default: false })
   disabled!: boolean
+
+  @Prop(Object)
+  dotSlot!: Slot
+
+  @Prop(Object)
+  tooltipSlot!: Slot
 
   get dotClasses() {
     return [
@@ -117,10 +128,10 @@ export default class VueSliderDot extends Vue {
         onMousedown={this.dragStart}
         onTouchstart={this.dragStart}
       >
-        {this.$slots.dot || <div class={this.handleClasses} style={this.dotStyle} />}
+        {this.dotSlot || <div class={this.handleClasses} style={this.dotStyle} />}
         {this.tooltip !== 'none' ? (
           <div class={this.tooltipClasses}>
-            {this.$slots.tooltip || (
+            {this.tooltipSlot || (
               <div class={this.tooltipInnerClasses} style={this.tooltipStyle}>
                 <span class={'vue-slider-dot-tooltip-text'}>{this.tooltipValue}</span>
               </div>
