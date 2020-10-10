@@ -8,12 +8,19 @@
 
 [English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
 
-如果你已经使用 vue3.x，请使用 next 版本。（仍处于测试阶段，如果您发现了 bug 可以在 issue 反馈错误）
+## 🍉 Vue3.x
+
+目前仍然是测试版本，可能存在意想不到的 bug，请谨慎使用。
+
+#### 安装
 
 ```bash
 $ yarn add vue-slider-component@next
 # npm install vue-slider-component@next --save
 ```
+
+#### 注意事项
+- 由于类型冲突，参数 `data` 更改为 `v-data`（可能是临时更改）
 
 ## ✨ 新特性
 - 🍖 更加可定制化
