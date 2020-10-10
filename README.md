@@ -8,12 +8,19 @@
 
 English | [简体中文](https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md)
 
-If you are already using vue3.x, you can use the next version. (It's still in beta, so if you find a bug please report back in the issue.)
+## 🍉 Vue3.x
+
+This is still in beta and may contain unexpected bugs, please use with caution.
+
+#### install
 
 ```bash
 $ yarn add vue-slider-component@next
 # npm install vue-slider-component@next --save
 ```
+
+#### Caution
+- Change `data` to `v-data` for now due to a type conflict. (Probably a temporary modification)
 
 ## ✨ Features
 - 🍖 More customizable
