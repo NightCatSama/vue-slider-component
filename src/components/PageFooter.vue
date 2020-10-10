@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component';
 
-@Component({})
+@Options({})
 export default class PageFooter extends Vue {
   get prevPage() {
     return this.$route.meta.prev

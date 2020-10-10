@@ -4,20 +4,21 @@
       <div class="code-btn" @click="switchCodeShow"></div>
     </div>
     <div class="demo-content" ref="content">
-      <vuep
+      <!-- <vuep
         class="demo-vuep"
         :value="value"
         :scope="scope"
-      ></vuep>
+      ></vuep> -->
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import VueSlider from '../../lib/'
 
-@Component({})
+@Options({})
 export default class ExampleData extends Vue {
 
   scope = { VueSlider }

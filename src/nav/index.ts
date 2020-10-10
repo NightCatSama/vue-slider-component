@@ -1,4 +1,4 @@
-import { RouteConfig } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
 
 import nav from './nav.json'
 import navZhCN from './zh-CN.nav.json'
@@ -29,7 +29,7 @@ export const getNavObj = (lang: LANG): NavObj => {
   }
 }
 
-export const getRoutes = (obj: NavObj, prefix: LANG): RouteConfig[] =>
+export const getRoutes = (obj: NavObj, prefix: LANG): RouteRecordRaw[] =>
   Object.values(obj)
     .map(navList =>
       navList.map(
@@ -41,8 +41,8 @@ export const getRoutes = (obj: NavObj, prefix: LANG): RouteConfig[] =>
               title: item.name,
               route: item.route,
             },
-            component: resolve => require([`@/pages${prefix + item.component}`], resolve),
-          } as RouteConfig),
+            component: () => import(`@/pages${prefix + item.component}`),
+          } as RouteRecordRaw),
       ),
     )
     .flatMap(s => s)

@@ -2,15 +2,15 @@ import 'core-js/modules/es.array.flat-map'
 import 'core-js/modules/es.object.entries'
 import 'core-js/modules/es.object.values'
 
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+// import router from './router'
 
-import Vuep from 'vuep'
-import 'vuep/dist/vuep.css'
+// import Vuep from 'vuep'
+// import 'vuep/dist/vuep.css'
 
-import Example from './components/Example.vue'
-import VueSlider from '../lib'
+// import Example from './components/Example.vue'
+import VueSlider from '../lib/vue-slider'
 import { getTheme } from './utils'
 
 const theme = getTheme()
@@ -25,13 +25,10 @@ switch (theme) {
     require('../lib/theme/default.scss')
 }
 
-Vue.use(Vuep)
-Vue.component('Example', Example)
-Vue.component('VueSlider', VueSlider)
+const app = createApp(App)
 
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-  router,
-}).$mount('#app')
+app
+  // .component('Example', Example)
+  .component('VueSlider', VueSlider)
+  // .use(router)
+  .mount('#app')

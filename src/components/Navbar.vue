@@ -45,12 +45,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import packageInfo from '../../package.json'
 import { getNavObj, LANG } from '../nav/'
 import { getTheme } from '../utils'
 
-@Component({})
+@Options({})
 export default class Navbar extends Vue {
   hide = false
   name = packageInfo.name

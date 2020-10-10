@@ -240,7 +240,6 @@ export default class VueSlider extends Vue {
   get processArray(): Process[] {
     return this.control.processArray.map(([start, end, style], index) => {
       if (start > end) {
-        /* tslint:disable:semicolon */
         ;[start, end] = [end, start]
       }
       const sizeStyleKey = this.isHorizontal ? 'width' : 'height'

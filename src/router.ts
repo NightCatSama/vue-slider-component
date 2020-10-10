@@ -1,13 +1,11 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import { routes } from './nav/'
 import { getQuery } from './utils'
 
-Vue.use(Router)
-
-const router = new Router({
-  mode: 'hash',
+const router = createRouter({
+  history: createWebHashHistory(),
   routes,
 })
 

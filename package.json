@@ -31,32 +31,29 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^7.3.1",
-    "@types/chai": "^4.2.11",
-    "@types/mocha": "^5.2.4",
-    "@vue/cli-plugin-babel": "~4.5.7",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/babel-plugin-jsx": "^1.0.0-rc.3",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-plugin-unit-mocha": "~4.5.7",
-    "@vue/cli-service": "~4.5.7",
+    "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "@vue/test-utils": "^2.0.0-beta.6",
-    "chai": "^4.1.2",
-    "codemirror": "^5.44.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "babel-eslint": "^10.1.0",
     "commitlint": "^7.3.2",
+    "core-js": "^3.6.5",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0-0",
     "lint-staged": "^8.1.0",
-    "markdown-it-anchor": "^5.0.2",
-    "markdown-it-container": "^2.0.0",
     "node-sass": "^4.14.1",
     "prettier": "^1.15.2",
-    "sass": "^1.26.7",
-    "sass-loader": "^8.0.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.2",
     "typescript": "~3.9.3",
-    "uslug": "^1.0.4",
     "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-beta.4",
-    "vue-markdown-loader": "^2.4.1",
-    "vue-router": "^4.0.0-beta.13",
-    "vue-template-compiler": "^2.6.6",
-    "vuep": "^0.8.1"
+    "vue-class-component": "^8.0.0-0",
+    "vue-router": "^4.0.0-beta.13"
   },
   "bugs": {
     "url": "https://github.com/NightCatSama/vue-slider-component/issues"
@@ -79,6 +76,21 @@
       "npm run prettier",
       "git add"
     ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    },
+    "rules": {}
   },
   "repository": {
     "type": "git",

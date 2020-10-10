@@ -4,9 +4,12 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
+    "noImplicitAny": false,
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
@@ -19,9 +22,6 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "~/*": [
-        "*"
       ]
     },
     "lib": [
@@ -35,8 +35,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "lib/**/*.ts",
-    "lib/**/*.tsx",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
