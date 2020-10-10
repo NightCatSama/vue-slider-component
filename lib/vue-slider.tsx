@@ -108,7 +108,7 @@ export default class VueSlider extends Vue {
   @Prop({ type: Number, default: 0.5 })
   duration!: number
 
-  @Prop({ type: [Array, Object], default: 'value' }) vData?: Value[] | object[] | DataObject
+  @Prop({ type: [Array, Object] }) vData?: Value[] | object[] | DataObject
 
   @Prop({ type: String, default: 'value' }) dataValue!: string
 
