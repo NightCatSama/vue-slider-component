@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.6
+
+> `2020-10-12`
+
+### 🐞 Bug Fixes
+  - When `contained` is `true`, slider position is out of sync with mouse position.
+
 ## v3.2.5
 
 > `2020-08-20`
