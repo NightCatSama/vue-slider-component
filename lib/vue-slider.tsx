@@ -55,6 +55,7 @@ export default class VueSlider extends Vue {
 
   $refs!: {
     container: HTMLDivElement
+    rail: HTMLDivElement
   }
 
   $el!: HTMLDivElement
@@ -439,7 +440,7 @@ export default class VueSlider extends Vue {
 
   setScale() {
     this.scale = new Decimal(
-      Math.floor(this.isHorizontal ? this.$el.offsetWidth : this.$el.offsetHeight),
+      Math.floor(this.isHorizontal ? this.$refs.rail.offsetWidth : this.$refs.rail.offsetHeight),
     )
       .divide(100)
       .toNumber()
@@ -756,7 +757,7 @@ export default class VueSlider extends Vue {
   }
 
   private getPosByEvent(e: MouseEvent | TouchEvent): number {
-    return getPos(e, this.$el, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
+    return getPos(e, this.$refs.rail, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
   }
 
   private renderSlot<T>(name: string, data: T, defaultSlot: any, isDefault?: boolean): any {
@@ -784,7 +785,7 @@ export default class VueSlider extends Vue {
         {...this.$attrs}
       >
         {/* rail */}
-        <div class="vue-slider-rail" style={this.railStyle}>
+        <div ref="rail" class="vue-slider-rail" style={this.railStyle}>
           {this.processArray.map((item, index) =>
             this.renderSlot<Process>(
               'process',
