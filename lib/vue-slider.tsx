@@ -659,8 +659,7 @@ export default class VueSlider extends Vue {
     this.setValueByPos(pos)
   }
 
-  focus(dot: Dot, index: number = 0) {
-    if (dot.disabled) return
+  focus(index: number = 0) {
     this.states.add(SliderState.Focus)
     this.focusDotIndex = index
   }
@@ -864,7 +863,7 @@ export default class VueSlider extends Vue {
               aria-valuemax={this.max}
               aria-orientation={this.isHorizontal ? 'horizontal' : 'vertical'}
               tabindex="0"
-              nativeOnFocus={() => this.focus(dot, index)}
+              nativeOnFocus={() => !dot.disabled && this.focus(index)}
               nativeOnBlur={() => this.blur()}
               {...{ attrs: this.dotAttrs }}
             >
