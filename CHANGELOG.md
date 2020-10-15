@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.7
+
+> `2020-10-15`
+
+### 🐞 Bug Fixes
+  - The `focus` method method parameter error
+
 ## v3.2.6
 
 > `2020-10-12`
