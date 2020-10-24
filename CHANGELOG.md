@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.8
+
+> `2020-10-24`
+
+### 🐞 Bug Fixes
+  - remove built-in `vue` dependency. [#342](https://github.com/NightCatSama/vue-slider-component/issues/342)
+
 ## v3.2.7
 
 > `2020-10-15`
