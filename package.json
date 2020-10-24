@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint",
     "build:library": "npm run test:unit && npm run package && npm run package:css && npm run typings && npm run sass",
     "deploy:docs": "sh scripts/deploy.sh",
-    "package": "vue-cli-service build --mode package --target lib --inline-vue --name vue-slider-component lib/index.ts",
+    "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
     "sass": "sass lib/theme:theme",
