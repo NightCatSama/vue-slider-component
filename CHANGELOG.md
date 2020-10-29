@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v4.0.0-@beta.3
+
+> `2020-10-29`
+
+### 🐞 Bug Fixes
+  - Drag and Drop not working properly.
+
 ## v4.0.0-@beta.1
 
 > `2020-10-09`
