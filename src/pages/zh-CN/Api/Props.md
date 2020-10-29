@@ -538,6 +538,26 @@
     当多个滑块时，默认从第一个连接到最后一个。
   :::
 
+### zoom
+
+::: version
+  New in 3.2.10+
+:::
+
+- **类型**：`number`
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  如果滑块使用了 CSS3 缩放或处于缩放的容器内，需要设置该参数纠正组件内的计算。
+
+  ```html
+    <div style="transform: scale(1.1)">
+      <vue-slider :zoom="1.1" />
+    </div>
+  ```
+
 ### dotStyle
 
 - **类型**：`Object`

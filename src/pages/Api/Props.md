@@ -543,6 +543,26 @@
 
 - **See also**: <router-link :to="$route.meta.lang + 'basics/process'">Process</router-link>
 
+### zoom
+
+::: version
+  New in 3.2.10+
+:::
+
+- **Type**：`number`
+
+- **Default**：`undefined`
+
+- **Usage**：
+
+  If the slider is using CSS3 scale transform to scale or is in a scaled container, this parameter needs to be set to correct the calculation within the component.
+
+  ```html
+    <div style="transform: scale(1.1)">
+      <vue-slider :zoom="1.1" />
+    </div>
+  ```
+
 ### dotStyle
 
 - **Type**: `Object`
