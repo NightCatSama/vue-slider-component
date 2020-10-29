@@ -854,7 +854,7 @@ export default class VueSlider extends Vue {
                     transition: `${this.mainDirection} ${this.animateTime}s`,
                   },
                 ]}
-                onDrag-start={() => this.dragStart(index)}
+                onDragStart={() => this.dragStart(index)}
                 role="slider"
                 aria-valuenow={dot.value}
                 aria-valuemin={this.min}
