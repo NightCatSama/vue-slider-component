@@ -12,6 +12,7 @@
     "parser": "@typescript-eslint/parser"
   },
   "rules": {
-    "no-extra-semi": 0
+    "no-extra-semi": 0,
+    "vue/custom-event-name-casing": 0
   }
 }

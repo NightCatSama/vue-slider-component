@@ -7,7 +7,7 @@ import { Slot } from 'vue'
 
 @Options({
   name: 'VueSliderDot',
-  emits: ['drag-start'],
+  emits: ['DragStart'],
 })
 export default class VueSliderDot extends Vue {
   $refs!: {
@@ -116,7 +116,7 @@ export default class VueSliderDot extends Vue {
       return false
     }
 
-    this.$emit('drag-start')
+    this.$emit('DragStart')
   }
 
   render() {

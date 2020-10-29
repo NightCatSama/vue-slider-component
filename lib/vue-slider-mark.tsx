@@ -7,7 +7,7 @@ import { Slot } from 'vue'
 
 @Options({
   name: 'VueSliderMark',
-  emits: ['press-label'],
+  emits: ['PressLabel'],
 })
 export default class VueSlideMark extends Vue {
   @Prop({ required: true })
@@ -58,7 +58,7 @@ export default class VueSlideMark extends Vue {
 
   labelClickHandle(e: MouseEvent | TouchEvent) {
     e.stopPropagation()
-    this.$emit('press-label', this.mark.pos)
+    this.$emit('PressLabel', this.mark.pos)
   }
 
   render() {
