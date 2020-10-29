@@ -168,6 +168,9 @@ export default class VueSlider extends Vue {
   @Prop({ type: [Boolean, Function], default: true })
   process?: ProcessProp
 
+  @Prop({ type: [Number] })
+  zoom?: number
+
   // If the value is true , mark will be an independent value
   @Prop(Boolean) included?: boolean
 
@@ -439,11 +442,14 @@ export default class VueSlider extends Vue {
   }
 
   setScale() {
-    this.scale = new Decimal(
+    const decimal = new Decimal(
       Math.floor(this.isHorizontal ? this.$refs.rail.offsetWidth : this.$refs.rail.offsetHeight),
     )
-      .divide(100)
-      .toNumber()
+    if (this.zoom !== void 0) {
+      decimal.multiply(this.zoom)
+    }
+    decimal.divide(100)
+    this.scale = decimal.toNumber()
   }
 
   initControl() {
