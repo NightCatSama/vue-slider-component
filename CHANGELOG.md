@@ -1,11 +1,18 @@
 # CHANGELOG
 
+## v3.2.10
+
+> `2020-10-29`
+
+### 🐞 Bug Fixes
+  - Add `zoom` prop to support zoomed scenes.
+
 ## v3.2.7
 
 > `2020-10-15`
 
 ### 🐞 Bug Fixes
-  - The `focus` method method parameter error
+  - The `focus` method method parameter error.
 
 ## v3.2.6
 
