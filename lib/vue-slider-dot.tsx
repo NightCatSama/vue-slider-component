@@ -119,7 +119,7 @@ export default class VueSliderDot extends Vue {
       >
         {this.$slots.dot || <div class={this.handleClasses} style={this.dotStyle} />}
         {this.tooltip !== 'none' ? (
-          <div class={this.tooltipClasses}>
+          <div ref="tooltip" class={this.tooltipClasses}>
             {this.$slots.tooltip || (
               <div class={this.tooltipInnerClasses} style={this.tooltipStyle}>
                 <span class={'vue-slider-dot-tooltip-text'}>{this.tooltipValue}</span>
