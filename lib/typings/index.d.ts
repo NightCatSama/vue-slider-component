@@ -45,6 +45,8 @@ export type TooltipProp = 'none' | 'always' | 'focus' | 'hover' | 'active'
 export type TooltipFormatterFunc = (val: Value) => string
 export type TooltipFormatter = string | TooltipFormatterFunc
 
+export type MergeTooltipFormatter = (values: Value[]) => string
+
 // Dot
 export interface DotStyle {
   style?: Styles

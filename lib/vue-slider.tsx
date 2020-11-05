@@ -15,6 +15,7 @@ import {
   Process,
   TooltipProp,
   TooltipFormatter,
+  MergeTooltipFormatter,
 } from './typings'
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
@@ -120,7 +121,7 @@ export default class VueSlider extends Vue {
   @Prop({
     type: String,
     validator: val => ['none', 'always', 'focus', 'hover', 'active'].indexOf(val) > -1,
-    default: 'active',
+    default: 'always',
   })
   tooltip!: TooltipProp
 
@@ -137,7 +138,10 @@ export default class VueSlider extends Vue {
   tooltipFormatter?: TooltipFormatter | TooltipFormatter[]
 
   @Prop({ type: Boolean, default: true })
-  mergedTooltip!: boolean
+  tooltipMerge!: boolean
+
+  @Prop({ type: Function, default: (values: Value[]) => values.join(' <-> ') })
+  mergeFormatter!: MergeTooltipFormatter
 
   // Keyboard control
   @Prop({ type: Boolean, default: true })
@@ -337,6 +341,26 @@ export default class VueSlider extends Vue {
     }))
   }
 
+  get hideTooltipDots(): number[] {
+    return this.mergedList.reduce((prev, cur) => prev.concat(cur), [])
+  }
+
+  get mergeDots(): Dot[] {
+    if (!this.tooltipMerge || !this.mergedList.length) {
+      return []
+    }
+    return this.mergedList.map((arr, index) => {
+      return {
+        pos:
+          (this.dots[arr[arr.length - 1]].pos - this.dots[arr[0]].pos) / 2 + this.dots[arr[0]].pos,
+        index,
+        value: this.mergeFormatter(arr.map(i => this.dots[i].value)),
+        focus: false,
+        disabled: true,
+      }
+    })
+  }
+
   get animateTime(): number {
     if (this.states.has(SliderState.Drag)) {
       return 0
@@ -407,20 +431,6 @@ export default class VueSlider extends Vue {
     }
   }
 
-  get mergeTooltipList() {
-    if (!this.mergedTooltip || !this.mergedList.length) {
-      return
-    }
-    const res: any[] = []
-    this.mergedList.forEach(arr => {
-      res.push({
-        pos: (this.dots[arr[arr.length - 1]].pos - this.dots[arr[0]].pos) / 2,
-        value: arr.map(index => this.dots[index].value).join(' - '),
-      })
-    })
-    return res
-  }
-
   @Watch('value')
   onValueChanged() {
     if (this.control && !this.states.has(SliderState.Drag) && this.isNotSync) {
@@ -434,7 +444,7 @@ export default class VueSlider extends Vue {
 
   mounted() {
     this.bindEvent()
-    if (this.mergedTooltip) {
+    if (this.tooltipMerge) {
       this.overlapTooltipHandle()
     }
   }
@@ -614,7 +624,7 @@ export default class VueSlider extends Vue {
     if (!this.lazy) {
       this.syncValueByPos()
     }
-    if (this.mergedTooltip) {
+    if (this.tooltipMerge) {
       this.overlapTooltipHandle()
     }
     const value = this.control.dotsValue
@@ -787,29 +797,40 @@ export default class VueSlider extends Vue {
   }
 
   overlapTooltipHandle() {
-    if (!this.mergedTooltip || this.dots.length < 2) {
+    if (!this.tooltipMerge || this.dots.length < 2) {
       return
     }
-    type tooltipItem = [number, number, number] // [left, width, index]
+    type tooltipItem = [number, number, number, boolean] // [left, width, index, isMergeTooltip]
     const tooltipList: tooltipItem[] = []
     this.dots.forEach((_, index) => {
       const vm = (this.$refs as any)[`dot-${index}`]
       if (vm && vm.$refs.tooltip) {
         const rect = (vm.$refs.tooltip as HTMLDivElement).getBoundingClientRect()
-        tooltipList.push([rect.left, rect.width, index])
+        tooltipList.push([rect.left, rect.width, index, false])
       }
     })
-    if (tooltipList.length <= 1) return
+    this.mergeDots.forEach((_, index) => {
+      const vm = (this.$refs as any)[`merge-dot-${index}`]
+      if (vm && vm.$refs.tooltip) {
+        const rect = (vm.$refs.tooltip as HTMLDivElement).getBoundingClientRect()
+        tooltipList.push([rect.left, rect.width, index, true])
+      }
+    })
     if (!this.order) {
       tooltipList.sort((a, b) => a[0] - b[0])
     }
     const mergedList: number[][] = []
     const curList: tooltipItem[] = []
+    console.log(tooltipList)
     tooltipList.forEach(arr => {
       if (curList.length > 0) {
         if (curList[curList.length - 1][0] + curList[curList.length - 1][1] < arr[0]) {
           if (curList.length > 1) {
-            mergedList.push(curList.map(([_, __, index]) => index))
+            const list: number[] = []
+            curList.forEach(([_, __, index, isMergeDot]) =>
+              isMergeDot ? list.push(...this.mergedList[index]) : list.push(index),
+            )
+            mergedList.push([...new Set(list)])
           }
           curList.length = 0
         }
@@ -817,7 +838,11 @@ export default class VueSlider extends Vue {
       curList.push(arr)
     })
     if (curList.length > 1) {
-      mergedList.push(curList.map(([_, __, index]) => index))
+      const list: number[] = []
+      curList.forEach(([_, __, index, isMergeDot]) =>
+        isMergeDot ? list.push(...this.mergedList[index]) : list.push(index),
+      )
+      mergedList.push([...new Set(list)])
     }
     this.mergedList = mergedList
   }
@@ -906,6 +931,7 @@ export default class VueSlider extends Vue {
               ]}
               tooltip={dot.tooltip || this.tooltip}
               tooltip-style={[
+                this.tooltipMerge && this.hideTooltipDots.includes(index) ? { opacity: 0 } : null,
                 this.tooltipStyle,
                 dot.tooltipStyle,
                 dot.disabled ? dot.tooltipDisabledStyle : null,
@@ -940,17 +966,29 @@ export default class VueSlider extends Vue {
               {this.renderSlot<Dot>('tooltip', dot, null)}
             </vue-slider-dot>
           ))}
-          {/* merged-tooltip */}
-          {(this.mergeTooltipList || []).map((item, index) =>
-            this.renderSlot<any>(
-              'merged-tooltip',
-              item,
-              <div class={['vue-slider-merge-tooltip']} style={{ left: item.pos + '%' }}>
-                {item.value}
-              </div>,
-              true,
-            ),
-          )}
+          {/* merge-dot */}
+          {this.mergeDots.map((dot, index) => {
+            return (
+              <vue-slider-dot
+                key={`merge-dot-${index}`}
+                value={dot.value}
+                dot-style={{ visibility: 'hidden' }}
+                tooltip={'always'}
+                tooltip-style={this.tooltipStyle}
+                tooltip-placement={this.isHorizontal ? 'top' : 'left'}
+                style={[
+                  this.dotBaseStyle,
+                  {
+                    [this.mainDirection]: `${dot.pos}%`,
+                    transition: `${this.mainDirection} ${this.animateTime}s`,
+                  },
+                ]}
+              >
+                {this.renderSlot<Dot>('dot', dot, <span />)}
+                {this.renderSlot<Dot>('merge-tooltip', dot, null)}
+              </vue-slider-dot>
+            )
+          })}
           {this.renderSlot<any>('default', { value: this.getValue() }, null, true)}
         </div>
       </div>
