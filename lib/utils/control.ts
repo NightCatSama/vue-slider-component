@@ -106,7 +106,14 @@ export default class Control {
   }
 
   setValue(value: Value | Value[]) {
-    this.setDotsValue(Array.isArray(value) ? [...value] : [value], true)
+    this.setDotsValue(
+      Array.isArray(value)
+        ? this.order
+          ? [...value].sort((a, b) => this.getIndexByValue(a) - this.getIndexByValue(b))
+          : [...value]
+        : [value],
+      true,
+    )
   }
 
   setDotsValue(value: Value[], syncPos?: boolean) {

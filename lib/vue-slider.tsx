@@ -406,6 +406,7 @@ export default class VueSlider extends Vue {
   onValueChanged() {
     if (this.control && !this.states.has(SliderState.Drag) && this.isNotSync) {
       this.control.setValue(this.value)
+      this.syncValueByPos()
     }
   }
 
@@ -471,6 +472,7 @@ export default class VueSlider extends Vue {
       dotOptions: this.dotOptions,
       onError: this.emitError,
     })
+    this.syncValueByPos()
     ;[
       'data',
       'enableCross',
