@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.11
+
+> `2020-11-20`
+
+### 🐞 Bug Fixes
+  - In Order mode, `setValue` will not sort. [#507](https://github.com/NightCatSama/vue-slider-component/issues/507)
+
 ## v3.2.10
 
 > `2020-10-29`
