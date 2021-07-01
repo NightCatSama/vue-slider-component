@@ -426,7 +426,7 @@ export default class VueSlider extends Vue {
     document.addEventListener('touchmove', this.dragMove, { passive: false })
     document.addEventListener('touchend', this.dragEnd, { passive: false })
     document.addEventListener('mousedown', this.blurHandle)
-    document.addEventListener('mousemove', this.dragMove)
+    document.addEventListener('mousemove', this.dragMove, { passive: false })
     document.addEventListener('mouseup', this.dragEnd)
     document.addEventListener('mouseleave', this.dragEnd)
     document.addEventListener('keydown', this.keydownHandle)
