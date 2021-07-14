@@ -656,14 +656,15 @@ export default class VueSlider extends Vue {
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
+    this.setScale()
+    const pos = this.getPosByEvent(e)
+    this.$emit('click', pos)
     if (!this.clickable || this.disabled) {
       return false
     }
     if (this.states.has(SliderState.Drag)) {
       return
     }
-    this.setScale()
-    const pos = this.getPosByEvent(e)
     this.setValueByPos(pos)
   }
 
