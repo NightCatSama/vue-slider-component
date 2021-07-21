@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.14
+
+> `2021-07-22`
+
+### 🐞 Bug Fixes
+  - When moving the slider following console error occurs. [#556](https://github.com/NightCatSama/vue-slider-component/pull/556)
+
 ## v3.2.11
 
 > `2020-11-20`
