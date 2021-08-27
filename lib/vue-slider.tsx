@@ -271,14 +271,14 @@ export default class VueSlider extends Vue {
     if (this.isHorizontal) {
       dotPos = {
         transform: `translate(${this.isReverse ? '50%' : '-50%'}, -50%)`,
-        WebkitTransform: `translate(${this.isReverse ? '50%' : '-50%'}, -50%)`,
+        '-WebkitTransform': `translate(${this.isReverse ? '50%' : '-50%'}, -50%)`,
         top: '50%',
         [this.direction === 'ltr' ? 'left' : 'right']: '0',
       }
     } else {
       dotPos = {
         transform: `translate(-50%, ${this.isReverse ? '50%' : '-50%'})`,
-        WebkitTransform: `translate(-50%, ${this.isReverse ? '50%' : '-50%'})`,
+        '-WebkitTransform': `translate(-50%, ${this.isReverse ? '50%' : '-50%'})`,
         left: '50%',
         [this.direction === 'btt' ? 'bottom' : 'top']: '0',
       }
