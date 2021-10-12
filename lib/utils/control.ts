@@ -204,7 +204,9 @@ export default class Control {
    * @memberof Control
    */
   getRecentDot(pos: number): number {
-    const arr = this.dotsPos.map(dotPos => Math.abs(dotPos - pos))
+    const arr = this.dotsPos
+      .filter((dotPos, index) => !(this.getDotOption(index) && this.getDotOption(index)!.disabled))
+      .map(dotPos => Math.abs(dotPos - pos))
     return arr.indexOf(Math.min(...arr))
   }
 
@@ -536,12 +538,16 @@ export default class Control {
     return (this.cacheRangeDir[this.maxRange] = this.getRangeDir(this.maxRange))
   }
 
+  private getDotOption(index: number): DotOption | undefined {
+    return Array.isArray(this.dotOptions) ? this.dotOptions[index] : this.dotOptions
+  }
+
   private getDotRange(index: number, key: 'min' | 'max', defaultValue: number): number {
     if (!this.dotOptions) {
       return defaultValue
     }
 
-    const option = Array.isArray(this.dotOptions) ? this.dotOptions[index] : this.dotOptions
+    const option = this.getDotOption(index)
     return option && option[key] !== void 0 ? this.parseValue(option[key] as Value) : defaultValue
   }
 
