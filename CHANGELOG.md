@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.15
+
+> `2021-10-12`
+
+### 🐞 Bug Fixes
+  - `getRecentDot` ignores disabled dots. [#584](https://github.com/NightCatSama/vue-slider-component/pull/584)
+
 ## v3.2.14
 
 > `2021-07-22`
