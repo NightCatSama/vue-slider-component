@@ -203,11 +203,17 @@ export default class Control {
    * @returns {number}
    * @memberof Control
    */
-  getRecentDot(pos: number): number {
+  getRecentDot(pos: number): number | undefined {
     const arr = this.dotsPos
-      .filter((dotPos, index) => !(this.getDotOption(index) && this.getDotOption(index)!.disabled))
-      .map(dotPos => Math.abs(dotPos - pos))
-    return arr.indexOf(Math.min(...arr))
+      .map((dotPos, dotIndex) => {
+        return { dotIndex, distance: Math.abs(dotPos - pos) }
+      })
+      .filter(
+        ({ dotIndex }) => !(this.getDotOption(dotIndex) && this.getDotOption(dotIndex)!.disabled),
+      )
+    const minDistance = Math.min(...arr.map(({ distance }) => distance))
+    const nearestDot = arr.find(({ distance }) => distance === minDistance)
+    return nearestDot ? nearestDot!.dotIndex : undefined
   }
 
   /**

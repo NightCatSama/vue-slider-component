@@ -564,7 +564,7 @@ export default class VueSlider extends Vue {
       this.setScale()
       const pos = this.getPosByEvent(e)
       const index = this.control.getRecentDot(pos)
-      if (this.dots[index].disabled) {
+      if (index === undefined) {
         return
       }
       this.dragStart(index)
@@ -700,7 +700,7 @@ export default class VueSlider extends Vue {
 
   setValueByPos(pos: number) {
     const index = this.control.getRecentDot(pos)
-    if (this.disabled || this.dots[index].disabled) {
+    if (index === undefined || this.disabled) {
       return false
     }
     this.focusDotIndex = index
