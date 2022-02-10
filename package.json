@@ -44,7 +44,7 @@
     "lint-staged": "^8.1.0",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-container": "^2.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "prettier": "^1.15.2",
     "sass": "1.26.7",
     "sass-loader": "^8.0.2",
