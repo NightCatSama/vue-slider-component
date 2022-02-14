@@ -37,7 +37,16 @@ const DEFAULT_SLIDER_SIZE = 4
 
 @Options({
   name: 'VueSlider',
-  emits: ['change', 'drag-start', 'dragging', 'drag-end', 'error', 'update:modelValue'],
+  emits: [
+    'change',
+    'drag-start',
+    'dragging',
+    'drag-end',
+    'error',
+    'update:modelValue',
+    'focus',
+    'blur',
+  ],
   data() {
     return {
       control: null,
@@ -648,6 +657,7 @@ export default class VueSlider extends Vue {
       return false
     }
     this.states.delete(SliderState.Focus)
+    this.$emit('blur')
   }
 
   private clickHandle(e: MouseEvent | TouchEvent) {
@@ -666,6 +676,7 @@ export default class VueSlider extends Vue {
     if (dot.disabled) return
     this.states.add(SliderState.Focus)
     this.focusDotIndex = index
+    this.$emit('focus')
   }
 
   blur() {
@@ -861,8 +872,8 @@ export default class VueSlider extends Vue {
                 aria-valuemax={this.max}
                 aria-orientation={this.isHorizontal ? 'horizontal' : 'vertical'}
                 tabindex="0"
-                nativeOnFocus={() => this.focus(dot, index)}
-                nativeOnBlur={() => this.blur()}
+                onFocus={() => this.focus(dot, index)}
+                onBlur={() => this.blur()}
                 {...{ attrs: this.dotAttrs }}
                 dotSlot={dotSlot}
                 tooltipSlot={tooltipSlot}
