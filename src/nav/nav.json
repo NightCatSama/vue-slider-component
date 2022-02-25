@@ -61,6 +61,11 @@
       "name": "Range mode",
       "route": "basics/range",
       "component": "Basics/Range.md"
+    },
+    {
+      "name": "Interval",
+      "route": "basics/interval",
+      "component": "Basics/Interval.md"
     }
   ],
   "Advanced Example": [
