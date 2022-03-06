@@ -32,9 +32,11 @@ $labelFontSize: 12px !default;
   .vue-slider-process {
     background-color: $disabledColor;
   }
+
   .vue-slider-dot-handle {
     border-color: $disabledColor;
   }
+
   .vue-slider-mark-step {
     &-active {
       box-shadow: 0 0 0 2px $disabledColor;
@@ -47,6 +49,7 @@ $labelFontSize: 12px !default;
   background-color: $bgColorSilent;
   border-radius: $railBorderRadius;
   transition: background-color 0.3s;
+
   @at-root .vue-slider:hover & {
     background-color: $bgColor;
   }
@@ -57,6 +60,7 @@ $labelFontSize: 12px !default;
   background-color: $themeColorSilent;
   border-radius: $railBorderRadius;
   transition: background-color 0.3s;
+
   @at-root .vue-slider:hover & {
     background-color: $themeColor;
   }
@@ -73,24 +77,24 @@ $labelFontSize: 12px !default;
 
     &-active {
       box-shadow: 0 0 0 2px $themeColorSilent;
+
       @at-root .vue-slider:hover & {
         box-shadow: 0 0 0 2px $themeColor;
       }
     }
   }
 
-  @at-root &-label {
+  &-label {
     font-size: $labelFontSize;
     white-space: nowrap;
 
-    &-active {
-    }
+    //&-active {}
   }
 }
 
 /* dot style */
 .vue-slider-dot {
-  @at-root &-handle {
+  &-handle {
     cursor: pointer;
     width: 100%;
     height: 100%;
@@ -103,31 +107,34 @@ $labelFontSize: 12px !default;
     @at-root .vue-slider:hover & {
       border-color: $themeColor;
     }
-    @at-root &-focus {
+
+    &-focus {
       border-color: $dotColorFocus;
       box-shadow: $dotShadowFocus;
       @at-root .vue-slider:hover & {
         border-color: $dotColorFocus;
       }
     }
-    @at-root &:hover {
+
+    &:hover {
       border-color: $dotColorHover;
       @at-root .vue-slider:hover & {
         border-color: $dotColorHover;
       }
     }
-    @at-root &-disabled {
+
+    &-disabled {
       cursor: not-allowed;
       border-color: $dotColorDisabled !important;
     }
   }
 
-  @at-root &-tooltip {
+  &-tooltip {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
 
-    @at-root &-inner {
+    &-inner {
       font-size: $tooltipFontSize;
       white-space: nowrap;
       padding: $tooltipPadding;
@@ -140,15 +147,19 @@ $labelFontSize: 12px !default;
 
       transform: scale(0.9);
       transition: transform 0.3s;
+
       &-top {
         transform-origin: 50% 100%;
       }
+
       &-bottom {
         transform-origin: 50% 0;
       }
+
       &-left {
         transform-origin: 100% 50%;
       }
+
       &-right {
         transform-origin: 0% 50%;
       }
@@ -158,6 +169,7 @@ $labelFontSize: 12px !default;
       &-show {
       opacity: 1;
       visibility: visible;
+
       .vue-slider-dot-tooltip-inner {
         transform: scale(1);
       }

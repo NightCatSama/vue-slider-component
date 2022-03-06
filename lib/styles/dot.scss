@@ -1,55 +1,57 @@
-$tooltipGap: 10px;
+@use 'sass:list';
+
+$maxDots: 5;
+$defaultIndex: 5;
 
 .vue-slider-dot {
   position: absolute;
   transition: all 0s;
-  z-index: 5;
+  z-index: $defaultIndex;
+
+  // Set different z-index for dots
+  @for $i from 2 to $maxDots {
+    &:nth-child(#{$i}) {
+      z-index: $maxDots - $i + $defaultIndex;
+    }
+  }
 
   &:focus {
     outline: none;
   }
 
-  @at-root &-handle {
-    @at-root &-focus {
+  //&-handle {
+  //  &-focus {}
+  //  &-disabled {}
+  //}
+
+  &-tooltip {
+    position: absolute;
+    visibility: hidden;
+
+    @at-root .vue-slider-dot-hover:hover & {
+      visibility: visible;
     }
-    @at-root &-disabled {
+
+    &-show {
+      visibility: visible;
     }
-  }
-}
 
-.vue-slider-dot-tooltip {
-  position: absolute;
-  visibility: hidden;
+    // List of directions with translate value
+    $_directions: (top: (-50%, -100%), bottom: (-50%, 100%), left: (-100%, -50%), right: (100%, -50%));
 
-  @at-root .vue-slider-dot-hover:hover & {
-    visibility: visible;
-  }
+    @each $dir, $translate  in $_directions {
+      &-#{$dir} {
+        #{$dir}: -10px; // Set tooltip gap
 
-  &-show {
-    visibility: visible;
-  }
-
-  &-top {
-    top: -$tooltipGap;
-    left: 50%;
-    transform: translate(-50%, -100%);
-  }
-
-  &-bottom {
-    bottom: -$tooltipGap;
-    left: 50%;
-    transform: translate(-50%, 100%);
-  }
-
-  &-left {
-    left: -$tooltipGap;
-    top: 50%;
-    transform: translate(-100%, -50%);
-  }
-
-  &-right {
-    right: -$tooltipGap;
-    top: 50%;
-    transform: translate(100%, -50%);
+        // If direction is `top` or `bottom`
+        @if list.index(top bottom, $dir) {
+          left: 50%;
+          transform: translate($translate);
+        } @else {
+          top: 50%;
+          transform: translate($translate);
+        }
+      }
+    }
   }
 }

@@ -1,19 +1,18 @@
+@use 'sass:list';
+@use 'sass:map';
+
+// List of destinations with inverse
+$_directions: (top, right, bottom, left);
+
 @mixin triangle($size, $color, $direction) {
-  height: 0;
   width: 0;
-  @if ($direction==top) or ($direction==bottom) or ($direction==right) or ($direction==left) {
+  height: 0;
+
+  @if list.index($_directions, $direction) {
     border-color: transparent;
     border-style: solid;
     border-width: $size * 0.5;
-    @if $direction==top {
-      border-bottom-color: $color;
-    } @else if $direction==right {
-      border-left-color: $color;
-    } @else if $direction==bottom {
-      border-top-color: $color;
-    } @else if $direction==left {
-      border-right-color: $color;
-    }
+    border-#{$direction}-color: $color;
   }
 }
 
@@ -23,39 +22,23 @@
     position: absolute;
   }
 
-  &-top {
-    &::after {
-      top: 100%;
-      left: 50%;
-      transform: translate(-50%, 0);
-      @include triangle($size, $color, bottom);
-    }
-  }
+  // For each directions
+  @each $direction in $_directions {
+    &-#{$direction}::after {
+      // Get property by $direction
+      #{$direction}: 100%;
 
-  &-bottom {
-    &::after {
-      bottom: 100%;
-      left: 50%;
-      transform: translate(-50%, 0);
-      @include triangle($size, $color, top);
-    }
-  }
+      // If direction is `top` or `bottom`
+      @if list.index(top bottom, $direction) {
+        left: 50%;
+        transform: translate(-50%, 0);
+      } @else {
+        top: 50%;
+        transform: translate(0, -50%);
+      }
 
-  &-left {
-    &::after {
-      left: 100%;
-      top: 50%;
-      transform: translate(0, -50%);
-      @include triangle($size, $color, right);
-    }
-  }
-
-  &-right {
-    &::after {
-      right: 100%;
-      top: 50%;
-      transform: translate(0, -50%);
-      @include triangle($size, $color, left);
+      @include triangle($size, $color, $direction);
+      @content;
     }
   }
 }

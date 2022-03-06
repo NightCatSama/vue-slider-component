@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $themeColor: #6200ee !default;
 $bgColor: #bda1f3 !default;
 $disabledColor: #666 !default;
@@ -15,19 +17,48 @@ $stepBorderRadius: 50% !default;
 
 $labelFontSize: 14px !default;
 
+// Directions
+$_scale: 0.01;
+$_directions: (
+  top: (
+    translate: (0, 50%),
+    rotate: -45deg, // 45deg
+    scale: $_scale,
+  ),
+  bottom: (
+    translate: (0, -50%),
+    rotate: 135deg, // -135deg
+    scale: $_scale,
+  ),
+  left: (
+    translate: (50%, 0),
+    rotate: -135deg, // 135deg
+    scale: $_scale,
+  ),
+  right: (
+    translate: (-50%, 0),
+    rotate: 45deg, // -45deg
+    scale: $_scale,
+  )
+);
+
 /* component style */
 .vue-slider-disabled {
   .vue-slider-rail {
     background-color: $railColorDisabled;
   }
+
   .vue-slider-dot-handle {
     background-color: $disabledColor;
   }
+
   .vue-slider-process {
     background-color: $disabledColor;
   }
+
   .vue-slider-mark-step {
     background-color: $disabledColor;
+
     &-active {
       background-color: $railColorDisabled;
     }
@@ -50,7 +81,7 @@ $labelFontSize: 14px !default;
 .vue-slider-mark {
   z-index: 4;
 
-  @at-root &-step {
+  &-step {
     width: 100%;
     height: 100%;
     border-radius: $stepBorderRadius;
@@ -61,18 +92,17 @@ $labelFontSize: 14px !default;
     }
   }
 
-  @at-root &-label {
+  &-label {
     font-size: $labelFontSize;
     white-space: nowrap;
 
-    &-active {
-    }
+    //&-active {}
   }
 }
 
 /* dot style */
 .vue-slider-dot {
-  @at-root &-handle {
+  &-handle {
     cursor: pointer;
     position: relative;
     width: 100%;
@@ -84,65 +114,55 @@ $labelFontSize: 14px !default;
     &::after {
       content: '';
       position: absolute;
-      left: 50%;
       top: 50%;
+      left: 50%;
       width: 200%;
       height: 200%;
       background-color: $dotShadowColor;
       border-radius: $dotBorderRadius;
       transform: translate(-50%, -50%) scale(0);
-      z-index: -1;
       transition: transform 0.2s;
+      z-index: -1;
     }
 
-    @at-root &-focus::after {
+    &-focus::after {
       transform: translate(-50%, -50%) scale(1);
     }
-    @at-root &-disabled {
+
+    &-disabled {
       cursor: not-allowed;
       background-color: $disabledColor !important;
     }
   }
 
-  @at-root &-tooltip {
+  &-tooltip {
     visibility: visible;
 
-    @at-root &-show {
+    &-show {
       .vue-slider-dot-tooltip-inner {
         opacity: 1;
 
-        &-top {
-          transform: rotateZ(-45deg);
-        }
-        &-bottom {
-          transform: rotateZ(135deg);
-        }
-        &-left {
-          transform: rotateZ(-135deg);
-        }
-        &-right {
-          transform: rotateZ(45deg);
+        @each $direction, $options in $_directions {
+          &-#{$direction} {
+            transform: rotateZ(#{map.get($options, rotate)});
+          }
         }
       }
     }
 
-    @at-root &-inner {
-      border-radius: 50% 50% 50% 0px;
+    &-inner {
+      border-radius: 50% 50% 50% 0;
       background-color: $themeColor;
-      opacity: 0;
       transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s linear;
+      opacity: 0;
 
-      &-top {
-        transform: translate(0, 50%) scale(0.01) rotate(-45deg);
-      }
-      &-bottom {
-        transform: translate(0, -50%) scale(0.01) rotateZ(135deg);
-      }
-      &-left {
-        transform: translate(50%, 0) scale(0.01) rotateZ(-135deg);
-      }
-      &-right {
-        transform: translate(-50%, 0) scale(0.01) rotateZ(45deg);
+        @each $direction, $options  in $_directions {
+        &-#{$direction} {
+          transform:
+            translate(#{map.get($options, translate)})
+            scale(#{map.get($options, scale)})
+            rotate(#{map.get($options, rotate)});
+        }
       }
 
       @at-root .vue-slider-dot-tooltip-text {
@@ -158,17 +178,10 @@ $labelFontSize: 14px !default;
         box-sizing: content-box;
       }
 
-      &-top .vue-slider-dot-tooltip-text {
-        transform: rotateZ(45deg);
-      }
-      &-bottom .vue-slider-dot-tooltip-text {
-        transform: rotateZ(-135deg);
-      }
-      &-left .vue-slider-dot-tooltip-text {
-        transform: rotateZ(135deg);
-      }
-      &-right .vue-slider-dot-tooltip-text {
-        transform: rotateZ(-45deg);
+      @each $direction, $options in $_directions {
+        &-#{$direction} .vue-slider-dot-tooltip-text {
+          transform: rotateZ(#{- map.get($options, rotate)});
+        }
       }
     }
   }
