@@ -1,0 +1,101 @@
+$labelGap: 10px;
+
+.vue-slider-marks {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.vue-slider-mark {
+  position: absolute;
+  z-index: 1;
+
+  @at-root .vue-slider-ltr &,
+    .vue-slider-rtl & {
+    width: 0;
+    height: 100%;
+    top: 50%;
+
+    &-step {
+      top: 0;
+    }
+
+    &-label {
+      top: 100%;
+      margin-top: $labelGap;
+    }
+  }
+
+  @at-root .vue-slider-ltr & {
+    transform: translate(-50%, -50%);
+
+    &-step {
+      left: 0;
+    }
+
+    &-label {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  @at-root .vue-slider-rtl & {
+    transform: translate(50%, -50%);
+
+    &-step {
+      right: 0;
+    }
+
+    &-label {
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+
+  @at-root .vue-slider-ttb &,
+    .vue-slider-btt & {
+    width: 100%;
+    height: 0;
+    left: 50%;
+
+    &-step {
+      left: 0;
+    }
+
+    &-label {
+      left: 100%;
+      margin-left: $labelGap;
+    }
+  }
+
+  @at-root .vue-slider-btt & {
+    transform: translate(-50%, 50%);
+
+    &-step {
+      top: 0;
+    }
+
+    &-label {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  @at-root .vue-slider-ttb & {
+    transform: translate(-50%, -50%);
+
+    &-step {
+      bottom: 0;
+    }
+
+    &-label {
+      bottom: 50%;
+      transform: translateY(50%);
+    }
+  }
+
+  @at-root &-step,
+    &-label {
+    position: absolute;
+  }
+}

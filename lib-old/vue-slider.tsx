@@ -33,6 +33,51 @@ export const SliderState: StateMap = {
   Focus: 1 << 2,
 }
 
+export interface VueSliderProps {
+  modelValue?: Value | Value[];
+  silent?: boolean;
+  direction?: Direction;
+  width?: number | string;
+  height?: number | string;
+  dotSize?: [number, number] | number;
+  contained?: boolean;
+  min?: number;
+  max?: number;
+  interval?: boolean;
+  clickable?: boolean;
+  dragOnClick?: boolean;
+  duration?: number;
+  vData?: Value[] | object[] | DataObject;
+  dataValue?: string;
+  dataLabel?: string;
+  lazy?: boolean;
+  tooltip?: TooltipProp;
+  tooltipPlacement?: Position | Position[]
+  tooltipFormatter?: TooltipFormatter | TooltipFormatter[]
+  useKeyboard?: boolean
+  keydownHook?: (e: KeyboardEvent) => HandleFunction | boolean;
+  enableCross?: boolean;
+  fixed?: boolean;
+  order?: boolean;
+  minRange?: number;
+  maxRange?: number;
+  marks?: MarksProp;
+  process?: ProcessProp;
+  included?: boolean;
+  adsorb?: boolean;
+  hideLabel?: boolean;
+  dotOptions?: DotOption | DotOption[];
+  dotAttrs?: object;
+  railStyle?: Styles;
+  processStyle?: Styles;
+  dotStyle?: Styles;
+  tooltipStyle?: Styles;
+  stepStyle?: Styles;
+  stepActiveStyle?: Styles;
+  labelStyle?: Styles;
+  labelActiveStyle?: Styles;
+}
+
 const DEFAULT_SLIDER_SIZE = 4
 
 @Options({

@@ -16,12 +16,12 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import VueSlider from '../../lib/'
+// import VueSlider from '../../lib/'
 
 @Options({})
 export default class ExampleData extends Vue {
 
-  scope = { VueSlider }
+  // scope = { VueSlider }
 
   @Prop({ required: true })
   value!: string

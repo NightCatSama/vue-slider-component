@@ -1,0 +1,175 @@
+$themeColor: #6200ee !default;
+$bgColor: #bda1f3 !default;
+$disabledColor: #666 !default;
+$railBorderRadius: 15px !default;
+$railColorDisabled: #ccc !default;
+
+$dotBorderRadius: 50% !default;
+$dotShadowColor: rgba($themeColor, 0.38) !default;
+
+$tooltipFontSize: 12px !default;
+$tooltipSize: 30px !default;
+$tooltipColor: #fff !default;
+
+$stepBorderRadius: 50% !default;
+
+$labelFontSize: 14px !default;
+
+/* component style */
+.vue-slider-disabled {
+  .vue-slider-rail {
+    background-color: $railColorDisabled;
+  }
+  .vue-slider-dot-handle {
+    background-color: $disabledColor;
+  }
+  .vue-slider-process {
+    background-color: $disabledColor;
+  }
+  .vue-slider-mark-step {
+    background-color: $disabledColor;
+    &-active {
+      background-color: $railColorDisabled;
+    }
+  }
+}
+
+/* rail style */
+.vue-slider-rail {
+  background-color: $bgColor;
+  border-radius: $railBorderRadius;
+}
+
+/* process style */
+.vue-slider-process {
+  background-color: $themeColor;
+  border-radius: $railBorderRadius;
+}
+
+/* mark style */
+.vue-slider-mark {
+  z-index: 4;
+
+  @at-root &-step {
+    width: 100%;
+    height: 100%;
+    border-radius: $stepBorderRadius;
+    background-color: $themeColor;
+
+    &-active {
+      background-color: $bgColor;
+    }
+  }
+
+  @at-root &-label {
+    font-size: $labelFontSize;
+    white-space: nowrap;
+
+    &-active {
+    }
+  }
+}
+
+/* dot style */
+.vue-slider-dot {
+  @at-root &-handle {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: $dotBorderRadius;
+    background-color: $themeColor;
+    box-sizing: border-box;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 200%;
+      height: 200%;
+      background-color: $dotShadowColor;
+      border-radius: $dotBorderRadius;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: -1;
+      transition: transform 0.2s;
+    }
+
+    @at-root &-focus::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    @at-root &-disabled {
+      cursor: not-allowed;
+      background-color: $disabledColor !important;
+    }
+  }
+
+  @at-root &-tooltip {
+    visibility: visible;
+
+    @at-root &-show {
+      .vue-slider-dot-tooltip-inner {
+        opacity: 1;
+
+        &-top {
+          transform: rotateZ(-45deg);
+        }
+        &-bottom {
+          transform: rotateZ(135deg);
+        }
+        &-left {
+          transform: rotateZ(-135deg);
+        }
+        &-right {
+          transform: rotateZ(45deg);
+        }
+      }
+    }
+
+    @at-root &-inner {
+      border-radius: 50% 50% 50% 0px;
+      background-color: $themeColor;
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s linear;
+
+      &-top {
+        transform: translate(0, 50%) scale(0.01) rotate(-45deg);
+      }
+      &-bottom {
+        transform: translate(0, -50%) scale(0.01) rotateZ(135deg);
+      }
+      &-left {
+        transform: translate(50%, 0) scale(0.01) rotateZ(-135deg);
+      }
+      &-right {
+        transform: translate(-50%, 0) scale(0.01) rotateZ(45deg);
+      }
+
+      @at-root .vue-slider-dot-tooltip-text {
+        font-size: $tooltipFontSize;
+        white-space: nowrap;
+        text-align: center;
+        color: $tooltipColor;
+        width: $tooltipSize;
+        height: $tooltipSize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+      }
+
+      &-top .vue-slider-dot-tooltip-text {
+        transform: rotateZ(45deg);
+      }
+      &-bottom .vue-slider-dot-tooltip-text {
+        transform: rotateZ(-135deg);
+      }
+      &-left .vue-slider-dot-tooltip-text {
+        transform: rotateZ(135deg);
+      }
+      &-right .vue-slider-dot-tooltip-text {
+        transform: rotateZ(-45deg);
+      }
+    }
+  }
+}

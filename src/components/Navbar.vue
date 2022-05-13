@@ -34,7 +34,7 @@
             class="nav-item"
             :to="$route.meta.lang + item.route"
             exact
-            @click.native="routeClickHandle"
+            @click="routeClickHandle"
           >
             <span class="nav-name">{{ item.name }}</span>
           </router-link>
@@ -45,13 +45,11 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Vue } from 'vue-class-component';
 import packageInfo from '../../package.json'
 import { getNavObj, LANG } from '../nav/'
 import { getTheme } from '../utils'
 
-@Options({})
 export default class Navbar extends Vue {
   hide = false
   name = packageInfo.name
@@ -64,7 +62,7 @@ export default class Navbar extends Vue {
   }
 
   get navObj() {
-    return getNavObj(this.$route.meta.lang)
+    return getNavObj(this.$route.meta.lang as any)
   }
 
   mounted() {

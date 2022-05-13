@@ -62,7 +62,7 @@ export const getKeyboardHandleFunc = (
     direction: Direction
     max: number
     min: number
-    hook?: (e: KeyboardEvent) => HandleFunction | boolean
+    hook: (e: KeyboardEvent) => HandleFunction | boolean
   },
 ): HandleFunction | null => {
   if (params.hook) {

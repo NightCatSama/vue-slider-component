@@ -4,21 +4,21 @@ import VueSlider from '~/lib'
 
 describe('Props: value', () => {
   it('value', () => {
-    const wrapper = shallowMount(VueSlider, {
-      propsData: { value: 50 },
+    const wrapper = shallowMount<VueSlider>(VueSlider, {
+      propsData: { modelValue: 50 },
     })
-    expect(wrapper.vm.value).to.equal(50)
+    expect(wrapper.vm.modelValue).to.equal(50)
     expect(wrapper.vm.dots[0].pos).to.equal(50)
     wrapper.setProps({
-      value: 80,
+      modelValue: 80,
     })
-    expect(wrapper.vm.value).to.equal(80)
+    expect(wrapper.vm.modelValue).to.equal(80)
     expect(wrapper.vm.dots[0].pos).to.equal(80)
   })
   it('data: Value[]', () => {
     const wrapper = shallowMount(VueSlider, {
       propsData: {
-        value: 'A',
+        modelValue: 'A',
         data: ['A', 'B', 'C', 'D', 'E'],
       },
     })
@@ -29,7 +29,7 @@ describe('Props: value', () => {
   it('data: object[]', () => {
     const wrapper = shallowMount(VueSlider, {
       propsData: {
-        value: 1,
+        modelValue: 1,
         data: [
           {
             label: 'A',
@@ -71,7 +71,7 @@ describe('Props: value', () => {
   it('data: object', () => {
     const wrapper = shallowMount(VueSlider, {
       propsData: {
-        value: '1',
+        modelValue: '1',
         data: {
           '1': 'A',
           '2': 'B',
@@ -83,7 +83,7 @@ describe('Props: value', () => {
     })
     expect(wrapper.vm.control.markList[0].label).to.equal('A')
     wrapper.setProps({
-      value: '3',
+      modelValue: '3',
     })
     expect(wrapper.vm.getIndex()).to.equal(2)
     expect(wrapper.vm.dots[0].pos).to.equal(50)

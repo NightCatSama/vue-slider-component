@@ -10,9 +10,9 @@ import { Slot } from 'vue'
   emits: ['DragStart'],
 })
 export default class VueSliderDot extends Vue {
-  $refs!: {
-    dot: HTMLDivElement
-  }
+  // $refs!: {
+  //   dot: HTMLDivElement
+  // }
 
   @Prop({ default: 0 })
   value!: Value
