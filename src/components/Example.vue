@@ -15,16 +15,20 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+// import { Prop } from 'vue-property-decorator';
 // import VueSlider from '../../lib/'
 
-@Options({})
+@Options({
+  props: {
+    value: String
+  }
+})
 export default class ExampleData extends Vue {
 
   // scope = { VueSlider }
 
-  @Prop({ required: true })
-  value!: string
+  // @Prop({ required: true })
+  // value!: string
 
   switchCodeShow() {
     const el = (this.$refs.content as HTMLDivElement).querySelector('.vuep-editor')
