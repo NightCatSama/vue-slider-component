@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v4.0.0-@beta.6
+
+> `2022-06-22`
+
+### 🎉 Feature
+  - Remove `vue-property-decorator` dep.
+
 ## v4.0.0-@beta.3
 
 > `2020-10-29`
