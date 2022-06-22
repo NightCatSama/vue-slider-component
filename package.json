@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "4.0.0-beta.6",
+  "version": "4.0.0-beta.7",
   "description": "A highly customized slider component",
   "author": "NightCatSama <642163903@qq.com>",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build:library": "npm run package && npm run package:css && npm run sass",
+    "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
     "docs:dev": "vuepress dev docs",
     "deploy:docs": "sh scripts/deploy.sh",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
@@ -21,8 +21,6 @@
     "dist",
     "dist-css",
     "lib",
-    "src",
-    "typings",
     "theme"
   ],
   "devDependencies": {
@@ -86,5 +84,5 @@
     "type": "git",
     "url": "git+https://github.com/NightCatSama/vue-slider-component.git"
   },
-  "typings": "./typings/index.d.ts"
+  "typings": "./lib/typings/index.d.ts"
 }

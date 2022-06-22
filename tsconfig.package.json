@@ -23,7 +23,7 @@
   },
   "include": [
     "lib/**/*.ts",
-    "lib/**/*.tsx"
+    "lib/**/*.vue"
   ],
   "exclude": [
     "node_modules"
