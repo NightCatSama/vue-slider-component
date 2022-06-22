@@ -1,34 +1,34 @@
-import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
-import VueSlider from '~/lib'
+/* @ts-ignore */
+import { mount } from '@vue/test-utils'
+import VueSlider from '../../lib/vue-slider.vue'
 
 describe('Props: value', () => {
   it('value', () => {
-    const wrapper = shallowMount<VueSlider>(VueSlider, {
-      propsData: { modelValue: 50 },
+    const wrapper = mount(VueSlider, {
+      props: { modelValue: 50 },
     })
-    expect(wrapper.vm.modelValue).to.equal(50)
-    expect(wrapper.vm.dots[0].pos).to.equal(50)
+    expect(wrapper.vm.modelValue).toBe(50)
+    expect(wrapper.vm.dots[0].pos).toBe(50)
     wrapper.setProps({
       modelValue: 80,
     })
-    expect(wrapper.vm.modelValue).to.equal(80)
-    expect(wrapper.vm.dots[0].pos).to.equal(80)
+    expect(wrapper.vm.modelValue).toBe(80)
+    expect(wrapper.vm.dots[0].pos).toBe(80)
   })
   it('data: Value[]', () => {
-    const wrapper = shallowMount(VueSlider, {
-      propsData: {
+    const wrapper = mount(VueSlider, {
+      props: {
         modelValue: 'A',
         data: ['A', 'B', 'C', 'D', 'E'],
       },
     })
     wrapper.vm.setValue('C')
-    expect(wrapper.vm.getIndex()).to.equal(2)
-    expect(wrapper.vm.dots[0].pos).to.equal(50)
+    expect(wrapper.vm.getIndex()).toBe(2)
+    expect(wrapper.vm.dots[0].pos).toBe(50)
   })
   it('data: object[]', () => {
-    const wrapper = shallowMount(VueSlider, {
-      propsData: {
+    const wrapper = mount(VueSlider, {
+      props: {
         modelValue: 1,
         data: [
           {
@@ -59,18 +59,18 @@ describe('Props: value', () => {
         ],
       },
     })
-    expect(wrapper.vm.control.markList[0].label).to.equal('A')
+    expect(wrapper.vm.control!.markList[0].label).toBe('A')
     wrapper.vm.setValue(3)
-    expect(wrapper.vm.getIndex()).to.equal(2)
-    expect(wrapper.vm.dots[0].pos).to.equal(50)
+    expect(wrapper.vm.getIndex()).toBe(2)
+    expect(wrapper.vm.dots[0].pos).toBe(50)
     wrapper.setProps({
       dataLabel: 'otherLabel',
     })
-    expect(wrapper.vm.control.markList[0].label).to.equal('a')
+    expect(wrapper.vm.control!.markList[0].label).toBe('a')
   })
   it('data: object', () => {
-    const wrapper = shallowMount(VueSlider, {
-      propsData: {
+    const wrapper = mount(VueSlider, {
+      props: {
         modelValue: '1',
         data: {
           '1': 'A',
@@ -81,11 +81,11 @@ describe('Props: value', () => {
         },
       },
     })
-    expect(wrapper.vm.control.markList[0].label).to.equal('A')
+    expect(wrapper.vm.control!.markList[0].label).toBe('A')
     wrapper.setProps({
       modelValue: '3',
     })
-    expect(wrapper.vm.getIndex()).to.equal(2)
-    expect(wrapper.vm.dots[0].pos).to.equal(50)
+    expect(wrapper.vm.getIndex()).toBe(2)
+    expect(wrapper.vm.dots[0].pos).toBe(50)
   })
 })
