@@ -14,7 +14,7 @@
       />
     </slot>
 
-    <slot name="label" v-if="hideLabel">
+    <slot name="label" v-if="!hideLabel">
       <div
         :class="labelClasses"
         :style="[
