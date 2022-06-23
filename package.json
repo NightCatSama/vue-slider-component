@@ -12,7 +12,7 @@
     "deploy:docs": "sh scripts/deploy.sh",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
-    "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
+    "prettier": "npx prettier --write lib/**/*.{ts,tsx,scss}",
     "sass": "sass lib/theme:theme",
     "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings"
   },

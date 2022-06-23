@@ -127,7 +127,10 @@ export default class Control {
   setDotsPos(dotsPos: number[]) {
     const list = this.order ? [...dotsPos].sort((a, b) => a - b) : dotsPos
     this.dotsPos = list
-    this.setDotsValue(list.map(dotPos => this.getValueByPos(dotPos)), this.adsorb)
+    this.setDotsValue(
+      list.map(dotPos => this.getValueByPos(dotPos)),
+      this.adsorb,
+    )
   }
 
   // Get value by position
@@ -221,10 +224,7 @@ export default class Control {
     if (this.data) {
       return this.data.indexOf(value)
     }
-    return new Decimal(+value)
-      .minus(this.min)
-      .divide(this.interval)
-      .toNumber()
+    return new Decimal(+value).minus(this.min).divide(this.interval).toNumber()
   }
 
   /**
@@ -242,10 +242,7 @@ export default class Control {
     }
     return this.data
       ? this.data[index]
-      : new Decimal(index)
-          .multiply(this.interval)
-          .plus(this.min)
-          .toNumber()
+      : new Decimal(index).multiply(this.interval).plus(this.min).toNumber()
   }
 
   /**
@@ -401,10 +398,7 @@ export default class Control {
         this.emitError(ERROR_TYPE.VALUE)
         return 0
       }
-      val = new Decimal(val)
-        .minus(this.min)
-        .divide(this.interval)
-        .toNumber()
+      val = new Decimal(val).minus(this.min).divide(this.interval).toNumber()
     }
 
     const pos = new Decimal(val).multiply(this.gap).toNumber()
@@ -446,12 +440,7 @@ export default class Control {
     } else {
       const values: Value[] = []
       for (let i = 0; i <= this.total; i++) {
-        values.push(
-          new Decimal(i)
-            .multiply(this.interval)
-            .plus(this.min)
-            .toNumber(),
-        )
+        values.push(new Decimal(i).multiply(this.interval).plus(this.min).toNumber())
       }
       return values
     }
@@ -505,10 +494,7 @@ export default class Control {
     if (this.data) {
       total = this.data.length - 1
     } else {
-      total = new Decimal(this.max)
-        .minus(this.min)
-        .divide(this.interval)
-        .toNumber()
+      total = new Decimal(this.max).minus(this.min).divide(this.interval).toNumber()
     }
     if (total - Math.floor(total) !== 0) {
       this.emitError(ERROR_TYPE.INTERVAL)
