@@ -15,10 +15,10 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component({})
 export default class PageFooter extends Vue {
   get prevPage() {
-    return this.$route.meta.prev
+    return this.$route.meta?.prev
   }
   get nextPage() {
-    return this.$route.meta.next
+    return this.$route.meta?.next
   }
 }
 </script>

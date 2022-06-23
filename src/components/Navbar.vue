@@ -59,22 +59,22 @@ export default class Navbar extends Vue {
   theme = getTheme() || 'default'
 
   get nextLanguage() {
-    return this.$route.meta.lang === LANG.ENGLISH ? '🇨🇳' : '🇺🇸'
+    return this.$route.meta?.lang === LANG.ENGLISH ? '🇨🇳' : '🇺🇸'
   }
 
   get navObj() {
-    return getNavObj(this.$route.meta.lang)
+    return getNavObj(this.$route.meta?.lang)
   }
 
   mounted() {
-    this.hide = document.body.clientWidth < 992 ? true : false
+    this.hide = document.body.clientWidth < 992
   }
 
   switchLanguage() {
     this.$router.push({
       path: (
-        this.$route.meta.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH
-      ) + this.$route.meta.route
+        this.$route.meta?.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH
+      ) + this.$route.meta?.route
     })
   }
 

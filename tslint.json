@@ -1,8 +1,6 @@
 {
   "defaultSeverity": "warning",
-  "extends": [
-    "tslint:recommended"
-  ],
+  "extends": ["tslint:recommended"],
   "linterOptions": {
     "exclude": [
       "node_modules/**",
@@ -15,12 +13,13 @@
     "arrow-parens": [true, "ban-single-arg-parens"],
     "quotemark": [true, "single", "jsx-double"],
     "indent": [true, "spaces", 2],
-    "trailing-comma": [true, "never"],
+    "trailing-comma": true,
     "no-bitwise": false,
     "no-console": false,
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": [true, "as-needed"],
     "no-consecutive-blank-lines": false,
     "no-var-requires": false,
     "member-ordering": [true, {
