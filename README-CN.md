@@ -1,12 +1,12 @@
 # vue-slider-component
 
-[![downloads](https://img.shields.io/npm/dm/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
-[![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)](https://www.npmjs.com/package/vue-slider-component)
+[![downloads](https://img.shields.io/npm/dm/vue-slider-component.svg)][NPM]
+[![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)][NPM]
 [![license](https://img.shields.io/npm/l/express.svg)]()
 
 > 🎚 一个高度定制化的滑块组件
 
-[English](https://github.com/NightCatSama/vue-slider-component/blob/master/README.md) | 简体中文
+[English][EN] | 简体中文 | [Русский][RU]
 
 ## 🍉 Vue3.x
 
@@ -45,6 +45,9 @@ $ yarn add vue-slider-component
 
 
 ## 🚀 使用
+
+<details><summary>Vue 2</summary>
+
 ```vue
 <template>
   <vue-slider v-model="value" />
@@ -58,6 +61,7 @@ export default {
   components: {
     VueSlider
   },
+  
   data () {
     return {
       value: 0
@@ -66,6 +70,29 @@ export default {
 }
 </script>
 ```
+</details>
+
+<details><summary>Vue 3</summary>
+
+```vue
+<template>
+  <vue-slider v-model="value" />
+</template>
+
+<script setup>
+import { reactive, toRefs } from 'vue'
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/antd.css'
+
+export default {  
+  setup() {
+    const data = reactive({ value: 0 })
+    return toRefs(data)
+  }
+}
+</script>
+```
+</details>
 
 ## 更新日志
 
@@ -73,8 +100,15 @@ export default {
 
 ## 支持
 
-如果你喜欢这个组件，你也可以请我喝[咖啡](https://imgchr.com/i/ErWs1J) ☕️ 。
+如果你喜欢这个组件，你也可以请我喝[咖啡](https://imgchr.com/i/ErWs1J) ☕。
 
 ## License
 
 [MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)
+
+
+[NPM]: https://www.npmjs.com/package/vue-slider-component
+
+[EN]: https://github.com/NightCatSama/vue-slider-component/blob/master/README.md
+[CH]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md
+[RU]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-RU.md
