@@ -22,11 +22,7 @@
         </label>
       </div>
       <div class="nav-content">
-        <div
-          v-for="(list, title) in navObj"
-          :key="title"
-          class="nav-group"
-        >
+        <div v-for="(list, title) in navObj" :key="title" class="nav-group">
           <div class="nav-title">{{ title }}</div>
           <router-link
             v-for="(item, index) in list"
@@ -72,9 +68,9 @@ export default class Navbar extends Vue {
 
   switchLanguage() {
     this.$router.push({
-      path: (
-        this.$route.meta?.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH
-      ) + this.$route.meta?.route
+      path:
+        (this.$route.meta?.lang === LANG.ENGLISH ? LANG.ZH_CN : LANG.ENGLISH) +
+        this.$route.meta?.route,
     })
   }
 
@@ -93,165 +89,165 @@ export default class Navbar extends Vue {
 </script>
 
 <style lang="scss">
-  @import '../styles/var';
-  @import '../styles/media';
+@import '../styles/var';
+@import '../styles/media';
 
-  $width: 320px;
-  $bgColor: #f2f4f6;
-  $gap: 30px;
-  $navFont: #7e99b6;
+$width: 320px;
+$bgColor: #f2f4f6;
+$gap: 30px;
+$navFont: #7e99b6;
 
-  .navbar {
-    position: relative;
-    width: $width;
-    height: 100vh;
-    background-color: $bgColor;
-    transition: all .5s;
-    z-index: 99;
-    &.hide {
-      margin-left: -$width;
-    }
-    .hide-btn {
-      display: none;
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      background-image: url('../assets/close.png');
-      background-size: 100%;
-      background-repeat: no-repeat;
-    }
-    @include max-screen(992px) {
-      & {
-        position: fixed;
-        width: 100vw;
-        left: 0;
-        top: 0;
-        &.hide {
-          margin-left: 0;
-          transform: translateX(-100%);
-        }
-        .hide-btn {
-          display: block;
-        }
-      }
-    }
-
-    .btn-group {
-      position: absolute;
-      left: 100%;
+.navbar {
+  position: relative;
+  width: $width;
+  height: 100vh;
+  background-color: $bgColor;
+  transition: all 0.5s;
+  z-index: 99;
+  &.hide {
+    margin-left: -$width;
+  }
+  .hide-btn {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url('../assets/close.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  @include max-screen(992px) {
+    & {
+      position: fixed;
+      width: 100vw;
+      left: 0;
       top: 0;
-      transform: translateX(10px);
-
-      .btn {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        cursor: pointer;
-        background-color: $bgColor;
-        margin-top: 10px;
+      &.hide {
+        margin-left: 0;
+        transform: translateX(-100%);
+      }
+      .hide-btn {
         display: block;
       }
+    }
+  }
 
-      .switch-btn {
-        background-image: url('../assets/menu.png');
-        background-size: 16px;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
+  .btn-group {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    transform: translateX(10px);
 
-      .language-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .github-btn {
-        background-image: url('../assets/github.png');
-        background-size: 16px;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-
-      @include max-screen(992px) {
-        & {
-          display: flex;
-          align-items: flex-start;
-          transform: translateX(0);
-          .btn {
-            margin-left: 10px;
-          }
-        }
-      }
+    .btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: $bgColor;
+      margin-top: 10px;
+      display: block;
     }
 
-    .content {
-      height: 100%;
-      overflow-y: auto;
+    .switch-btn {
+      background-image: url('../assets/menu.png');
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
-    .site-info {
+    .language-btn {
       display: flex;
       justify-content: center;
-      flex-direction: column;
-      padding: ($gap * 2) $gap;
-
-      .name {
-        font-size: 24px;
-        font-weight: bold;
-      }
-      .version {
-        font-size: 14px;
-        color: #999;
-      }
-      .theme {
-        margin: 15px 0 0 5px;
-        width: 80px;
-      }
+      align-items: center;
     }
 
-    .nav-content {
-      padding: 0 $gap;
+    .github-btn {
+      background-image: url('../assets/github.png');
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
 
-      .nav-group {
-        margin: 0 0 $gap;
-
-        .nav-title {
-          font-size: 18px;
-          font-weight: bold;
-          color: $navFont;
-          margin-bottom: 5px;
-        }
-        .nav-item {
-          display: block;
-          padding: 5px 0;
-          color: $navFont;
-          cursor: pointer;
-          text-decoration: none;
-
-          .nav-name {
-            position: relative;
-            &::after {
-              content: '';
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 2px;
-              background-color: $navFont;
-              transition: all .3s;
-              transform: scale(0);
-              transform-origin: left;
-            }
-          }
-          &:hover .nav-name::after,
-          &.router-link-active .nav-name::after {
-            transform: scale(1);
-          }
+    @include max-screen(992px) {
+      & {
+        display: flex;
+        align-items: flex-start;
+        transform: translateX(0);
+        .btn {
+          margin-left: 10px;
         }
       }
     }
   }
+
+  .content {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .site-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: ($gap * 2) $gap;
+
+    .name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .version {
+      font-size: 14px;
+      color: #999;
+    }
+    .theme {
+      margin: 15px 0 0 5px;
+      width: 80px;
+    }
+  }
+
+  .nav-content {
+    padding: 0 $gap;
+
+    .nav-group {
+      margin: 0 0 $gap;
+
+      .nav-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: $navFont;
+        margin-bottom: 5px;
+      }
+      .nav-item {
+        display: block;
+        padding: 5px 0;
+        color: $navFont;
+        cursor: pointer;
+        text-decoration: none;
+
+        .nav-name {
+          position: relative;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: $navFont;
+            transition: all 0.3s;
+            transform: scale(0);
+            transform-origin: left;
+          }
+        }
+        &:hover .nav-name::after,
+        &.router-link-active .nav-name::after {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
 </style>

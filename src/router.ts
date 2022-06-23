@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-router.afterEach((route) => {
+router.afterEach(route => {
   if (route.query.hash) {
     setTimeout(() => {
       const elem = document.getElementById(route.query.hash as string)

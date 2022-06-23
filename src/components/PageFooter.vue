@@ -24,26 +24,30 @@ export default class PageFooter extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/var';
+@import '../styles/var';
 
-  .page-footer {
-    width: 100%;
-    padding: 40px 0;
-    margin-top: 50px;
-    border-top: 1px solid #eee;
+.page-footer {
+  width: 100%;
+  padding: 40px 0;
+  margin-top: 50px;
+  border-top: 1px solid #eee;
 
-    .page-link {
-      color: #666;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      a {
-        font-size: 16px;
-        color: $main;
-        margin: 0 10px;
-      }
-      &--prev { float: left; }
-      &--next { float: right; }
+  .page-link {
+    color: #666;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    a {
+      font-size: 16px;
+      color: $main;
+      margin: 0 10px;
+    }
+    &--prev {
+      float: left;
+    }
+    &--next {
+      float: right;
     }
   }
+}
 </style>
