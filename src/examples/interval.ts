@@ -9,7 +9,6 @@ export default {
       ></vue-slider>
     </div>
   </template>
-  
   <script>
     module.exports = {
       components: {
@@ -43,21 +42,21 @@ export default {
         },
         data: function () {
           let result = [];
-      
+
           this.points.forEach((point, idx) => {
             const lastPointValue = this.points[this.points.length - 1].value;
-      
+
             if (point.value === lastPointValue) {
               return;
             } else {
               const nextPoint = this.points[idx + 1];
-      
+
               for (let i = point.value; i <= nextPoint.value; i += point.step) {
                 result.push(i);
               }
             }
           });
-      
+
           const uniqueValues = new Set(result);
           return [...uniqueValues];
         },

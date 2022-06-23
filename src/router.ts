@@ -12,11 +12,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} | Vue Slider Component`
+  document.title = `${to.meta?.title || ''} | Vue Slider Component`
   next()
 })
 
-router.afterEach(route => {
+router.afterEach((route) => {
   if (route.query.hash) {
     setTimeout(() => {
       const elem = document.getElementById(route.query.hash as string)

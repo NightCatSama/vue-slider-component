@@ -61,6 +61,11 @@
       "name": "范围模式",
       "route": "basics/range",
       "component": "Basics/Range.md"
+    },
+    {
+      "name": "间隔",
+      "route": "basics/interval",
+      "component": "Basics/Interval.md"
     }
   ],
   "进阶例子": [
