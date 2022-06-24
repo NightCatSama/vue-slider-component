@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.16
+
+> `2022-06-24`
+
+### 🎉 Feature
+  - Add `es` folder. [#546](https://github.com/NightCatSama/vue-slider-component/issues/546)
+
 ## v3.2.15
 
 > `2021-10-12`

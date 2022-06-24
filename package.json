@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "3.2.15",
+  "version": "3.2.16",
   "description": "A highly customized slider component",
   "author": "NightCatSama <642163903@qq.com>",
   "scripts": {
@@ -23,7 +23,8 @@
     "lib",
     "src",
     "typings",
-    "theme"
+    "theme",
+    "es"
   ],
   "dependencies": {
     "core-js": "^3.6.5",
