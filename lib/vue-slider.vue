@@ -192,7 +192,7 @@ export default defineComponent({
 
     duration: { type: Number, default: 0.5 },
 
-    vData: {
+    data: {
       type: [Object, Array] as PropType<Value[] | object[] | DataObject>,
     },
 
@@ -422,21 +422,21 @@ export default defineComponent({
       return this.order && !this.minRange && !this.maxRange && !this.fixed && this.enableCross
     },
     sliderData(): undefined | Value[] {
-      if (this.isObjectArrayData(this.vData)) {
-        return (this.vData as any[]).map(obj => obj[this.dataValue])
-      } else if (this.isObjectData(this.vData)) {
-        return Object.keys(this.vData)
+      if (this.isObjectArrayData(this.data)) {
+        return (this.data as any[]).map(obj => obj[this.dataValue])
+      } else if (this.isObjectData(this.data)) {
+        return Object.keys(this.data)
       } else {
-        return this.vData as Value[]
+        return this.data as Value[]
       }
     },
     sliderMarks(): MarksProp | undefined {
       if (this.marks) {
         return this.marks
-      } else if (this.isObjectArrayData(this.vData)) {
+      } else if (this.isObjectArrayData(this.data)) {
         return val => {
           const mark = { label: val }
-          ;(this.vData as any[]).some(obj => {
+          ;(this.data as any[]).some(obj => {
             if (obj[this.dataValue] === val) {
               mark.label = obj[this.dataLabel]
               return true
@@ -445,8 +445,8 @@ export default defineComponent({
           })
           return mark
         }
-      } else if (this.isObjectData(this.vData)) {
-        return this.vData
+      } else if (this.isObjectData(this.data)) {
+        return this.data
       } else {
         return void 0;
       }
@@ -454,10 +454,10 @@ export default defineComponent({
     sliderTooltipFormatter(): TooltipFormatter | TooltipFormatter[] | undefined {
       if (this.tooltipFormatter) {
         return this.tooltipFormatter
-      } else if (this.isObjectArrayData(this.vData)) {
+      } else if (this.isObjectArrayData(this.data)) {
         return val => {
           let tooltipText = '' + val
-          ;(this.vData as any[]).some(obj => {
+          ;(this.data as any[]).some(obj => {
             if (obj[this.dataValue] === val) {
               tooltipText = obj[this.dataLabel]
               return true
@@ -466,8 +466,8 @@ export default defineComponent({
           })
           return tooltipText
         }
-      } else if (this.isObjectData(this.vData)) {
-        const data = this.vData
+      } else if (this.isObjectData(this.data)) {
+        const data = this.data
         return val => data[val]
       } else {
         return void 0;
