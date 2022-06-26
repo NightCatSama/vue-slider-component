@@ -210,7 +210,9 @@ export default defineComponent({
 
     tooltipPlacement: {
       type: [String, Array] as PropType<Position | Position[]>,
-      validator: (val: string) => ['none', 'always', 'focus', 'hover', 'active'].indexOf(val) > -1,
+      validator: (val: string | string[]) => (Array.isArray(val) ? val : [val]).every(
+        val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1,
+      ),
     },
 
     tooltipFormatter: {

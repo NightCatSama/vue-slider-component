@@ -8,13 +8,14 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build:library": "npm run package && npm run package:css && npm run typings && npm run sass",
+    "build:library": "npm run package && npm run package:css && npm run sass",
     "docs:dev": "vuepress dev docs",
     "deploy:docs": "sh scripts/deploy.sh",
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
-    "sass": "sass lib/theme:theme"
+    "sass": "sass lib/theme:theme",
+    "version": "npm version patch -m \"docs: update to %s\""
   },
   "main": "./dist/vue-slider-component.umd.min.js",
   "files": [

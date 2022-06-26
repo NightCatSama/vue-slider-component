@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-slider v-model="value" :marks="marks" tooltip="always">
+    <vue-slider v-model="value" :marks="marks" tooltip="always" :tooltipPlacement="['top', 'bottom']">
       <template v-slot:label="{ label, active }">
         <div :class="['vue-slider-mark-label', 'custom-label', { active }]">{{ label }}</div>
       </template>
@@ -27,7 +27,7 @@ import '../lib/theme/default.scss';
   },
 })
 export default class App extends Vue {
-  value = 40;
+  value = [40, 60];
   marks = val => val % 20 === 0;
 }
 </script>
