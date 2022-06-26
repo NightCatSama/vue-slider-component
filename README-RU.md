@@ -1,12 +1,12 @@
 # vue-slider-component
 
-[![downloads](https://img.shields.io/npm/dm/vue-slider-component.svg)][NPM]
-[![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)][NPM]
+[![downloads](https://img.shields.io/npm/dm/vue-slider-component.svg)][npm]
+[![npm-version](https://img.shields.io/npm/v/vue-slider-component.svg)][npm]
 [![license](https://img.shields.io/npm/l/express.svg)]()
 
 > 🎚 Кастомизируемый слайдер
 
-[English][EN] | [简体中文][CH] | Русский
+[English][en] | [简体中文][ch] | Русский
 
 ## 🍉 Vue3.x
 
@@ -20,9 +20,12 @@ $ yarn add vue-slider-component@next
 ```
 
 #### Внимание
-- Измените `data` на `v-data` из-за конфликта типов. (вероятно, временная модификация)
+
+- `data` -> `v-data`.
+- `value` -> `modelValue`.
 
 ## ✨ Цели
+
 - 🍖 Улучшить кастомизируемость
 - 👗 Добавить темы
 - 📌 Добавить этикетки
@@ -35,8 +38,8 @@ $ yarn add vue-slider-component@next
 - API и примеры на [nightcatsama.github.io](https://nightcatsama.github.io/vue-slider-component)
 - [Демо (jsfiddle.net)](https://jsfiddle.net/NightCatSama/2xy72dod/10547/)
 
-
 ## 🎯 Установка
+
 ```bash
 $ yarn add vue-slider-component
 # npm install vue-slider-component --save
@@ -57,17 +60,18 @@ import 'vue-slider-component/theme/antd.css'
 
 export default {
   components: {
-    VueSlider
+    VueSlider,
   },
-  
-  data () {
+
+  data() {
     return {
-      value: 0
+      value: 0,
     }
-  }
+  },
 }
 </script>
 ```
+
 </details>
 
 <details><summary>Vue 3</summary>
@@ -82,14 +86,15 @@ import { reactive, toRefs } from 'vue'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 
-export default {  
+export default {
   setup() {
     const data = reactive({ value: 0 })
     return toRefs(data)
-  }
+  },
 }
 </script>
 ```
+
 </details>
 
 ## Список изменений
@@ -104,9 +109,7 @@ export default {
 
 [MIT](https://github.com/NightCatSama/vue-slider-component/blob/master/LICENSE)
 
-
-[NPM]: https://www.npmjs.com/package/vue-slider-component
-
-[EN]: https://github.com/NightCatSama/vue-slider-component/blob/master/README.md
-[CH]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md
-[RU]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-RU.md
+[npm]: https://www.npmjs.com/package/vue-slider-component
+[en]: https://github.com/NightCatSama/vue-slider-component/blob/master/README.md
+[ch]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-CN.md
+[ru]: https://github.com/NightCatSama/vue-slider-component/blob/master/README-RU.md
