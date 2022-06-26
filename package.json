@@ -1,6 +1,6 @@
 {
   "name": "vue-slider-component",
-  "version": "4.0.0-beta.8",
+  "version": "4.0.0-beta.9",
   "description": "A highly customized slider component",
   "author": "NightCatSama <642163903@qq.com>",
   "scripts": {
@@ -14,8 +14,7 @@
     "package": "vue-cli-service build --mode package --target lib --name vue-slider-component lib/index.ts",
     "package:css": "NO_EXTRACT_CSS=true npm run package -- --dest dist-css",
     "prettier": "prettier --write lib/**/*.{ts,tsx,scss}",
-    "sass": "sass lib/theme:theme",
-    "version": "npm version patch -m \"docs: update to %s\""
+    "sass": "sass lib/theme:theme"
   },
   "main": "./dist/vue-slider-component.umd.min.js",
   "files": [
