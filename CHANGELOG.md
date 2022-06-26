@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v4.1.0-@beta.0
+
+> `2022-06-26`
+
+### 🎉 Feature
+
+- `vData` restore to `data`.
+
 ## v4.0.0-@beta.9
 
 > `2022-06-26`
