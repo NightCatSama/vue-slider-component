@@ -21,8 +21,7 @@ $ yarn add vue-slider-component@next
 
 #### Breaking Changes
 
-- `data` -> `v-data`. (Vue3 types are not supported)
-- `value` -> `modelValue`. [Official API Changes](https://v3-migration.vuejs.org/breaking-changes/v-model.html#v-model)
+- `value` -> `modelValue`. ([Official API Changes](https://v3-migration.vuejs.org/breaking-changes/v-model.html#v-model))
 
 ## ✨ Features
 

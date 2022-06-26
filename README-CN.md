@@ -21,7 +21,6 @@ $ yarn add vue-slider-component@next
 
 #### API 变化
 
-- `data` -> `v-data`. (Vue3 类型不支持)
 - `value` -> `modelValue`. ([官方 API 变化](https://v3-migration.vuejs.org/breaking-changes/v-model.html#v-model))
 
 ## ✨ 新特性

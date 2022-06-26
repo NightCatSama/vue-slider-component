@@ -21,8 +21,7 @@ $ yarn add vue-slider-component@next
 
 #### Внимание
 
-- `data` -> `v-data`.
-- `value` -> `modelValue`.
+- `value` -> `modelValue`. ([Официальные изменения API](https://v3-migration.vuejs.org/breaking-changes/v-model.html#v-model))
 
 ## ✨ Цели
 
