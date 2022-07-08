@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v4.1.0-@beta.1
+
+> `2022-07-08`
+
+### 🎉 Feature
+
+- add `zoom` prop.
+
 ## v4.1.0-@beta.0
 
 > `2022-06-26`

@@ -255,6 +255,8 @@ export default defineComponent({
       default: true as ProcessProp,
     },
 
+    zoom: { type: Number },
+
     // If the value is true , mark will be an independent value
     included: { type: Boolean },
 
@@ -531,6 +533,7 @@ export default defineComponent({
       this.scale = new Decimal(
         Math.floor(this.isHorizontal ? this.$el.offsetWidth : this.$el.offsetHeight),
       )
+        .multiply(this.zoom || 1)
         .divide(100)
         .toNumber()
     },
@@ -805,7 +808,7 @@ export default defineComponent({
       }
     },
     getPosByEvent(e: MouseEvent | TouchEvent): number {
-      return getPos(e, this.$el, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
+      return getPos(e, this.$el, this.isReverse, this.zoom)[this.isHorizontal ? 'x' : 'y'] / this.scale
     },
     renderSlot<T>(name: string, data: T, defaultSlot: any): any {
       const scopedSlot = this.$slots[name]
