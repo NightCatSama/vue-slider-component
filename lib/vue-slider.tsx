@@ -764,7 +764,10 @@ export default class VueSlider extends Vue {
   }
 
   private getPosByEvent(e: MouseEvent | TouchEvent): number {
-    return getPos(e, this.$refs.rail, this.isReverse)[this.isHorizontal ? 'x' : 'y'] / this.scale
+    return (
+      getPos(e, this.$refs.rail, this.isReverse, this.zoom)[this.isHorizontal ? 'x' : 'y'] /
+      this.scale
+    )
   }
 
   private renderSlot<T>(name: string, data: T, defaultSlot: any, isDefault?: boolean): any {
