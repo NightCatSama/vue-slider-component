@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.17
+
+> `2022-07-08`
+
+### 🐞 Bug Fixes
+  - Zoom property not working with btt/rtl direction. [#618](https://github.com/NightCatSama/vue-slider-component/pull/618)
+
 ## v3.2.16
 
 > `2022-06-24`
