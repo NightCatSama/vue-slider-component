@@ -3,7 +3,7 @@ import { Value, Styles, Position, TooltipProp, TooltipFormatter } from './typing
 
 import './styles/dot.scss'
 
-@Component
+@Component({ name: 'VueSliderDot' })
 export default class VueSliderDot extends Vue {
   $refs!: {
     dot: HTMLDivElement
