@@ -3,7 +3,7 @@ import { Mark, Styles } from './typings'
 
 import './styles/mark.scss'
 
-@Component
+@Component({ name: 'VueSlideMark' })
 export default class VueSlideMark extends Vue {
   @Prop({ required: true })
   mark!: Mark

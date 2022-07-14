@@ -35,6 +35,7 @@ export const SliderState: StateMap = {
 const DEFAULT_SLIDER_SIZE = 4
 
 @Component({
+  name: 'VueSlider',
   data() {
     return {
       control: null,
