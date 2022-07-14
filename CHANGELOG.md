@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.18
+
+> `2022-07-14`
+
+### 🐞 Bug Fixes
+  - Add component names. [#636](https://github.com/NightCatSama/vue-slider-component/pull/636)
+
 ## v3.2.17
 
 > `2022-07-08`
