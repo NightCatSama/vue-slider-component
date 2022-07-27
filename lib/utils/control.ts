@@ -120,7 +120,10 @@ export default class Control {
   setDotsPos(dotsPos: number[]) {
     const list = this.order ? [...dotsPos].sort((a, b) => a - b) : dotsPos
     this.dotsPos = list
-    this.setDotsValue(list.map(dotPos => this.getValueByPos(dotPos)), this.adsorb)
+    this.setDotsValue(
+      list.map(dotPos => this.getValueByPos(dotPos)),
+      this.adsorb,
+    )
   }
 
   // Get value by position
