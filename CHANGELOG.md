@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.19
+
+> `2022-07-29`
+
+### 🐞 Bug Fixes
+  - Sass `calc` usage optimization. [#640](https://github.com/NightCatSama/vue-slider-component/pull/640)
+
 ## v3.2.18
 
 > `2022-07-14`
