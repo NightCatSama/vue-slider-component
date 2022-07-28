@@ -4,7 +4,7 @@
   @if ($direction==top) or ($direction==bottom) or ($direction==right) or ($direction==left) {
     border-color: transparent;
     border-style: solid;
-    border-width: calc(#{$size} * 0.5);
+    border-width: calc($size * 0.5);
     @if $direction==top {
       border-bottom-color: $color;
     } @else if $direction==right {
