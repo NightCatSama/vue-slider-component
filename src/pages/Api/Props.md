@@ -632,3 +632,19 @@
 - **Usage**:
 
   The style of the label activation state.
+
+## disableTabs
+
+- **Type**: `boolean`
+
+- **Default**: `false`
+
+- **Usage**:
+
+  ```html
+  <vue-slider disable-tabs />
+  ```
+
+  By default, each slider dot will be highlighted when pressing tab.
+
+  If the value is `true`, slider dots be ignored when pressing tab.
