@@ -88,7 +88,7 @@
         :aria-valuemin="min"
         :aria-valuemax="max"
         :aria-orientation="isHorizontal ? 'horizontal' : 'vertical'"
-        tabindex="0"
+        :tabindex="disableTabs ? -1 : 0"
         @focus="() => focus(dot, index)"
         @blur="() => blur()"
         v-bind="dotAttrs"
@@ -288,6 +288,9 @@ export default defineComponent({
     labelStyle: { type: Object as PropType<Styles> },
 
     labelActiveStyle: { type: Object as PropType<Styles> },
+
+    // If the value is true , pressing tab will not select the slider dots
+    disableTabs: { type: Boolean },
   },
   computed: {
     isHorizontal(): boolean {
