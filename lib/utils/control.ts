@@ -386,11 +386,11 @@ export default class Control {
       val = this.data.indexOf(val)
     } else if (typeof val === 'number' || typeof val === 'string') {
       val = +val
-      if (val < this.min) {
+      if (val <= this.min) {
         this.emitError(ERROR_TYPE.MIN)
         return 0
       }
-      if (val > this.max) {
+      if (val >= this.max) {
         this.emitError(ERROR_TYPE.MAX)
         return 0
       }
