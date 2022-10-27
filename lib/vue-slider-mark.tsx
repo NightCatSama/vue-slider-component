@@ -58,10 +58,10 @@ export default class VueSlideMark extends Vue {
           <div
             class={this.stepClasses}
             style={[
-              this.stepStyle,
-              mark.style,
-              mark.active ? this.stepActiveStyle : null,
-              mark.active ? mark.activeStyle : null,
+              this.stepStyle || {},
+              mark.style || {},
+              mark.active ? this.stepActiveStyle || {} : {},
+              mark.active ? mark.activeStyle || {} : {},
             ]}
           />
         )}
@@ -70,10 +70,10 @@ export default class VueSlideMark extends Vue {
               <div
                 class={this.labelClasses}
                 style={[
-                  this.labelStyle,
-                  mark.labelStyle,
-                  mark.active ? this.labelActiveStyle : null,
-                  mark.active ? mark.labelActiveStyle : null,
+                  this.labelStyle || {},
+                  mark.labelStyle || {},
+                  mark.active ? this.labelActiveStyle || {} : {},
+                  mark.active ? mark.labelActiveStyle || {} : {},
                 ]}
                 onClick={this.labelClickHandle}
               >
