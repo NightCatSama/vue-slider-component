@@ -7,9 +7,9 @@
         :class="stepClasses"
         :style="[
           stepStyle,
-          mark.style,
-          mark.active ? stepActiveStyle : null,
-          mark.active ? mark.activeStyle : null,
+          mark.style || {},
+          mark.active && stepActiveStyle ? stepActiveStyle : {},
+          mark.active && mark.activeStyle ? mark.activeStyle : {},
         ]"
       />
     </slot>
@@ -19,9 +19,9 @@
         :class="labelClasses"
         :style="[
           labelStyle,
-          mark.labelStyle,
-          mark.active ? labelActiveStyle : null,
-          mark.active ? mark.labelActiveStyle : null,
+          mark.labelStyle || {},
+          mark.active && labelActiveStyle ? labelActiveStyle : {},
+          mark.active && mark.labelActiveStyle ? mark.labelActiveStyle : {},
         ]"
         @click="labelClickHandle"
       >
@@ -48,13 +48,13 @@ export default defineComponent({
 
     hideLabel: { type: Boolean },
 
-    stepStyle: { type: Object as PropType<Styles> },
+    stepStyle: { type: Object as PropType<Styles>, default: () => ({}) },
 
-    stepActiveStyle: { type: Object as PropType<Styles> },
+    stepActiveStyle: { type: Object as PropType<Styles>, default: () => ({}) },
 
-    labelStyle: { type: Object as PropType<Styles> },
+    labelStyle: { type: Object as PropType<Styles>, default: () => ({}) },
 
-    labelActiveStyle: { type: Object as PropType<Styles> },
+    labelActiveStyle: { type: Object as PropType<Styles>, default: () => ({}) },
   },
   computed: {
     marksClasses() {

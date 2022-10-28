@@ -2,7 +2,7 @@
   <div
     ref="dot"
     :class="dotClasses"
-    :aria-valuetext="tooltipValue"
+    :aria-valuetext="tooltipValue.toString()"
     @mousedown.passive="dragStart"
     @touchstart.passive="dragStart"
   >
