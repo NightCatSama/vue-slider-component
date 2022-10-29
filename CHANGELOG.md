@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.22
+
+> `2022-10-29`
+
+### 🐞 Bug Fixes
+  - Type error. [#649](https://github.com/NightCatSama/vue-slider-component/issues/649)
+
 ## v3.2.18
 
 > `2022-07-14`
