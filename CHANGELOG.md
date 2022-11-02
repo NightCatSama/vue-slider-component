@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.23
+
+> `2022-11-02`
+
+### 🐞 Bug Fixes
+  - Scss file compile error. [#640](https://github.com/NightCatSama/vue-slider-component/issues/640)
+
 ## v3.2.22
 
 > `2022-10-29`
