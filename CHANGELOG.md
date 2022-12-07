@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.2.24
+
+> `2022-12-07`
+
+### 🐞 Bug Fixes
+  - Accessibility failure on vue-slider-dot class [#662](https://github.com/NightCatSama/vue-slider-component/issues/662)
+
 ## v3.2.23
 
 > `2022-11-02`
