@@ -113,7 +113,9 @@ export default class VueSliderDot extends Vue {
       <div
         ref="dot"
         class={this.dotClasses}
-        aria-valuetext={this.tooltipValue ? this.tooltipValue.toString() : ''}
+        aria-valuetext={
+          typeof this.tooltipValue === 'number' ? this.tooltipValue.toString() : this.tooltipValue
+        }
         onMousedown={this.dragStart}
         onTouchstart={this.dragStart}
       >
