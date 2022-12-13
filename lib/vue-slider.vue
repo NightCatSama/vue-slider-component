@@ -42,7 +42,7 @@
             :stepActiveStyle="stepActiveStyle"
             :labelStyle="labelStyle"
             :labelActiveStyle="labelActiveStyle"
-            :onPressLabel="(pos: number) => clickable && setValueByPos(pos)"
+            @press-label="(pos: number) => clickable && setValueByPos(pos)"
           >
             <template v-slot:step><slot name="step" v-bind="mark"></slot></template>
             <template v-slot:label><slot name="label" v-bind="mark"></slot></template>

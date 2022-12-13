@@ -39,7 +39,7 @@ import './styles/mark.scss';
 
 export default defineComponent({
   name: 'VueSliderMark',
-  emits: ['PressLabel'],
+  emits: ['press-label'],
   props: {
     mark: {
       type: Object as PropType<Mark>,
@@ -85,7 +85,7 @@ export default defineComponent({
   methods: {
     labelClickHandle(e: MouseEvent | TouchEvent) {
       e.stopPropagation()
-      this.$emit('PressLabel', this.mark.pos)
+      this.$emit('press-label', this.mark.pos)
     },
   }
 })

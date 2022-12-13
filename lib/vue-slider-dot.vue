@@ -27,7 +27,7 @@ import './styles/dot.scss';
 
 export default defineComponent({
   name: 'VueSliderDot',
-  emits: ['DragStart'],
+  emits: ['drag-start'],
   props: {
     value: { type: [String, Number] as PropType<Value>, default: 0 },
 
@@ -122,7 +122,7 @@ export default defineComponent({
         return false
       }
 
-      this.$emit('DragStart')
+      this.$emit('drag-start')
     },
   }
 })
