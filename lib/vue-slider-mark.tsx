@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Mark, Styles } from './typings'
+import type { Mark, Styles } from './typings'
 
 import './styles/mark.scss'
 

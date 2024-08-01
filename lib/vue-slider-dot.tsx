@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Value, Styles, Position, TooltipProp, TooltipFormatter } from './typings'
+import type { Value, Styles, Position, TooltipProp, TooltipFormatter } from './typings'
 
 import './styles/dot.scss'
 

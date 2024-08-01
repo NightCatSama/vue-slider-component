@@ -1,5 +1,5 @@
 import { Component, Model, Prop, Watch, Vue } from 'vue-property-decorator'
-import {
+import type {
   Value,
   DataObject,
   Mark,
@@ -19,10 +19,10 @@ import {
 import VueSliderDot from './vue-slider-dot'
 import VueSliderMark from './vue-slider-mark'
 
-import { getSize, getPos, getKeyboardHandleFunc, HandleFunction } from './utils'
+import { getSize, getPos, getKeyboardHandleFunc, type HandleFunction } from './utils'
 import Decimal from './utils/decimal'
 import Control, { ERROR_TYPE } from './utils/control'
-import State, { StateMap } from './utils/state'
+import State, { type StateMap } from './utils/state'
 
 import './styles/slider.scss'
 

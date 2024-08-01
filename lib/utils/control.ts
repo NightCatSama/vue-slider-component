@@ -1,5 +1,5 @@
 import Decimal from './decimal'
-import {
+import type {
   Value,
   Mark,
   MarkOption,

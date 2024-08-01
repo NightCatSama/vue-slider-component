@@ -1,4 +1,4 @@
-import { Direction } from '../typings'
+import type { Direction } from '../typings'
 
 interface IPosObject {
   x: number
