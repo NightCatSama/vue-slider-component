@@ -627,7 +627,17 @@ export default class VueSlider extends Vue {
     }
 
     setTimeout(() => {
-      if (this.lazy) {
+      let valuesClamped = false
+      if (!this.control.data) {
+        const values = this.control.dotsValue.map(value =>
+          +value < this.min ? this.min : +value > this.max ? this.max : value,
+        )
+        valuesClamped = this.isDiff(values, this.control.dotsValue)
+        if (valuesClamped) {
+          this.control.setValue(values)
+        }
+      }
+      if (this.lazy || valuesClamped) {
         this.syncValueByPos()
       }
       if (this.included && this.isNotSync) {
